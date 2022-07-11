@@ -81,10 +81,11 @@ CREATE TABLE ProductImage
 
 CREATE TABLE BicycleType
 (
-	BicycleTypeID int,
-	Name nvarchar
+	BicycleTypeID int IDENTITY(1,1),
+	Name nvarchar(50),
 	CONSTRAINT PK_BicycleType PRIMARY KEY(BicycleTypeID)
 );
+
 
 CREATE TABLE Bicycle
 (

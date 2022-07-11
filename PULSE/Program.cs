@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using PULSE.Services.Database;
 using PULSE.Services.Implementation;
 using PULSE.Services.Interfaces;
+using PULSE.Services;
+using PULSE;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IStaffService, StaffService>();
 
+builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.PartCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.PartCategory>>();
+builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.GearCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.GearCategory>>();
+builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleType>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleType>>();
+
 builder.Services.AddAutoMapper(typeof(IStaffService));
 
-builder.Services.AddDbContext<PULSEdbContext>(options => 
+builder.Services.AddDbContext<PULSE.Services.Database.PULSEdbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

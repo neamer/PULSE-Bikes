@@ -21,7 +21,6 @@ namespace PULSE.Services.Implementation
 
         public override Model.Staff Insert(StaffInsertRequest insert)
         {
-
             if (insert.Password != insert.PasswordConfirm)
             {
                 throw new Exception("Password and confirmation must be the same");

@@ -8,16 +8,24 @@ using System.Threading.Tasks;
 
 namespace PULSE.Services
 {
-    internal class MappingProfile : Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<Database.staff, Model.Staff>();
-
-            CreateMap<Database.Role, Model.Role>();
-
             CreateMap<StaffInsertRequest, Database.staff>();
             CreateMap<StaffUpdateRequest, Database.staff>();
+            CreateMap<Database.Role, Model.Role>();
+
+            CreateMap<Database.PartCategory, Model.ProductCategory>()
+                .ForMember(model => model.ID , o => o.MapFrom(db => db.PartCategoryId));
+            CreateMap<ProductCategoryUpsertRequest, Database.PartCategory>();
+            CreateMap<Database.GearCategory, Model.ProductCategory>()
+                .ForMember(model => model.ID, o => o.MapFrom(db => db.GearCategoryId));
+            CreateMap<ProductCategoryUpsertRequest, Database.GearCategory>();
+            CreateMap<Database.BicycleType, Model.ProductCategory>()
+                .ForMember(model => model.ID, o => o.MapFrom(db => db.BicycleTypeId));
+            CreateMap<ProductCategoryUpsertRequest, Database.BicycleType>();
         }
     }
 }

@@ -114,11 +114,9 @@ namespace PULSE.Services.Database
             {
                 entity.ToTable("BicycleType");
 
-                entity.Property(e => e.BicycleTypeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("BicycleTypeID");
+                entity.Property(e => e.BicycleTypeId).HasColumnName("BicycleTypeID");
 
-                entity.Property(e => e.Name).HasMaxLength(1);
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Brand>(entity =>
