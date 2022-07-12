@@ -23,9 +23,11 @@ namespace PULSE.Services.Implementation
 
             TDb entity = Mapper.Map<TDb>(insert);
 
+            BeforeInsert(insert, entity);
+
             set.Add(entity);
 
-            BeforeInsert(insert, entity);
+            BeforeSave(insert, entity);
 
             Context.SaveChanges();
 
@@ -33,6 +35,11 @@ namespace PULSE.Services.Implementation
         }
 
         public virtual void BeforeInsert(TInsert insert, TDb entity)
+        {
+
+        }
+
+        public virtual void BeforeSave(TInsert insert, TDb entity)
         {
 
         }

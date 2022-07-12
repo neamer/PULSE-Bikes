@@ -42,12 +42,12 @@ namespace PULSE.Services.Implementation
             return entity;
         }
 
-        public override void BeforeInsert(StaffInsertRequest insert, Database.staff entity)
+        public override void BeforeSave(StaffInsertRequest insert, Database.staff entity)
         {
             var salt = GenerateSalt();
             entity.PasswordSalt = salt;
             entity.PasswordHash = GenerateHash(salt, insert.Password);
-            base.BeforeInsert(insert, entity);
+            base.BeforeSave(insert, entity);
         }
 
 

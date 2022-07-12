@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PULSE.Model.SearchObjects
 {
-    public class ProductCategorySearchObject : BaseSearchObject
+    public class PartSearchObject : ProductSearchObject
     {
-        public string? Name { get; set; }
+        public int? PartCategoryId { get; set; }
+        public int? AvailableQty { get; set; }
     }
 }

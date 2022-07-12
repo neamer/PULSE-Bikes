@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class ProductCategoryService<T, TDb> : BaseCRUDService<T, TDb, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>, IProductCategoryService<T, TDb> where T:class where TDb : class
+    public class BrandService : BaseCRUDService<Model.Brand, Database.Brand, NameGenericSearchObject, BrandUpsertRequest, BrandUpsertRequest>, IBrandService
     {
-        public ProductCategoryService(PULSEdbContext context, IMapper mapper) : base(context, mapper)
+        public BrandService(PULSEdbContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

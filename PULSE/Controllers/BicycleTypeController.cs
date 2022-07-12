@@ -9,7 +9,7 @@ namespace PULSE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BicycleTypeController : BaseCRUDController<ProductCategory, ProductCategorySearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
+    public class BicycleTypeController : BaseCRUDController<ProductCategory, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
     {
         public BicycleTypeController(IProductCategoryService<ProductCategory, BicycleType> service)
             : base(service)

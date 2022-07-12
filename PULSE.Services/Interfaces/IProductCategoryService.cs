@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PULSE.Services.Interfaces
 {
-    public interface IProductCategoryService<T, TDb> : ICRUDService<T, ProductCategorySearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest> where T : class
+    public interface IProductCategoryService<T, TDb> : ICRUDService<T, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest> where T : class
     {
     }
 }

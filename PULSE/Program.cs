@@ -19,6 +19,11 @@ builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategor
 builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.GearCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.GearCategory>>();
 builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleType>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleType>>();
 
+builder.Services.AddTransient<IBrandService, BrandService>();
+
+builder.Services.AddTransient<IPartService, PartService>();
+builder.Services.AddTransient<IGearService, GearService>();
+
 builder.Services.AddAutoMapper(typeof(IStaffService));
 
 builder.Services.AddDbContext<PULSE.Services.Database.PULSEdbContext>(options => 

@@ -2,28 +2,27 @@
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
 using PULSE.Services.Interfaces;
 
 namespace PULSE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PartCategoryController : BaseCRUDController<ProductCategory, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
+    public class GearController : BaseCRUDController<Gear, GearSearchObject, GearUpsertRequest, GearUpsertRequest>
     {
-        public PartCategoryController(IProductCategoryService<ProductCategory, PartCategory> service)
+        public GearController(IGearService service)
             : base(service)
         {
         }
 
         //[Authorize("Administrator")]
-        public override ProductCategory Insert([FromBody] ProductCategoryUpsertRequest insert)
+        public override Gear Insert([FromBody] GearUpsertRequest insert)
         {
             return base.Insert(insert);
         }
 
         //[Authorize("Administrator")]
-        public override ProductCategory Update(int id, [FromBody] ProductCategoryUpsertRequest update)
+        public override Gear Update(int id, [FromBody] GearUpsertRequest update)
         {
             return base.Update(id, update);
         }
