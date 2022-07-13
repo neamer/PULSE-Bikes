@@ -12,5 +12,8 @@ namespace PULSE.Model.SearchObjects
         public string? ProductNumber { get; set; }
         public string? Model { get; set; }
         public decimal? Price { get; set; }
+
+        public bool? IncludeBrand { get; set; }
+        public bool? IncludeCategory { get; set; }
     }
 }

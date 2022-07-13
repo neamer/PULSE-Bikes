@@ -8,7 +8,7 @@ namespace PULSE.Model
 {
     public class ProductCategory
     {
-        public int ID { get; set; }
+        public int ProductCategoryId { get; set; }
         public string Name { get; set; }
     }
 }

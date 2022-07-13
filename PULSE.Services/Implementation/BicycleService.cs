@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class PartService : BaseCRUDService<Model.Part, Database.Part, PartSearchObject, PartUpsertRequest, PartUpsertRequest>, IPartService
+    public class BicycleService : BaseCRUDService<Model.Bicycle, Database.Bicycle, BicycleSearchObject, BicycleUpsertRequest, BicycleUpsertRequest>, IBicycleService
     {
-        public PartService(PULSEContext context, IMapper mapper) : base(context, mapper)
+        public BicycleService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
-        public override IQueryable<Part> AddInclude(IQueryable<Part> query, PartSearchObject search = null)
+        public override IQueryable<Bicycle> AddInclude(IQueryable<Bicycle> query, BicycleSearchObject search = null)
         {
-            if(search?.IncludeBrand == true)
+            if (search?.IncludeBrand == true)
             {
                 query = query.Include(q => q.Brand);
             }
@@ -33,7 +33,7 @@ namespace PULSE.Services.Implementation
             return query;
         }
 
-        public override void BeforeInsert(PartUpsertRequest insert, Part entity)
+        public override void BeforeInsert(BicycleUpsertRequest insert, Bicycle entity)
         {
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;

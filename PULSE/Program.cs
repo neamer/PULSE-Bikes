@@ -17,16 +17,17 @@ builder.Services.AddTransient<IStaffService, StaffService>();
 
 builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.PartCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.PartCategory>>();
 builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.GearCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.GearCategory>>();
-builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleType>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleType>>();
+builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.BicycleCategory>>();
 
 builder.Services.AddTransient<IBrandService, BrandService>();
 
 builder.Services.AddTransient<IPartService, PartService>();
 builder.Services.AddTransient<IGearService, GearService>();
+builder.Services.AddTransient<IBicycleService, BicycleService>();
 
 builder.Services.AddAutoMapper(typeof(IStaffService));
 
-builder.Services.AddDbContext<PULSE.Services.Database.PULSEdbContext>(options => 
+builder.Services.AddDbContext<PULSE.Services.Database.PULSEContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

@@ -9,21 +9,21 @@ namespace PULSE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class GearCategoryController : BaseCRUDController<ProductCategory, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
+    public class GearCategoryController : BaseCRUDController<Model.ProductCategory, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
     {
-        public GearCategoryController(IProductCategoryService<ProductCategory, GearCategory> service)
+        public GearCategoryController(IProductCategoryService<Model.ProductCategory, GearCategory> service)
             : base(service)
         {
         }
 
         //[Authorize("Administrator")]
-        public override ProductCategory Insert([FromBody] ProductCategoryUpsertRequest insert)
+        public override Model.ProductCategory Insert([FromBody] ProductCategoryUpsertRequest insert)
         {
             return base.Insert(insert);
         }
 
         //[Authorize("Administrator")]
-        public override ProductCategory Update(int id, [FromBody] ProductCategoryUpsertRequest update)
+        public override Model.ProductCategory Update(int id, [FromBody] ProductCategoryUpsertRequest update)
         {
             return base.Update(id, update);
         }

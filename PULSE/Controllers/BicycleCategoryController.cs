@@ -9,9 +9,9 @@ namespace PULSE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PartCategoryController : BaseCRUDController<Model.ProductCategory, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
+    public class BicycleCategoryController : BaseCRUDController<Model.ProductCategory, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>
     {
-        public PartCategoryController(IProductCategoryService<Model.ProductCategory, PartCategory> service)
+        public BicycleCategoryController(IProductCategoryService<Model.ProductCategory, BicycleCategory> service)
             : base(service)
         {
         }

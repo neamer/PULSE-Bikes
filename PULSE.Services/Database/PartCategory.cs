@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PULSE.Services.Database
 {
-    public partial class PartCategory
+    public class PartCategory : ProductCategory
     {
         public PartCategory()
         {
-            Parts = new HashSet<Part>();
+            Part = new HashSet<Part>();
         }
 
-        public int PartCategoryId { get; set; }
-        public string? Name { get; set; }
-
-        public virtual ICollection<Part> Parts { get; set; }
+        public virtual ICollection<Part> Part { get; set; }
     }
 }

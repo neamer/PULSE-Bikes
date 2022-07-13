@@ -5,31 +5,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PULSE.Services.Database
 {
-    public partial class PULSEdbContext : DbContext
+    public partial class PULSEContext : DbContext
     {
-        public PULSEdbContext()
+        public PULSEContext()
         {
         }
 
-        public PULSEdbContext(DbContextOptions<PULSEdbContext> options)
+        public PULSEContext(DbContextOptions<PULSEContext> options)
             : base(options)
         {
         }
 
         public virtual DbSet<AvailableSize> AvailableSizes { get; set; } = null!;
-        public virtual DbSet<Bicycle> Bicycles { get; set; } = null!;
         public virtual DbSet<BicycleSize> BicycleSizes { get; set; } = null!;
-        public virtual DbSet<BicycleType> BicycleTypes { get; set; } = null!;
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
-        public virtual DbSet<Gear> Gears { get; set; } = null!;
-        public virtual DbSet<GearCategory> GearCategories { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<OrderHeader> OrderHeaders { get; set; } = null!;
-        public virtual DbSet<Part> Parts { get; set; } = null!;
-        public virtual DbSet<PartCategory> PartCategories { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
-        public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<Part> Parts { get; set; } = null!;
+        public virtual DbSet<Gear> Gear { get; set; } = null!;
+        public virtual DbSet<Bicycle> Bicycles { get; set; } = null!;
+        public virtual DbSet<PartCategory> PartCategories { get; set; } = null!;
+        public virtual DbSet<GearCategory> GearCategories { get; set; } = null!;
+        public virtual DbSet<BicycleCategory> BicycleCategories { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Servicing> Servicings { get; set; } = null!;
@@ -42,7 +41,7 @@ namespace PULSE.Services.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost, 1434;Initial Catalog=PULSEdb; user=sa; Password=QWEasd123!");
+                optionsBuilder.UseSqlServer("Data Source=localhost, 1434;Initial Catalog=PULSE; user=sa; Password=QWEasd123!");
             }
         }
 
@@ -50,55 +49,25 @@ namespace PULSE.Services.Database
         {
             modelBuilder.Entity<AvailableSize>(entity =>
             {
-                entity.HasKey(e => new { e.BicycleSizeId, e.BicycleId });
+                entity.HasKey(e => new { e.BicycleSizeId, e.ProductId });
 
                 entity.ToTable("AvailableSize");
 
                 entity.Property(e => e.BicycleSizeId).HasColumnName("BicycleSizeID");
 
-                entity.Property(e => e.BicycleId).HasColumnName("BicycleID");
-
-                entity.HasOne(d => d.Bicycle)
-                    .WithMany(p => p.AvailableSizes)
-                    .HasForeignKey(d => d.BicycleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AvailableSize_Bicycle");
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.HasOne(d => d.BicycleSize)
                     .WithMany(p => p.AvailableSizes)
                     .HasForeignKey(d => d.BicycleSizeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AvailableSize_BicycleSize");
-            });
-
-            modelBuilder.Entity<Bicycle>(entity =>
-            {
-                entity.HasKey(e => e.ProductId);
-
-                entity.ToTable("Bicycle");
-
-                entity.Property(e => e.ProductId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProductID");
-
-                entity.Property(e => e.BicycleTypeId).HasColumnName("BicycleTypeID");
-
-                entity.Property(e => e.Weight).HasColumnType("decimal(18, 4)");
-
-                entity.Property(e => e.WheelSize)
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.BicycleType)
-                    .WithMany(p => p.Bicycles)
-                    .HasForeignKey(d => d.BicycleTypeId)
-                    .HasConstraintName("FK_Bicycle_BicycleType");
 
                 entity.HasOne(d => d.Product)
-                    .WithOne(p => p.Bicycle)
-                    .HasForeignKey<Bicycle>(d => d.ProductId)
+                    .WithMany(p => p.AvailableSizes)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Bicycle_Product");
+                    .HasConstraintName("FK_AvailableSize_Bicycle");
             });
 
             modelBuilder.Entity<BicycleSize>(entity =>
@@ -108,15 +77,6 @@ namespace PULSE.Services.Database
                 entity.Property(e => e.BicycleSizeId).HasColumnName("BicycleSizeID");
 
                 entity.Property(e => e.Size).HasMaxLength(15);
-            });
-
-            modelBuilder.Entity<BicycleType>(entity =>
-            {
-                entity.ToTable("BicycleType");
-
-                entity.Property(e => e.BicycleTypeId).HasColumnName("BicycleTypeID");
-
-                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Brand>(entity =>
@@ -158,39 +118,6 @@ namespace PULSE.Services.Database
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.ShippingInfoId)
                     .HasConstraintName("FK_Customer_ShippingInfo");
-            });
-
-            modelBuilder.Entity<Gear>(entity =>
-            {
-                entity.HasKey(e => e.ProductId);
-
-                entity.ToTable("Gear");
-
-                entity.Property(e => e.ProductId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProductID");
-
-                entity.Property(e => e.GearCategoryId).HasColumnName("GearCategoryID");
-
-                entity.HasOne(d => d.GearCategory)
-                    .WithMany(p => p.Gears)
-                    .HasForeignKey(d => d.GearCategoryId)
-                    .HasConstraintName("FK_Gear_GearCategory");
-
-                entity.HasOne(d => d.Product)
-                    .WithOne(p => p.Gear)
-                    .HasForeignKey<Gear>(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Gear_Product");
-            });
-
-            modelBuilder.Entity<GearCategory>(entity =>
-            {
-                entity.ToTable("GearCategory");
-
-                entity.Property(e => e.GearCategoryId).HasColumnName("GearCategoryID");
-
-                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -267,39 +194,6 @@ namespace PULSE.Services.Database
                     .HasConstraintName("FK_OrderHeader_ShippingInfo");
             });
 
-            modelBuilder.Entity<Part>(entity =>
-            {
-                entity.HasKey(e => e.ProductId);
-
-                entity.ToTable("Part");
-
-                entity.Property(e => e.ProductId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProductID");
-
-                entity.Property(e => e.PartCategoryId).HasColumnName("PartCategoryID");
-
-                entity.HasOne(d => d.PartCategory)
-                    .WithMany(p => p.Parts)
-                    .HasForeignKey(d => d.PartCategoryId)
-                    .HasConstraintName("FK_Part_PartCategory");
-
-                entity.HasOne(d => d.Product)
-                    .WithOne(p => p.Part)
-                    .HasForeignKey<Part>(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Part_Product");
-            });
-
-            modelBuilder.Entity<PartCategory>(entity =>
-            {
-                entity.ToTable("PartCategory");
-
-                entity.Property(e => e.PartCategoryId).HasColumnName("PartCategoryID");
-
-                entity.Property(e => e.Name).HasMaxLength(50);
-            });
-
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.ToTable("Payment");
@@ -314,6 +208,11 @@ namespace PULSE.Services.Database
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
+
+                entity.HasDiscriminator(p => p.Discriminator)
+                    .HasValue<Part>("Part")
+                    .HasValue<Gear>("Gear")
+                    .HasValue<Bicycle>("Bicycle");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
@@ -331,6 +230,8 @@ namespace PULSE.Services.Database
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
+                entity.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryID");
+
                 entity.Property(e => e.ProductNumber).HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
@@ -339,6 +240,58 @@ namespace PULSE.Services.Database
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.BrandId)
                     .HasConstraintName("FK_Product_Brand");
+
+
+            });
+
+            modelBuilder.Entity<Part>(entity =>
+            {
+                entity.Property(e => e.AvailableQty).HasColumnName("AvailableQty");
+
+                entity.HasOne(d => d.ProductCategory)
+                    .WithMany(p => p.Part)
+                    .HasForeignKey(d => d.ProductCategoryId)
+                    .HasConstraintName("FK_Product_ProductCategory");
+            });
+
+            modelBuilder.Entity<Gear>(entity =>
+            {
+                entity.Property(e => e.AvailableQty).HasColumnName("AvailableQty");
+
+                entity.HasOne(d => d.ProductCategory)
+                    .WithMany(p => p.Gear)
+                    .HasForeignKey(d => d.ProductCategoryId)
+                    .HasConstraintName("FK_Product_ProductCategory");
+            });
+
+            modelBuilder.Entity<Bicycle>(entity =>
+            {
+                entity.Property(e => e.Weight).HasColumnType("decimal(18, 4)");
+
+                entity.Property(e => e.WheelSize)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.ProductCategory)
+                    .WithMany(p => p.Bicycle)
+                    .HasForeignKey(d => d.ProductCategoryId)
+                    .HasConstraintName("FK_Product_ProductCategory");
+            });
+
+            modelBuilder.Entity<ProductCategory>(entity =>
+            {
+                entity.ToTable("ProductCategory");
+
+                entity.HasDiscriminator(p => p.Discriminator)
+                    .HasValue<PartCategory>("Part")
+                    .HasValue<GearCategory>("Gear")
+                    .HasValue<BicycleCategory>("Bicycle");
+
+                entity.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryID");
+
+                entity.Property(e => e.Discriminator).HasMaxLength(10);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<ProductImage>(entity =>

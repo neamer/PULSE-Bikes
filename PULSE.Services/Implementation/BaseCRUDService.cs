@@ -14,7 +14,7 @@ namespace PULSE.Services.Implementation
         : BaseService<T, TDb, TSearch>, ICRUDService<T, TSearch, TInsert, TUpdate>
             where T : class where TDb : class where TSearch : BaseSearchObject where TInsert : class where TUpdate : class
     {
-        public BaseCRUDService(PULSEdbContext context, IMapper mapper)
+        public BaseCRUDService(PULSEContext context, IMapper mapper)
         : base(context, mapper) { }
 
         public virtual T Insert(TInsert insert)

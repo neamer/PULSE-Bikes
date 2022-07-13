@@ -10,6 +10,7 @@ namespace PULSE.Model.Requests
     {
         public string ProductNumber { get; set; }
         public int BrandId { get; set; }
+        public int ProductCategoryId { get; set; }
         public string Model { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

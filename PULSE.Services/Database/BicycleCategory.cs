@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace PULSE.Services.Database
 {
-    public class GearCategory : ProductCategory
+    public class BicycleCategory : ProductCategory
     {
-        public GearCategory()
+        public BicycleCategory()
         {
-            Gear = new HashSet<Gear>();
+            Bicycle = new HashSet<Bicycle>();
         }
 
-        public virtual ICollection<Gear> Gear { get; set; }
+        public virtual ICollection<Bicycle> Bicycle { get; set; }
     }
 }

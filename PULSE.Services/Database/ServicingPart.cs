@@ -10,7 +10,7 @@ namespace PULSE.Services.Database
         public decimal? UnitPrice { get; set; }
         public int? Quantity { get; set; }
 
-        public virtual Part Product { get; set; } = null!;
+        public virtual Product Product { get; set; } = null!;
         public virtual Servicing Servicing { get; set; } = null!;
     }
 }

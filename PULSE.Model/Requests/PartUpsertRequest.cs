@@ -8,7 +8,6 @@ namespace PULSE.Model.Requests
 {
     public class PartUpsertRequest : ProductUpsertRequest
     {
-        public int? PartCategoryId { get; set; }
         public int? AvailableQty { get; set; }
     }
 }

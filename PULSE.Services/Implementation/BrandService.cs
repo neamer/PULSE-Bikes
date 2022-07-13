@@ -13,7 +13,7 @@ namespace PULSE.Services.Implementation
 {
     public class BrandService : BaseCRUDService<Model.Brand, Database.Brand, NameGenericSearchObject, BrandUpsertRequest, BrandUpsertRequest>, IBrandService
     {
-        public BrandService(PULSEdbContext context, IMapper mapper) : base(context, mapper)
+        public BrandService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

@@ -15,7 +15,7 @@ namespace PULSE.Services.Implementation
 {
     public class StaffService : BaseCRUDService<Model.Staff, Database.staff, StaffSearchObject, StaffInsertRequest, StaffUpdateRequest>, IStaffService
     {
-        public StaffService(PULSEdbContext context, IMapper mapper) : base(context, mapper)
+        public StaffService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
@@ -47,6 +47,10 @@ namespace PULSE.Services.Implementation
             var salt = GenerateSalt();
             entity.PasswordSalt = salt;
             entity.PasswordHash = GenerateHash(salt, insert.Password);
+
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
+
             base.BeforeSave(insert, entity);
         }
 
@@ -119,5 +123,6 @@ namespace PULSE.Services.Implementation
 
             return Mapper.Map<Model.Staff>(entity);
         }
+
     }
 }

@@ -8,9 +8,9 @@ namespace PULSE.Model
 {
     public class Part : Product
     {
-        public int? PartCategoryId { get; set; }
+        public int? ProductCategoryId { get; set; }
         public int? AvailableQty { get; set; }
 
-        public virtual ProductCategory? PartCategory { get; set; }
+        public virtual ProductCategory? ProductCategory { get; set; }
     }
 }

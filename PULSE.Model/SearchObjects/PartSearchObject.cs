@@ -8,7 +8,7 @@ namespace PULSE.Model.SearchObjects
 {
     public class PartSearchObject : ProductSearchObject
     {
-        public int? PartCategoryId { get; set; }
+        public int? ProductCategoryId { get; set; }
         public int? AvailableQty { get; set; }
     }
 }

@@ -12,10 +12,10 @@ namespace PULSE.Services.Implementation
 {
     public class BaseService<T, TDb, TSearch> : IService<T, TSearch> where T : class where TDb : class where TSearch : BaseSearchObject
     {
-        public PULSEdbContext Context { get; set; }
+        public PULSEContext Context { get; set; }
         public IMapper Mapper { get; set; }
 
-        public BaseService(PULSEdbContext context, IMapper mapper)
+        public BaseService(PULSEContext context, IMapper mapper)
         {
             Context = context;
             Mapper = mapper;

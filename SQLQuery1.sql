@@ -1,7 +1,7 @@
-CREATE DATABASE PULSEdb
+CREATE DATABASE PULSE
 go
 
-use PULSEdb
+use PULSE
 go
 
 
@@ -52,23 +52,58 @@ CREATE TABLE Brand
 	CONSTRAINT PK_Brand PRIMARY KEY (BrandID)
 );
 
+CREATE TABLE ProductCategory
+(
+	ProductCategoryID int IDENTITY(1,1),
+	Name nvarchar(50),
+	Discriminator nvarchar(10),
+	CONSTRAINT PK_ProductCategory PRIMARY KEY(ProductCategoryID)
+);
+
+--CREATE TABLE Product
+--(
+--	ProductID int IDENTITY(1,1),
+--	BrandID int,
+--	ProductCategoryID int,
+--	ProductNumber nvarchar(50),
+--	Model nvarchar(100),
+--	Description nvarchar(1000),
+--	Price decimal(18,2),
+--	Discriminator varchar(10),
+--	ThumbImage varbinary(max),
+--	CreatedAt Datetime,
+--	UpdatedAt Datetime,
+--	CONSTRAINT PK_Product PRIMARY KEY(ProductID),
+--	CONSTRAINT FK_Product_Brand FOREIGN KEY (BrandID) REFERENCES Brand (BrandID),
+--	CONSTRAINT FK_Product_ProductCategory FOREIGN KEY (ProductCategoryID) REFERENCES ProductCategory (ProductCategoryID),
+--);
+
 CREATE TABLE Product
 (
 	ProductID int IDENTITY(1,1),
 	BrandID int,
+	ProductCategoryID int,
 	ProductNumber nvarchar(50),
 	Model nvarchar(100),
 	Description nvarchar(1000),
 	Price decimal(18,2),
 	Discriminator varchar(10),
+	ThumbImage varbinary(max),
+
+	--Bicycle
+	Weight decimal(18,4),
+	ProductionYear int,
+	WheelSize varchar,
+
+	--Part and Gear
+	AvailableQty int,
+
 	CreatedAt Datetime,
 	UpdatedAt Datetime,
 	CONSTRAINT PK_Product PRIMARY KEY(ProductID),
 	CONSTRAINT FK_Product_Brand FOREIGN KEY (BrandID) REFERENCES Brand (BrandID),
+	CONSTRAINT FK_Product_ProductCategory FOREIGN KEY (ProductCategoryID) REFERENCES ProductCategory (ProductCategoryID),
 );
-
-ALTER TABLE Product
-ADD ThumbImage varbinary(max)
 
 CREATE TABLE ProductImage
 (
@@ -79,25 +114,20 @@ CREATE TABLE ProductImage
 	CONSTRAINT FK_ProductImage_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID)
 );
 
-CREATE TABLE BicycleType
-(
-	BicycleTypeID int IDENTITY(1,1),
-	Name nvarchar(50),
-	CONSTRAINT PK_BicycleType PRIMARY KEY(BicycleTypeID)
-);
 
 
-CREATE TABLE Bicycle
-(
-	ProductID int,
-	BicycleTypeID int,
-	Weight decimal(18,4),
-	ProductionYear int,
-	WheelSize varchar
-	CONSTRAINT PK_Bicycle PRIMARY KEY(ProductID)
-	CONSTRAINT FK_Bicycle_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
-	CONSTRAINT FK_Bicycle_BicycleType FOREIGN KEY (BicycleTypeID) REFERENCES BicycleType (BicycleTypeID),
-)
+
+--CREATE TABLE Bicycle
+--(
+--	ProductID int,
+--	BicycleTypeID int,
+--	Weight decimal(18,4),
+--	ProductionYear int,
+--	WheelSize varchar
+--	CONSTRAINT PK_Bicycle PRIMARY KEY(ProductID)
+--	CONSTRAINT FK_Bicycle_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
+--	CONSTRAINT FK_Bicycle_BicycleType FOREIGN KEY (BicycleTypeID) REFERENCES BicycleType (BicycleTypeID),
+--)
 
 CREATE TABLE BicycleSize
 (
@@ -109,48 +139,48 @@ CREATE TABLE BicycleSize
 CREATE TABLE AvailableSize 
 (
 	BicycleSizeID int,
-	BicycleID int,
+	ProductID int,
 	AvailableQty int,
-	CONSTRAINT PK_AvailableSize PRIMARY KEY(BicycleSizeID, BicycleID),
+	CONSTRAINT PK_AvailableSize PRIMARY KEY(BicycleSizeID, ProductID),
 	CONSTRAINT FK_AvailableSize_BicycleSize FOREIGN KEY (BicycleSizeID) REFERENCES BicycleSize (BicycleSizeID),
-	CONSTRAINT FK_AvailableSize_Bicycle FOREIGN KEY (BicycleID) REFERENCES Bicycle (ProductID)
+	CONSTRAINT FK_AvailableSize_Bicycle FOREIGN KEY (ProductID) REFERENCES Product (ProductID)
 );
 
-CREATE TABLE GearCategory
-(
-	GearCategoryID int IDENTITY(1,1),
-	Name nvarchar(50),
-	CONSTRAINT PK_GearCategory PRIMARY KEY(GearCategoryID)
-);
+--CREATE TABLE GearCategory
+--(
+--	GearCategoryID int IDENTITY(1,1),
+--	Name nvarchar(50),
+--	CONSTRAINT PK_GearCategory PRIMARY KEY(GearCategoryID)
+--);
 
-CREATE TABLE Gear
-(
-	ProductID int,
-	GearCategoryID int,
-	AvailableQty int,
-	CONSTRAINT PK_Gear PRIMARY KEY(ProductID),
-	CONSTRAINT FK_Gear_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
-	CONSTRAINT FK_Gear_GearCategory FOREIGN KEY (GearCategoryID) REFERENCES GearCategory (GearCategoryID),
-)
+--CREATE TABLE Gear
+--(
+--	ProductID int,
+--	GearCategoryID int,
+--	AvailableQty int,
+--	CONSTRAINT PK_Gear PRIMARY KEY(ProductID),
+--	CONSTRAINT FK_Gear_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
+--	CONSTRAINT FK_Gear_GearCategory FOREIGN KEY (GearCategoryID) REFERENCES GearCategory (GearCategoryID),
+--)
 
-CREATE TABLE PartCategory
-(
-	PartCategoryID int IDENTITY(1,1),
-	Name nvarchar(50),
-	CONSTRAINT PK_PartCategory PRIMARY KEY(PartCategoryID)
-);
+--CREATE TABLE PartCategory
+--(
+--	PartCategoryID int IDENTITY(1,1),
+--	Name nvarchar(50),
+--	CONSTRAINT PK_PartCategory PRIMARY KEY(PartCategoryID)
+--);
 
-CREATE TABLE Part
-(
-	ProductID int,
-	PartCategoryID int,
-	AvailableQty int,
-	CONSTRAINT PK_Part PRIMARY KEY(ProductID),
-	CONSTRAINT FK_Part_PartCategory FOREIGN KEY (PartCategoryID) REFERENCES PartCategory (PartCategoryID),
-)
+--CREATE TABLE Part
+--(
+--	ProductID int,
+--	PartCategoryID int,
+--	AvailableQty int,
+--	CONSTRAINT PK_Part PRIMARY KEY(ProductID),
+--	CONSTRAINT FK_Part_PartCategory FOREIGN KEY (PartCategoryID) REFERENCES PartCategory (PartCategoryID),
+--)
 
-ALTER TABLE Part
-ADD CONSTRAINT FK_Part_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID)
+--ALTER TABLE Part
+--ADD CONSTRAINT FK_Part_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID)
 
 --CUSTOMER SECTION
 
@@ -254,5 +284,5 @@ CREATE TABLE ServicingPart
 	Quantity int,
 	CONSTRAINT PK_ServicingPart PRIMARY KEY (ServicingID, ProductID),
 	CONSTRAINT FK_ServicingPart_Servicing FOREIGN KEY (ServicingID) REFERENCES Servicing (ServicingID),
-	CONSTRAINT FK_ServicingPart_Part FOREIGN KEY (ProductID) REFERENCES Part (ProductID),
+	CONSTRAINT FK_ServicingPart_Part FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
 );

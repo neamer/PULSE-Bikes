@@ -13,7 +13,7 @@ namespace PULSE.Services.Implementation
 {
     public class ProductCategoryService<T, TDb> : BaseCRUDService<T, TDb, NameGenericSearchObject, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>, IProductCategoryService<T, TDb> where T:class where TDb : class
     {
-        public ProductCategoryService(PULSEdbContext context, IMapper mapper) : base(context, mapper)
+        public ProductCategoryService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

@@ -8,9 +8,9 @@ namespace PULSE.Model
 {
     public class Gear : Product
     {
-        public int? GearCategoryId { get; set; }
+        public int? ProductCategoryId { get; set; }
         public int? AvailableQty { get; set; }
 
-        public virtual ProductCategory? GearCategory { get; set; }
+        public virtual ProductCategory? ProductCategory { get; set; }
     }
 }

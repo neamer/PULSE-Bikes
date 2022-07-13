@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PULSE.Services.Database
 {
-    public partial class Gear
+    public class Gear : Product
     {
-        public int ProductId { get; set; }
-        public int? GearCategoryId { get; set; }
         public int? AvailableQty { get; set; }
-
-        public virtual GearCategory? GearCategory { get; set; }
-        public virtual Product Product { get; set; } = null!;
+        public virtual GearCategory? ProductCategory { get; set; }
     }
 }
