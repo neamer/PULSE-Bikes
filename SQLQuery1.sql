@@ -286,3 +286,6 @@ CREATE TABLE ServicingPart
 	CONSTRAINT FK_ServicingPart_Servicing FOREIGN KEY (ServicingID) REFERENCES Servicing (ServicingID),
 	CONSTRAINT FK_ServicingPart_Part FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
 );
+
+ALTER TABLE Product
+ALTER COLUMN WheelSize nvarchar(50);

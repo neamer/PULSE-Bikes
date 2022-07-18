@@ -108,7 +108,7 @@ namespace PULSE.Services.Implementation
 
         public Model.Staff Login(string username, string password)
         {
-            var entity = Context.staff.Include("StaffUloges.Uloga").FirstOrDefault(x => x.Username == username);
+            var entity = Context.staff.Include(s => s.Roles).FirstOrDefault(x => x.Username == username);
             if (entity == null)
             {
                 return null;
