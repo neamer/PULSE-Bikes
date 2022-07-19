@@ -15,6 +15,7 @@ namespace PULSE.Model
 
         public int ProductId { get; set; }
         public int? BrandId { get; set; }
+        public int? ProductCategoryId { get; set; }
         public string? ProductNumber { get; set; }
         public string? Model { get; set; }
         public string? Description { get; set; }

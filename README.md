@@ -7,9 +7,11 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=QWEasd123!" -p 1434:1433 -d mcr.mi
 
 dotnet ef dbcontext scaffold "Data Source=localhost, 1434;Initial Catalog=PULSE; user=sa; Password=QWEasd123!" Microsoft.EntityFrameworkCore.SqlServer --output-dir Database
 
-TASKS
+WINFORMS THEME
 
-    Parts, Gear and Bicycles CRUD
-    Forms app start, Staff login
-    Product manipulation through forms
-    product images implementation
+NAV BG - 19, 19, 29
+CONTENT DARK BG - 39, 39, 49
+PANEL LIGHT BG - 53, 53, 64
+CONTENT DARK TEXT - 173; 173; 177
+CONTENT LIGHT TEXT - 211, 211, 213
+CONTENT LIGHT ACCENT LINE - 95, 95, 111

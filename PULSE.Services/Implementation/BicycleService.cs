@@ -40,5 +40,32 @@ namespace PULSE.Services.Implementation
 
             base.BeforeInsert(insert, entity);
         }
+
+        public override IQueryable<Bicycle> AddFilter(IQueryable<Bicycle> query, BicycleSearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+
+            if (!string.IsNullOrWhiteSpace(search?.AnyField))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Model.Contains(search.AnyField)
+                    || x.Description.Contains(search.AnyField)
+                    || x.Weight.ToString().Contains(search.AnyField)
+                    || x.WheelSize.Contains(search.AnyField)
+                    || x.ProductionYear.ToString().Contains(search.AnyField)
+                    || x.ProductNumber.Contains(search.AnyField));
+            }
+
+            if (search?.BrandId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.BrandId == search.BrandId);
+            }
+
+            if (search?.ProductCategoryId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.ProductCategoryId == search.ProductCategoryId);
+            }
+
+            return filteredQuery;
+        }
     }
 }

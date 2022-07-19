@@ -29,6 +29,8 @@ namespace PULSE.WinUI
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            DarkTitleBarClass.UseImmersiveDarkMode(Handle, true);
+
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
