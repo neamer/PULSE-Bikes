@@ -1,6 +1,6 @@
 ﻿namespace PULSE.WinUI
 {
-    partial class ucBicycleList
+    partial class ucBicycleList123
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,6 +34,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvBicycleList = new System.Windows.Forms.DataGridView();
+            this.productNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sizes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bicycleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbSearch = new System.Windows.Forms.TextBox();
@@ -42,12 +48,6 @@
             this.cbBrand = new System.Windows.Forms.ComboBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.productNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sizes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBicycleList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bicycleBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
@@ -89,11 +89,10 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvBicycleList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvBicycleList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvBicycleList.EnableHeadersVisualStyles = false;
             this.dgvBicycleList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(111)))));
             this.dgvBicycleList.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.dgvBicycleList.Location = new System.Drawing.Point(10, 110);
+            this.dgvBicycleList.Location = new System.Drawing.Point(10, 107);
             this.dgvBicycleList.Margin = new System.Windows.Forms.Padding(20);
             this.dgvBicycleList.Name = "dgvBicycleList";
             this.dgvBicycleList.ReadOnly = true;
@@ -110,108 +109,8 @@
             this.dgvBicycleList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvBicycleList.RowTemplate.DividerHeight = 1;
             this.dgvBicycleList.RowTemplate.Height = 35;
-            this.dgvBicycleList.Size = new System.Drawing.Size(868, 554);
+            this.dgvBicycleList.Size = new System.Drawing.Size(868, 557);
             this.dgvBicycleList.TabIndex = 0;
-            // 
-            // bicycleBindingSource
-            // 
-            this.bicycleBindingSource.DataSource = typeof(PULSE.Model.Bicycle);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.btnSearch.Location = new System.Drawing.Point(751, 62);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(127, 35);
-            this.btnSearch.TabIndex = 1;
-            this.btnSearch.Text = "SEARCH";
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.tbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.tbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.tbSearch.Location = new System.Drawing.Point(10, 8);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.PlaceholderText = "Search all fields";
-            this.tbSearch.Size = new System.Drawing.Size(439, 17);
-            this.tbSearch.TabIndex = 2;
-            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(11, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(279, 25);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Search bikes in database";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.panel1.Controls.Add(this.tbSearch);
-            this.panel1.Location = new System.Drawing.Point(11, 62);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(452, 35);
-            this.panel1.TabIndex = 8;
-            // 
-            // cbBrand
-            // 
-            this.cbBrand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cbBrand.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.cbBrand.FormattingEnabled = true;
-            this.cbBrand.ItemHeight = 16;
-            this.cbBrand.Items.AddRange(new object[] {
-            "Select Brand"});
-            this.cbBrand.Location = new System.Drawing.Point(472, 67);
-            this.cbBrand.Name = "cbBrand";
-            this.cbBrand.Size = new System.Drawing.Size(130, 24);
-            this.cbBrand.TabIndex = 9;
-            this.cbBrand.SelectedValueChanged += new System.EventHandler(this.cbBrand_SelectedValueChanged);
-            // 
-            // cbCategory
-            // 
-            this.cbCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cbCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.ItemHeight = 16;
-            this.cbCategory.Items.AddRange(new object[] {
-            "Select Category"});
-            this.cbCategory.Location = new System.Drawing.Point(611, 67);
-            this.cbCategory.Name = "cbCategory";
-            this.cbCategory.Size = new System.Drawing.Size(130, 24);
-            this.cbCategory.TabIndex = 10;
-            this.cbCategory.SelectedIndexChanged += new System.EventHandler(this.cbCategory_SelectedIndexChanged);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
-            this.button1.Location = new System.Drawing.Point(714, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 40);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "ADD BIKE";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // productNumberDataGridViewTextBoxColumn
             // 
@@ -266,7 +165,108 @@
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             this.priceDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // ucBicycleList
+            // bicycleBindingSource
+            // 
+            this.bicycleBindingSource.DataSource = typeof(PULSE.Model.Bicycle);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
+            this.btnSearch.Location = new System.Drawing.Point(751, 62);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(127, 35);
+            this.btnSearch.TabIndex = 1;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
+            this.tbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.tbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
+            this.tbSearch.Location = new System.Drawing.Point(10, 8);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.PlaceholderText = "Search all fields";
+            this.tbSearch.Size = new System.Drawing.Size(439, 17);
+            this.tbSearch.TabIndex = 2;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(11, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(279, 25);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Search bikes in database";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.tbSearch);
+            this.panel1.Location = new System.Drawing.Point(11, 62);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(452, 35);
+            this.panel1.TabIndex = 8;
+            // 
+            // cbBrand
+            // 
+            this.cbBrand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
+            this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbBrand.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
+            this.cbBrand.FormattingEnabled = true;
+            this.cbBrand.ItemHeight = 16;
+            this.cbBrand.Items.AddRange(new object[] {
+            "Select Brand"});
+            this.cbBrand.Location = new System.Drawing.Point(472, 67);
+            this.cbBrand.Name = "cbBrand";
+            this.cbBrand.Size = new System.Drawing.Size(130, 24);
+            this.cbBrand.TabIndex = 9;
+            this.cbBrand.SelectedIndexChanged += new System.EventHandler(this.cbBrand_SelectedIndexChanged);
+            this.cbBrand.SelectedValueChanged += new System.EventHandler(this.cbBrand_SelectedValueChanged);
+            // 
+            // cbCategory
+            // 
+            this.cbCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
+            this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
+            this.cbCategory.FormattingEnabled = true;
+            this.cbCategory.ItemHeight = 16;
+            this.cbCategory.Items.AddRange(new object[] {
+            "Select Category"});
+            this.cbCategory.Location = new System.Drawing.Point(611, 67);
+            this.cbCategory.Name = "cbCategory";
+            this.cbCategory.Size = new System.Drawing.Size(130, 24);
+            this.cbCategory.TabIndex = 10;
+            this.cbCategory.SelectedIndexChanged += new System.EventHandler(this.cbCategory_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(111)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
+            this.button1.Location = new System.Drawing.Point(718, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(160, 40);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "+ ADD BIKE";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // ucBicycleList123
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -279,7 +279,7 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.dgvBicycleList);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "ucBicycleList";
+            this.Name = "ucBicycleList123";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Size = new System.Drawing.Size(888, 674);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBicycleList)).EndInit();

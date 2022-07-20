@@ -13,14 +13,14 @@ using System.Windows.Forms;
 
 namespace PULSE.WinUI
 {
-    public partial class ucBicycleList : UserControl
+    public partial class ucBicycleList123 : UserControl
     {
         public APIService BicycleService { get; set; } = new APIService("Bicycle");
         public APIService BicycleCategoryService { get; set; } = new APIService("BicycleCategory");
         public APIService BrandService { get; set; } = new APIService("Brand");
 
 
-        public ucBicycleList()
+        public ucBicycleList123()
         {
             InitializeComponent();
 
@@ -60,7 +60,7 @@ namespace PULSE.WinUI
 
         protected override void SetVisibleCore(bool value)
         {
-            if(value)
+            if (value)
             {
                 loadData();
             }
@@ -82,7 +82,7 @@ namespace PULSE.WinUI
                 AnyField = tbSearch.Text,
             };
 
-            if(cbBrand.SelectedIndex != 0)
+            if (cbBrand.SelectedIndex != 0)
             {
                 searchObject.BrandId = (cbBrand.SelectedItem as Brand).BrandId;
             }
@@ -110,6 +110,11 @@ namespace PULSE.WinUI
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             Helpers.SetComboBoxPlaceholderColor(cbCategory);
+        }
+
+        private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

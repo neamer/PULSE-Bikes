@@ -44,8 +44,8 @@
             this.tmrNavBikes = new System.Windows.Forms.Timer(this.components);
             this.tmrNavGear = new System.Windows.Forms.Timer(this.components);
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.ucBicycleList1 = new PULSE.WinUI.Pages.Bicycle.ucBicycleList();
             this.ucGearList1 = new PULSE.WinUI.ucGearList();
-            this.ucBicycleList1 = new PULSE.WinUI.ucBicycleList();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlNavLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -233,14 +233,24 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
-            this.pnlMain.Controls.Add(this.ucGearList1);
             this.pnlMain.Controls.Add(this.ucBicycleList1);
+            this.pnlMain.Controls.Add(this.ucGearList1);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlMain.Location = new System.Drawing.Point(230, 0);
             this.pnlMain.Margin = new System.Windows.Forms.Padding(0);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(888, 674);
             this.pnlMain.TabIndex = 1;
+            // 
+            // ucBicycleList1
+            // 
+            this.ucBicycleList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
+            this.ucBicycleList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucBicycleList1.Location = new System.Drawing.Point(0, 0);
+            this.ucBicycleList1.Name = "ucBicycleList1";
+            this.ucBicycleList1.Padding = new System.Windows.Forms.Padding(10);
+            this.ucBicycleList1.Size = new System.Drawing.Size(888, 674);
+            this.ucBicycleList1.TabIndex = 2;
             // 
             // ucGearList1
             // 
@@ -250,16 +260,6 @@
             this.ucGearList1.Name = "ucGearList1";
             this.ucGearList1.Size = new System.Drawing.Size(888, 674);
             this.ucGearList1.TabIndex = 1;
-            // 
-            // ucBicycleList1
-            // 
-            this.ucBicycleList1.BackColor = System.Drawing.Color.Transparent;
-            this.ucBicycleList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucBicycleList1.Location = new System.Drawing.Point(0, 0);
-            this.ucBicycleList1.Margin = new System.Windows.Forms.Padding(0);
-            this.ucBicycleList1.Name = "ucBicycleList1";
-            this.ucBicycleList1.Size = new System.Drawing.Size(888, 674);
-            this.ucBicycleList1.TabIndex = 0;
             // 
             // frmMain
             // 
@@ -298,8 +298,8 @@
         private Button btnNavGear;
         private System.Windows.Forms.Timer tmrNavGear;
         private Panel pnlMain;
-        private ucBicycleList ucBicycleList1;
         private ucGearList ucGearList1;
         private PictureBox pictureBox1;
+        private Pages.Bicycle.ucBicycleList ucBicycleList1;
     }
 }

@@ -97,5 +97,10 @@ namespace PULSE.WinUI
         {
             selectPage(ucGearList1);
         }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
