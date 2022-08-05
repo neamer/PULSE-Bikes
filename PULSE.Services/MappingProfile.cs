@@ -38,6 +38,18 @@ namespace PULSE.Services
             CreateMap<Database.Bicycle, ProductUpsertRequest>();
             CreateMap<BicycleUpsertRequest, Database.Bicycle>();
             CreateMap<Database.Bicycle, Model.Bicycle>();
+
+            CreateMap<Database.BicycleSize, Model.BicycleSize>();
+            CreateMap<BicycleSizeUpsertRequest, Database.BicycleSize>();
+
+            CreateMap<Database.AvailableSize, Model.AvailableSize>();
+            CreateMap<AvailableSizeUpsertRequest, Database.AvailableSize>();
+            
+            CreateMap<Database.OrderHeader, Model.OrderHeader>();
+            CreateMap<OrderHeaderInsertRequest, Database.OrderHeader>();
+            CreateMap<OrderHeaderUpdateRequest, Database.OrderHeader>();
+            CreateMap<Database.OrderDetail, Model.OrderDetail>();
+            CreateMap<OrderDetailsInsertRequest, Database.OrderDetail>();
         }
     }
 }

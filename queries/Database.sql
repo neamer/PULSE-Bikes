@@ -85,7 +85,7 @@ CREATE TABLE Product
 	ProductCategoryID int,
 	ProductNumber nvarchar(50),
 	Model nvarchar(100),
-	Description nvarchar(1000),
+	Description nvarchar(max),
 	Price decimal(18,2),
 	Discriminator varchar(10),
 	ThumbImage varbinary(max),
@@ -246,7 +246,7 @@ CREATE TABLE OrderHeader
 
 CREATE TABLE OrderDetail
 (
-	OrderDetailID int,
+	OrderDetailID int IDENTITY(1,1),
 	OrderID int,
 	ProductID int,
 	BicycleSizeID int null,

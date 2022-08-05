@@ -15,3 +15,18 @@ PANEL LIGHT BG - 53; 53; 64
 CONTENT DARK TEXT - 173; 173; 177
 CONTENT LIGHT TEXT - 211; 211; 213
 CONTENT LIGHT ACCENT LINE - 95; 95; 111
+
+## ORDER STATES
+
+    Cart - A cart state is created whenever the customer adds a item to their cart, no more than 1 draft state per customer
+    Draft - A draft state is created whenever a employee adds a order through the desktop app
+    Processed (Paid) - The user has paid the order
+    Packed - The order is ready, and is awaiting shipment
+    Shipped - The order has left the store and is on its way
+    Collected - The customer picked up the order in the store
+    Delivered
+    Cancelled
+
+Order services planning
+
+    Order header

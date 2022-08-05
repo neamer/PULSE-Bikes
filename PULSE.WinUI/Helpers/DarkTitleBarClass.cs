@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PULSE.WinUI
+namespace PULSE.WinUI.Helpers.Helpers
 {
     public class DarkTitleBarClass
     {

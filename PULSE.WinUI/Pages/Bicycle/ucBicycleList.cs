@@ -1,5 +1,7 @@
 ﻿using PULSE.Model;
+using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
+using PULSE.WinUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,43 +27,54 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         }
 
-        private async void LoadCategories()
+        protected override void OnLoad(EventArgs e)
         {
-            cbCategory.SelectedIndex = 0;
+            ucBicycleDetails1.ModelSubmitted += SubmitBicycle;
 
-            var list = await BicycleCategoryService.Get<List<ProductCategory>>();
-
-            foreach (var item in list)
-            {
-                cbCategory.Items.Add(item);
-            }
-        }
-
-        private async void LoadBrands()
-        {
-            cbBrand.SelectedIndex = 0;
-
-            var list = await BrandService.Get<List<Brand>>();
-
-            foreach (var item in list)
-            {
-                cbBrand.Items.Add(item);
-            }
+            base.OnLoad(e);
         }
 
         protected override void SetVisibleCore(bool value)
         {
             if (value)
             {
-                LoadBrands();
-                LoadCategories();
+                LoadComboBoxes();
                 pnlDetails.Visible = false;
 
                 loadData();
             }
+            else
+            {
+                ClearData();
+            }
 
             base.SetVisibleCore(value);
         }
+
+        private void ClearData()
+        {
+            dgvBicycleList.DataSource = null;
+            cbBrand.Items.Clear();
+            cbCategory.Items.Clear();
+
+            ucBicycleDetails1.ClearComboBoxes();
+        }
+
+        private async void LoadComboBoxes()
+        {
+            var brands = await BrandService.Get<List<Brand>>();
+            cbBrand.Items.Add("Select Brand");
+            ComboBoxHelpers.LoadComboBoxItems<Brand>(cbBrand, brands);
+
+
+            var categories = await BicycleCategoryService.Get<List<ProductCategory>>();
+            cbCategory.Items.Add("Select a Category");
+            ComboBoxHelpers.LoadComboBoxItems<ProductCategory>(cbCategory, categories);
+
+            ucBicycleDetails1.LoadComboBoxes(brands, categories);
+        }
+
+
 
         private async void loadData()
         {
@@ -72,12 +85,12 @@ namespace PULSE.WinUI.Pages.Bicycle
                 AnyField = tbSearch.Text,
             };
 
-            if (cbBrand.SelectedIndex != 0)
+            if (cbBrand.SelectedIndex != 0 && cbBrand.SelectedIndex != -1)
             {
                 searchObject.BrandId = (cbBrand.SelectedItem as Brand).BrandId;
             }
 
-            if (cbCategory.SelectedIndex != 0)
+            if (cbCategory.SelectedIndex != 0 && cbCategory.SelectedIndex != -1)
             {
                 searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).ProductCategoryId;
             }
@@ -89,12 +102,12 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Helpers.SetComboBoxPlaceholderColor(cbBrand);
+            ComboBoxHelpers.SetComboBoxPlaceholderColor(cbBrand);
         }
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Helpers.SetComboBoxPlaceholderColor(cbCategory);
+            ComboBoxHelpers.SetComboBoxPlaceholderColor(cbCategory);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -104,6 +117,31 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            pnlDetails.Visible = true;
+            ucBicycleDetails1.DisableDGV();
+        }
+
+        private async void SubmitBicycle(BicycleUpsertRequest data, int productId = -1)
+        {
+            if(productId == -1)
+            {
+                await BicycleService.Post<Model.Bicycle>(data);
+                MessageBox.Show("Bicycle Added Successfully!");
+            } else
+            {
+                await BicycleService.Put<Model.Bicycle>(productId, data);
+                MessageBox.Show("Bicycle Updated Successfully!");
+            }
+
+            pnlDetails.Visible = false;
+            loadData();
+        }
+
+        private void dgvBicycleList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = dgvBicycleList.Rows[e.RowIndex].DataBoundItem as Model.Bicycle;
+
+            ucBicycleDetails1.SelectBike(item);
             pnlDetails.Visible = true;
         }
     }

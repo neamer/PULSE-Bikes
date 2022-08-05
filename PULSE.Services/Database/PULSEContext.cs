@@ -125,7 +125,7 @@ namespace PULSE.Services.Database
                 entity.ToTable("OrderDetail");
 
                 entity.Property(e => e.OrderDetailId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("OrderDetailID");
 
                 entity.Property(e => e.BicycleSizeId).HasColumnName("BicycleSizeID");

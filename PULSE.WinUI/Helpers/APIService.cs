@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using PULSE.Model;
 
-namespace PULSE.WinUI
+namespace PULSE.WinUI.Helpers
 {
     public class APIService
     {
-         private string _resource = null;
+        private string _resource = null;
         public string _endpoint = "https://localhost:7098/";//Settings.Default.ApiURL;
 
         public static string Username = null;
@@ -30,7 +30,7 @@ namespace PULSE.WinUI
             }
 
             var list = await $"{_endpoint}{_resource}?{query}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
-            
+
             return list;
         }
 
@@ -58,8 +58,8 @@ namespace PULSE.WinUI
                     stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
                 }
 
-                MessageBox.Show(stringBuilder.ToString(), "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return default(T);
+                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
             }
 
         }
@@ -69,6 +69,29 @@ namespace PULSE.WinUI
             var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
 
             return result;
+        }
+
+        public async Task<T> PutComposite<T>(object request)
+        {
+            try
+            {
+                var result = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
+
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                }
+
+                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
         }
     }
 }

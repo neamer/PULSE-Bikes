@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PULSE.WinUI.Helpers.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,9 @@ namespace PULSE.WinUI
 {
     public partial class frmMain : Form
     {
-        bool navBikesCollapsed;
-        bool navGearCollapsed;
+        bool navBikesCollapsed = true;
+        bool navGearCollapsed = true;
+        bool navPartsCollapsed = true;
 
         UserControl _current;
 
@@ -34,8 +36,18 @@ namespace PULSE.WinUI
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
+
             ucBicycleList1.Hide();
+            ucBicycleCategoryList1.Hide();
+            ucBicycleSizeList1.Hide();
+
             ucGearList1.Hide();
+            ucGearCategoryList1.Hide();
+
+            ucPartList1.Hide();
+            ucPartCategoryList1.Hide();
+
+            ucBrandList1.Hide();
 
             selectPage(ucBicycleList1);
         }
@@ -101,6 +113,46 @@ namespace PULSE.WinUI
         private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnNavBikesCategories_Click(object sender, EventArgs e)
+        {
+            selectPage(ucBicycleCategoryList1);
+        }
+
+        private void btnNavParts_Click(object sender, EventArgs e)
+        {
+            tmrNavParts.Start();
+        }
+
+        private void tmrNavParts_Tick(object sender, EventArgs e)
+        {
+            navTimerTick(ref navPartsCollapsed, pnlNavParts, tmrNavParts);
+        }
+
+        private void btnNavPartsSearch_Click(object sender, EventArgs e)
+        {
+            selectPage(ucPartList1);
+        }
+
+        private void btnNavPartsCategories_Click(object sender, EventArgs e)
+        {
+            selectPage(ucPartCategoryList1);
+        }
+
+        private void btnNavGearCategories_Click(object sender, EventArgs e)
+        {
+            selectPage(ucGearCategoryList1);
+        }
+
+        private void btnNavBrands_Click(object sender, EventArgs e)
+        {
+            selectPage(ucBrandList1);
+        }
+
+        private void btnNavBikesSizes_Click(object sender, EventArgs e)
+        {
+            selectPage(ucBicycleSizeList1);
         }
     }
 }

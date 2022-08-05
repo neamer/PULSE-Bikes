@@ -33,6 +33,14 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// STATES
+
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.BaseState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.InitialState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.DraftState>();
+
+// SERVICES
+
 builder.Services.AddTransient<IStaffService, StaffService>();
 
 builder.Services.AddTransient<IProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.PartCategory>, ProductCategoryService<PULSE.Model.ProductCategory, PULSE.Services.Database.PartCategory>>();
@@ -44,6 +52,11 @@ builder.Services.AddTransient<IBrandService, BrandService>();
 builder.Services.AddTransient<IPartService, PartService>();
 builder.Services.AddTransient<IGearService, GearService>();
 builder.Services.AddTransient<IBicycleService, BicycleService>();
+
+builder.Services.AddTransient<IBicycleSizeService, BicycleSizeService>();
+builder.Services.AddTransient<IAvailableSizeService, AvailableSizeService>();
+
+builder.Services.AddTransient<IOrderService, OrderService>();
 
 builder.Services.AddAutoMapper(typeof(IStaffService));
 
