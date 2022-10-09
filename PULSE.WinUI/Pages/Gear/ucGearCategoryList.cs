@@ -27,14 +27,17 @@ namespace PULSE.WinUI.Pages.Gear
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                pnlDetails.Visible = false;
-                LoadData();
-            }
-            else
-            {
-                ClearData();
+                if (value)
+                {
+                    pnlDetails.Visible = false;
+                    LoadData();
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -56,12 +59,24 @@ namespace PULSE.WinUI.Pages.Gear
         {
             if (categoryID == -1)
             {
-                await GearCategoryService.Post<Model.ProductCategory>(data);
+                var item = await GearCategoryService.Post<Model.ProductCategory>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Gear Category Added Successfully!");
             }
             else
             {
-                await GearCategoryService.Put<Model.ProductCategory>(categoryID, data);
+                var item = await GearCategoryService.Put<Model.ProductCategory>(categoryID, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Gear Category Updated Successfully!");
             }
 
@@ -77,6 +92,11 @@ namespace PULSE.WinUI.Pages.Gear
             };
 
             var list = await GearCategoryService.Get<List<ProductCategory>>(searchObject);
+
+            if (list == null)
+            {
+                return;
+            }
 
             dgvCategoryList.DataSource = list;
         }

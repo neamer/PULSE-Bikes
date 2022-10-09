@@ -38,6 +38,18 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddTransient<PULSE.Services.StateMachines.Order.BaseState>();
 builder.Services.AddTransient<PULSE.Services.StateMachines.Order.InitialState>();
 builder.Services.AddTransient<PULSE.Services.StateMachines.Order.DraftState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.ProcessedState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.PackedState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.ShippedState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.DeliveredState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Order.CancelledState>();
+
+builder.Services.AddTransient<PULSE.Services.StateMachines.Servicing.BaseState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Servicing.InitialState>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Servicing.PendingReview>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Servicing.PendingPayment>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Servicing.PendingServicing>();
+builder.Services.AddTransient<PULSE.Services.StateMachines.Servicing.Cancelled>();
 
 // SERVICES
 
@@ -57,6 +69,14 @@ builder.Services.AddTransient<IBicycleSizeService, BicycleSizeService>();
 builder.Services.AddTransient<IAvailableSizeService, AvailableSizeService>();
 
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderDetailPartService, OrderDetailPartService>();
+builder.Services.AddTransient<IOrderDetailGearService, OrderDetailGearService>();
+builder.Services.AddTransient<IOrderDetailBicycleService, OrderDetailBicycleService>();
+
+builder.Services.AddTransient<IShippingInfoService, ShippingInfoService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
+
+builder.Services.AddTransient<IServicingService, ServicingService>();
 
 builder.Services.AddAutoMapper(typeof(IStaffService));
 

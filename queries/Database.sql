@@ -11,6 +11,7 @@ go
 CREATE TABLE Staff
 (
 	StaffID int IDENTITY(1,1),
+	RoleID int,
 	FirstName nvarchar(50),
 	LastName nvarchar(50),
 	Username nvarchar(50),
@@ -23,7 +24,8 @@ CREATE TABLE Staff
 	DateOfEmployment date,
 	CreatedAt Datetime,
 	UpdatedAt Datetime,
-	CONSTRAINT PK_Staff PRIMARY KEY(StaffID)
+	CONSTRAINT PK_Staff PRIMARY KEY(StaffID),
+	CONSTRAINT FK_Staff_Role FOREIGN KEY (RoleID) REFERENCES Role (RoleID),
 );
 
 CREATE TABLE Role
@@ -33,7 +35,7 @@ CREATE TABLE Role
 	CONSTRAINT PK_Role PRIMARY KEY(RoleID)
 );
 
-CREATE TABLE StaffRole
+CREATE DROP TABLE StaffRole
 (
 	StaffID int,
 	RoleID int,
@@ -252,8 +254,9 @@ CREATE TABLE OrderDetail
 	BicycleSizeID int null,
 	UnitPrice decimal(18,2),
 	Quantity int,
+	Discriminator varchar(50),
 	CONSTRAINT PK_OrderDetail PRIMARY KEY (OrderDetailID),
-	CONSTRAINT FK_OrderDetail_Order FOREIGN KEY (OrderID) REFERENCES OrderHeader (OrderID),
+	CONSTRAINT FK_OrderDetail_Order FOREIGN KEY (OrderID) REFERENCES OrderHeader (OrderID) ON DELETE CASCADE,
 	CONSTRAINT FK_OrderDetail_Product FOREIGN KEY (ProductID) REFERENCES Product (ProductID),
 	CONSTRAINT FK_OrderDetail_BicycleSize FOREIGN KEY (BicycleSizeID) REFERENCES BicycleSize (BicycleSizeID),
 );
@@ -289,3 +292,6 @@ CREATE TABLE ServicingPart
 
 ALTER TABLE Product
 ALTER COLUMN WheelSize nvarchar(50);
+
+ALTER TABLE Payment
+ADD Amount decimal(18,2)

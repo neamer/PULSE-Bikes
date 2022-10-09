@@ -27,14 +27,17 @@ namespace PULSE.WinUI.Pages.Brands
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                LoadData();
-                pnlDetails.Visible = false;
-            }
-            else
-            {
-                ClearData();
+                if (value)
+                {
+                    LoadData();
+                    pnlDetails.Visible = false;
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -56,12 +59,24 @@ namespace PULSE.WinUI.Pages.Brands
         {
             if (categoryID == -1)
             {
-                await BrandService.Post<Model.ProductCategory>(data);
-                MessageBox.Show("BrandAdded Successfully!");
+                var item = await BrandService.Post<Model.ProductCategory>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
+                MessageBox.Show("Brand Added Successfully!");
             }
             else
             {
-                await BrandService.Put<Model.ProductCategory>(categoryID, data);
+                var item = await BrandService.Put<Model.ProductCategory>(categoryID, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Brand Updated Successfully!");
             }
 
@@ -77,6 +92,11 @@ namespace PULSE.WinUI.Pages.Brands
             };
 
             var list = await BrandService.Get<List<Brand>>(searchObject);
+
+            if (list == null)
+            {
+                return;
+            }
 
             dgvBrandList.DataSource = list;
         }

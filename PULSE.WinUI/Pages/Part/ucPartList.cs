@@ -34,16 +34,19 @@ namespace PULSE.WinUI.Pages.Part
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                LoadComboBoxes();
-                pnlDetails.Visible = false;
+                if (value)
+                {
+                    LoadComboBoxes();
+                    pnlDetails.Visible = false;
 
-                loadData();
-            }
-            else
-            {
-                ClearData();
+                    loadData();
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -95,6 +98,11 @@ namespace PULSE.WinUI.Pages.Part
 
             var list = await PartService.Get<List<Model.Part>>(searchObject);
 
+            if (list == null)
+            {
+                return;
+            }
+
             dgvPartList.DataSource = list;
         }
 
@@ -122,12 +130,24 @@ namespace PULSE.WinUI.Pages.Part
         {
             if (productId == -1)
             {
-                await PartService.Post<Model.Part>(data);
+                var item = await PartService.Post<Model.Part>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Part Added Successfully!");
             }
             else
             {
-                await PartService.Put<Model.Part>(productId, data);
+                var item = await PartService.Put<Model.Part>(productId, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Part Updated Successfully!");
             }
 

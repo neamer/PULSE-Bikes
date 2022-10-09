@@ -7,7 +7,7 @@ using PULSE.Services.Interfaces;
 
 namespace PULSE.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     [ApiController]
     [Route("[controller]")]
     public class StaffController : BaseCRUDController<Model.Staff, StaffSearchObject, StaffInsertRequest, StaffUpdateRequest>
@@ -17,24 +17,69 @@ namespace PULSE.Controllers
         {
         }
 
-        public override Staff Insert([FromBody] StaffInsertRequest insert)
+        [Authorize(Roles = "Administrator")]
+        public override ActionResult<Staff> Insert([FromBody] StaffInsertRequest insert)
         {
             return base.Insert(insert);
         }
 
-        public override Staff Update(int id, [FromBody] StaffUpdateRequest update)
+        [Authorize(Roles = "Administrator")]
+        public override ActionResult<Staff> Update(int id, [FromBody] StaffUpdateRequest update)
         {
             return base.Update(id, update);
         }
 
-        public override IEnumerable<Staff> Get([FromQuery] StaffSearchObject search = null)
+        [Authorize(Roles = "Administrator")]
+        public override ActionResult<IEnumerable<Staff>> Get([FromQuery] StaffSearchObject search = null)
         {
             return base.Get(search);
         }
 
-        public override Staff GetById(int id)
+        [Authorize(Roles = "Administrator")]
+        public override ActionResult<Staff> GetById(int id)
         {
             return base.GetById(id);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("roles")]
+        public ActionResult<IEnumerable<Role>> GetRoles()
+        {
+            try
+            {
+                return Ok((Service as IStaffService).GetRoles());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete("{id}")]
+        public ActionResult<Staff> Delete(int id)
+        {
+            try
+            {
+                return Ok((Service as IStaffService).Delete(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("login")]
+        public ActionResult<Staff> Login([FromBody] LoginRequest req)
+        {
+            try
+            {
+                return Ok((Service as IStaffService).Login(req.Username, req.Password));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

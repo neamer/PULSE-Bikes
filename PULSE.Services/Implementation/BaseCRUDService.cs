@@ -62,7 +62,6 @@ namespace PULSE.Services.Implementation
             Context.SaveChanges();
 
             return Mapper.Map<T>(entity);
-
         }
     }
 }

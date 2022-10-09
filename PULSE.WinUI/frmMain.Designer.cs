@@ -34,6 +34,7 @@
             this.pnlNavLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlNavBikes = new System.Windows.Forms.Panel();
+            this.btnNavBikesSizes = new System.Windows.Forms.Button();
             this.btnNavBikesCategories = new System.Windows.Forms.Button();
             this.btnNavBikesSearch = new System.Windows.Forms.Button();
             this.btnNavBikes = new System.Windows.Forms.Button();
@@ -46,9 +47,15 @@
             this.btnNavPartsSearch = new System.Windows.Forms.Button();
             this.btnNavParts = new System.Windows.Forms.Button();
             this.btnNavBrands = new System.Windows.Forms.Button();
+            this.btnNavOrders = new System.Windows.Forms.Button();
+            this.btnNavServicing = new System.Windows.Forms.Button();
+            this.btnNavStaff = new System.Windows.Forms.Button();
             this.tmrNavBikes = new System.Windows.Forms.Timer(this.components);
             this.tmrNavGear = new System.Windows.Forms.Timer(this.components);
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.ucStaffList1 = new PULSE.WinUI.Pages.Staff.ucStaffList();
+            this.ucServicingList1 = new PULSE.WinUI.Pages.Servicing.ucServicingList();
+            this.ucBicycleSizeList1 = new PULSE.WinUI.Pages.Bicycle.ucBicycleSizeList();
             this.ucBrandList1 = new PULSE.WinUI.Pages.Brands.ucBrandList();
             this.ucPartCategoryList1 = new PULSE.WinUI.Pages.Part.ucPartCategoryList();
             this.ucGearCategoryList1 = new PULSE.WinUI.Pages.Gear.ucGearCategoryList();
@@ -57,8 +64,12 @@
             this.ucBicycleCategoryList1 = new PULSE.WinUI.Pages.Bicycle.ucBicycleCategoryList();
             this.ucBicycleList1 = new PULSE.WinUI.Pages.Bicycle.ucBicycleList();
             this.tmrNavParts = new System.Windows.Forms.Timer(this.components);
-            this.btnNavBikesSizes = new System.Windows.Forms.Button();
-            this.ucBicycleSizeList1 = new PULSE.WinUI.Pages.Bicycle.ucBicycleSizeList();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pbLogout = new System.Windows.Forms.PictureBox();
+            this.lblRole = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.ucOrderList2 = new PULSE.WinUI.Pages.Orders.ucOrderList();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlNavLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,6 +77,8 @@
             this.pnlNavGear.SuspendLayout();
             this.pnlNavParts.SuspendLayout();
             this.pnlMain.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogout)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -76,10 +89,12 @@
             this.flowLayoutPanel1.Controls.Add(this.pnlNavGear);
             this.flowLayoutPanel1.Controls.Add(this.pnlNavParts);
             this.flowLayoutPanel1.Controls.Add(this.btnNavBrands);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.flowLayoutPanel1.Controls.Add(this.btnNavOrders);
+            this.flowLayoutPanel1.Controls.Add(this.btnNavServicing);
+            this.flowLayoutPanel1.Controls.Add(this.btnNavStaff);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(230, 674);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(230, 611);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // pnlNavLogo
@@ -114,10 +129,26 @@
             this.pnlNavBikes.Location = new System.Drawing.Point(0, 139);
             this.pnlNavBikes.Margin = new System.Windows.Forms.Padding(0);
             this.pnlNavBikes.MaximumSize = new System.Drawing.Size(230, 152);
-            this.pnlNavBikes.MinimumSize = new System.Drawing.Size(230, 40);
             this.pnlNavBikes.Name = "pnlNavBikes";
             this.pnlNavBikes.Size = new System.Drawing.Size(230, 40);
             this.pnlNavBikes.TabIndex = 1;
+            // 
+            // btnNavBikesSizes
+            // 
+            this.btnNavBikesSizes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNavBikesSizes.FlatAppearance.BorderSize = 0;
+            this.btnNavBikesSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNavBikesSizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnNavBikesSizes.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnNavBikesSizes.Location = new System.Drawing.Point(0, 116);
+            this.btnNavBikesSizes.Name = "btnNavBikesSizes";
+            this.btnNavBikesSizes.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.btnNavBikesSizes.Size = new System.Drawing.Size(230, 35);
+            this.btnNavBikesSizes.TabIndex = 4;
+            this.btnNavBikesSizes.Text = "Sizes";
+            this.btnNavBikesSizes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNavBikesSizes.UseVisualStyleBackColor = true;
+            this.btnNavBikesSizes.Click += new System.EventHandler(this.btnNavBikesSizes_Click);
             // 
             // btnNavBikesCategories
             // 
@@ -170,6 +201,7 @@
             this.btnNavBikes.Text = "BIKES";
             this.btnNavBikes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNavBikes.UseVisualStyleBackColor = false;
+            this.btnNavBikes.EnabledChanged += new System.EventHandler(this.btnNavBikes_EnabledChanged);
             this.btnNavBikes.Click += new System.EventHandler(this.btnNavBikes_Click);
             // 
             // pnlNavGear
@@ -182,7 +214,6 @@
             this.pnlNavGear.Location = new System.Drawing.Point(0, 179);
             this.pnlNavGear.Margin = new System.Windows.Forms.Padding(0);
             this.pnlNavGear.MaximumSize = new System.Drawing.Size(230, 117);
-            this.pnlNavGear.MinimumSize = new System.Drawing.Size(230, 40);
             this.pnlNavGear.Name = "pnlNavGear";
             this.pnlNavGear.Size = new System.Drawing.Size(230, 40);
             this.pnlNavGear.TabIndex = 4;
@@ -249,7 +280,6 @@
             this.pnlNavParts.Location = new System.Drawing.Point(0, 219);
             this.pnlNavParts.Margin = new System.Windows.Forms.Padding(0);
             this.pnlNavParts.MaximumSize = new System.Drawing.Size(230, 117);
-            this.pnlNavParts.MinimumSize = new System.Drawing.Size(230, 40);
             this.pnlNavParts.Name = "pnlNavParts";
             this.pnlNavParts.Size = new System.Drawing.Size(230, 40);
             this.pnlNavParts.TabIndex = 5;
@@ -325,6 +355,63 @@
             this.btnNavBrands.UseVisualStyleBackColor = false;
             this.btnNavBrands.Click += new System.EventHandler(this.btnNavBrands_Click);
             // 
+            // btnNavOrders
+            // 
+            this.btnNavOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(29)))));
+            this.btnNavOrders.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNavOrders.FlatAppearance.BorderSize = 0;
+            this.btnNavOrders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNavOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnNavOrders.ForeColor = System.Drawing.Color.White;
+            this.btnNavOrders.Location = new System.Drawing.Point(0, 299);
+            this.btnNavOrders.Margin = new System.Windows.Forms.Padding(0);
+            this.btnNavOrders.Name = "btnNavOrders";
+            this.btnNavOrders.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnNavOrders.Size = new System.Drawing.Size(230, 40);
+            this.btnNavOrders.TabIndex = 6;
+            this.btnNavOrders.Text = "ORDERS";
+            this.btnNavOrders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNavOrders.UseVisualStyleBackColor = false;
+            this.btnNavOrders.Click += new System.EventHandler(this.btnNavOrders_Click);
+            // 
+            // btnNavServicing
+            // 
+            this.btnNavServicing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(29)))));
+            this.btnNavServicing.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNavServicing.FlatAppearance.BorderSize = 0;
+            this.btnNavServicing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNavServicing.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnNavServicing.ForeColor = System.Drawing.Color.White;
+            this.btnNavServicing.Location = new System.Drawing.Point(0, 339);
+            this.btnNavServicing.Margin = new System.Windows.Forms.Padding(0);
+            this.btnNavServicing.Name = "btnNavServicing";
+            this.btnNavServicing.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnNavServicing.Size = new System.Drawing.Size(230, 40);
+            this.btnNavServicing.TabIndex = 7;
+            this.btnNavServicing.Text = "SERVICING";
+            this.btnNavServicing.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNavServicing.UseVisualStyleBackColor = false;
+            this.btnNavServicing.Click += new System.EventHandler(this.btnNavServicing_Click);
+            // 
+            // btnNavStaff
+            // 
+            this.btnNavStaff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(29)))));
+            this.btnNavStaff.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNavStaff.FlatAppearance.BorderSize = 0;
+            this.btnNavStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNavStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnNavStaff.ForeColor = System.Drawing.Color.White;
+            this.btnNavStaff.Location = new System.Drawing.Point(0, 379);
+            this.btnNavStaff.Margin = new System.Windows.Forms.Padding(0);
+            this.btnNavStaff.Name = "btnNavStaff";
+            this.btnNavStaff.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnNavStaff.Size = new System.Drawing.Size(230, 40);
+            this.btnNavStaff.TabIndex = 8;
+            this.btnNavStaff.Text = "STAFF";
+            this.btnNavStaff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNavStaff.UseVisualStyleBackColor = false;
+            this.btnNavStaff.Click += new System.EventHandler(this.btnNavStaff_Click);
+            // 
             // tmrNavBikes
             // 
             this.tmrNavBikes.Interval = 10;
@@ -338,6 +425,9 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
+            this.pnlMain.Controls.Add(this.ucOrderList2);
+            this.pnlMain.Controls.Add(this.ucStaffList1);
+            this.pnlMain.Controls.Add(this.ucServicingList1);
             this.pnlMain.Controls.Add(this.ucBicycleSizeList1);
             this.pnlMain.Controls.Add(this.ucBrandList1);
             this.pnlMain.Controls.Add(this.ucPartCategoryList1);
@@ -352,6 +442,36 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(888, 674);
             this.pnlMain.TabIndex = 1;
+            // 
+            // ucStaffList1
+            // 
+            this.ucStaffList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
+            this.ucStaffList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStaffList1.Location = new System.Drawing.Point(0, 0);
+            this.ucStaffList1.Name = "ucStaffList1";
+            this.ucStaffList1.Padding = new System.Windows.Forms.Padding(10);
+            this.ucStaffList1.Size = new System.Drawing.Size(888, 674);
+            this.ucStaffList1.TabIndex = 11;
+            // 
+            // ucServicingList1
+            // 
+            this.ucServicingList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
+            this.ucServicingList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucServicingList1.Location = new System.Drawing.Point(0, 0);
+            this.ucServicingList1.Name = "ucServicingList1";
+            this.ucServicingList1.Padding = new System.Windows.Forms.Padding(10);
+            this.ucServicingList1.Size = new System.Drawing.Size(888, 674);
+            this.ucServicingList1.TabIndex = 9;
+            // 
+            // ucBicycleSizeList1
+            // 
+            this.ucBicycleSizeList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
+            this.ucBicycleSizeList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucBicycleSizeList1.Location = new System.Drawing.Point(0, 0);
+            this.ucBicycleSizeList1.Name = "ucBicycleSizeList1";
+            this.ucBicycleSizeList1.Padding = new System.Windows.Forms.Padding(10);
+            this.ucBicycleSizeList1.Size = new System.Drawing.Size(888, 674);
+            this.ucBicycleSizeList1.TabIndex = 8;
             // 
             // ucBrandList1
             // 
@@ -428,44 +548,84 @@
             this.tmrNavParts.Interval = 10;
             this.tmrNavParts.Tick += new System.EventHandler(this.tmrNavParts_Tick);
             // 
-            // btnNavBikesSizes
+            // panel1
             // 
-            this.btnNavBikesSizes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNavBikesSizes.FlatAppearance.BorderSize = 0;
-            this.btnNavBikesSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNavBikesSizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNavBikesSizes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnNavBikesSizes.Location = new System.Drawing.Point(0, 116);
-            this.btnNavBikesSizes.Name = "btnNavBikesSizes";
-            this.btnNavBikesSizes.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnNavBikesSizes.Size = new System.Drawing.Size(230, 35);
-            this.btnNavBikesSizes.TabIndex = 4;
-            this.btnNavBikesSizes.Text = "Sizes";
-            this.btnNavBikesSizes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNavBikesSizes.UseVisualStyleBackColor = true;
-            this.btnNavBikesSizes.Click += new System.EventHandler(this.btnNavBikesSizes_Click);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(29)))));
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.pbLogout);
+            this.panel1.Controls.Add(this.lblRole);
+            this.panel1.Controls.Add(this.lblUsername);
+            this.panel1.Location = new System.Drawing.Point(0, 608);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 66);
+            this.panel1.TabIndex = 9;
             // 
-            // ucBicycleSizeList1
+            // panel2
             // 
-            this.ucBicycleSizeList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
-            this.ucBicycleSizeList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucBicycleSizeList1.Location = new System.Drawing.Point(0, 0);
-            this.ucBicycleSizeList1.Name = "ucBicycleSizeList1";
-            this.ucBicycleSizeList1.Padding = new System.Windows.Forms.Padding(10);
-            this.ucBicycleSizeList1.Size = new System.Drawing.Size(888, 674);
-            this.ucBicycleSizeList1.TabIndex = 8;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(111)))));
+            this.panel2.Location = new System.Drawing.Point(15, 2);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 1);
+            this.panel2.TabIndex = 3;
+            // 
+            // pbLogout
+            // 
+            this.pbLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbLogout.Image = global::PULSE.WinUI.Properties.Resources.logout;
+            this.pbLogout.Location = new System.Drawing.Point(176, 12);
+            this.pbLogout.Name = "pbLogout";
+            this.pbLogout.Size = new System.Drawing.Size(43, 43);
+            this.pbLogout.TabIndex = 2;
+            this.pbLogout.TabStop = false;
+            this.pbLogout.Click += new System.EventHandler(this.pbLogout_Click);
+            // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = true;
+            this.lblRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRole.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblRole.Location = new System.Drawing.Point(12, 36);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(36, 16);
+            this.lblRole.TabIndex = 1;
+            this.lblRole.Text = "Role";
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUsername.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblUsername.Location = new System.Drawing.Point(12, 15);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(119, 16);
+            this.lblUsername.TabIndex = 0;
+            this.lblUsername.Text = "Name Lastname";
+            // 
+            // ucOrderList2
+            // 
+            this.ucOrderList2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
+            this.ucOrderList2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucOrderList2.Location = new System.Drawing.Point(0, 0);
+            this.ucOrderList2.Name = "ucOrderList2";
+            this.ucOrderList2.Padding = new System.Windows.Forms.Padding(10);
+            this.ucOrderList2.SelectModeIsAdd = true;
+            this.ucOrderList2.Size = new System.Drawing.Size(888, 674);
+            this.ucOrderList2.TabIndex = 9;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1118, 674);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Text = "PULSE Bikes v0.1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed_1);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.pnlNavLogo.ResumeLayout(false);
@@ -474,6 +634,9 @@
             this.pnlNavGear.ResumeLayout(false);
             this.pnlNavParts.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogout)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -509,5 +672,16 @@
         private Pages.Brands.ucBrandList ucBrandList1;
         private Button btnNavBikesSizes;
         private Pages.Bicycle.ucBicycleSizeList ucBicycleSizeList1;
+        private Button btnNavOrders;
+        private Button btnNavServicing;
+        private Pages.Servicing.ucServicingList ucServicingList1;
+        private Button btnNavStaff;
+        private Pages.Staff.ucStaffList ucStaffList1;
+        private Panel panel1;
+        private PictureBox pbLogout;
+        private Label lblRole;
+        private Label lblUsername;
+        private Panel panel2;
+        private Pages.Orders.ucOrderList ucOrderList2;
     }
 }

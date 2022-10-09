@@ -34,16 +34,19 @@ namespace PULSE.WinUI.Pages.Gear
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                LoadComboBoxes();
-                pnlDetails.Visible = false;
+                if (value)
+                {
+                    LoadComboBoxes();
+                    pnlDetails.Visible = false;
 
-                loadData();
-            }
-            else
-            {
-                ClearData();
+                    loadData();
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -95,6 +98,11 @@ namespace PULSE.WinUI.Pages.Gear
 
             var list = await GearService.Get<List<Model.Gear>>(searchObject);
 
+            if (list == null)
+            {
+                return;
+            }
+
             dgvGearList.DataSource = list;
         }
 
@@ -122,12 +130,24 @@ namespace PULSE.WinUI.Pages.Gear
         {
             if (productId == -1)
             {
-                await GearService.Post<Model.Gear>(data);
+                var item = await GearService.Post<Model.Gear>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Gear Added Successfully!");
             }
             else
             {
-                await GearService.Put<Model.Gear>(productId, data);
+                var item = await GearService.Put<Model.Gear>(productId, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Gear Updated Successfully!");
             }
 

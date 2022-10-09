@@ -208,9 +208,9 @@
             // pnlDetails
             // 
             this.pnlDetails.Controls.Add(this.ucGearCategoryDetails1);
-            this.pnlDetails.Location = new System.Drawing.Point(3, 5);
+            this.pnlDetails.Location = new System.Drawing.Point(0, 0);
             this.pnlDetails.Name = "pnlDetails";
-            this.pnlDetails.Size = new System.Drawing.Size(885, 669);
+            this.pnlDetails.Size = new System.Drawing.Size(888, 674);
             this.pnlDetails.TabIndex = 28;
             // 
             // ucGearCategoryDetails1
@@ -220,7 +220,7 @@
             this.ucGearCategoryDetails1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucGearCategoryDetails1.Location = new System.Drawing.Point(0, 0);
             this.ucGearCategoryDetails1.Name = "ucGearCategoryDetails1";
-            this.ucGearCategoryDetails1.Size = new System.Drawing.Size(885, 669);
+            this.ucGearCategoryDetails1.Size = new System.Drawing.Size(888, 674);
             this.ucGearCategoryDetails1.TabIndex = 0;
             this.ucGearCategoryDetails1.TitleAdd = "Add a New Gear Category";
             this.ucGearCategoryDetails1.TitleEdit = "Edit Gear Category";

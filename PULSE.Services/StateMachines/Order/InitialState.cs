@@ -21,13 +21,18 @@ namespace PULSE.Services.StateMachines.Order
             var entity = Mapper.Map<Database.OrderHeader>(request);
             entity.OrderDetails = new List<OrderDetail>();
 
-            //entity.TimeDelivered = DateTime.Now;
-            //entity.TimeProcessed = DateTime.Now;
-            //entity.TimePacked = DateTime.Now;
-            //entity.TimeDelivered = DateTime.Now;
-
             CurrentEntity = entity;
-            CurrentEntity.Status = (int)States.Draft;
+            CurrentEntity.Status = (int)Model.OrderState.Draft;
+
+            if (request.ShippingInfo != null)
+            {
+                var shippingInfo = Mapper.Map<Database.ShippingInfo>(request.ShippingInfo);
+
+                Context.ShippingInfos.Add(shippingInfo);
+                Context.SaveChanges();
+
+                entity.ShippingInfoId = shippingInfo.ShippingInfoId;
+            }
 
             Context.OrderHeaders.Add(entity);
 
@@ -35,10 +40,48 @@ namespace PULSE.Services.StateMachines.Order
 
             foreach (var item in request.OrderDetails)
             {
-                var detail = Mapper.Map<Database.OrderDetail>(item);
-                detail.OrderId = entity.OrderId;
-                Context.OrderDetails.Add(detail);
-                Context.SaveChanges();
+                switch (item.Discriminator)
+                {
+                    case "Part":
+
+                        var detailProductP = Context.Parts.Find(item.ProductId);
+                        if(detailProductP != null)
+                        {
+                            var detailP = Mapper.Map<Database.OrderDetailPart>(item);
+                            detailP.OrderId = entity.OrderId;
+                            detailP.UnitPrice = detailProductP.Price;
+                            Context.OrderDetailParts.Add(detailP);
+                            Context.SaveChanges();
+                        }
+                        break;
+
+                    case "Gear":
+                        var detailProductG = Context.Gear.Find(item.ProductId);
+                        if (detailProductG != null)
+                        {
+                            var detailG = Mapper.Map<Database.OrderDetailGear>(item);
+                            detailG.OrderId = entity.OrderId;
+                            detailG.UnitPrice = detailProductG.Price;
+                            Context.OrderDetailGear.Add(detailG);
+                            Context.SaveChanges();
+                        }
+                        break;
+
+                    case "Bicycle":
+                        var detailProductB = Context.Bicycles.Find(item.ProductId);
+                        if (detailProductB != null)
+                        {
+                            var detailB = Mapper.Map<Database.OrderDetailBicycle>(item);
+                            detailB.OrderId = entity.OrderId;
+                            detailB.UnitPrice = detailProductB.Price;
+                            Context.OrderDetailBicycles.Add(detailB);
+                            Context.SaveChanges();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                
             }
 
             return Mapper.Map<Model.OrderHeader>(entity);

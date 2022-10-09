@@ -8,9 +8,9 @@ namespace PULSE.Model.SearchObjects
 {
     public class StaffSearchObject : BaseSearchObject
     {
-        public string? Username { get; set; }
-        public string? NameFTS { get; set; }
-        public string? Email { get; set; }
-        public bool? IncludeRoles { get; set; }
+        public string? AnyField { get; set; }
+        public int? RoleId { get; set; }
+        public bool? Status { get; set; }
+        public bool? IncludeRole { get; set; }
     }
 }

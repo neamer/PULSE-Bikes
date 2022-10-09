@@ -27,14 +27,17 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                pnlDetails.Visible = false;
-                LoadData();
-            }
-            else
-            {
-                ClearData();
+                if (value)
+                {
+                    pnlDetails.Visible = false;
+                    LoadData();
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -56,12 +59,24 @@ namespace PULSE.WinUI.Pages.Bicycle
         {
             if (categoryID == -1)
             {
-                await BicycleSizeService.Post<Model.BicycleSize>(data);
+                var item = await BicycleSizeService.Post<Model.BicycleSize>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Bicycle Size Added Successfully!");
             }
             else
             {
-                await BicycleSizeService.Put<Model.BicycleSize>(categoryID, data);
+                var item = await BicycleSizeService.Put<Model.BicycleSize>(categoryID, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Bicycle Size Updated Successfully!");
             }
 
@@ -77,6 +92,11 @@ namespace PULSE.WinUI.Pages.Bicycle
             };
 
             var list = await BicycleSizeService.Get<List<BicycleSize>>(searchObject);
+
+            if (list == null)
+            {
+                return;
+            }
 
             dgvCategoryList.DataSource = list;
         }

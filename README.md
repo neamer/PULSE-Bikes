@@ -27,6 +27,37 @@ CONTENT LIGHT ACCENT LINE - 95; 95; 111
     Delivered
     Cancelled
 
+## SERVICING STATES
+
+    Initial - Default state, responsible for initializing the servicing
+    Pending review - The servicing has been scheduled for review
+    Pending payment - The mechanic has reviewed the bicycle and has determined the necessary parts and labour cost
+    Pending servicing - The user has paid for the servicing offer
+    Complete - The servicing has been completed and the bike is ready for pickup
+    Canceled - The servicing could not be realised, the bike is ready for pickup
+
 Order services planning
 
     Order header
+
+TO DO:
+
+    Order details CRUD              [x] ET 1:30h || RT ~3h
+    Order process from frontend     [x] ET 30min ||
+    Change Shipping Status          [x] ET 2h    ||
+    Cancel Order                    [x] ET 15min ||
+    Delete Order                    [x] ET 15min ||
+
+
+    TEST FLURL ERROR HANDLING
+
+change state after offer send
+
+## ROLES
+
+    Admin -
+    Storekeeper - Bicycles, Parts, Gear, Brands
+    Mechanic - Servicing, Parts, Brands
+    Salesperson - Orders
+
+    Everyone can view all but only certain roles can add/update/delete

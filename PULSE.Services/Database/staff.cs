@@ -5,12 +5,8 @@ namespace PULSE.Services.Database
 {
     public partial class staff
     {
-        public staff()
-        {
-            Roles = new HashSet<Role>();
-        }
-
         public int StaffId { get; set; }
+        public int? RoleId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Username { get; set; }
@@ -24,6 +20,6 @@ namespace PULSE.Services.Database
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual Role? Role { get; set; }
     }
 }

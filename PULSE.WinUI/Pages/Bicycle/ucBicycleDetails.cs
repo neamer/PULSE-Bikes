@@ -16,6 +16,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 {
     public partial class ucBicycleDetails : UserControl
     {
+
         public APIService AvailableSizeService { get; set; } = new APIService("AvailableSize");
 
         Model.Bicycle Model;
@@ -40,6 +41,11 @@ namespace PULSE.WinUI.Pages.Bicycle
             };
 
             var items = await AvailableSizeService.Get<List<AvailableSize>>(searchObject);
+
+            if (items == null)
+            {
+                return;
+            }
 
             dgvAvailableSizes.DataSource = items;
         }

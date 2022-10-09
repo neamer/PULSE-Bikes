@@ -8,9 +8,11 @@ namespace PULSE.Model.Requests
 {
     public class OrderHeaderUpdateRequest
     {
-        public string? OrderNumber { get; set; }
+        public string OrderNumber { get; set; }
         public bool OnlineOrder { get; set; }
         public bool Delivery { get; set; }
         public decimal ShippingConst { get; set; }
+
+        public virtual ShippingInfoUpsertRequest? ShippingInfo { get; set; }
     }
 }

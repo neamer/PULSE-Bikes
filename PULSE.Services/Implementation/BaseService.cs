@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Database;
 using PULSE.Services.Interfaces;
@@ -22,11 +23,13 @@ namespace PULSE.Services.Implementation
         }
         public virtual IEnumerable<T> Get(TSearch search = null)
         {
-            var entity = Context.Set<TDb>().AsQueryable();
+            var set = Context.Set<TDb>().AsQueryable();
 
-            entity = AddFilter(entity, search);
+            set = AddFilter(set, search);
 
-            entity = AddInclude(entity, search);
+            set = AddInclude(set, search);
+
+            var entity = set.AsQueryable();
 
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
             {
@@ -52,6 +55,11 @@ namespace PULSE.Services.Implementation
             var set = Context.Set<TDb>();
 
             var entity = set.Find(id);
+
+            if(entity == null)
+            {
+                throw new Exception("Not Found");
+            }
 
             return Mapper.Map<T>(entity);
         }

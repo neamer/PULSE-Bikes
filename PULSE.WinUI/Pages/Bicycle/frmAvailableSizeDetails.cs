@@ -70,14 +70,25 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             if (Model == null)
             {
-                await AvailableSizeService.Post<AvailableSize>(req);
+                var item = await AvailableSizeService.Post<AvailableSize>(req);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Available Size Added Successfully!");
                 ModelSubmitted.Invoke();
-
             }
             else
             {
-                await AvailableSizeService.PutComposite<AvailableSize>(req);
+                var item = await AvailableSizeService.PutComposite<AvailableSize>(req);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Available Size Updated Successfully!");
                 ModelSubmitted.Invoke();
             }
@@ -91,6 +102,11 @@ namespace PULSE.WinUI.Pages.Bicycle
         private async void LoadSizes()
         {
             var list = await BicycleSizeService.Get<List<BicycleSize>>();
+
+            if (list == null)
+            {
+                return;
+            }
 
             cbBicycleSize.DataSource = list;
 

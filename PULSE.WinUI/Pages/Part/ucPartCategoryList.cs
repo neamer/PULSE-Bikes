@@ -27,14 +27,17 @@ namespace PULSE.WinUI.Pages.Part
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                LoadData();
-                pnlDetails.Visible = false;
-            }
-            else
-            {
-                ClearData();
+                if (value)
+                {
+                    LoadData();
+                    pnlDetails.Visible = false;
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -56,12 +59,25 @@ namespace PULSE.WinUI.Pages.Part
         {
             if (categoryID == -1)
             {
-                await PartCategoryService.Post<Model.Part>(data);
+                var item = await PartCategoryService.Post<Model.Part>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Part Category Added Successfully!");
             }
+
             else
             {
-                await PartCategoryService.Put<Model.Part>(categoryID, data);
+                var item = await PartCategoryService.Put<Model.Part>(categoryID, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Part Category Updated Successfully!");
             }
 
@@ -77,6 +93,11 @@ namespace PULSE.WinUI.Pages.Part
             };
 
             var list = await PartCategoryService.Get<List<ProductCategory>>(searchObject);
+
+            if (list == null)
+            {
+                return;
+            }
 
             dgvCategoryList.DataSource = list;
         }

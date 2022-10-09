@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Services.Database;
 using System;
@@ -12,18 +13,6 @@ namespace PULSE.Services.StateMachines.Order
 {
     public class BaseState
     {
-        public enum States 
-        {
-            Initial,
-            Cart,
-            Draft,
-            Processed,
-            Packed,
-            Shipped,
-            Collected,
-            Delivered,
-            Cancelled
-        }
 
         public IMapper Mapper { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
@@ -35,59 +24,111 @@ namespace PULSE.Services.StateMachines.Order
         }
 
         public Database.OrderHeader CurrentEntity { get; set; }
-        public States CurrentState { get; set; }
+        public OrderState CurrentState { get; set; }
 
         public PULSEContext Context { get; set; } = null;
 
         public virtual Model.OrderHeader InsertEmployee(OrderHeaderInsertRequest request)
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
         public virtual Model.OrderHeader Update(OrderHeaderUpdateRequest request)
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
-        public virtual void Process(PaymentInsertRequest req)
+        public virtual Model.OrderDetail AddBicycleDetail(OrderDetailBicycleInsertRequest item)
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }
+
+        public virtual Model.OrderDetail AddGearDetail(OrderDetailsInsertRequest item)
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }
+
+        public virtual Model.OrderDetail UpdateOrderDetail(int id, OrderDetailsUpdateRequest req)
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }
+        public virtual Model.OrderDetail AddPartDetail(OrderDetailsInsertRequest item)
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }
+
+        public virtual Model.OrderDetail DeleteOrderDetail(int id)
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }        
+        
+        public virtual bool DeleteShippingInfo()
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }
+
+        public virtual Model.OrderHeader Delete()
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
+        }
+
+        public virtual bool Process(PaymentInsertRequest req)
+        {
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }        
         
         public virtual void Pack()
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
         public virtual void Ship()
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
         public virtual void Deliver()
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
         public virtual void Collected()
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
-        public virtual void Cancel()
+        public virtual Model.OrderHeader Cancel()
         {
-            throw new Exception("Not allowed");
+            throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
-        public BaseState CreateState(States state)
+        public BaseState CreateState(OrderState state)
         {
             switch (state)
             {
-                case States.Initial:
+                case OrderState.Initial:
                     return ServiceProvider.GetService<InitialState>();
                     break;
+                case OrderState.Draft:
+                    return ServiceProvider.GetService<DraftState>();
+                    break;
+                case OrderState.Processed:
+                    return ServiceProvider.GetService<ProcessedState>();
+                    break;
+                case OrderState.Packed:
+                    return ServiceProvider.GetService<PackedState>();
+                    break;
+                case OrderState.Shipped:
+                    return ServiceProvider.GetService<ShippedState>();
+                    break;
+                case OrderState.Delivered:
+                    return ServiceProvider.GetService<DeliveredState>();
+                    break;
+                case OrderState.Cancelled:
+                    return ServiceProvider.GetService<CancelledState>();
+                    break;
                 default:
-                    throw new Exception("Not supported");
+                    throw new InvalidOperationException("Order State Not supported");
             }
         }
 

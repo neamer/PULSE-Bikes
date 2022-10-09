@@ -13,15 +13,29 @@ namespace PULSE.WinUI
 {
     public partial class frmMain : Form
     {
+        public delegate void MainFormHandler();
+        public event MainFormHandler onLogout;
+        public event MainFormHandler onClose;
+
+        public Size NavBtnMinSize { get; set; } = new Size() { Width = 230, Height = 40 };
+
         bool navBikesCollapsed = true;
         bool navGearCollapsed = true;
         bool navPartsCollapsed = true;
 
         UserControl _current;
 
-        public frmMain()
+        public string FullName { get; set; }
+        public string Role { get; set; }
+
+        public frmMain(string fullName, string role, MainFormHandler handleLogout, MainFormHandler handleClose)
         {
             InitializeComponent();
+
+            this.FullName = fullName;
+            this.Role = role;
+            this.onLogout += handleLogout;
+            this.onClose += handleClose;
         }
 
         private void btnNavBikes_Click(object sender, EventArgs e)
@@ -29,9 +43,13 @@ namespace PULSE.WinUI
             tmrNavBikes.Start();
         }
 
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             DarkTitleBarClass.UseImmersiveDarkMode(Handle, true);
+
+            lblUsername.Text = FullName;
+            lblRole.Text = Role;
 
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -49,7 +67,55 @@ namespace PULSE.WinUI
 
             ucBrandList1.Hide();
 
-            selectPage(ucBicycleList1);
+            ucOrderList2.Hide();
+
+            ucServicingList1.Hide();
+
+            ucStaffList1.Hide();
+
+            switch (Role)
+            {
+                case "Mechanic":
+                    MechanicMode();
+                    selectPage(ucServicingList1);
+                    break;
+                case "Salesperson":
+                    SalespersonMode();
+                    selectPage(ucOrderList2);
+                    break;
+                case "Storekeeper":
+                    StorekeeperMode();
+                    selectPage(ucBicycleList1);
+                    break;
+                default:
+                    selectPage(ucBicycleList1);
+                    break;
+            }
+        }
+
+        public void MechanicMode()
+        {
+            pnlNavBikes.Size = new Size() { Height = 0, Width = 0 };
+            pnlNavGear.Size = new Size() { Height = 0, Width = 0 };
+            btnNavOrders.Size = new Size() { Height = 0, Width = 0 };
+            btnNavStaff.Size = new Size() { Height = 0, Width = 0 };
+        }
+
+        public void SalespersonMode()
+        {
+            pnlNavBikes.Size = new Size() { Height = 0, Width = 0 };
+            pnlNavGear.Size = new Size() { Height = 0, Width = 0 };
+            pnlNavParts.Size = new Size() { Height = 0, Width = 0 };
+            btnNavBrands.Size = new Size() { Height = 0, Width = 0 };
+            btnNavServicing.Size = new Size() { Height = 0, Width = 0 };
+            btnNavStaff.Size = new Size() { Height = 0, Width = 0 };
+        }
+
+        public void StorekeeperMode()
+        {
+            btnNavOrders.Size = new Size() { Height = 0, Width = 0 };
+            btnNavServicing.Size = new Size() { Height = 0, Width = 0 };
+            btnNavStaff.Size = new Size() { Height = 0, Width = 0 };
         }
 
         private void tmrNavBikes_Tick(object sender, EventArgs e)
@@ -82,8 +148,9 @@ namespace PULSE.WinUI
             else
             {
                 pnl.Height -= 10;
-                if (pnl.Height == pnl.MinimumSize.Height)
+                if (pnl.Height <= NavBtnMinSize.Height)
                 {
+                    pnl.Height = NavBtnMinSize.Height;
                     collapsed = true;
                     tmr.Stop();
                 }
@@ -153,6 +220,67 @@ namespace PULSE.WinUI
         private void btnNavBikesSizes_Click(object sender, EventArgs e)
         {
             selectPage(ucBicycleSizeList1);
+        }
+
+        private void btnNavOrders_Click(object sender, EventArgs e)
+        {
+            selectPage(ucOrderList2);
+        }
+
+        private void btnNavServicing_Click(object sender, EventArgs e)
+        {
+            selectPage(ucServicingList1);
+        }
+
+        private void btnNavStaff_Click(object sender, EventArgs e)
+        {
+            selectPage(ucStaffList1);
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pbLogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Logout", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                onLogout.Invoke();
+                this.Close();
+            }
+        }
+
+        private void frmMain_FormClosed_1(object sender, FormClosedEventArgs e)
+        {
+            if(this.DialogResult == DialogResult.Cancel)
+            {
+                onClose.Invoke();
+            }
+        }
+
+        #region ButtonPaint
+
+
+
+        #endregion
+
+        private void btnNavBikes_EnabledChanged(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            btn.ForeColor = btn.Enabled ? Color.White : Color.FromArgb(255, 109, 109, 109);
+        }
+
+        private void btnNavBikes_Paint(object sender, PaintEventArgs e)
+        {
+            var btn = (Button)sender;
+            var drawBrush = new SolidBrush(btn.ForeColor);
+            var sf = new StringFormat();
+            btnNavBikes.Text = string.Empty;
+            e.ClipRectangle.Offset(new Point() { X = 150, Y = 150 });
+            e.Graphics.DrawString("BIKES", btn.Font, drawBrush, e.ClipRectangle);
+            drawBrush.Dispose();
+            sf.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
@@ -15,15 +16,22 @@ namespace PULSE.Controllers
         {
         }
 
-        //[Authorize("Administrator")]
-        public override AvailableSize Insert([FromBody] AvailableSizeUpsertRequest insert)
+        [Authorize(Roles = "Administrator,Storekeeper")]
+        public override ActionResult<AvailableSize> Insert([FromBody] AvailableSizeUpsertRequest insert)
         {
-            return base.Insert(insert);
+            try
+            {
+                return base.Insert(insert);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        //[Authorize("Administrator")]
+        [Authorize(Roles = "Administrator,Storekeeper")]
         [HttpPut]
-        public override AvailableSize Update(int id, [FromBody] AvailableSizeUpsertRequest update)
+        public override ActionResult<AvailableSize> Update(int id, [FromBody] AvailableSizeUpsertRequest update)
         {
             return base.Update(id, update);
         }

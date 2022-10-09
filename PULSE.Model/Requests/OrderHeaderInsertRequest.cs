@@ -10,16 +10,16 @@ namespace PULSE.Model.Requests
     {
         public OrderHeaderInsertRequest()
         {
-            OrderDetails = new HashSet<OrderDetailsInsertRequest>();
+            OrderDetails = new HashSet<OrderDetailsAIOInsertRequest>();
         }
         
         public string? OrderNumber { get; set; }
         public int CustomerId { get; set; }
-        public int? ShippingInfoId { get; set; }
         public bool OnlineOrder { get; set; }
         public bool Delivery { get; set; }
         public decimal ShippingConst { get; set; }
 
-        public virtual ICollection<OrderDetailsInsertRequest> OrderDetails { get; set; }
+        public virtual ShippingInfoUpsertRequest? ShippingInfo { get; set; }
+        public virtual ICollection<OrderDetailsAIOInsertRequest> OrderDetails { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace PULSE.Services.Interfaces
 {
     public interface IBicycleService : ICRUDService<Bicycle, BicycleSearchObject, BicycleUpsertRequest, BicycleUpsertRequest>
     {
+        public IEnumerable<AvailableSize> GetAvailableSizes(int bicycleID);
     }
 }

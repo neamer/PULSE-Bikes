@@ -267,7 +267,7 @@
             // pnlDetails
             // 
             this.pnlDetails.Controls.Add(this.ucGearDetails1);
-            this.pnlDetails.Location = new System.Drawing.Point(0, 675);
+            this.pnlDetails.Location = new System.Drawing.Point(0, 0);
             this.pnlDetails.Name = "pnlDetails";
             this.pnlDetails.Size = new System.Drawing.Size(888, 675);
             this.pnlDetails.TabIndex = 26;

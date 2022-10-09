@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
@@ -15,14 +16,14 @@ namespace PULSE.Controllers
         {
         }
 
-        //[Authorize("Administrator")]
-        public override Gear Insert([FromBody] GearUpsertRequest insert)
+        [Authorize(Roles = "Administrator,Storekeeper")]
+        public override ActionResult<Gear> Insert([FromBody] GearUpsertRequest insert)
         {
             return base.Insert(insert);
         }
 
-        //[Authorize("Administrator")]
-        public override Gear Update(int id, [FromBody] GearUpsertRequest update)
+        [Authorize(Roles = "Administrator,Storekeeper")]
+        public override ActionResult<Gear> Update(int id, [FromBody] GearUpsertRequest update)
         {
             return base.Update(id, update);
         }

@@ -20,7 +20,10 @@ namespace PULSE.Services.Database
         public virtual DbSet<BicycleSize> BicycleSizes { get; set; } = null!;
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+        public virtual DbSet<OrderDetailBicycle> OrderDetailBicycles { get; set; } = null!;
+        public virtual DbSet<OrderDetailPart> OrderDetailParts { get; set; } = null!;
+        public virtual DbSet<OrderDetailGear> OrderDetailGear { get; set; } = null!;
+        public virtual DbSet<OrderDetail> OrderDetail { get; set; } = null!;
         public virtual DbSet<OrderHeader> OrderHeaders { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<Part> Parts { get; set; } = null!;
@@ -124,22 +127,20 @@ namespace PULSE.Services.Database
             {
                 entity.ToTable("OrderDetail");
 
+                entity.HasDiscriminator(p => p.Discriminator)
+                    .HasValue<OrderDetailPart>("Part")
+                    .HasValue<OrderDetailGear>("Gear")
+                    .HasValue<OrderDetailBicycle>("Bicycle");
+
                 entity.Property(e => e.OrderDetailId)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("OrderDetailID");
-
-                entity.Property(e => e.BicycleSizeId).HasColumnName("BicycleSizeID");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
-
-                entity.HasOne(d => d.BicycleSize)
-                    .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.BicycleSizeId)
-                    .HasConstraintName("FK_OrderDetail_BicycleSize");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
@@ -150,6 +151,16 @@ namespace PULSE.Services.Database
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK_OrderDetail_Product");
+            });
+
+            modelBuilder.Entity<OrderDetailBicycle>(entity =>
+            {
+                entity.Property(e => e.BicycleSizeId).HasColumnName("BicycleSizeID");
+
+                entity.HasOne(d => d.BicycleSize)
+                    .WithMany(p => p.OrderDetails)
+                    .HasForeignKey(d => d.BicycleSizeId)
+                    .HasConstraintName("FK_OrderDetail_BicycleSize");
             });
 
             modelBuilder.Entity<OrderHeader>(entity =>
@@ -201,6 +212,8 @@ namespace PULSE.Services.Database
                 entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
 
                 entity.Property(e => e.Method).HasMaxLength(30);
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.TimeOfPayment).HasColumnType("datetime");
             });
@@ -394,6 +407,8 @@ namespace PULSE.Services.Database
 
                 entity.Property(e => e.StaffId).HasColumnName("StaffID");
 
+                entity.Property(e => e.RoleId).HasColumnName("RoleID");
+
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");
@@ -416,22 +431,10 @@ namespace PULSE.Services.Database
 
                 entity.Property(e => e.Username).HasMaxLength(50);
 
-                entity.HasMany(d => d.Roles)
+                entity.HasOne(d => d.Role)
                     .WithMany(p => p.staff)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "StaffRole",
-                        l => l.HasOne<Role>().WithMany().HasForeignKey("RoleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_StaffRole_Role"),
-                        r => r.HasOne<staff>().WithMany().HasForeignKey("StaffId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_StaffRole_Staff"),
-                        j =>
-                        {
-                            j.HasKey("StaffId", "RoleId");
-
-                            j.ToTable("StaffRole");
-
-                            j.IndexerProperty<int>("StaffId").HasColumnName("StaffID");
-
-                            j.IndexerProperty<int>("RoleId").HasColumnName("RoleID");
-                        });
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_Staff_Role");
             });
 
             OnModelCreatingPartial(modelBuilder);

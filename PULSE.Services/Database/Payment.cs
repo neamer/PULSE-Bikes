@@ -13,6 +13,7 @@ namespace PULSE.Services.Database
 
         public int PaymentId { get; set; }
         public string? Method { get; set; }
+        public decimal? Amount { get; set; }
         public DateTime? TimeOfPayment { get; set; }
 
         public virtual ICollection<OrderHeader> OrderHeaders { get; set; }

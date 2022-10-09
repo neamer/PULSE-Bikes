@@ -23,15 +23,15 @@ namespace PULSE.Model.Requests
         [MinLength(4)]
         [Required(AllowEmptyStrings = false)]
         public string Username { get; set; }
+        [MinLength(4)]
+        [Required(AllowEmptyStrings = false)]
         public string Password { get; set; }
 
         public string PasswordConfirm { get; set; }
 
-        public bool? Status { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfEmployment { get; set; }
 
-        public DateTime? DateOfBirth { get; set; }
-        public DateTime? DateOfEmployment { get; set; }
-
-        public List<int> RoleIDList { get; set; } = new List<int> { };
+        public int RoleID { get; set; }
     }
 }

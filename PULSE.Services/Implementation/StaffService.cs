@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Database;
@@ -21,6 +22,11 @@ namespace PULSE.Services.Implementation
 
         public override Model.Staff Insert(StaffInsertRequest insert)
         {
+            if(Context.staff.Where(x => x.Username.Equals(insert.Username)).Count() > 0)
+            {
+                throw new Exception("Username already taken");
+            }
+
             if (insert.Password != insert.PasswordConfirm)
             {
                 throw new Exception("Password and confirmation must be the same");
@@ -28,19 +34,11 @@ namespace PULSE.Services.Implementation
 
             var entity = base.Insert(insert);
 
-
-            foreach (var roleID in insert.RoleIDList)
-            {
-                var dbEntity = Context.staff.Find(entity.StaffId);
-
-                dbEntity.Roles.Add(Context.Roles.Find(roleID));
-                dbEntity.UpdatedAt = DateTime.Now;
-            }
-
             Context.SaveChanges();
 
             return entity;
         }
+
 
         public override void BeforeSave(StaffInsertRequest insert, Database.staff entity)
         {
@@ -50,6 +48,8 @@ namespace PULSE.Services.Implementation
 
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;
+
+            entity.Status = true;
 
             base.BeforeSave(insert, entity);
         }
@@ -82,16 +82,23 @@ namespace PULSE.Services.Implementation
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            if (!string.IsNullOrWhiteSpace(search?.Username))
+            if (!string.IsNullOrWhiteSpace(search?.AnyField))
             {
-                filteredQuery = filteredQuery.Where(x => x.Username == search.Username);
+                filteredQuery = filteredQuery.Where(x => x.FirstName.ToLower().Contains(search.AnyField.ToLower())
+                    || x.LastName.ToLower().Contains(search.AnyField.ToLower())
+                    || x.Username.ToLower().Contains(search.AnyField.ToLower())
+                    || x.Email.ToLower().Contains(search.AnyField.ToLower())
+                    || x.PhoneNumber.ToLower().Contains(search.AnyField.ToLower()));
             }
 
-            if (!string.IsNullOrWhiteSpace(search?.NameFTS))
+            if (search?.RoleId != null)
             {
-                filteredQuery = filteredQuery.Where(x => x.Username.Contains(search.NameFTS)
-                    || x.FirstName.Contains(search.NameFTS)
-                    || x.LastName.Contains(search.NameFTS));
+                filteredQuery = filteredQuery.Where(x => x.RoleId == search.RoleId);
+            }
+
+            if (search?.Status != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.Status == search.Status);
             }
 
             return filteredQuery;
@@ -99,30 +106,50 @@ namespace PULSE.Services.Implementation
 
         public override IQueryable<Database.staff> AddInclude(IQueryable<Database.staff> query, StaffSearchObject search = null)
         {
-            if (search?.IncludeRoles == true)
+            if (search?.IncludeRole == true)
             {
-                query = query.Include(s => s.Roles);
+                query = query.Include(s => s.Role);
             }
             return query;
         }
 
         public Model.Staff Login(string username, string password)
         {
-            var entity = Context.staff.Include(s => s.Roles).FirstOrDefault(x => x.Username == username);
+            var entity = Context.staff.Include(s => s.Role).FirstOrDefault(x => x.Username == username);
             if (entity == null)
             {
-                return null;
+                throw new Exception("User not found");
             }
 
             var hash = GenerateHash(entity.PasswordSalt, password);
 
             if (hash != entity.PasswordHash)
             {
-                return null;
+                throw new Exception("Wrong Password");
             }
 
             return Mapper.Map<Model.Staff>(entity);
         }
 
+        public IEnumerable<Model.Role> GetRoles()
+        {
+            var list = Context.Roles.ToList();
+            return Mapper.Map<IList<Model.Role>>(list);
+        }
+
+        public Model.Staff Delete(int id)
+        {
+            var entity = Context.staff.Find(id);
+
+            if(entity == null)
+            {
+                throw new KeyNotFoundException("Staff member not found!");
+            }
+
+            Context.staff.Remove(entity);
+            Context.SaveChanges();
+
+            return Mapper.Map<Model.Staff>(entity);
+        }
     }
 }

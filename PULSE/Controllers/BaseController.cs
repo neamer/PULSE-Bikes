@@ -16,15 +16,29 @@ namespace PULSE.Controllers
         }
 
         [HttpGet]
-        public virtual IEnumerable<T> Get([FromQuery] TSearch search = null)
+        public virtual ActionResult<IEnumerable<T>> Get([FromQuery] TSearch search = null)
         {
-            return Service.Get(search);
+            try
+            {
+                return Ok(Service.Get(search));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
-        public virtual T GetById(int id)
+        public virtual ActionResult<T> GetById(int id)
         {
-            return Service.GetById(id);
+            try
+            {
+                return Ok(Service.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

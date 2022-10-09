@@ -26,6 +26,11 @@ namespace PULSE.WinUI.Helpers
 
             var list = await service.Get<List<T>>();
 
+            if(list == null)
+            {
+                return;
+            }
+
             foreach (var item in list)
             {
                 cb.Items.Add(item);
@@ -36,6 +41,11 @@ namespace PULSE.WinUI.Helpers
         public static void LoadComboBoxItems<T>(ComboBox cb, List<T> list)
         {
             cb.SelectedIndex = 0;
+
+            if(list == null)
+            {
+                return;
+            }
 
             foreach (var item in list)
             {

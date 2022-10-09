@@ -67,5 +67,12 @@ namespace PULSE.Services.Implementation
 
             return filteredQuery;
         }
+
+        public IEnumerable<Model.AvailableSize> GetAvailableSizes(int bicycleID)
+        {
+            var list = Context.AvailableSizes.Include(q => q.BicycleSize).Where(q => q.ProductId == bicycleID);
+
+            return Mapper.Map<IList<Model.AvailableSize>>(list);
+        }
     }
 }

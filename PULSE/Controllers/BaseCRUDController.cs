@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PULSE.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace PULSE.Controllers
 {
@@ -11,20 +12,31 @@ namespace PULSE.Controllers
         }
 
         [HttpPost]
-        public virtual T Insert([FromBody] TInsert insert)
+        public virtual ActionResult<T> Insert([FromBody] TInsert insert)
         {
-            var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Insert(insert);
-
-            return result;
+            try
+            {
+                return Ok(((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Insert(insert));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
-        public virtual T Update(int id, [FromBody] TUpdate update)
+        public virtual ActionResult<T> Update(int id, [FromBody] TUpdate update)
         {
-            var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Update(id, update);
-
-            return result;
+            try
+            {
+                return Ok(((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Update(id, update));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
 
     }
 }

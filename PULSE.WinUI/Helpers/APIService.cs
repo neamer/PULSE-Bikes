@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PULSE.Model;
+using PULSE.WinUI.Properties;
 
 namespace PULSE.WinUI.Helpers
 {
     public class APIService
     {
         private string _resource = null;
-        public string _endpoint = "https://localhost:7098/";//Settings.Default.ApiURL;
+        public static string _endpoint = "https://localhost:7098/";//Settings.Default.ApiURL;
 
         public static string Username = null;
         public static string Password = null;
@@ -21,24 +22,98 @@ namespace PULSE.WinUI.Helpers
             _resource = resource;
         }
 
+        public async Task<T> GetCustomPath<T>(string resource, object search = null)
+        {
+            try
+            {
+                var query = "";
+                if (search != null)
+                {
+                    query = await search.ToQueryString();
+                }
+
+                var list = await $"{_endpoint}{_resource}/{resource}?{query}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+
+                return list;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
+
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
+        }
+
+        public async Task<T> PostCustomPath<T>(string resource, object request)
+        {
+            try
+            {
+                var result = await $"{_endpoint}{_resource}/{resource}".WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<T>();
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
+
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
+        }
+
+        public async Task<T> PutCustomPath<T>(string resource, object id, object request)
+        {
+            try
+            {
+                var result = await $"{_endpoint}{_resource}/{resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
+
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
+        }
+
         public async Task<T> Get<T>(object search = null)
         {
-            var query = "";
-            if (search != null)
+            try
             {
-                query = await search.ToQueryString();
+                var query = "";
+                if (search != null)
+                {
+                    query = await search.ToQueryString();
+                }
+
+                var list = await $"{_endpoint}{_resource}?{query}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+
+                return list;
             }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
 
-            var list = await $"{_endpoint}{_resource}?{query}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
-
-            return list;
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
         }
 
         public async Task<T> GetById<T>(object id)
         {
-            var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+            try
+            {
+                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
 
-            return result;
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
         }
 
         public async Task<T> Post<T>(object request)
@@ -50,15 +125,9 @@ namespace PULSE.WinUI.Helpers
             }
             catch (FlurlHttpException ex)
             {
-                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
 
-                var stringBuilder = new StringBuilder();
-                foreach (var error in errors)
-                {
-                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
-                }
-
-                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return default;
             }
 
@@ -66,9 +135,51 @@ namespace PULSE.WinUI.Helpers
 
         public async Task<T> Put<T>(object id, object request)
         {
-            var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
+            try
+            {
+                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
 
-            return result;
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
+
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
+        }
+
+        public async Task<T> Delete<T>(object id)
+        {
+            try
+            {
+                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
+
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
+        }
+
+        public async Task<T> DeleteCustomPath<T>(string resource, object id)
+        {
+            try
+            {
+                var result = await $"{_endpoint}{_resource}/{resource}/{id}".WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
+
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default;
+            }
         }
 
         public async Task<T> PutComposite<T>(object request)
@@ -81,15 +192,9 @@ namespace PULSE.WinUI.Helpers
             }
             catch (FlurlHttpException ex)
             {
-                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+                var responseMsg = ex.Call.HttpResponseMessage.ReasonPhrase;
 
-                var stringBuilder = new StringBuilder();
-                foreach (var error in errors)
-                {
-                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
-                }
-
-                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(responseMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return default;
             }
         }

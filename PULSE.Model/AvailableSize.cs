@@ -13,6 +13,10 @@ namespace PULSE.Model
         public int? AvailableQty { get; set; }
 
         public virtual BicycleSize BicycleSize { get; set; } = null!;
-        public virtual Bicycle Product { get; set; } = null!;
+
+        public override string ToString()
+        {
+            return $"{BicycleSize} - {AvailableQty} available";
+        }
     }
 }

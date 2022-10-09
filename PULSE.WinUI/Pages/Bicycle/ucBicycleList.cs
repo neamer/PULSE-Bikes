@@ -16,6 +16,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 {
     public partial class ucBicycleList : UserControl
     {
+
         public APIService BicycleService { get; set; } = new APIService("Bicycle");
         public APIService BicycleCategoryService { get; set; } = new APIService("BicycleCategory");
         public APIService BrandService { get; set; } = new APIService("Brand");
@@ -36,16 +37,19 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         protected override void SetVisibleCore(bool value)
         {
-            if (value)
+            if (EnvironmentHelper.IsInRuntimeMode(this))
             {
-                LoadComboBoxes();
-                pnlDetails.Visible = false;
+                if (value)
+                {
+                    LoadComboBoxes();
+                    pnlDetails.Visible = false;
 
-                loadData();
-            }
-            else
-            {
-                ClearData();
+                    loadData();
+                }
+                else
+                {
+                    ClearData();
+                }
             }
 
             base.SetVisibleCore(value);
@@ -97,6 +101,11 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             var list = await BicycleService.Get<List<Model.Bicycle>>(searchObject);
 
+            if (list == null)
+            {
+                return;
+            }
+
             dgvBicycleList.DataSource = list;
         }
 
@@ -125,11 +134,24 @@ namespace PULSE.WinUI.Pages.Bicycle
         {
             if(productId == -1)
             {
-                await BicycleService.Post<Model.Bicycle>(data);
+                var item = await BicycleService.Post<Model.Bicycle>(data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Bicycle Added Successfully!");
-            } else
+            } 
+            else
             {
-                await BicycleService.Put<Model.Bicycle>(productId, data);
+                var item = await BicycleService.Put<Model.Bicycle>(productId, data);
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 MessageBox.Show("Bicycle Updated Successfully!");
             }
 

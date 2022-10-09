@@ -10,7 +10,6 @@ namespace PULSE.Model.Requests
     {
         public int? OrderId { get; set; }
         public int ProductId { get; set; }
-        public int? BicycleSizeId { get; set; }
         public int Quantity { get; set; }
     }
 }
