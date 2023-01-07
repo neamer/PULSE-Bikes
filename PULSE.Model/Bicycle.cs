@@ -13,6 +13,6 @@ namespace PULSE.Model
         public string? WheelSize { get; set; }
 
         public virtual ProductCategory? ProductCategory { get; set; }
-        //public virtual ICollection<AvailableSize> AvailableSizes { get; set; }
+        public virtual ICollection<AvailableSize> AvailableSizes { get; set; }
     }
 }

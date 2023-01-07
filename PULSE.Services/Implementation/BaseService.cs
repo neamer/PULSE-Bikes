@@ -33,7 +33,7 @@ namespace PULSE.Services.Implementation
 
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
             {
-                entity = entity.Take(search.PageSize.Value).Skip(search.Page.Value * search.PageSize.Value);
+                entity = entity.Skip(search.Page.Value * search.PageSize.Value).Take(search.PageSize.Value);
             }
 
             var list = entity.ToList();

@@ -11,5 +11,7 @@ namespace PULSE.Model.SearchObjects
         public decimal? Weight { get; set; }
         public int? ProductionYear { get; set; }
         public string? WheelSize { get; set; }
+
+        public bool? IncludeSizes { get; set; }
     }
 }

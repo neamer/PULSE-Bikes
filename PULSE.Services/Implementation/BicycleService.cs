@@ -30,6 +30,11 @@ namespace PULSE.Services.Implementation
                 query = query.Include(q => q.ProductCategory);
             }
 
+            if (search?.IncludeSizes == true)
+            {
+                query = query.Include(q => q.AvailableSizes).ThenInclude(q => q.BicycleSize);
+            }
+
             return query;
         }
 
