@@ -70,6 +70,11 @@ namespace PULSE.Services.Implementation
                 filteredQuery = filteredQuery.Where(x => x.ProductCategoryId == search.ProductCategoryId);
             }
 
+            if(search?.BicycleSizes!= null && search?.BicycleSizes.Count() != 0) 
+            {
+                filteredQuery = filteredQuery.Where(bicycle => bicycle.AvailableSizes.Any(avsize => search.BicycleSizes.Any(size => size == avsize.BicycleSizeId )));
+            }
+
             return filteredQuery;
         }
 

@@ -8,10 +8,10 @@ part of 'bicycle_size.dart';
 
 BicycleSize _$BicycleSizeFromJson(Map<String, dynamic> json) => BicycleSize()
   ..bicycleSizeId = json['bicycleSizeId'] as int?
-  ..name = json['name'] as String?;
+  ..size = json['size'] as String?;
 
 Map<String, dynamic> _$BicycleSizeToJson(BicycleSize instance) =>
     <String, dynamic>{
       'bicycleSizeId': instance.bicycleSizeId,
-      'name': instance.name,
+      'size': instance.size,
     };

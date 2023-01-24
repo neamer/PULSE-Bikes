@@ -5,6 +5,9 @@ import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/part/part.dart';
 import 'package:pulse_mobile/model/product/product.dart';
 import 'package:pulse_mobile/pages/product_search_screen.dart';
+import 'package:pulse_mobile/providers/bicycle_size_provider.dart';
+import 'package:pulse_mobile/providers/brand_provider.dart';
+import 'package:pulse_mobile/providers/category_provider.dart';
 import 'package:pulse_mobile/providers/gear_provider.dart';
 import 'package:pulse_mobile/providers/part_provider.dart';
 
@@ -24,6 +27,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BicycleProvider()),
         ChangeNotifierProvider(create: (_) => GearProvider()),
         ChangeNotifierProvider(create: (_) => PartProvider()),
+        ChangeNotifierProvider(create: (_) => BrandProvider()),
+        ChangeNotifierProvider(
+            create: (_) => ProductCategoryProvider<Bicycle>()),
+        ChangeNotifierProvider(create: (_) => ProductCategoryProvider<Part>()),
+        ChangeNotifierProvider(create: (_) => ProductCategoryProvider<Gear>()),
+        ChangeNotifierProvider(create: (_) => BicycleSizeProvider()),
       ],
       child: MaterialApp(
         title: 'PULSE Bikes',
@@ -48,7 +57,8 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSwatch().copyWith(
                 primary: Colors.white,
                 secondary: Colors.cyan,
-                background: Color.fromRGBO(19, 19, 29, 1)),
+                background: Color.fromRGBO(19, 19, 29, 1),
+                outline: Color.fromRGBO(43, 43, 62, 1)),
             appBarTheme: AppBarTheme(
                 backgroundColor: Color.fromRGBO(19, 19, 29, 1),
                 foregroundColor: Colors.white)),

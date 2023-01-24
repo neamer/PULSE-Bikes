@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/product/product.dart';
-import 'package:pulse_mobile/providers/base_provider.dart';
+import 'package:pulse_mobile/providers/base_crud_provider.dart';
 import 'package:pulse_mobile/providers/bicycle_provider.dart';
 import 'package:pulse_mobile/providers/gear_provider.dart';
 import 'package:pulse_mobile/utils/config.dart';
@@ -15,6 +15,19 @@ import 'package:pulse_mobile/widgets/product_list_tile.dart';
 import '../providers/part_provider.dart';
 
 enum ViewType { List, Grid }
+
+class ProductSearchObject {
+  List<int>? bicycleSizes;
+  int? brandId;
+  int? productCategoryId;
+  RangeValues? price = RangeValues(0, 100000);
+
+  ProductSearchObject(
+      {this.bicycleSizes = null,
+      this.brandId = null,
+      this.productCategoryId = null,
+      this.price = null});
+}
 
 class ProductSearchScreen<T extends Product, TProvider> extends StatefulWidget {
   static String routeName = "/search";
@@ -28,6 +41,7 @@ class _ProductSearchScreenState<T extends Product, TProvider>
     extends State<ProductSearchScreen<T, TProvider>> {
   final ScrollController _scrollController = ScrollController();
   bool _showBackToTop = false;
+  final _searchObject = ProductSearchObject();
 
   TProvider? _provider = null;
   final _searchController = TextEditingController();
@@ -65,7 +79,18 @@ class _ProductSearchScreenState<T extends Product, TProvider>
     });
   }
 
-  Future loadData() async {
+  Future resetData(ProductSearchObject? filterObject) async {
+    print(filterObject?.brandId);
+    await _scrollController.animateTo(0,
+        duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+    setState(() {
+      _page = 0;
+      _data = [];
+    });
+    loadData(filterObject: filterObject);
+  }
+
+  Future loadData({ProductSearchObject? filterObject = null}) async {
     if (_page != -1) {
       var searchObject = {
         "AnyField": _searchCriteria,
@@ -73,10 +98,15 @@ class _ProductSearchScreenState<T extends Product, TProvider>
         "IncludeCategory": true,
         "IncludeSizes": true,
         "Page": _page,
-        "PageSize": Config.productItemsPerPage
+        "PageSize": Config.productItemsPerPage,
+        "BrandId": filterObject?.brandId,
+        "ProductCategoryId": filterObject?.productCategoryId,
+        "PriceFrom": filterObject?.price?.start,
+        "PriceTo": filterObject?.price?.end,
+        "BicycleSizes": filterObject?.bicycleSizes,
       };
 
-      var tmpData = await (_provider as BaseProvider)?.get(searchObject);
+      var tmpData = await (_provider as BaseCRUDProvider)?.get(searchObject);
 
       if (tmpData!.length < Config.productItemsPerPage) {
         _page = -1;
@@ -110,8 +140,8 @@ class _ProductSearchScreenState<T extends Product, TProvider>
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: _buildBackToTopButton(),
-      drawer: Drawer(child: NavigationDrawer()),
-      endDrawer: Drawer(child: FilterDrawer()),
+      drawer: SafeArea(child: Drawer(child: NavigationDrawer())),
+      endDrawer: SafeArea(child: Drawer(child: FilterDrawer<T>(resetData))),
       appBar: AppBar(
         title: Image.asset(
           "assets/images/logo.png",

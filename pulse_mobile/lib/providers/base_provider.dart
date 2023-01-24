@@ -57,8 +57,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
   Future<List<T>> get([dynamic search]) async {
     var url = "$_baseUrl$_endpoint";
 
-    print(url);
-
     if (search != null) {
       String queryString = getQueryString(search);
       url = url + "?" + queryString;
@@ -77,39 +75,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
       print(response.statusCode);
       print(response.body);
       throw Exception("Exception... handle this gracefully");
-    }
-  }
-
-  Future<T?> insert(dynamic request) async {
-    var url = "$_baseUrl$_endpoint";
-    var uri = Uri.parse(url);
-
-    Map<String, String> headers = createHeaders();
-    var jsonRequest = jsonEncode(request);
-    var response = await http!.post(uri, headers: headers, body: jsonRequest);
-
-    if (isValidResponseCode(response)) {
-      var data = jsonDecode(response.body);
-      return fromJson(data) as T;
-    } else {
-      return null;
-    }
-  }
-
-  Future<T?> update(int id, [dynamic request]) async {
-    var url = "$_baseUrl$_endpoint/$id";
-    var uri = Uri.parse(url);
-
-    Map<String, String> headers = createHeaders();
-
-    var response =
-        await http!.put(uri, headers: headers, body: jsonEncode(request));
-
-    if (isValidResponseCode(response)) {
-      var data = jsonDecode(response.body);
-      return fromJson(data) as T;
-    } else {
-      return null;
     }
   }
 

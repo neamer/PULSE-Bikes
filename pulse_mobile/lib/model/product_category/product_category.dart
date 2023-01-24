@@ -13,4 +13,7 @@ class ProductCategory {
       _$ProductCategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductCategoryToJson(this);
+
+  @override
+  String toString() => name ?? "";
 }

@@ -1,7 +1,7 @@
 import '../model/gear/gear.dart';
-import 'base_provider.dart';
+import 'base_crud_provider.dart';
 
-class GearProvider extends BaseProvider<Gear> {
+class GearProvider extends BaseCRUDProvider<Gear> {
   GearProvider() : super("Gear");
 
   @override

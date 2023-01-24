@@ -1,7 +1,7 @@
 import '../model/part/part.dart';
-import 'base_provider.dart';
+import 'base_crud_provider.dart';
 
-class PartProvider extends BaseProvider<Part> {
+class PartProvider extends BaseCRUDProvider<Part> {
   PartProvider() : super("Part");
 
   @override

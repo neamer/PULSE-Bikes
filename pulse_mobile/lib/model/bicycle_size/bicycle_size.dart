@@ -5,7 +5,7 @@ part 'bicycle_size.g.dart';
 @JsonSerializable()
 class BicycleSize {
   int? bicycleSizeId;
-  String? name;
+  String? size;
 
   BicycleSize();
 
@@ -13,4 +13,7 @@ class BicycleSize {
       _$BicycleSizeFromJson(json);
 
   Map<String, dynamic> toJson() => _$BicycleSizeToJson(this);
+
+  @override
+  String toString() => size ?? "";
 }

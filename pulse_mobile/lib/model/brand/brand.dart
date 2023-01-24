@@ -12,4 +12,7 @@ class Brand {
   factory Brand.fromJson(Map<String, dynamic> json) => _$BrandFromJson(json);
 
   Map<String, dynamic> toJson() => _$BrandToJson(this);
+
+  @override
+  String toString() => name ?? "";
 }

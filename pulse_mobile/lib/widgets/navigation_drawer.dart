@@ -7,7 +7,7 @@ class NavigationDrawer extends StatelessWidget {
     var themeData = Theme.of(context);
 
     return Container(
-      padding: EdgeInsets.only(top: 70, left: 30, right: 30),
+      padding: EdgeInsets.only(top: 30, left: 30, right: 30),
       color: themeData.backgroundColor,
       child: Column(children: [
         FittedBox(

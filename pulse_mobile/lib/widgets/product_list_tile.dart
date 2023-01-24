@@ -16,7 +16,7 @@ class ProductListTile<T extends Product> extends StatelessWidget {
     var output = "";
 
     for (var size in bicycle.availableSizes ?? <AvailableSize>[]) {
-      output += size.bicycleSize?.name ?? "";
+      output += size.bicycleSize?.size ?? "";
     }
 
     return output;
