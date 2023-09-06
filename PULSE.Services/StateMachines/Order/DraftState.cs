@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
-using PULSE.Model;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
 namespace PULSE.Services.StateMachines.Order
 {
@@ -25,7 +19,7 @@ namespace PULSE.Services.StateMachines.Order
                 {
                     if(CurrentEntity.ShippingInfoId == null) // ADD SHIPPING INFO
                     {
-                        var shippingInfo = new Database.ShippingInfo()
+                        var shippingInfo = new ShippingInfo()
                         {
                             Country = request.ShippingInfo.Country,
                             StateOrProvince = request.ShippingInfo.StateOrProvince,
@@ -37,7 +31,7 @@ namespace PULSE.Services.StateMachines.Order
                         Context.ShippingInfos.Add(shippingInfo);
                         Context.SaveChanges();
 
-                        CurrentEntity.ShippingInfoId = shippingInfo.ShippingInfoId;
+                        CurrentEntity.ShippingInfoId = shippingInfo.Id;
                     }
                     else // UPDATE SHIPPING INFO
                     {
@@ -72,8 +66,8 @@ namespace PULSE.Services.StateMachines.Order
 
             if (detailProduct != null && detailSize != null)
             {
-                var detail = Mapper.Map<Database.OrderDetailBicycle>(req);
-                detail.OrderId = CurrentEntity.OrderId;
+                var detail = Mapper.Map<OrderDetailBicycle>(req);
+                detail.OrderId = CurrentEntity.Id;
                 detail.UnitPrice = detailProduct.Price;
                 Context.OrderDetailBicycles.Add(detail);
                 Context.SaveChanges();
@@ -89,8 +83,8 @@ namespace PULSE.Services.StateMachines.Order
             var detailProduct = Context.Gear.Find(item.ProductId);
             if (detailProduct != null)
             {
-                var detail = Mapper.Map<Database.OrderDetailGear>(item);
-                detail.OrderId = CurrentEntity.OrderId;
+                var detail = Mapper.Map<OrderDetailGear>(item);
+                detail.OrderId = CurrentEntity.Id;
                 detail.UnitPrice = detailProduct.Price;
                 Context.OrderDetailGear.Add(detail);
                 Context.SaveChanges();
@@ -106,8 +100,8 @@ namespace PULSE.Services.StateMachines.Order
             var detailProduct = Context.Parts.Find(item.ProductId);
             if (detailProduct != null)
             {
-                var detail = Mapper.Map<Database.OrderDetailPart>(item);
-                detail.OrderId = CurrentEntity.OrderId;
+                var detail = Mapper.Map<OrderDetailPart>(item);
+                detail.OrderId = CurrentEntity.Id;
                 detail.UnitPrice = detailProduct.Price;
                 Context.OrderDetailParts.Add(detail);
                 Context.SaveChanges();
@@ -189,8 +183,8 @@ namespace PULSE.Services.StateMachines.Order
 
                             if (detailProductP != null && detailProductP.AvailableQty - item.Quantity >= 0)
                             {
-                                var detailP = Mapper.Map<Database.OrderDetailPart>(item);
-                                detailP.OrderId = CurrentEntity.OrderId;
+                                var detailP = Mapper.Map<OrderDetailPart>(item);
+                                detailP.OrderId = CurrentEntity.Id;
                                 detailP.UnitPrice = detailProductP.Price;
                                 detailProductP.AvailableQty -= detailP.Quantity;
                                 Context.SaveChanges();
@@ -202,8 +196,8 @@ namespace PULSE.Services.StateMachines.Order
 
                             if (detailProductG != null && detailProductG.AvailableQty - item.Quantity >= 0)
                             {
-                                var detailG = Mapper.Map<Database.OrderDetailGear>(item);
-                                detailG.OrderId = CurrentEntity.OrderId;
+                                var detailG = Mapper.Map<OrderDetailGear>(item);
+                                detailG.OrderId = CurrentEntity.Id;
                                 detailG.UnitPrice = detailProductG.Price;
                                 detailProductG.AvailableQty -= detailG.Quantity;
                                 Context.SaveChanges();
@@ -216,8 +210,8 @@ namespace PULSE.Services.StateMachines.Order
 
                             if (detailProductB != null && detailSize != null && detailSize.AvailableQty - item.Quantity >= 0)
                             {
-                                var detailB = Mapper.Map<Database.OrderDetailBicycle>(item);
-                                detailB.OrderId = CurrentEntity.OrderId;
+                                var detailB = Mapper.Map<OrderDetailBicycle>(item);
+                                detailB.OrderId = CurrentEntity.Id;
                                 detailB.UnitPrice = detailProductB.Price;
                                 detailSize.AvailableQty -= detailB.Quantity;
                                 Context.SaveChanges();
@@ -233,16 +227,16 @@ namespace PULSE.Services.StateMachines.Order
                     totalPrice += CurrentEntity.ShippingConst ?? 0;
                 }
 
-                var payment = Mapper.Map<Database.Payment>(req);
+                var payment = Mapper.Map<Payment>(req);
                 payment.TimeOfPayment = DateTime.Now;
                 payment.Amount = totalPrice;
 
                 Context.Payments.Add(payment);
                 Context.SaveChanges();
 
-                CurrentEntity.Status = (int)OrderState.Processed;
+                CurrentEntity.Status = (int)Model.OrderState.Processed;
                 CurrentEntity.TimeProcessed = DateTime.Now;
-                CurrentEntity.PaymentId = payment.PaymentId;
+                CurrentEntity.PaymentId = payment.Id;
 
                 Context.SaveChanges();
 
@@ -251,8 +245,6 @@ namespace PULSE.Services.StateMachines.Order
 
             return false;
         }
-
-
 
         public override List<string> AllowedActions()
         {

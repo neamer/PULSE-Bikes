@@ -1,18 +1,13 @@
 ﻿using AutoMapper;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
     public class BaseCRUDService<T, TDb, TSearch, TInsert, TUpdate>
         : BaseService<T, TDb, TSearch>, ICRUDService<T, TSearch, TInsert, TUpdate>
-            where T : class where TDb : class where TSearch : BaseSearchObject where TInsert : class where TUpdate : class
+            where T : class where TDb : BaseEntity where TSearch : BaseSearchObject where TInsert : class where TUpdate : class
     {
         public BaseCRUDService(PULSEContext context, IMapper mapper)
         : base(context, mapper) { }

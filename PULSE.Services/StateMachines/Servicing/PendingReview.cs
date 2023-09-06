@@ -1,21 +1,13 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
-namespace PULSE.Services.StateMachines.Servicing
+namespace PULSE.Services.StateMachines.Servicings
 {
     public class PendingReview : BaseState
     {
         public PendingReview(IServiceProvider serviceProvider, PULSEContext context, IMapper mapper)
-            : base(serviceProvider, context, mapper)
-        {
-
-        }
+            : base(serviceProvider, context, mapper) {}
 
         public override Model.Servicing SubmitOffer(ServicingOfferInsertRequest request)
         {
@@ -23,7 +15,7 @@ namespace PULSE.Services.StateMachines.Servicing
 
             foreach (var partReq in request.ServicingParts)
             {
-                var partDb = Mapper.Map<Database.ServicingPart>(partReq);
+                var partDb = Mapper.Map<ServicingPart>(partReq);
                 var part = Context.Parts.Find(partReq.ProductId);
 
                 if(part == null)
@@ -31,7 +23,7 @@ namespace PULSE.Services.StateMachines.Servicing
                     throw new Exception("Servicing Part Not Found");
                 }
 
-                partDb.ServicingId = item.ServicingId;
+                partDb.ServicingId = item.Id;
                 partDb.UnitPrice = part.Price;
 
                 Context.ServicingParts.Add(partDb);

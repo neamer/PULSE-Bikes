@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
 namespace PULSE.Services.StateMachines.Order
 {
@@ -12,8 +7,7 @@ namespace PULSE.Services.StateMachines.Order
     {
         public ProcessedState(IServiceProvider serviceProvider, PULSEContext context, IMapper mapper)
             : base(serviceProvider, context, mapper)
-        {
-        }
+        {}
 
         public override Model.OrderHeader Cancel()
         {
@@ -45,9 +39,7 @@ namespace PULSE.Services.StateMachines.Order
                 }
             }
 
-
             Context.SaveChanges();
-
             return Mapper.Map<Model.OrderHeader>(CurrentEntity);
         }
 

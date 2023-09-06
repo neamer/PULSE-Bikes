@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class BaseService<T, TDb, TSearch> : IService<T, TSearch> where T : class where TDb : class where TSearch : BaseSearchObject
+    public class BaseService<T, TDb, TSearch> : IService<T, TSearch> where T : class where TDb : BaseEntity where TSearch : BaseSearchObject
     {
         public PULSEContext Context { get; set; }
         public IMapper Mapper { get; set; }
@@ -21,7 +15,7 @@ namespace PULSE.Services.Implementation
             Context = context;
             Mapper = mapper;
         }
-        public virtual IEnumerable<T> Get(TSearch search = null)
+        public virtual IEnumerable<T> Get(TSearch? search = null)
         {
             var set = Context.Set<TDb>().AsQueryable();
 
@@ -40,28 +34,30 @@ namespace PULSE.Services.Implementation
             return Mapper.Map<IList<T>>(list);
         }
 
-        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch search = null)
+        public T GetById(int id, TSearch? search = null)
         {
-            return query;
-        }
+            var set = Context.Set<TDb>().AsQueryable();
 
-        public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)
-        {
-            return query;
-        }
+            set = AddInclude(set, search);
 
-        public T GetById(int id)
-        {
-            var set = Context.Set<TDb>();
+            var entity = set.Where(element => element.Id == id);
 
-            var entity = set.Find(id);
-
-            if(entity == null)
+            if (entity == null)
             {
                 throw new Exception("Not Found");
             }
 
             return Mapper.Map<T>(entity);
+        }
+
+        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch? search = null)
+        {
+            return query;
+        }
+
+        public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch? search = null)
+        {
+            return query;
         }
     }
 }

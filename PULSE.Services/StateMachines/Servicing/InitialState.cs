@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
-namespace PULSE.Services.StateMachines.Servicing
+namespace PULSE.Services.StateMachines.Servicings
 {
     public class InitialState : BaseState
     {
@@ -18,7 +13,7 @@ namespace PULSE.Services.StateMachines.Servicing
 
         public override Model.Servicing RegisterServicing(RegisterServicingRequest request)
         {
-            var item = Mapper.Map<Database.Servicing>(request);
+            var item = Mapper.Map<Servicing>(request);
             item.Status = (int)Model.ServicingState.PendingReview;
             item.CreatedAt = DateTime.Now;
             item.UpdatedAt = DateTime.Now;

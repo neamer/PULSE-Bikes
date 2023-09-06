@@ -60,7 +60,7 @@ namespace PULSE.WinUI.Pages.Orders
         public void SelectCustomer(Model.Customer item)
         {
             tbCustomer.Text = $"{item.FirstName} {item.LastName}";
-            CustomerID = item.CustomerId;
+            CustomerID = item.Id;
         }
 
         public void SelectBicycle(Model.Bicycle item, Model.AvailableSize size)
@@ -69,7 +69,7 @@ namespace PULSE.WinUI.Pages.Orders
             {
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = size.BicycleSize.Size,
                 BicycleSizeId = size.BicycleSizeId,
@@ -94,7 +94,7 @@ namespace PULSE.WinUI.Pages.Orders
             {
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = "-",
                 Quantity = 1,
@@ -116,7 +116,7 @@ namespace PULSE.WinUI.Pages.Orders
             {
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = "-",
                 Quantity = 1,

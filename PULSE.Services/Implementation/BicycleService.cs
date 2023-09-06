@@ -2,17 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class BicycleService : BaseCRUDService<Model.Bicycle, Database.Bicycle, BicycleSearchObject, BicycleUpsertRequest, BicycleUpsertRequest>, IBicycleService
+    public class BicycleService : BaseCRUDService<Model.Bicycle, Data.Bicycle, BicycleSearchObject, BicycleUpsertRequest, BicycleUpsertRequest>, IBicycleService
     {
         public BicycleService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {

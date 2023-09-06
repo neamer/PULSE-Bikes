@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
-namespace PULSE.Services.StateMachines.Servicing
+namespace PULSE.Services.StateMachines.Servicings
 {
     public class PendingPayment : BaseState
     {
@@ -28,12 +23,12 @@ namespace PULSE.Services.StateMachines.Servicing
                     total += (item.UnitPrice ?? 0) * (item.Quantity ?? 0);
                 }
 
-                var payment = Mapper.Map<Database.Payment>(req);
+                var payment = Mapper.Map<Data.Payment>(req);
                 payment.Amount = total;
                 Context.Add(payment);
                 Context.SaveChanges();
 
-                CurrentEntity.PaymentId = payment.PaymentId;
+                CurrentEntity.PaymentId = payment.Id;
                 CurrentEntity.Status = (int)Model.ServicingState.PendingServicing;
                 CurrentEntity.UpdatedAt = DateTime.Now;
 

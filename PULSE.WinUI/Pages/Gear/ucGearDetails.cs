@@ -68,7 +68,7 @@ namespace PULSE.WinUI.Pages.Gear
 
             for (int i = 0; i < cbBrandItems.Count; i++)
             {
-                if ((cbBrandItems[i] as Brand).BrandId == model.BrandId)
+                if ((cbBrandItems[i] as Brand).Id == model.BrandId)
                 {
                     cbBrand.SelectedIndex = i + 1;
                 }
@@ -78,7 +78,7 @@ namespace PULSE.WinUI.Pages.Gear
 
             for (int i = 0; i < cbCategoryItems.Count; i++)
             {
-                if ((cbCategoryItems[i] as ProductCategory).ProductCategoryId == model.ProductCategoryId)
+                if ((cbCategoryItems[i] as ProductCategory).Id == model.ProductCategoryId)
                 {
                     cbCategory.SelectedIndex = i + 1;
                 }
@@ -122,8 +122,8 @@ namespace PULSE.WinUI.Pages.Gear
                 {
                     ProductNumber = tbProductNumber.Text,
                     Model = tbModel.Text,
-                    BrandId = (cbBrand.SelectedItem as Brand).BrandId,
-                    ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).ProductCategoryId,
+                    BrandId = (cbBrand.SelectedItem as Brand).Id,
+                    ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).Id,
                     Description = rtbDescription.Text,
                     AvailableQty = Convert.ToInt32(nudQuantity.Value),
                     Price = nudPrice.Value
@@ -136,7 +136,7 @@ namespace PULSE.WinUI.Pages.Gear
                 }
                 else
                 {
-                    ModelSubmitted.Invoke(req, Model.ProductId);
+                    ModelSubmitted.Invoke(req, Model.Id);
                 }
 
             }

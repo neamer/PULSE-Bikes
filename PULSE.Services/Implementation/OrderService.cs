@@ -2,19 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
 using PULSE.Services.StateMachines.Order;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PULSE.Services.StateMachines.Order.BaseState;
 
 namespace PULSE.Services.Implementation
 {
-    public class OrderService : BaseCRUDService<Model.OrderHeader, Database.OrderHeader, OrderSearchObject, OrderHeaderInsertRequest, OrderHeaderUpdateRequest>, IOrderService
+    public class OrderService : BaseCRUDService<Model.OrderHeader, Data.OrderHeader, OrderSearchObject, OrderHeaderInsertRequest, OrderHeaderUpdateRequest>, IOrderService
     {
         public BaseState BaseState { get; set; }
 
@@ -48,7 +42,7 @@ namespace PULSE.Services.Implementation
 
         public bool Process(int id, PaymentInsertRequest req)
         {
-            var item = Context.OrderHeaders.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Where(x => x.OrderId == id).First();
+            var item = Context.OrderHeaders.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Where(x => x.Id == id).First();
 
             if (item == null)
             {
@@ -99,11 +93,11 @@ namespace PULSE.Services.Implementation
         }
         public Model.OrderHeader GetDetails(int id)
         {
-            var query = Context.Set<Database.OrderHeader>().Where(x => x.OrderId == id);
+            var query = Context.Set<Data.OrderHeader>().Where(x => x.Id == id);
 
             query = query.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Include(q => q.Payment).Include(q => q.ShippingInfo).Include(q => q.Customer);
 
-            Database.OrderHeader entity;
+            Data.OrderHeader entity;
 
             try
             {
@@ -116,9 +110,9 @@ namespace PULSE.Services.Implementation
 
             foreach (var detail in entity.OrderDetails)
             {
-                if (detail.Product is Database.Bicycle)
+                if (detail.Product is Data.Bicycle)
                 {
-                    (detail as OrderDetailBicycle).BicycleSize = Context.BicycleSizes.Find((detail as OrderDetailBicycle).BicycleSizeId);
+                    (detail as Data.OrderDetailBicycle).BicycleSize = Context.BicycleSizes.Find((detail as Data.OrderDetailBicycle).BicycleSizeId);
                 }
             }
 
@@ -162,7 +156,7 @@ namespace PULSE.Services.Implementation
 
         public bool DeleteShippingDetails(int id)
         {
-            var order = Context.OrderHeaders.Include(q => q.ShippingInfo).Where(x => x.OrderId == id).First();
+            var order = Context.OrderHeaders.Include(q => q.ShippingInfo).Where(x => x.Id == id).First();
 
             if (order == null)
             {
@@ -198,7 +192,7 @@ namespace PULSE.Services.Implementation
 
         public Model.OrderHeader Cancel(int id)
         {
-            var item = Context.OrderHeaders.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Where(x => x.OrderId == id).First();
+            var item = Context.OrderHeaders.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Where(x => x.Id == id).First();
 
             if (item == null)
             {

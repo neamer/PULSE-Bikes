@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PULSE.Services.Interfaces;
 
 namespace PULSE.Controllers
@@ -29,11 +28,11 @@ namespace PULSE.Controllers
         }
 
         [HttpGet("{id}")]
-        public virtual ActionResult<T> GetById(int id)
+        public virtual ActionResult<T> GetById(int id, [FromQuery] TSearch? search = null)
         {
             try
             {
-                return Ok(Service.GetById(id));
+                return Ok(Service.GetById(id, search));
             }
             catch (Exception ex)
             {

@@ -1,18 +1,13 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
 using PULSE.Services.StateMachines.Order;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class OrderDetailBicycleService : BaseCRUDService<Model.OrderDetail, Database.OrderDetailBicycle, BaseSearchObject, OrderDetailBicycleInsertRequest, OrderDetailsUpdateRequest>, IOrderDetailBicycleService
+    public class OrderDetailBicycleService : BaseCRUDService<Model.OrderDetail, Data.OrderDetailBicycle, BaseSearchObject, OrderDetailBicycleInsertRequest, OrderDetailsUpdateRequest>, IOrderDetailBicycleService
     {
         public BaseState BaseState { get; set; }
 

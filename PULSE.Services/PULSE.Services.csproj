@@ -19,4 +19,9 @@
     <ProjectReference Include="..\PULSE.Model\PULSE.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementation\Abstract\" />
+    <Folder Include="Interfaces\Abstract\" />
+  </ItemGroup>
+
 </Project>

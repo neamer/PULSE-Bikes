@@ -2,17 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class PartService : BaseCRUDService<Model.Part, Database.Part, PartSearchObject, PartUpsertRequest, PartUpsertRequest>, IPartService
+    public class PartService : BaseCRUDService<Model.Part, Data.Part, PartSearchObject, PartUpsertRequest, PartUpsertRequest>, IPartService
     {
         public PartService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {

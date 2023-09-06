@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
 namespace PULSE.Services.StateMachines.Order
 {
@@ -18,7 +13,7 @@ namespace PULSE.Services.StateMachines.Order
 
         public override Model.OrderHeader InsertEmployee(OrderHeaderInsertRequest request)
         {
-            var entity = Mapper.Map<Database.OrderHeader>(request);
+            var entity = Mapper.Map<OrderHeader>(request);
             entity.OrderDetails = new List<OrderDetail>();
 
             CurrentEntity = entity;
@@ -26,12 +21,12 @@ namespace PULSE.Services.StateMachines.Order
 
             if (request.ShippingInfo != null)
             {
-                var shippingInfo = Mapper.Map<Database.ShippingInfo>(request.ShippingInfo);
+                var shippingInfo = Mapper.Map<ShippingInfo>(request.ShippingInfo);
 
                 Context.ShippingInfos.Add(shippingInfo);
                 Context.SaveChanges();
 
-                entity.ShippingInfoId = shippingInfo.ShippingInfoId;
+                entity.ShippingInfoId = shippingInfo.Id;
             }
 
             Context.OrderHeaders.Add(entity);
@@ -47,8 +42,8 @@ namespace PULSE.Services.StateMachines.Order
                         var detailProductP = Context.Parts.Find(item.ProductId);
                         if(detailProductP != null)
                         {
-                            var detailP = Mapper.Map<Database.OrderDetailPart>(item);
-                            detailP.OrderId = entity.OrderId;
+                            var detailP = Mapper.Map<OrderDetailPart>(item);
+                            detailP.OrderId = entity.Id;
                             detailP.UnitPrice = detailProductP.Price;
                             Context.OrderDetailParts.Add(detailP);
                             Context.SaveChanges();
@@ -59,8 +54,8 @@ namespace PULSE.Services.StateMachines.Order
                         var detailProductG = Context.Gear.Find(item.ProductId);
                         if (detailProductG != null)
                         {
-                            var detailG = Mapper.Map<Database.OrderDetailGear>(item);
-                            detailG.OrderId = entity.OrderId;
+                            var detailG = Mapper.Map<OrderDetailGear>(item);
+                            detailG.OrderId = entity.Id;
                             detailG.UnitPrice = detailProductG.Price;
                             Context.OrderDetailGear.Add(detailG);
                             Context.SaveChanges();
@@ -71,8 +66,8 @@ namespace PULSE.Services.StateMachines.Order
                         var detailProductB = Context.Bicycles.Find(item.ProductId);
                         if (detailProductB != null)
                         {
-                            var detailB = Mapper.Map<Database.OrderDetailBicycle>(item);
-                            detailB.OrderId = entity.OrderId;
+                            var detailB = Mapper.Map<OrderDetailBicycle>(item);
+                            detailB.OrderId = entity.Id;
                             detailB.UnitPrice = detailProductB.Price;
                             Context.OrderDetailBicycles.Add(detailB);
                             Context.SaveChanges();
@@ -81,7 +76,6 @@ namespace PULSE.Services.StateMachines.Order
                     default:
                         break;
                 }
-                
             }
 
             return Mapper.Map<Model.OrderHeader>(entity);

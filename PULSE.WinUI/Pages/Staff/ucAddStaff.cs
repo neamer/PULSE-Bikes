@@ -47,7 +47,7 @@ namespace PULSE.WinUI.Pages.Staff
                     Email = tbEmail.Text,
                     Password = tbPassword.Text,
                     PasswordConfirm = tbPasswordConfirm.Text,
-                    RoleID = (cbRole.SelectedItem as Role).RoleId,
+                    RoleID = (cbRole.SelectedItem as Role).Id,
                     PhoneNumber = tbPhoneNumber.Text,
                     DateOfBirth = dtpDateOfBirth.Value,
                     DateOfEmployment = dtpDateOfEmployment.Value,

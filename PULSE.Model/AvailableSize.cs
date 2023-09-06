@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PULSE.Model
+﻿namespace PULSE.Model
 {
-    public class AvailableSize
+    public class AvailableSize : BaseModel
     {
         public int BicycleSizeId { get; set; }
         public int ProductId { get; set; }

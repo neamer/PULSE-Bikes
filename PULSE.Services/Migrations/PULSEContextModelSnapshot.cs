@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace PULSE.Services.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("PULSE.Services.Database.AvailableSize", b =>
+            modelBuilder.Entity("PULSE.Services.Data.AvailableSize", b =>
                 {
                     b.Property<int>("BicycleSizeId")
                         .HasColumnType("int")
@@ -42,50 +42,47 @@ namespace PULSE.Services.Migrations
                     b.ToTable("AvailableSize", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.BicycleSize", b =>
+            modelBuilder.Entity("PULSE.Services.Data.BicycleSize", b =>
                 {
-                    b.Property<int>("BicycleSizeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("BicycleSizeID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BicycleSizeId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Size")
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.HasKey("BicycleSizeId");
+                    b.HasKey("Id");
 
                     b.ToTable("BicycleSize", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Brand", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Brand", b =>
                 {
-                    b.Property<int>("BrandId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("BrandID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BrandId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("BrandId");
+                    b.HasKey("Id");
 
                     b.ToTable("Brand", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Customer", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("CustomerID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime");
@@ -128,21 +125,20 @@ namespace PULSE.Services.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ShippingInfoId");
 
                     b.ToTable("Customer", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderDetail", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("OrderDetailID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -162,7 +158,7 @@ namespace PULSE.Services.Migrations
                     b.Property<decimal?>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("OrderDetailId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
@@ -173,14 +169,13 @@ namespace PULSE.Services.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("OrderDetail");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderHeader", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderHeader", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("OrderID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int")
@@ -222,7 +217,7 @@ namespace PULSE.Services.Migrations
                     b.Property<DateTime?>("TimeShipped")
                         .HasColumnType("datetime");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -233,14 +228,13 @@ namespace PULSE.Services.Migrations
                     b.ToTable("OrderHeader", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Payment", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Payment", b =>
                 {
-                    b.Property<int>("PaymentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("PaymentID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -252,19 +246,18 @@ namespace PULSE.Services.Migrations
                     b.Property<DateTime?>("TimeOfPayment")
                         .HasColumnType("datetime");
 
-                    b.HasKey("PaymentId");
+                    b.HasKey("Id");
 
                     b.ToTable("Payment", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Product", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("BrandId")
                         .HasColumnType("int")
@@ -304,7 +297,7 @@ namespace PULSE.Services.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
@@ -313,14 +306,13 @@ namespace PULSE.Services.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Product");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ProductCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductCategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ProductCategoryID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductCategoryId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -331,62 +323,65 @@ namespace PULSE.Services.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("ProductCategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductCategory", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("ProductCategory");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ProductImage", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ProductImage", b =>
                 {
-                    b.Property<int>("ProductImageId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ProductImageID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductImageId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte[]>("Image")
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Data")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
 
-                    b.HasKey("ProductImageId");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImage", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Role", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Role", b =>
                 {
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RoleID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("RoleId");
+                    b.HasKey("Id");
 
                     b.ToTable("Role", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Servicing", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Servicing", b =>
                 {
-                    b.Property<int>("ServicingId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ServicingID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicingId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime");
@@ -421,7 +416,7 @@ namespace PULSE.Services.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");
 
-                    b.HasKey("ServicingId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -430,7 +425,7 @@ namespace PULSE.Services.Migrations
                     b.ToTable("Servicing", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ServicingPart", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ServicingPart", b =>
                 {
                     b.Property<int>("ServicingId")
                         .HasColumnType("int")
@@ -453,14 +448,13 @@ namespace PULSE.Services.Migrations
                     b.ToTable("ServicingPart", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ShippingInfo", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ShippingInfo", b =>
                 {
-                    b.Property<int>("ShippingInfoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ShippingInfoID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShippingInfoId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("City")
                         .HasMaxLength(50)
@@ -482,19 +476,18 @@ namespace PULSE.Services.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.HasKey("ShippingInfoId");
+                    b.HasKey("Id");
 
                     b.ToTable("ShippingInfo", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.staff", b =>
+            modelBuilder.Entity("PULSE.Services.Data.staff", b =>
                 {
-                    b.Property<int>("StaffId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("StaffID");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime");
@@ -543,16 +536,16 @@ namespace PULSE.Services.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("StaffId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("Staff", (string)null);
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Bicycle", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Bicycle", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.Product");
+                    b.HasBaseType("PULSE.Services.Data.Product");
 
                     b.Property<int?>("ProductionYear")
                         .HasColumnType("int");
@@ -570,16 +563,16 @@ namespace PULSE.Services.Migrations
                     b.HasDiscriminator().HasValue("Bicycle");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.BicycleCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.BicycleCategory", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.ProductCategory");
+                    b.HasBaseType("PULSE.Services.Data.ProductCategory");
 
                     b.HasDiscriminator().HasValue("Bicycle");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Gear", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Gear", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.Product");
+                    b.HasBaseType("PULSE.Services.Data.Product");
 
                     b.Property<int?>("AvailableQty")
                         .ValueGeneratedOnUpdateSometimes()
@@ -591,16 +584,16 @@ namespace PULSE.Services.Migrations
                     b.HasDiscriminator().HasValue("Gear");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.GearCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.GearCategory", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.ProductCategory");
+                    b.HasBaseType("PULSE.Services.Data.ProductCategory");
 
                     b.HasDiscriminator().HasValue("Gear");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderDetailBicycle", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderDetailBicycle", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.OrderDetail");
+                    b.HasBaseType("PULSE.Services.Data.OrderDetail");
 
                     b.Property<int?>("BicycleSizeId")
                         .HasColumnType("int")
@@ -611,23 +604,23 @@ namespace PULSE.Services.Migrations
                     b.HasDiscriminator().HasValue("Bicycle");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderDetailGear", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderDetailGear", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.OrderDetail");
+                    b.HasBaseType("PULSE.Services.Data.OrderDetail");
 
                     b.HasDiscriminator().HasValue("Gear");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderDetailPart", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderDetailPart", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.OrderDetail");
+                    b.HasBaseType("PULSE.Services.Data.OrderDetail");
 
                     b.HasDiscriminator().HasValue("Part");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Part", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Part", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.Product");
+                    b.HasBaseType("PULSE.Services.Data.Product");
 
                     b.Property<int?>("AvailableQty")
                         .ValueGeneratedOnUpdateSometimes()
@@ -639,22 +632,22 @@ namespace PULSE.Services.Migrations
                     b.HasDiscriminator().HasValue("Part");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.PartCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.PartCategory", b =>
                 {
-                    b.HasBaseType("PULSE.Services.Database.ProductCategory");
+                    b.HasBaseType("PULSE.Services.Data.ProductCategory");
 
                     b.HasDiscriminator().HasValue("Part");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.AvailableSize", b =>
+            modelBuilder.Entity("PULSE.Services.Data.AvailableSize", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.BicycleSize", "BicycleSize")
+                    b.HasOne("PULSE.Services.Data.BicycleSize", "BicycleSize")
                         .WithMany("AvailableSizes")
                         .HasForeignKey("BicycleSizeId")
                         .IsRequired()
                         .HasConstraintName("FK_AvailableSize_BicycleSize");
 
-                    b.HasOne("PULSE.Services.Database.Bicycle", "Product")
+                    b.HasOne("PULSE.Services.Data.Bicycle", "Product")
                         .WithMany("AvailableSizes")
                         .HasForeignKey("ProductId")
                         .IsRequired()
@@ -665,9 +658,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Customer", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Customer", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.ShippingInfo", "ShippingInfo")
+                    b.HasOne("PULSE.Services.Data.ShippingInfo", "ShippingInfo")
                         .WithMany("Customers")
                         .HasForeignKey("ShippingInfoId")
                         .HasConstraintName("FK_Customer_ShippingInfo");
@@ -675,14 +668,14 @@ namespace PULSE.Services.Migrations
                     b.Navigation("ShippingInfo");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderDetail", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderDetail", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.OrderHeader", "Order")
+                    b.HasOne("PULSE.Services.Data.OrderHeader", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .HasConstraintName("FK_OrderDetail_Order");
 
-                    b.HasOne("PULSE.Services.Database.Product", "Product")
+                    b.HasOne("PULSE.Services.Data.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK_OrderDetail_Product");
@@ -692,19 +685,19 @@ namespace PULSE.Services.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderHeader", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderHeader", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.Customer", "Customer")
+                    b.HasOne("PULSE.Services.Data.Customer", "Customer")
                         .WithMany("OrderHeaders")
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK_OrderHeader_Customer");
 
-                    b.HasOne("PULSE.Services.Database.Payment", "Payment")
-                        .WithMany("OrderHeaders")
+                    b.HasOne("PULSE.Services.Data.Payment", "Payment")
+                        .WithMany()
                         .HasForeignKey("PaymentId")
                         .HasConstraintName("FK_OrderHeader_Payment");
 
-                    b.HasOne("PULSE.Services.Database.ShippingInfo", "ShippingInfo")
+                    b.HasOne("PULSE.Services.Data.ShippingInfo", "ShippingInfo")
                         .WithMany("OrderHeaders")
                         .HasForeignKey("ShippingInfoId")
                         .HasConstraintName("FK_OrderHeader_ShippingInfo");
@@ -716,9 +709,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("ShippingInfo");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Product", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Product", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.Brand", "Brand")
+                    b.HasOne("PULSE.Services.Data.Brand", "Brand")
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .HasConstraintName("FK_Product_Brand");
@@ -726,25 +719,25 @@ namespace PULSE.Services.Migrations
                     b.Navigation("Brand");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ProductImage", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ProductImage", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.Product", "Product")
-                        .WithMany("ProductImages")
+                    b.HasOne("PULSE.Services.Data.Product", "Product")
+                        .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK_ProductImage_Product");
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Servicing", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Servicing", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.Customer", "Customer")
+                    b.HasOne("PULSE.Services.Data.Customer", "Customer")
                         .WithMany("Servicings")
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK_Servicing_Customer");
 
-                    b.HasOne("PULSE.Services.Database.Payment", "Payment")
-                        .WithMany("Servicings")
+                    b.HasOne("PULSE.Services.Data.Payment", "Payment")
+                        .WithMany()
                         .HasForeignKey("PaymentId")
                         .HasConstraintName("FK_Servicing_Payment");
 
@@ -753,15 +746,15 @@ namespace PULSE.Services.Migrations
                     b.Navigation("Payment");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ServicingPart", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ServicingPart", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.Product", "Product")
+                    b.HasOne("PULSE.Services.Data.Product", "Product")
                         .WithMany("ServicingParts")
                         .HasForeignKey("ProductId")
                         .IsRequired()
                         .HasConstraintName("FK_ServicingPart_Part");
 
-                    b.HasOne("PULSE.Services.Database.Servicing", "Servicing")
+                    b.HasOne("PULSE.Services.Data.Servicing", "Servicing")
                         .WithMany("ServicingParts")
                         .HasForeignKey("ServicingId")
                         .IsRequired()
@@ -772,9 +765,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("Servicing");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.staff", b =>
+            modelBuilder.Entity("PULSE.Services.Data.staff", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.Role", "Role")
+                    b.HasOne("PULSE.Services.Data.Role", "Role")
                         .WithMany("staff")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_Staff_Role");
@@ -782,9 +775,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Bicycle", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Bicycle", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.BicycleCategory", "ProductCategory")
+                    b.HasOne("PULSE.Services.Data.BicycleCategory", "ProductCategory")
                         .WithMany("Bicycle")
                         .HasForeignKey("ProductCategoryId")
                         .HasConstraintName("FK_Product_ProductCategory");
@@ -792,9 +785,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("ProductCategory");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Gear", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Gear", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.GearCategory", "ProductCategory")
+                    b.HasOne("PULSE.Services.Data.GearCategory", "ProductCategory")
                         .WithMany("Gear")
                         .HasForeignKey("ProductCategoryId")
                         .HasConstraintName("FK_Product_ProductCategory");
@@ -802,9 +795,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("ProductCategory");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderDetailBicycle", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderDetailBicycle", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.BicycleSize", "BicycleSize")
+                    b.HasOne("PULSE.Services.Data.BicycleSize", "BicycleSize")
                         .WithMany("OrderDetails")
                         .HasForeignKey("BicycleSizeId")
                         .HasConstraintName("FK_OrderDetail_BicycleSize");
@@ -812,9 +805,9 @@ namespace PULSE.Services.Migrations
                     b.Navigation("BicycleSize");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Part", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Part", b =>
                 {
-                    b.HasOne("PULSE.Services.Database.PartCategory", "ProductCategory")
+                    b.HasOne("PULSE.Services.Data.PartCategory", "ProductCategory")
                         .WithMany("Part")
                         .HasForeignKey("ProductCategoryId")
                         .HasConstraintName("FK_Product_ProductCategory");
@@ -822,79 +815,72 @@ namespace PULSE.Services.Migrations
                     b.Navigation("ProductCategory");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.BicycleSize", b =>
+            modelBuilder.Entity("PULSE.Services.Data.BicycleSize", b =>
                 {
                     b.Navigation("AvailableSizes");
 
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Brand", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Brand", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Customer", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Customer", b =>
                 {
                     b.Navigation("OrderHeaders");
 
                     b.Navigation("Servicings");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.OrderHeader", b =>
+            modelBuilder.Entity("PULSE.Services.Data.OrderHeader", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Payment", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Product", b =>
                 {
-                    b.Navigation("OrderHeaders");
+                    b.Navigation("Images");
 
-                    b.Navigation("Servicings");
-                });
-
-            modelBuilder.Entity("PULSE.Services.Database.Product", b =>
-                {
                     b.Navigation("OrderDetails");
-
-                    b.Navigation("ProductImages");
 
                     b.Navigation("ServicingParts");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Role", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Role", b =>
                 {
                     b.Navigation("staff");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Servicing", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Servicing", b =>
                 {
                     b.Navigation("ServicingParts");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.ShippingInfo", b =>
+            modelBuilder.Entity("PULSE.Services.Data.ShippingInfo", b =>
                 {
                     b.Navigation("Customers");
 
                     b.Navigation("OrderHeaders");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.Bicycle", b =>
+            modelBuilder.Entity("PULSE.Services.Data.Bicycle", b =>
                 {
                     b.Navigation("AvailableSizes");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.BicycleCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.BicycleCategory", b =>
                 {
                     b.Navigation("Bicycle");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.GearCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.GearCategory", b =>
                 {
                     b.Navigation("Gear");
                 });
 
-            modelBuilder.Entity("PULSE.Services.Database.PartCategory", b =>
+            modelBuilder.Entity("PULSE.Services.Data.PartCategory", b =>
                 {
                     b.Navigation("Part");
                 });

@@ -42,7 +42,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             for (int i = 0; i < cbBicycleSizeItems.Count; i++)
             {
-                if ((cbBicycleSizeItems[i] as BicycleSize).BicycleSizeId == Model.BicycleSizeId)
+                if ((cbBicycleSizeItems[i] as BicycleSize).Id == Model.BicycleSizeId)
                 {
                     cbBicycleSize.SelectedIndex = i;
                 }
@@ -63,7 +63,7 @@ namespace PULSE.WinUI.Pages.Bicycle
             var req = new AvailableSizeUpsertRequest()
             {
                 ProductId = this.ProductID,
-                BicycleSizeId = (cbBicycleSize.SelectedItem as BicycleSize).BicycleSizeId,
+                BicycleSizeId = (cbBicycleSize.SelectedItem as BicycleSize).Id,
                 AvailableQty = (int)nudAvailableQty.Value
             };
 

@@ -34,7 +34,7 @@ namespace PULSE.WinUI.Pages.Servicing
         public void SelectCustomer(Model.Customer item)
         {
             tbCustomer.Text = $"{item.FirstName} {item.LastName}";
-            CustomerID = item.CustomerId;
+            CustomerID = item.Id;
         }
         private void btnSubmit_Click(object sender, EventArgs e)
         {

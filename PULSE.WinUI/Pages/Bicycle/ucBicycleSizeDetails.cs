@@ -39,7 +39,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
                 if (Model != null)
                 {
-                    ModelSubmitted.Invoke(req, Model.BicycleSizeId);
+                    ModelSubmitted.Invoke(req, Model.Id);
                 }
                 else
                 {

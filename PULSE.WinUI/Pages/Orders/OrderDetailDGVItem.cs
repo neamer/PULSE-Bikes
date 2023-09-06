@@ -25,10 +25,10 @@ namespace PULSE.WinUI.Pages.Orders
 
         public ProductDetailDGVItem(Model.OrderDetail detail)
         {
-            OrderDetailId = detail.OrderDetailId;
+            OrderDetailId = detail.Id;
             ProductNumber = detail.Product.ProductNumber;
             Model = detail.Product.Model;
-            ProductId = detail.Product.ProductId;
+            ProductId = detail.Product.Id;
             UnitPrice = detail.Product.Price ?? 0;
             Size = detail.BicycleSize?.Size ?? "-";
             BicycleSizeId = detail.BicycleSizeId;
@@ -40,7 +40,7 @@ namespace PULSE.WinUI.Pages.Orders
         {
             ProductNumber = detail.Product.ProductNumber;
             Model = detail.Product.Model;
-            ProductId = detail.Product.ProductId;
+            ProductId = detail.Product.Id;
             UnitPrice = detail.Product.Price ?? 0;
             Quantity = detail.Quantity ?? 0;
         }

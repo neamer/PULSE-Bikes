@@ -53,11 +53,10 @@ namespace PULSE.Controllers
             }
         }
 
-        public override ActionResult<OrderHeader> GetById(int id)
+        public override ActionResult<OrderHeader> GetById(int id, [FromBody] OrderSearchObject? search = null)
         {
             return Ok(((IOrderService)Service).GetDetails(id));
         }
-
 
         [Authorize(Roles = "Administrator,Salesperson")]
         [HttpPut("Detail/{id}")]

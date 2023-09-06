@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PULSE.Model
+﻿namespace PULSE.Model
 {
-    public class ShippingInfo
+    public class ShippingInfo : BaseModel
     {
-        public int ShippingInfoId { get; set; }
         public string? Country { get; set; }
         public string? StateOrProvince { get; set; }
         public string? City { get; set; }

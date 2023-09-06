@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PULSE.Model
+﻿namespace PULSE.Model
 {
-    public class BicycleSize
+    public class BicycleSize : BaseModel
     {
         public BicycleSize()
         {
@@ -14,7 +8,6 @@ namespace PULSE.Model
             //OrderDetails = new HashSet<OrderDetail>();
         }
 
-        public int BicycleSizeId { get; set; }
         public string? Size { get; set; }
 
         //public virtual ICollection<AvailableSize> AvailableSizes { get; set; }

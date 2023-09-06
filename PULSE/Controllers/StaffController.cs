@@ -36,7 +36,7 @@ namespace PULSE.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public override ActionResult<Staff> GetById(int id)
+        public override ActionResult<Staff> GetById(int id, [FromBody] StaffSearchObject? search = null)
         {
             return base.GetById(id);
         }

@@ -2,18 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using PULSE.Model;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
 namespace PULSE.Services.StateMachines.Order
 {
     public class BaseState
     {
-
         public IMapper Mapper { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
         public BaseState(IServiceProvider serviceProvider, PULSEContext context, IMapper mapper)
@@ -23,7 +17,7 @@ namespace PULSE.Services.StateMachines.Order
             Mapper = mapper;
         }
 
-        public Database.OrderHeader CurrentEntity { get; set; }
+        public Data.OrderHeader CurrentEntity { get; set; }
         public OrderState CurrentState { get; set; }
 
         public PULSEContext Context { get; set; } = null;
@@ -108,25 +102,18 @@ namespace PULSE.Services.StateMachines.Order
             {
                 case OrderState.Initial:
                     return ServiceProvider.GetService<InitialState>();
-                    break;
                 case OrderState.Draft:
                     return ServiceProvider.GetService<DraftState>();
-                    break;
                 case OrderState.Processed:
                     return ServiceProvider.GetService<ProcessedState>();
-                    break;
                 case OrderState.Packed:
                     return ServiceProvider.GetService<PackedState>();
-                    break;
                 case OrderState.Shipped:
                     return ServiceProvider.GetService<ShippedState>();
-                    break;
                 case OrderState.Delivered:
                     return ServiceProvider.GetService<DeliveredState>();
-                    break;
                 case OrderState.Cancelled:
                     return ServiceProvider.GetService<CancelledState>();
-                    break;
                 default:
                     throw new InvalidOperationException("Order State Not supported");
             }

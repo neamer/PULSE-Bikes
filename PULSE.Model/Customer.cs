@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PULSE.Model
+﻿namespace PULSE.Model
 {
-    public class Customer
+    public class Customer : AuditableModel
     {
         public Customer()
         {
@@ -14,7 +8,6 @@ namespace PULSE.Model
             //Servicings = new HashSet<Servicing>();
         }
 
-        public int CustomerId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Username { get; set; }

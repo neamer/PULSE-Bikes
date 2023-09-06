@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class CustomerService : BaseCRUDService<Model.Customer, Database.Customer, NameGenericSearchObject, CustomerInsertRequest, CustomerUpdateRequest>, ICustomerService
+    public class CustomerService : BaseCRUDService<Model.Customer, Data.Customer, NameGenericSearchObject, CustomerInsertRequest, CustomerUpdateRequest>, ICustomerService
     {
         public CustomerService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {

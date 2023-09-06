@@ -131,7 +131,7 @@ namespace PULSE.WinUI.Pages.Staff
 
             if (cbRole.SelectedIndex != 0 && cbRole.SelectedIndex != -1)
             {
-                search.RoleId = (cbRole.SelectedItem as Model.Role).RoleId;
+                search.RoleId = (cbRole.SelectedItem as Model.Role).Id;
             }
 
             if (cbStatus.SelectedIndex != 0 && cbStatus.SelectedIndex != -1)
@@ -176,7 +176,7 @@ namespace PULSE.WinUI.Pages.Staff
 
             ucStaffUpdate1.LoadEntity(item);
             ucStaffUpdate1.Show();
-            ucStaffUpdate1.StaffId = item.StaffId;
+            ucStaffUpdate1.StaffId = item.Id;
         }
 
         private void dgvStaffList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -186,7 +186,7 @@ namespace PULSE.WinUI.Pages.Staff
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                StaffDelete((dgvStaffList.Rows[e.RowIndex].DataBoundItem as Model.Staff).StaffId);
+                StaffDelete((dgvStaffList.Rows[e.RowIndex].DataBoundItem as Model.Staff).Id);
             }
         }
     }

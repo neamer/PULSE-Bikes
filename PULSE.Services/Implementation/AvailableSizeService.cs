@@ -2,17 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class AvailableSizeService : BaseCRUDService<Model.AvailableSize, Database.AvailableSize, AvailableSizeSearchObject, AvailableSizeUpsertRequest, AvailableSizeUpsertRequest>, IAvailableSizeService
+    public class AvailableSizeService : BaseCRUDService<Model.AvailableSize, Data.AvailableSize, AvailableSizeSearchObject, AvailableSizeUpsertRequest, AvailableSizeUpsertRequest>, IAvailableSizeService
     {
         public AvailableSizeService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
@@ -39,7 +34,7 @@ namespace PULSE.Services.Implementation
 
         public override Model.AvailableSize Update(int id, AvailableSizeUpsertRequest update)
         {
-            var set = Context.Set<Database.AvailableSize>();
+            var set = Context.Set<Data.AvailableSize>();
 
             var entity = set.Where(x => x.ProductId == update.ProductId && x.BicycleSizeId == update.BicycleSizeId).First();
 

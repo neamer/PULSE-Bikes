@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PULSE.Model
+﻿namespace PULSE.Model
 {
-    public partial class Staff
+    public partial class Staff : BaseModel
     {
-        public int StaffId { get; set; }
         public string? FirstName { get; set; }
         public string? FullName { get; set; }
         public string? RolesNames { get; set; }

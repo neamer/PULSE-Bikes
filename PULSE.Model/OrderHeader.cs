@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PULSE.Model
+﻿namespace PULSE.Model
 {
-    public class OrderHeader
+    public class OrderHeader : BaseModel
     {
         public OrderHeader()
         {
             OrderDetails = new HashSet<OrderDetail>();
         }
 
-        public int OrderId { get; set; }
         public string? OrderNumber { get; set; }
         public int? CustomerId { get; set; }
         public int? PaymentId { get; set; }

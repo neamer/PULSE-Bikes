@@ -60,7 +60,7 @@ namespace PULSE.WinUI.Pages.Brands
 
                 if (Model != null)
                 {
-                    ModelSubmitted.Invoke(req, Model.BrandId);
+                    ModelSubmitted.Invoke(req, Model.Id);
                 }
                 else
                 {

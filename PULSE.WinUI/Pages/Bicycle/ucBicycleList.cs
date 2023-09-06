@@ -86,17 +86,18 @@ namespace PULSE.WinUI.Pages.Bicycle
             {
                 IncludeBrand = true,
                 IncludeCategory = true,
+                IncludeSizes = true,
                 AnyField = tbSearch.Text,
             };
 
             if (cbBrand.SelectedIndex != 0 && cbBrand.SelectedIndex != -1)
             {
-                searchObject.BrandId = (cbBrand.SelectedItem as Brand).BrandId;
+                searchObject.BrandId = (cbBrand.SelectedItem as Brand).Id;
             }
 
             if (cbCategory.SelectedIndex != 0 && cbCategory.SelectedIndex != -1)
             {
-                searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).ProductCategoryId;
+                searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).Id;
             }
 
             var list = await BicycleService.Get<List<Model.Bicycle>>(searchObject);
@@ -132,7 +133,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private async void SubmitBicycle(BicycleUpsertRequest data, int productId = -1)
         {
-            if(productId == -1)
+            if (productId == -1)
             {
                 var item = await BicycleService.Post<Model.Bicycle>(data);
 
@@ -142,7 +143,7 @@ namespace PULSE.WinUI.Pages.Bicycle
                 }
 
                 MessageBox.Show("Bicycle Added Successfully!");
-            } 
+            }
             else
             {
                 var item = await BicycleService.Put<Model.Bicycle>(productId, data);

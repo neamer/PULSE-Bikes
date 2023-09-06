@@ -2,17 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class GearService : BaseCRUDService<Model.Gear, Database.Gear, GearSearchObject, GearUpsertRequest, GearUpsertRequest>, IGearService
+    public class GearService : BaseCRUDService<Model.Gear, Data.Gear, GearSearchObject, GearUpsertRequest, GearUpsertRequest>, IGearService
     {
         public GearService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {

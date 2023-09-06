@@ -1,7 +1,7 @@
-CREATE DATABASE PULSE
+CREATE DATABASE PULSE2
 go
 
-use PULSE
+use PULSE2
 go
 
 
@@ -23,8 +23,7 @@ CREATE TABLE Staff
 	DateOfEmployment date,
 	CreatedAt Datetime,
 	UpdatedAt Datetime,
-	CONSTRAINT PK_Staff PRIMARY KEY(Id),
-	CONSTRAINT FK_Staff_Role FOREIGN KEY (RoleID) REFERENCES Role (Id),
+	CONSTRAINT PK_Staff PRIMARY KEY(Id)
 );
 
 CREATE TABLE Role
@@ -34,7 +33,7 @@ CREATE TABLE Role
 	CONSTRAINT PK_Role PRIMARY KEY(Id)
 );
 
-CREATE DROP TABLE StaffRole
+CREATE TABLE StaffRole
 (
 	StaffID int,
 	RoleID int,
@@ -108,20 +107,15 @@ CREATE TABLE Product
 
 CREATE TABLE ProductImage
 (
-	ImageID int,
+	Id int IDENTITY(1,1),
 	ProductID int,
-	CONSTRAINT FK_ProductImage_Image FOREIGN KEY (ImageID) REFERENCES Image (Id)
+	Data varbinary(max),
+	CreatedAt Datetime,
+	UpdatedAt Datetime,
 	CONSTRAINT FK_ProductImage_Product FOREIGN KEY (ProductID) REFERENCES Product (Id)
 );
 
-CREATE TABLE Image
-(
-	Id int IDENTITY(1,1),
-	Image varbinary(max),
-	CreatedAt Datetime,
-	UpdatedAt Datetime
-	CONSTRAINT PK_Image PRIMARY KEY (Id)
-);
+
 
 --CREATE TABLE Bicycle
 --(
@@ -144,10 +138,11 @@ CREATE TABLE BicycleSize
 
 CREATE TABLE AvailableSize 
 (
+	Id int IDENTITY(1,1),
 	BicycleSizeID int,
 	ProductID int,
 	AvailableQty int,
-	CONSTRAINT PK_AvailableSize PRIMARY KEY(BicycleSizeID, ProductID),
+	CONSTRAINT PK_AvailableSize PRIMARY KEY(Id),
 	CONSTRAINT FK_AvailableSize_BicycleSize FOREIGN KEY (BicycleSizeID) REFERENCES BicycleSize (Id),
 	CONSTRAINT FK_AvailableSize_Bicycle FOREIGN KEY (ProductID) REFERENCES Product (Id)
 );

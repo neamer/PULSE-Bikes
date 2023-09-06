@@ -168,7 +168,7 @@ namespace PULSE.WinUI.Pages.Servicing
         {
             if (MessageBox.Show("Are you sure?", "Cancel order", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var result = await ServicingService.Delete<Model.Servicing>(Entity.ServicingId);
+                var result = await ServicingService.Delete<Model.Servicing>(Entity.Id);
 
                 if (result != null)
                 {
@@ -287,7 +287,7 @@ namespace PULSE.WinUI.Pages.Servicing
 
                 req.ServicingParts = list;
 
-                var result = await ServicingService.PostCustomPath<Model.Servicing>($"{Entity.ServicingId}/offer", req);
+                var result = await ServicingService.PostCustomPath<Model.Servicing>($"{Entity.Id}/offer", req);
 
                 if(result == null)
                 {
@@ -310,7 +310,7 @@ namespace PULSE.WinUI.Pages.Servicing
             {
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = "-",
                 Quantity = 1,
@@ -390,7 +390,7 @@ namespace PULSE.WinUI.Pages.Servicing
                     CustomerRequest = rtbRequest.Text
                 };
 
-                var result = await ServicingService.Put<Model.Servicing>(Entity.ServicingId, req);
+                var result = await ServicingService.Put<Model.Servicing>(Entity.Id, req);
 
                 if(result != null)
                 {
@@ -520,7 +520,7 @@ namespace PULSE.WinUI.Pages.Servicing
                 Method = "LOCAL CASH"
             };
 
-            var result = await ServicingService.PostCustomPath<Model.Servicing>($"{Entity.ServicingId}/RegisterPayment", req);
+            var result = await ServicingService.PostCustomPath<Model.Servicing>($"{Entity.Id}/RegisterPayment", req);
 
             if(result == null)
             {
@@ -540,7 +540,7 @@ namespace PULSE.WinUI.Pages.Servicing
         {
             if (MessageBox.Show("Are you sure?", "Cancel order", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var result = await ServicingService.Delete<Model.Servicing>(Entity.ServicingId);
+                var result = await ServicingService.Delete<Model.Servicing>(Entity.Id);
 
                 if (result != null)
                 {
@@ -557,7 +557,7 @@ namespace PULSE.WinUI.Pages.Servicing
         {
             if (MessageBox.Show("Are you sure?", "Cancel order", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var result = await ServicingService.Delete<Model.Servicing>(Entity.ServicingId);
+                var result = await ServicingService.Delete<Model.Servicing>(Entity.Id);
 
                 if (result != null)
                 {
@@ -574,7 +574,7 @@ namespace PULSE.WinUI.Pages.Servicing
         {
             if (MessageBox.Show("Are you sure?", "Complete Servicing?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var result = await ServicingService.PostCustomPath<Model.Servicing>($"{Entity.ServicingId}/Complete", Entity.ServicingId);
+                var result = await ServicingService.PostCustomPath<Model.Servicing>($"{Entity.Id}/Complete", Entity.Id);
 
                 if (result != null)
                 {

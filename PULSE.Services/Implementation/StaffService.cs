@@ -1,20 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PULSE.Services.Implementation
 {
-    public class StaffService : BaseCRUDService<Model.Staff, Database.staff, StaffSearchObject, StaffInsertRequest, StaffUpdateRequest>, IStaffService
+    public class StaffService : BaseCRUDService<Model.Staff, Data.staff, StaffSearchObject, StaffInsertRequest, StaffUpdateRequest>, IStaffService
     {
         public StaffService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
@@ -40,7 +35,7 @@ namespace PULSE.Services.Implementation
         }
 
 
-        public override void BeforeSave(StaffInsertRequest insert, Database.staff entity)
+        public override void BeforeSave(StaffInsertRequest insert, Data.staff entity)
         {
             var salt = GenerateSalt();
             entity.PasswordSalt = salt;
@@ -78,7 +73,7 @@ namespace PULSE.Services.Implementation
             return Convert.ToBase64String(inArray);
         }
 
-        public override IQueryable<Database.staff> AddFilter(IQueryable<Database.staff> query, StaffSearchObject search = null)
+        public override IQueryable<Data.staff> AddFilter(IQueryable<Data.staff> query, StaffSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
 
@@ -104,7 +99,7 @@ namespace PULSE.Services.Implementation
             return filteredQuery;
         }
 
-        public override IQueryable<Database.staff> AddInclude(IQueryable<Database.staff> query, StaffSearchObject search = null)
+        public override IQueryable<Data.staff> AddInclude(IQueryable<Data.staff> query, StaffSearchObject search = null)
         {
             if (search?.IncludeRole == true)
             {

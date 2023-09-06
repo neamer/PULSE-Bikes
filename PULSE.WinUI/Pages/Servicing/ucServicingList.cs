@@ -148,7 +148,7 @@ namespace PULSE.WinUI.Pages.Servicing
             var item = dgvServicingList.Rows[e.RowIndex].DataBoundItem as Model.Servicing;
 
             ucServicingDetails1.Show();
-            ucServicingDetails1.LoadDetails(item.ServicingId);
+            ucServicingDetails1.LoadDetails(item.Id);
         }
     }
 }

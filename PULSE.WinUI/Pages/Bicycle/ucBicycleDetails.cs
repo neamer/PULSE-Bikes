@@ -37,7 +37,7 @@ namespace PULSE.WinUI.Pages.Bicycle
         {
             var searchObject = new AvailableSizeSearchObject()
             {
-                ProductId = Model.ProductId
+                ProductId = Model.Id
             };
 
             var items = await AvailableSizeService.Get<List<AvailableSize>>(searchObject);
@@ -95,7 +95,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             for (int i = 0; i < cbBrandItems.Count; i++)
             {
-                if ((cbBrandItems[i] as Brand).BrandId == model.BrandId)
+                if ((cbBrandItems[i] as Brand).Id == model.BrandId)
                 {
                     cbBrand.SelectedIndex = i + 1;
                 }
@@ -105,7 +105,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             for (int i = 0; i < cbCategoryItems.Count; i++)
             {
-                if ((cbCategoryItems[i] as ProductCategory).ProductCategoryId == model.ProductCategoryId)
+                if ((cbCategoryItems[i] as ProductCategory).Id == model.ProductCategoryId)
                 {
                     cbCategory.SelectedIndex = i + 1;
                 }
@@ -157,14 +157,14 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if(ValidateChildren())
+            if (ValidateChildren())
             {
                 BicycleUpsertRequest req = new BicycleUpsertRequest()
                 {
                     ProductNumber = tbProductNumber.Text,
                     Model = tbModel.Text,
-                    BrandId = (cbBrand.SelectedItem as Brand).BrandId,
-                    ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).ProductCategoryId,
+                    BrandId = (cbBrand.SelectedItem as Brand).Id,
+                    ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).Id,
                     Description = rtbDescription.Text,
                     WheelSize = tbWheelSize.Text,
                     Weight = nudWeight.Value,
@@ -176,9 +176,10 @@ namespace PULSE.WinUI.Pages.Bicycle
                 {
                     ModelSubmitted.Invoke(req, -1);
 
-                } else
+                }
+                else
                 {
-                    ModelSubmitted.Invoke(req, Model.ProductId);
+                    ModelSubmitted.Invoke(req, Model.Id);
                 }
 
             }
@@ -203,7 +204,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private void cbBrand_Validating(object sender, CancelEventArgs e)
         {
-            if(cbBrand.SelectedIndex == 0)
+            if (cbBrand.SelectedIndex == 0)
             {
                 e.Cancel = true;
                 errorProvider.SetError(cbBrand, "Select a brand!");
@@ -278,9 +279,9 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private void label1_Click(object sender, EventArgs e)
         {
-            if(Model != null)
+            if (Model != null)
             {
-                var frm = new frmAvailableSizeDetails(Model.ProductId);
+                var frm = new frmAvailableSizeDetails(Model.Id);
 
                 frm.Show();
                 frm.ModelSubmitted += LoadSizes;
@@ -291,10 +292,17 @@ namespace PULSE.WinUI.Pages.Bicycle
         {
             var item = dgvAvailableSizes.Rows[e.RowIndex].DataBoundItem as Model.AvailableSize;
 
-            var frm = new frmAvailableSizeDetails(Model.ProductId, item);
+            var frm = new frmAvailableSizeDetails(Model.Id, item);
 
             frm.Show();
             frm.ModelSubmitted += LoadSizes;
+        }
+
+        private void lblAddImage_Click(object sender, EventArgs e)
+        {
+            var frm = new frmAddImage();
+
+            frm.Show();
         }
     }
 }

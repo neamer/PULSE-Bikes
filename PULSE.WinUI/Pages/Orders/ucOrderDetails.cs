@@ -363,7 +363,7 @@ namespace PULSE.WinUI.Pages.Orders
 
             if(result == null)
             {
-                item.Quantity = Item.OrderDetails.Where(x => x.OrderDetailId == item.OrderDetailId).First().Quantity ?? 0;
+                item.Quantity = Item.OrderDetails.Where(x => x.Id == item.OrderDetailId).First().Quantity ?? 0;
                 return;
             }
             CalculateTotals();
@@ -374,7 +374,7 @@ namespace PULSE.WinUI.Pages.Orders
             var req = new OrderDetailBicycleInsertRequest()
             {
                 OrderId = OrderID,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 BicycleSizeId = size.BicycleSizeId,
                 Quantity = 1,
             };
@@ -388,10 +388,10 @@ namespace PULSE.WinUI.Pages.Orders
 
             var detail = new ProductDetailDGVItem()
             {
-                OrderDetailId = result.OrderDetailId,
+                OrderDetailId = result.Id,
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = size.BicycleSize.Size,
                 BicycleSizeId = size.BicycleSizeId,
@@ -413,7 +413,7 @@ namespace PULSE.WinUI.Pages.Orders
             var req = new OrderDetailsInsertRequest()
             {
                 OrderId = OrderID,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 Quantity = 1,
             };
 
@@ -426,10 +426,10 @@ namespace PULSE.WinUI.Pages.Orders
 
             var detail = new ProductDetailDGVItem()
             {
-                OrderDetailId = result.OrderDetailId,
+                OrderDetailId = result.Id,
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = "-",
                 Quantity = 1,
@@ -450,7 +450,7 @@ namespace PULSE.WinUI.Pages.Orders
             var req = new OrderDetailsInsertRequest()
             {
                 OrderId = OrderID,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 Quantity = 1,
             };
 
@@ -463,10 +463,10 @@ namespace PULSE.WinUI.Pages.Orders
 
             var detail = new ProductDetailDGVItem()
             {
-                OrderDetailId = result.OrderDetailId,
+                OrderDetailId = result.Id,
                 ProductNumber = item.ProductNumber,
                 Model = item.Model,
-                ProductId = item.ProductId,
+                ProductId = item.Id,
                 UnitPrice = item.Price ?? 0,
                 Size = "-",
                 Quantity = 1,
@@ -715,7 +715,7 @@ namespace PULSE.WinUI.Pages.Orders
         {
             if(Item.ShippingInfoId != null)
             {
-                var result = await OrderService23.DeleteCustomPath<HttpStatusMessage>("shippinginfo", Item.OrderId);
+                var result = await OrderService23.DeleteCustomPath<HttpStatusMessage>("shippinginfo", Item.Id);
 
                 if(result.Success)
                 {

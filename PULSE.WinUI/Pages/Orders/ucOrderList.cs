@@ -210,7 +210,7 @@ namespace PULSE.WinUI.Pages.Orders
         {
             var item = dgvOrderList.Rows[e.RowIndex].DataBoundItem as Model.OrderHeader;
 
-            ucOrderDetails1.OrderID = item.OrderId;
+            ucOrderDetails1.OrderID = item.Id;
             ReloadDetails();
             ucOrderDetails1.Show();
             SelectModeIsAdd = false;

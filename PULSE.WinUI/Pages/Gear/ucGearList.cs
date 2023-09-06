@@ -88,12 +88,12 @@ namespace PULSE.WinUI.Pages.Gear
 
             if (cbBrand.SelectedIndex != 0 && cbBrand.SelectedIndex != -1)
             {
-                searchObject.BrandId = (cbBrand.SelectedItem as Brand).BrandId;
+                searchObject.BrandId = (cbBrand.SelectedItem as Brand).Id;
             }
 
             if (cbCategory.SelectedIndex != 0 && cbCategory.SelectedIndex != -1)
             {
-                searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).ProductCategoryId;
+                searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).Id;
             }
 
             var list = await GearService.Get<List<Model.Gear>>(searchObject);

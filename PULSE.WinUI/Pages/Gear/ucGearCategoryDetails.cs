@@ -39,7 +39,7 @@ namespace PULSE.WinUI.Pages.Gear
 
                 if (Model != null)
                 {
-                    ModelSubmitted.Invoke(req, Model.ProductCategoryId);
+                    ModelSubmitted.Invoke(req, Model.Id);
                 }
                 else
                 {

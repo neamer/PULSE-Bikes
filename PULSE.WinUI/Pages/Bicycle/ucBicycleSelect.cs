@@ -66,12 +66,12 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             if (cbBrand.SelectedIndex != 0 && cbBrand.SelectedIndex != -1)
             {
-                searchObject.BrandId = (cbBrand.SelectedItem as Brand).BrandId;
+                searchObject.BrandId = (cbBrand.SelectedItem as Brand).Id;
             }
 
             if (cbCategory.SelectedIndex != 0 && cbCategory.SelectedIndex != -1)
             {
-                searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).ProductCategoryId;
+                searchObject.ProductCategoryId = (cbCategory.SelectedItem as ProductCategory).Id;
             }
 
             var list = await BicycleService.Get<List<Model.Bicycle>>(searchObject);
@@ -103,7 +103,7 @@ namespace PULSE.WinUI.Pages.Bicycle
         {
             var item = dgvBicycleList.Rows[e.RowIndex].DataBoundItem as Model.Bicycle;
 
-            var list = await BicycleService.GetCustomPath<List<AvailableSize>>($"Sizes/{item.ProductId}");
+            var list = await BicycleService.GetCustomPath<List<AvailableSize>>($"Sizes/{item.Id}");
 
             if(list != null)
             {

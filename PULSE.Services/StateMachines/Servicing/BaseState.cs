@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using PULSE.Model;
 using PULSE.Model.Requests;
-using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PULSE.Services.Data;
 
-namespace PULSE.Services.StateMachines.Servicing
+namespace PULSE.Services.StateMachines.Servicings
 {
     public class BaseState
     {
@@ -22,8 +16,8 @@ namespace PULSE.Services.StateMachines.Servicing
             Mapper = mapper;
         }
 
-        public Database.Servicing CurrentEntity { get; set; }
-        public ServicingState CurrentState { get; set; }
+        public Servicing CurrentEntity { get; set; }
+        public Model.ServicingState CurrentState { get; set; }
 
         public PULSEContext Context { get; set; } = null;
 
@@ -57,31 +51,24 @@ namespace PULSE.Services.StateMachines.Servicing
             throw new Exception("Not allowed");
         }
 
-        public BaseState CreateState(ServicingState state)
+        public BaseState CreateState(Model.ServicingState state)
         {
             switch (state)
             {
-                case ServicingState.Initial:
+                case Model.ServicingState.Initial:
                     return ServiceProvider.GetService<InitialState>();
-                    break;
-                case ServicingState.PendingReview:
+                case Model.ServicingState.PendingReview:
                     return ServiceProvider.GetService<PendingReview>();
-                    break;
-                case ServicingState.PendingPayment:
+                case Model.ServicingState.PendingPayment:
                     return ServiceProvider.GetService<PendingPayment>();
-                    break;
-                case ServicingState.PendingServicing:
+                case Model.ServicingState.PendingServicing:
                     return ServiceProvider.GetService<PendingServicing>();
-                    break;
-                case ServicingState.Completed:
+                case Model.ServicingState.Completed:
                     return ServiceProvider.GetService<Completed>();
-                    break;
-                case ServicingState.Cancelled:
+                case Model.ServicingState.Cancelled:
                     return ServiceProvider.GetService<Cancelled>();
-                    break;
                 default:
                     throw new Exception("Not supported");
-                    break;
             }
         }
 

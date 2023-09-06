@@ -3,15 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using PULSE.Services.Database;
+using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
-using PULSE.Services.StateMachines.Servicing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using PULSE.Services.StateMachines.Servicings;
 
 namespace PULSE.Services.Implementation
 {
@@ -53,7 +47,7 @@ namespace PULSE.Services.Implementation
         public Model.Servicing GetDetails(int id)
         {
             var item = Context.Servicings.Include(q => q.Customer).Include(q => q.Payment)
-                .Include(q => q.ServicingParts).ThenInclude(q => q.Product).Where(q => q.ServicingId == id).First();
+                .Include(q => q.ServicingParts).ThenInclude(q => q.Product).Where(q => q.Id == id).First();
 
             if (item == null)
             {
@@ -65,7 +59,7 @@ namespace PULSE.Services.Implementation
 
         public Model.Servicing RegisterAcceptedOffer(int id, PaymentInsertRequest req)
         {
-            var item = Context.Servicings.Include(q => q.ServicingParts).ThenInclude(q => q.Product).Where(q => q.ServicingId == id).First();
+            var item = Context.Servicings.Include(q => q.ServicingParts).ThenInclude(q => q.Product).Where(q => q.Id == id).First();
 
             if (item == null)
             {
@@ -80,7 +74,7 @@ namespace PULSE.Services.Implementation
 
         public Model.Servicing Complete(int id)
         {
-            var item = Context.Servicings.Include(q => q.ServicingParts).ThenInclude(q => q.Product).Where(q => q.ServicingId == id).First();
+            var item = Context.Servicings.Include(q => q.ServicingParts).ThenInclude(q => q.Product).Where(q => q.Id == id).First();
 
             if (item == null)
             {
@@ -95,7 +89,7 @@ namespace PULSE.Services.Implementation
 
         public IEnumerable<Model.Servicing> Get(ServicingSearchObject search)
         {
-            var query = Context.Set<Database.Servicing>().AsQueryable();
+            var query = Context.Set<Data.Servicing>().AsQueryable();
 
             if (search?.IncludeParts == true)
             {

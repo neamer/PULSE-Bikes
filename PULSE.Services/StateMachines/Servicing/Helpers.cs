@@ -1,11 +1,6 @@
-﻿using PULSE.Services.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PULSE.Services.Data;
 
-namespace PULSE.Services.StateMachines.Servicing
+namespace PULSE.Services.StateMachines.Servicings
 {
     public class Helpers
     {
