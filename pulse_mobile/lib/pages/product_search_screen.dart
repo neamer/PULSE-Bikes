@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/product/product.dart';
+import 'package:pulse_mobile/pages/product_details_screen.dart';
 import 'package:pulse_mobile/providers/base_crud_provider.dart';
 import 'package:pulse_mobile/providers/bicycle_provider.dart';
 import 'package:pulse_mobile/providers/gear_provider.dart';
 import 'package:pulse_mobile/utils/config.dart';
 import 'package:pulse_mobile/widgets/filter_drawer.dart';
-import 'package:pulse_mobile/widgets/navigation_drawer.dart';
+import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 import 'package:pulse_mobile/widgets/product_grid_tile.dart';
 import 'package:pulse_mobile/widgets/product_list_tile.dart';
 
@@ -29,15 +30,15 @@ class ProductSearchObject {
       this.price = null});
 }
 
-class ProductSearchScreen<T extends Product, TProvider> extends StatefulWidget {
+class ProductSearchScreen<T extends Product, TProvider extends BaseCRUDProvider<T>> extends StatefulWidget {
   static String routeName = "/search";
 
   @override
   State<ProductSearchScreen<T, TProvider>> createState() =>
-      _ProductSearchScreenState<T, TProvider>();
+      _ProductSearchScreenState<T, TProvider >();
 }
 
-class _ProductSearchScreenState<T extends Product, TProvider>
+class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDProvider<T>>
     extends State<ProductSearchScreen<T, TProvider>> {
   final ScrollController _scrollController = ScrollController();
   bool _showBackToTop = false;
@@ -106,7 +107,7 @@ class _ProductSearchScreenState<T extends Product, TProvider>
         "BicycleSizes": filterObject?.bicycleSizes,
       };
 
-      var tmpData = await (_provider as BaseCRUDProvider)?.get(searchObject);
+      var tmpData = await _provider?.get(searchObject);
 
       if (tmpData!.length < Config.productItemsPerPage) {
         _page = -1;
@@ -117,6 +118,14 @@ class _ProductSearchScreenState<T extends Product, TProvider>
         });
       }
     }
+  }
+
+  void openDetails(BuildContext context, int? productId) {
+    productId != null ?
+    Navigator.of(context).push(MaterialPageRoute<dynamic>(builder: 
+  (BuildContext context) { 
+      return ProductDetailsScreen<T, TProvider>(productId);
+    },)) : null;
   }
 
   search() {
@@ -140,7 +149,7 @@ class _ProductSearchScreenState<T extends Product, TProvider>
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: _buildBackToTopButton(),
-      drawer: SafeArea(child: Drawer(child: NavigationDrawer())),
+      drawer: SafeArea(child: Drawer(child: GlobalNavigationDrawer())),
       endDrawer: SafeArea(child: Drawer(child: FilterDrawer<T>(resetData))),
       appBar: AppBar(
         title: Image.asset(
@@ -207,7 +216,7 @@ class _ProductSearchScreenState<T extends Product, TProvider>
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
                   itemCount: _data.length,
-                  itemBuilder: (ctx, index) => ProductListTile<T>(_data[index]))
+                  itemBuilder: (ctx, index) => ProductListTile<T>(_data[index], onTap: (productId) => openDetails(context, productId)))
               : GridView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   shrinkWrap: true,
@@ -218,7 +227,7 @@ class _ProductSearchScreenState<T extends Product, TProvider>
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
                   itemCount: _data.length,
-                  itemBuilder: (ctx, index) => ProductGridTile(_data[index])),
+                  itemBuilder: (ctx, index) => ProductGridTile(_data[index], onTap: (productId) => openDetails(context, productId))),
           _page == -1
               ? Center(
                   child: Padding(

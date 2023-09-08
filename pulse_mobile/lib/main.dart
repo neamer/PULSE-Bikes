@@ -4,6 +4,7 @@ import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/part/part.dart';
 import 'package:pulse_mobile/model/product/product.dart';
+import 'package:pulse_mobile/pages/product_details_screen.dart';
 import 'package:pulse_mobile/pages/product_search_screen.dart';
 import 'package:pulse_mobile/providers/bicycle_size_provider.dart';
 import 'package:pulse_mobile/providers/brand_provider.dart';

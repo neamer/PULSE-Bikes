@@ -5,11 +5,13 @@ import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import '../model/gear/gear.dart';
 import '../model/part/part.dart';
 import '../model/product/product.dart';
+import '../pages/product_details_screen.dart';
 
 class ProductListTile<T extends Product> extends StatelessWidget {
   final T _product;
+    final Function(int?)? onTap;
 
-  ProductListTile(this._product);
+  ProductListTile(this._product, {this.onTap});
 
   String _formatAvailableSizes() {
     var bicycle = _product as Bicycle;
@@ -22,61 +24,65 @@ class ProductListTile<T extends Product> extends StatelessWidget {
     return output;
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.all(Radius.circular(7)),
-            border: Border.all(color: Color.fromRGBO(43, 43, 62, 1))),
-        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(7), topRight: Radius.circular(7)),
-              child: Container(
-                height: 250,
-                color: Colors.grey.shade300,
+    return InkWell(
+      onTap: () => this.onTap!(_product.productId),
+      child: Container(
+          decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.all(Radius.circular(7)),
+              border: Border.all(color: Color.fromRGBO(43, 43, 62, 1))),
+          margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(7), topRight: Radius.circular(7)),
+                child: Container(
+                  height: 250,
+                  color: Colors.grey.shade300,
+                ),
               ),
-            ),
-            Container(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${_product.brand?.name} · ${_product.model}",
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    if (T == Bicycle)
-                      Text("Available Sizes ${_formatAvailableSizes()}",
-                          style: Theme.of(context).textTheme.bodyText1),
-                    if (T == Gear)
-                      Text("${(_product as Gear).availableQty} Available",
-                          style: Theme.of(context).textTheme.bodyText1),
-                    if (T == Part)
-                      Text("${(_product as Part).availableQty} Available",
-                          style: Theme.of(context).textTheme.bodyText1),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Category · ${_product.productCategory?.name}",
+              Container(
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${_product.brand?.name} · ${_product.model}",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      if (T == Bicycle)
+                        Text("Available Sizes ${_formatAvailableSizes()}",
                             style: Theme.of(context).textTheme.bodyText1),
-                        Text("\$${_product.price}",
-                            style: Theme.of(context).textTheme.headline2)
-                      ],
-                    ),
-                  ],
-                ))
-          ],
-        ));
+                      if (T == Gear)
+                        Text("${(_product as Gear).availableQty} Available",
+                            style: Theme.of(context).textTheme.bodyText1),
+                      if (T == Part)
+                        Text("${(_product as Part).availableQty} Available",
+                            style: Theme.of(context).textTheme.bodyText1),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Category · ${_product.productCategory?.name}",
+                              style: Theme.of(context).textTheme.bodyText1),
+                          Text("\$${_product.price}",
+                              style: Theme.of(context).textTheme.headline2)
+                        ],
+                      ),
+                    ],
+                  ))
+            ],
+          )),
+    );
   }
 }

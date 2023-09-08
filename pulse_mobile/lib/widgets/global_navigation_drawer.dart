@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_mobile/pages/product_search_screen.dart';
 
-class NavigationDrawer extends StatelessWidget {
+class GlobalNavigationDrawer extends StatelessWidget {
+  const GlobalNavigationDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
 
     return Container(
-      padding: EdgeInsets.only(top: 30, left: 30, right: 30),
-      color: themeData.backgroundColor,
+      padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+      color: themeData.colorScheme.background,
       child: Column(children: [
         FittedBox(
           child: Image.asset(
@@ -16,7 +18,7 @@ class NavigationDrawer extends StatelessWidget {
             fit: BoxFit.fill,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         InkWell(
@@ -30,15 +32,15 @@ class NavigationDrawer extends StatelessWidget {
                 Icons.directions_bike,
                 color: themeData.colorScheme.primary,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text("BIKES",
-                  style: themeData.textTheme.bodyText1?.copyWith(fontSize: 23))
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 23))
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         InkWell(
@@ -52,15 +54,15 @@ class NavigationDrawer extends StatelessWidget {
                 Icons.settings,
                 color: themeData.colorScheme.primary,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text("GEAR",
-                  style: themeData.textTheme.bodyText1?.copyWith(fontSize: 23))
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 23))
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         InkWell(
@@ -74,11 +76,11 @@ class NavigationDrawer extends StatelessWidget {
                 Icons.handyman_outlined,
                 color: themeData.colorScheme.primary,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text("PARTS",
-                  style: themeData.textTheme.bodyText1?.copyWith(fontSize: 23))
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 23))
             ],
           ),
         ),
