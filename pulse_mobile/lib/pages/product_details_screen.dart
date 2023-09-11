@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pulse_mobile/model/product/product.dart';
+import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/providers/base_crud_provider.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
@@ -40,9 +40,7 @@ class _ProductDetailsScreenState<T extends Product,
     });
 
     try {
-      log(widget?.productId.toString() ?? "");
       _product = await _provider?.getById(widget.productId);
-      log(_product?.productId.toString() ?? "");
     } catch (e) {
       log(e.toString());
       Navigator.pop(context);

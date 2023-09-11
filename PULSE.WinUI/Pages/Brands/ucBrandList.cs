@@ -2,15 +2,6 @@
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.WinUI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PULSE.WinUI.Pages.Brands
 {
@@ -22,7 +13,7 @@ namespace PULSE.WinUI.Pages.Brands
         {
             InitializeComponent();
 
-            dgvBrandList.Columns[2].DefaultCellStyle.BackColor = Color.FromArgb(255, 95, 95, 111);
+            dgvBrandList.Columns[1].DefaultCellStyle.BackColor = Color.FromArgb(255, 95, 95, 111);
         }
 
         protected override void SetVisibleCore(bool value)
@@ -117,6 +108,21 @@ namespace PULSE.WinUI.Pages.Brands
 
             ucBrandDetails1.SelectBrand(item);
             pnlDetails.Visible = true;
+        }
+
+        private async void dgvBrandList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvBrandList.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var item = dgvBrandList.Rows[e.RowIndex].DataBoundItem as Model.Brand;
+
+                var response = await BrandService.Delete<Model.Brand>(item.Id);
+
+                if (response != null)
+                {
+                    LoadData();
+                }
+            }
         }
     }
 }

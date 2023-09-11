@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             btnSubmit = new Button();
             cbCategory = new ComboBox();
             cbBrand = new ComboBox();
@@ -74,8 +74,9 @@
             label1 = new Label();
             dgvImages = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataDataGridViewImageColumn = new DataGridViewImageColumn();
-            productImageBindingSource = new BindingSource(components);
+            Image = new DataGridViewImageColumn();
+            ImageAction = new DataGridViewButtonColumn();
+            productImageDGVModelBindingSource = new BindingSource(components);
             lblAddImage = new Label();
             pnlModelWrapper.SuspendLayout();
             panel3.SuspendLayout();
@@ -88,7 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvAvailableSizes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)availableSizeBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvImages).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)productImageBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)productImageDGVModelBindingSource).BeginInit();
             SuspendLayout();
             // 
             // btnSubmit
@@ -422,27 +423,27 @@
             dgvAvailableSizes.BackgroundColor = Color.FromArgb(53, 53, 64);
             dgvAvailableSizes.BorderStyle = BorderStyle.None;
             dgvAvailableSizes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = Color.FromArgb(53, 53, 64);
-            dataGridViewCellStyle13.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle13.ForeColor = Color.FromArgb(173, 173, 177);
-            dataGridViewCellStyle13.Padding = new Padding(0, 7, 0, 7);
-            dataGridViewCellStyle13.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
-            dgvAvailableSizes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(173, 173, 177);
+            dataGridViewCellStyle5.Padding = new Padding(0, 7, 0, 7);
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvAvailableSizes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvAvailableSizes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAvailableSizes.Columns.AddRange(new DataGridViewColumn[] { bicycleSizeDataGridViewTextBoxColumn, availableQtyDataGridViewTextBoxColumn, Action });
             dgvAvailableSizes.DataSource = availableSizeBindingSource;
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = Color.FromArgb(53, 53, 64);
-            dataGridViewCellStyle14.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle14.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle14.Padding = new Padding(0, 5, 0, 5);
-            dataGridViewCellStyle14.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.False;
-            dgvAvailableSizes.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.Padding = new Padding(0, 5, 0, 5);
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvAvailableSizes.DefaultCellStyle = dataGridViewCellStyle6;
             dgvAvailableSizes.EnableHeadersVisualStyles = false;
             dgvAvailableSizes.GridColor = Color.FromArgb(95, 95, 111);
             dgvAvailableSizes.ImeMode = ImeMode.On;
@@ -450,21 +451,22 @@
             dgvAvailableSizes.Margin = new Padding(20);
             dgvAvailableSizes.Name = "dgvAvailableSizes";
             dgvAvailableSizes.ReadOnly = true;
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = SystemColors.InactiveCaption;
-            dataGridViewCellStyle15.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle15.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
-            dgvAvailableSizes.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
-            dataGridViewCellStyle16.BackColor = Color.FromArgb(53, 53, 64);
-            dataGridViewCellStyle16.ForeColor = Color.FromArgb(211, 211, 213);
-            dgvAvailableSizes.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.InactiveCaption;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvAvailableSizes.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(211, 211, 213);
+            dgvAvailableSizes.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dgvAvailableSizes.RowTemplate.DividerHeight = 1;
             dgvAvailableSizes.RowTemplate.Height = 35;
             dgvAvailableSizes.Size = new Size(730, 190);
             dgvAvailableSizes.TabIndex = 43;
+            dgvAvailableSizes.CellContentClick += dgvAvailableSizes_CellContentClick;
             dgvAvailableSizes.CellDoubleClick += dgvAvailableSizes_CellDoubleClick;
             // 
             // bicycleSizeDataGridViewTextBoxColumn
@@ -516,27 +518,27 @@
             dgvImages.BackgroundColor = Color.FromArgb(53, 53, 64);
             dgvImages.BorderStyle = BorderStyle.None;
             dgvImages.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(53, 53, 64);
-            dataGridViewCellStyle9.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(173, 173, 177);
-            dataGridViewCellStyle9.Padding = new Padding(0, 7, 0, 7);
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvImages.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(173, 173, 177);
+            dataGridViewCellStyle1.Padding = new Padding(0, 7, 0, 7);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvImages.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvImages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvImages.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, dataDataGridViewImageColumn });
-            dgvImages.DataSource = productImageBindingSource;
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = Color.FromArgb(53, 53, 64);
-            dataGridViewCellStyle10.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle10.Padding = new Padding(0, 5, 0, 5);
-            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            dgvImages.DefaultCellStyle = dataGridViewCellStyle10;
+            dgvImages.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, Image, ImageAction });
+            dgvImages.DataSource = productImageDGVModelBindingSource;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(0, 5, 0, 5);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvImages.DefaultCellStyle = dataGridViewCellStyle2;
             dgvImages.EnableHeadersVisualStyles = false;
             dgvImages.GridColor = Color.FromArgb(95, 95, 111);
             dgvImages.ImeMode = ImeMode.On;
@@ -544,41 +546,51 @@
             dgvImages.Margin = new Padding(20);
             dgvImages.Name = "dgvImages";
             dgvImages.ReadOnly = true;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = SystemColors.InactiveCaption;
-            dataGridViewCellStyle11.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            dgvImages.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
-            dataGridViewCellStyle12.BackColor = Color.FromArgb(53, 53, 64);
-            dataGridViewCellStyle12.ForeColor = Color.FromArgb(211, 211, 213);
-            dgvImages.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.InactiveCaption;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvImages.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(211, 211, 213);
+            dgvImages.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dgvImages.RowTemplate.DividerHeight = 1;
             dgvImages.RowTemplate.Height = 35;
             dgvImages.Size = new Size(730, 190);
             dgvImages.TabIndex = 45;
+            dgvImages.CellContentClick += dgvImages_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.FillWeight = 32.4873047F;
+            idDataGridViewTextBoxColumn.FillWeight = 44.27554F;
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataDataGridViewImageColumn
+            // Image
             // 
-            dataDataGridViewImageColumn.DataPropertyName = "Data";
-            dataDataGridViewImageColumn.FillWeight = 167.5127F;
-            dataDataGridViewImageColumn.HeaderText = "Image";
-            dataDataGridViewImageColumn.Name = "dataDataGridViewImageColumn";
-            dataDataGridViewImageColumn.ReadOnly = true;
+            Image.DataPropertyName = "Image";
+            Image.FillWeight = 136.28566F;
+            Image.HeaderText = "Image";
+            Image.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Image.Name = "Image";
+            Image.ReadOnly = true;
             // 
-            // productImageBindingSource
+            // ImageAction
             // 
-            productImageBindingSource.DataSource = typeof(Model.ProductImage);
+            ImageAction.FillWeight = 51.9260979F;
+            ImageAction.HeaderText = "Action";
+            ImageAction.Name = "ImageAction";
+            ImageAction.ReadOnly = true;
+            ImageAction.Text = "DELETE";
+            // 
+            // productImageDGVModelBindingSource
+            // 
+            productImageDGVModelBindingSource.DataSource = typeof(ProductImage.ProductImageDGVModel);
             // 
             // lblAddImage
             // 
@@ -630,7 +642,7 @@
             Controls.Add(lblTitle);
             Name = "ucBicycleDetails";
             Padding = new Padding(0, 0, 0, 50);
-            Size = new Size(837, 657);
+            Size = new Size(838, 600);
             Load += ucBicycleDetails_Load;
             pnlModelWrapper.ResumeLayout(false);
             pnlModelWrapper.PerformLayout();
@@ -646,7 +658,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvAvailableSizes).EndInit();
             ((System.ComponentModel.ISupportInitialize)availableSizeBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvImages).EndInit();
-            ((System.ComponentModel.ISupportInitialize)productImageBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)productImageDGVModelBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -690,8 +702,10 @@
         private BindingSource availableSizeBindingSource;
         private DataGridView dgvImages;
         private Label lblAddImage;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewImageColumn dataDataGridViewImageColumn;
-        private BindingSource productImageBindingSource;
+        private BindingSource productImageDGVModelBindingSource;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewImageColumn Image;
+        private DataGridViewButtonColumn ImageAction;
     }
 }

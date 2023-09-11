@@ -2,6 +2,7 @@
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PULSE.Services.Implementation
 {
@@ -57,6 +58,24 @@ namespace PULSE.Services.Implementation
             Context.SaveChanges();
 
             return Mapper.Map<T>(entity);
+        }
+
+        public T Delete(int id)
+        {
+            var set = Context.Set<TDb>();
+
+            var entity = set.Find(id);
+
+            if (entity != null)
+            {
+                set.Remove(entity);
+                Context.SaveChanges();
+                return Mapper.Map<T>(entity);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

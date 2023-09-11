@@ -21,6 +21,9 @@ namespace PULSE.Services
             CreateMap<Data.BicycleCategory, Model.ProductCategory>();
             CreateMap<ProductCategoryUpsertRequest, Data.BicycleCategory>();
 
+            CreateMap<Data.ProductImage, Model.ProductImage>();
+            CreateMap<ProductImageUpsertRequest, Data.ProductImage>();
+
             CreateMap<Data.Brand, Model.Brand>();
             CreateMap<BrandUpsertRequest, Data.Brand>();
 

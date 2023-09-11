@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             btnSave = new Button();
-            imageList1 = new ImageList(components);
             pbImage = new PictureBox();
             openFileDialog1 = new OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)pbImage).BeginInit();
@@ -51,15 +49,11 @@
             btnSave.TabIndex = 108;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = false;
-            // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth8Bit;
-            imageList1.ImageSize = new Size(16, 16);
-            imageList1.TransparentColor = Color.Transparent;
+            btnSave.Click += btnSave_Click;
             // 
             // pbImage
             // 
+            pbImage.BackgroundImageLayout = ImageLayout.Center;
             pbImage.Location = new Point(12, 12);
             pbImage.Name = "pbImage";
             pbImage.Size = new Size(347, 349);
@@ -88,7 +82,6 @@
         #endregion
 
         private Button btnSave;
-        private ImageList imageList1;
         private PictureBox pbImage;
         private OpenFileDialog openFileDialog1;
     }

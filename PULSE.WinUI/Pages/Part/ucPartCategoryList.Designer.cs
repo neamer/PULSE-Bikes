@@ -28,225 +28,213 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgvCategoryList = new System.Windows.Forms.DataGridView();
-            this.productCategoryIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.productCategoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.pnlSearchWrapper = new System.Windows.Forms.Panel();
-            this.tbSearch = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.pnlDetails = new System.Windows.Forms.Panel();
-            this.ucPartCategoryDetails1 = new PULSE.WinUI.Pages.Part.ucPartCategoryDetails();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCategoryList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productCategoryBindingSource)).BeginInit();
-            this.pnlSearchWrapper.SuspendLayout();
-            this.pnlDetails.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            dgvCategoryList = new DataGridView();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Action = new DataGridViewButtonColumn();
+            productCategoryBindingSource = new BindingSource(components);
+            btnAdd = new Button();
+            pnlSearchWrapper = new Panel();
+            tbSearch = new TextBox();
+            label1 = new Label();
+            btnSearch = new Button();
+            pnlDetails = new Panel();
+            ucPartCategoryDetails1 = new ucPartCategoryDetails();
+            ((System.ComponentModel.ISupportInitialize)dgvCategoryList).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)productCategoryBindingSource).BeginInit();
+            pnlSearchWrapper.SuspendLayout();
+            pnlDetails.SuspendLayout();
+            SuspendLayout();
             // 
             // dgvCategoryList
             // 
-            this.dgvCategoryList.AllowUserToAddRows = false;
-            this.dgvCategoryList.AllowUserToDeleteRows = false;
-            this.dgvCategoryList.AutoGenerateColumns = false;
-            this.dgvCategoryList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCategoryList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.dgvCategoryList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvCategoryList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(173)))), ((int)(((byte)(177)))));
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 7, 0, 7);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCategoryList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCategoryList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCategoryList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.productCategoryIdDataGridViewTextBoxColumn,
-            this.nameDataGridViewTextBoxColumn,
-            this.Action});
-            this.dgvCategoryList.DataSource = this.productCategoryBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCategoryList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvCategoryList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgvCategoryList.EnableHeadersVisualStyles = false;
-            this.dgvCategoryList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(111)))));
-            this.dgvCategoryList.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.dgvCategoryList.Location = new System.Drawing.Point(10, 107);
-            this.dgvCategoryList.Margin = new System.Windows.Forms.Padding(20);
-            this.dgvCategoryList.Name = "dgvCategoryList";
-            this.dgvCategoryList.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCategoryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.dgvCategoryList.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvCategoryList.RowTemplate.DividerHeight = 1;
-            this.dgvCategoryList.RowTemplate.Height = 35;
-            this.dgvCategoryList.Size = new System.Drawing.Size(868, 557);
-            this.dgvCategoryList.TabIndex = 27;
-            this.dgvCategoryList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategoryList_CellDoubleClick);
-            // 
-            // productCategoryIdDataGridViewTextBoxColumn
-            // 
-            this.productCategoryIdDataGridViewTextBoxColumn.DataPropertyName = "ProductCategoryId";
-            this.productCategoryIdDataGridViewTextBoxColumn.FillWeight = 62.1297F;
-            this.productCategoryIdDataGridViewTextBoxColumn.HeaderText = "ProductCategoryId";
-            this.productCategoryIdDataGridViewTextBoxColumn.Name = "productCategoryIdDataGridViewTextBoxColumn";
-            this.productCategoryIdDataGridViewTextBoxColumn.ReadOnly = true;
+            dgvCategoryList.AllowUserToAddRows = false;
+            dgvCategoryList.AllowUserToDeleteRows = false;
+            dgvCategoryList.AutoGenerateColumns = false;
+            dgvCategoryList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCategoryList.BackgroundColor = Color.FromArgb(53, 53, 64);
+            dgvCategoryList.BorderStyle = BorderStyle.None;
+            dgvCategoryList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(173, 173, 177);
+            dataGridViewCellStyle1.Padding = new Padding(0, 7, 0, 7);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvCategoryList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvCategoryList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategoryList.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn, Action });
+            dgvCategoryList.DataSource = productCategoryBindingSource;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(0, 5, 0, 5);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvCategoryList.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvCategoryList.Dock = DockStyle.Bottom;
+            dgvCategoryList.EnableHeadersVisualStyles = false;
+            dgvCategoryList.GridColor = Color.FromArgb(95, 95, 111);
+            dgvCategoryList.ImeMode = ImeMode.On;
+            dgvCategoryList.Location = new Point(10, 107);
+            dgvCategoryList.Margin = new Padding(20);
+            dgvCategoryList.Name = "dgvCategoryList";
+            dgvCategoryList.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.InactiveCaption;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvCategoryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(53, 53, 64);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(211, 211, 213);
+            dgvCategoryList.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvCategoryList.RowTemplate.DividerHeight = 1;
+            dgvCategoryList.RowTemplate.Height = 35;
+            dgvCategoryList.Size = new Size(868, 557);
+            dgvCategoryList.TabIndex = 27;
+            dgvCategoryList.CellContentClick += dgvCategoryList_CellContentClick;
+            dgvCategoryList.CellDoubleClick += dgvCategoryList_CellDoubleClick;
             // 
             // nameDataGridViewTextBoxColumn
             // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.FillWeight = 182.7411F;
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            nameDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            nameDataGridViewTextBoxColumn.FillWeight = 182.7411F;
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            nameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Action
             // 
-            this.Action.FillWeight = 55.12918F;
-            this.Action.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Action.HeaderText = "Action";
-            this.Action.Name = "Action";
-            this.Action.ReadOnly = true;
-            this.Action.Text = "DELETE";
-            this.Action.ToolTipText = "Delete the category";
-            this.Action.UseColumnTextForButtonValue = true;
+            Action.FillWeight = 55.12918F;
+            Action.FlatStyle = FlatStyle.Popup;
+            Action.HeaderText = "Action";
+            Action.Name = "Action";
+            Action.ReadOnly = true;
+            Action.Text = "DELETE";
+            Action.ToolTipText = "Delete the category";
+            Action.UseColumnTextForButtonValue = true;
             // 
             // productCategoryBindingSource
             // 
-            this.productCategoryBindingSource.DataSource = typeof(PULSE.Model.ProductCategory);
+            productCategoryBindingSource.DataSource = typeof(Model.ProductCategory);
             // 
             // btnAdd
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(111)))));
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.btnAdd.Location = new System.Drawing.Point(698, 10);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(181, 40);
-            this.btnAdd.TabIndex = 26;
-            this.btnAdd.Text = "+ ADD CATEGORY";
-            this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            btnAdd.BackColor = Color.FromArgb(53, 53, 64);
+            btnAdd.Cursor = Cursors.Hand;
+            btnAdd.FlatAppearance.BorderColor = Color.FromArgb(95, 95, 111);
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAdd.ForeColor = Color.FromArgb(211, 211, 213);
+            btnAdd.Location = new Point(698, 10);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(181, 40);
+            btnAdd.TabIndex = 26;
+            btnAdd.Text = "+ ADD CATEGORY";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
             // pnlSearchWrapper
             // 
-            this.pnlSearchWrapper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.pnlSearchWrapper.Controls.Add(this.tbSearch);
-            this.pnlSearchWrapper.Location = new System.Drawing.Point(12, 60);
-            this.pnlSearchWrapper.Name = "pnlSearchWrapper";
-            this.pnlSearchWrapper.Size = new System.Drawing.Size(728, 35);
-            this.pnlSearchWrapper.TabIndex = 25;
+            pnlSearchWrapper.BackColor = Color.FromArgb(53, 53, 64);
+            pnlSearchWrapper.Controls.Add(tbSearch);
+            pnlSearchWrapper.Location = new Point(12, 60);
+            pnlSearchWrapper.Name = "pnlSearchWrapper";
+            pnlSearchWrapper.Size = new Size(728, 35);
+            pnlSearchWrapper.TabIndex = 25;
             // 
             // tbSearch
             // 
-            this.tbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.tbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.tbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.tbSearch.Location = new System.Drawing.Point(10, 8);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.PlaceholderText = "Search all fields";
-            this.tbSearch.Size = new System.Drawing.Size(715, 17);
-            this.tbSearch.TabIndex = 2;
+            tbSearch.BackColor = Color.FromArgb(53, 53, 64);
+            tbSearch.BorderStyle = BorderStyle.None;
+            tbSearch.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            tbSearch.ForeColor = Color.FromArgb(211, 211, 213);
+            tbSearch.Location = new Point(10, 8);
+            tbSearch.Name = "tbSearch";
+            tbSearch.PlaceholderText = "Search all fields";
+            tbSearch.Size = new Size(715, 17);
+            tbSearch.TabIndex = 2;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(10, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 25);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Part Categories";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = SystemColors.ButtonFace;
+            label1.Location = new Point(10, 17);
+            label1.Name = "label1";
+            label1.Size = new Size(176, 25);
+            label1.TabIndex = 24;
+            label1.Text = "Part Categories";
             // 
             // btnSearch
             // 
-            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(64)))));
-            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            this.btnSearch.Location = new System.Drawing.Point(752, 60);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(127, 35);
-            this.btnSearch.TabIndex = 23;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            btnSearch.BackColor = Color.FromArgb(53, 53, 64);
+            btnSearch.Cursor = Cursors.Hand;
+            btnSearch.FlatAppearance.BorderSize = 0;
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSearch.ForeColor = Color.FromArgb(211, 211, 213);
+            btnSearch.Location = new Point(752, 60);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(127, 35);
+            btnSearch.TabIndex = 23;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
             // 
             // pnlDetails
             // 
-            this.pnlDetails.Controls.Add(this.ucPartCategoryDetails1);
-            this.pnlDetails.Location = new System.Drawing.Point(0, 1);
-            this.pnlDetails.Name = "pnlDetails";
-            this.pnlDetails.Size = new System.Drawing.Size(888, 673);
-            this.pnlDetails.TabIndex = 28;
+            pnlDetails.Controls.Add(ucPartCategoryDetails1);
+            pnlDetails.Location = new Point(0, 1);
+            pnlDetails.Name = "pnlDetails";
+            pnlDetails.Size = new Size(888, 673);
+            pnlDetails.TabIndex = 28;
             // 
             // ucPartCategoryDetails1
             // 
-            this.ucPartCategoryDetails1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ucPartCategoryDetails1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
-            this.ucPartCategoryDetails1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucPartCategoryDetails1.Location = new System.Drawing.Point(0, 0);
-            this.ucPartCategoryDetails1.Name = "ucPartCategoryDetails1";
-            this.ucPartCategoryDetails1.Size = new System.Drawing.Size(888, 673);
-            this.ucPartCategoryDetails1.TabIndex = 0;
-            this.ucPartCategoryDetails1.TitleAdd = "Add a New Part Category";
-            this.ucPartCategoryDetails1.TitleEdit = "Edit Part Category";
+            ucPartCategoryDetails1.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            ucPartCategoryDetails1.BackColor = Color.FromArgb(39, 39, 49);
+            ucPartCategoryDetails1.Dock = DockStyle.Fill;
+            ucPartCategoryDetails1.Location = new Point(0, 0);
+            ucPartCategoryDetails1.Name = "ucPartCategoryDetails1";
+            ucPartCategoryDetails1.Size = new Size(888, 673);
+            ucPartCategoryDetails1.TabIndex = 0;
+            ucPartCategoryDetails1.TitleAdd = "Add a New Part Category";
+            ucPartCategoryDetails1.TitleEdit = "Edit Part Category";
             // 
             // ucPartCategoryList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(49)))));
-            this.Controls.Add(this.pnlDetails);
-            this.Controls.Add(this.dgvCategoryList);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.pnlSearchWrapper);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnSearch);
-            this.Name = "ucPartCategoryList";
-            this.Padding = new System.Windows.Forms.Padding(10);
-            this.Size = new System.Drawing.Size(888, 674);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCategoryList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productCategoryBindingSource)).EndInit();
-            this.pnlSearchWrapper.ResumeLayout(false);
-            this.pnlSearchWrapper.PerformLayout();
-            this.pnlDetails.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(39, 39, 49);
+            Controls.Add(pnlDetails);
+            Controls.Add(dgvCategoryList);
+            Controls.Add(btnAdd);
+            Controls.Add(pnlSearchWrapper);
+            Controls.Add(label1);
+            Controls.Add(btnSearch);
+            Name = "ucPartCategoryList";
+            Padding = new Padding(10);
+            Size = new Size(888, 674);
+            ((System.ComponentModel.ISupportInitialize)dgvCategoryList).EndInit();
+            ((System.ComponentModel.ISupportInitialize)productCategoryBindingSource).EndInit();
+            pnlSearchWrapper.ResumeLayout(false);
+            pnlSearchWrapper.PerformLayout();
+            pnlDetails.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

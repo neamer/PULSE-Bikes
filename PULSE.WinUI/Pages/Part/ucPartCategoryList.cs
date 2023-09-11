@@ -22,7 +22,7 @@ namespace PULSE.WinUI.Pages.Part
         {
             InitializeComponent();
 
-            dgvCategoryList.Columns[2].DefaultCellStyle.BackColor = Color.FromArgb(255, 95, 95, 111);
+            dgvCategoryList.Columns[1].DefaultCellStyle.BackColor = Color.FromArgb(255, 95, 95, 111);
         }
 
         protected override void SetVisibleCore(bool value)
@@ -118,6 +118,21 @@ namespace PULSE.WinUI.Pages.Part
 
             ucPartCategoryDetails1.SelectCategory(item);
             pnlDetails.Visible = true;
+        }
+
+        private async void dgvCategoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvCategoryList.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var item = dgvCategoryList.Rows[e.RowIndex].DataBoundItem as Model.ProductCategory;
+
+                var response = await PartCategoryService.Delete<Model.ProductCategory>(item.Id);
+
+                if (response != null)
+                {
+                    LoadData();
+                }
+            }
         }
     }
 }

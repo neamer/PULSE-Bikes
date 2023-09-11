@@ -22,7 +22,7 @@ namespace PULSE.WinUI.Pages.Bicycle
         {
             InitializeComponent();
 
-            dgvCategoryList.Columns[2].DefaultCellStyle.BackColor = Color.FromArgb(255, 95, 95, 111);
+            dgvCategoryList.Columns[1].DefaultCellStyle.BackColor = Color.FromArgb(255, 95, 95, 111);
         }
 
         protected override void SetVisibleCore(bool value)
@@ -128,9 +128,19 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         }
 
-        private void dgvCategoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvCategoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dgvCategoryList.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var item = dgvCategoryList.Rows[e.RowIndex].DataBoundItem as Model.ProductCategory;
 
+                var response = await BicycleCategoryService.Delete<Model.ProductCategory>(item.Id);
+
+                if (response != null)
+                {
+                    LoadData();
+                }
+            }
         }
 
         private void productCategoryBindingSource_CurrentChanged(object sender, EventArgs e)

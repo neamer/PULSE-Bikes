@@ -4,7 +4,7 @@ part 'brand.g.dart';
 
 @JsonSerializable()
 class Brand {
-  int? brandId;
+  int? id;
   String? name;
 
   Brand();

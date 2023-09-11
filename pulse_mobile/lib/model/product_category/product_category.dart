@@ -1,10 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../abstract/base_model.dart';
+
 part 'product_category.g.dart';
 
 @JsonSerializable()
-class ProductCategory {
-  int? id;
+class ProductCategory extends BaseModel {
   String? name;
 
   ProductCategory();

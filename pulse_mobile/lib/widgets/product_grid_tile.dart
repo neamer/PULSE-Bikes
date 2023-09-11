@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/product/product.dart';
+import '../model/abstract/product.dart';
 
 class ProductGridTile extends StatelessWidget {
   final Product _product;
@@ -11,7 +11,7 @@ class ProductGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => this.onTap!(_product.productId),
+      onTap: () => this.onTap!(_product.id),
       child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,

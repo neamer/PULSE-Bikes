@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:non_linear_slider/models/interval.dart';
-import 'package:non_linear_slider/non_linear_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/brand/brand.dart';
-import 'package:pulse_mobile/model/product/product.dart';
+import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/product_category/product_category.dart';
 import 'package:pulse_mobile/pages/product_search_screen.dart';
 import 'package:pulse_mobile/providers/bicycle_size_provider.dart';
@@ -47,20 +46,20 @@ const SortByOptions = <SortByOption>[
 
 class FilterDrawer<TProduct extends Product> extends StatefulWidget {
   final Function reloadData;
+  final ProductSearchObject _currentConfig;
 
-  FilterDrawer(this.reloadData);
+  const FilterDrawer(this.reloadData, this._currentConfig, {super.key});
 
   @override
   State<FilterDrawer> createState() => _FilterDrawerState<TProduct>();
 }
 
 class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
-  final _searchObject = ProductSearchObject();
   RangeValues _currentRangeValues = const RangeValues(0, 100000);
 
-  BrandProvider? _brandProvider = null;
-  ProductCategoryProvider<TProduct>? _categoryProvider = null;
-  BicycleSizeProvider? _bicycleSizeProvider = null;
+  BrandProvider? _brandProvider;
+  ProductCategoryProvider<TProduct>? _categoryProvider;
+  BicycleSizeProvider? _bicycleSizeProvider;
 
   SortByOption _sortBy = SortByOptions[0];
 
@@ -71,6 +70,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
   ProductCategory? _selectedCategory;
 
   List<BicycleSize> _bicycleSizes = [];
+  List<BicycleSize>? _selectedBicycleSizes = [];
 
   @override
   void initState() {
@@ -96,13 +96,21 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
         _bicycleSizes = value;
       });
     });
+
+    initValues();
+  }
+
+  void initValues() {
+    _selectedBrand = widget._currentConfig.brandId != null ? _brands.singleWhere((element) => element.id == widget._currentConfig.brandId) : null;
+    _selectedCategory = widget._currentConfig.productCategoryId != null ? _categories.singleWhere((element) => element.id == widget._currentConfig.productCategoryId) : null;
+    _selectedBicycleSizes = widget._currentConfig.bicycleSizes != null ? _bicycleSizes.where((element) => widget._currentConfig.bicycleSizes.contains(element.id)).toList() : null;
   }
 
   void onRefresh() {
     // OBJECT DONT GET FILLED BY DROPDOWN
-    print(_selectedBrand);
+    print(_selectedBrand?.id);
     final searchObject = ProductSearchObject(
-        brandId: _selectedBrand?.brandId,
+        brandId: _selectedBrand?.id,
         productCategoryId: _selectedCategory?.id,
         price:
             _currentRangeValues.start != 0 && _currentRangeValues.end != 100000
@@ -125,19 +133,19 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 ..._buildDropDownButton(
                     "SORT BY", SortByOptions, (value) {}, themeData,
                     selected: _sortBy),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
-                Divider(
+                const Divider(
                   color: Color.fromARGB(255, 183, 183, 197),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 ..._buildDropDownButton<Brand>("BRANDS", _brands, (value) {
@@ -145,7 +153,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                     this._selectedBrand = value;
                   });
                 }, themeData),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 ..._buildDropDownButton("CATEGORY", _categories, (value) {
@@ -153,7 +161,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                     this._selectedCategory = value;
                   });
                 }, themeData),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Text(
@@ -174,7 +182,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                     });
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Row(
@@ -192,7 +200,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 ..._bicycleSizes.map((e) => Row(
@@ -203,21 +211,21 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                                 ?.copyWith(fontSize: 18)),
                       ],
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 OutlinedButton(
-                  onPressed: () => widget.reloadData(_searchObject),
+                  onPressed: onRefresh,
                   style: OutlinedButton.styleFrom(
                       textStyle:
                           themeData.textTheme.headline6?.copyWith(fontSize: 20),
-                      side: BorderSide(
+                      side: const BorderSide(
                           width: 2.0,
                           color: Color.fromARGB(255, 222, 224, 226))),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
                     child: Center(
-                      child: const Text("REFRESH"),
+                      child: Text("REFRESH"),
                     ),
                   ),
                 )
@@ -229,13 +237,13 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
 
   List<Widget> _buildDropDownButton<T>(String label, List<T> options,
           Function(T?) onChanged, ThemeData themeData,
-          {T? selected = null}) =>
+          {T? selected}) =>
       <Widget>[
         Text(
           label,
           style: themeData.textTheme.headline6?.copyWith(fontSize: 18),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         DropdownButtonFormField(

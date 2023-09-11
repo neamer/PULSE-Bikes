@@ -7,7 +7,7 @@ part of 'gear.dart';
 // **************************************************************************
 
 Gear _$GearFromJson(Map<String, dynamic> json) => Gear()
-  ..productId = json['productId'] as int?
+  ..id = json['id'] as int?
   ..brandId = json['brandId'] as int?
   ..productCategoryId = json['productCategoryId'] as int?
   ..productNumber = json['productNumber'] as String?
@@ -30,7 +30,7 @@ Gear _$GearFromJson(Map<String, dynamic> json) => Gear()
   ..availableQty = json['availableQty'] as int?;
 
 Map<String, dynamic> _$GearToJson(Gear instance) => <String, dynamic>{
-      'productId': instance.productId,
+      'id': instance.id,
       'brandId': instance.brandId,
       'productCategoryId': instance.productCategoryId,
       'productNumber': instance.productNumber,

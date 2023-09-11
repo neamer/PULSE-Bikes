@@ -1,5 +1,8 @@
 ﻿using PULSE.Model;
 using PULSE.Model.Requests;
+using PULSE.Model.SearchObjects;
+using PULSE.WinUI.Helpers;
+using PULSE.WinUI.Pages.ProductImage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +17,8 @@ namespace PULSE.WinUI.Pages.Part
 {
     public partial class ucPartDetails : UserControl
     {
+        public APIService ProductImageService { get; set; } = new APIService("ProductImage");
+
         Model.Part Model;
 
         public string TitleAdd { get; set; } = "Add Part";
@@ -54,6 +59,25 @@ namespace PULSE.WinUI.Pages.Part
             lblTitle.Text = TitleAdd;
         }
 
+        public async void LoadImages()
+        {
+            var searchObject = new AvailableSizeSearchObject()
+            {
+                ProductId = Model.Id
+            };
+
+            var items = await ProductImageService.Get<List<Model.ProductImage>>(searchObject);
+
+            if (items == null)
+            {
+                return;
+            }
+
+            var map = items.Select(item => new ProductImageDGVModel(item)).ToList();
+
+            dgvImages.DataSource = map;
+        }
+
         public void SelectPart(Model.Part model)
         {
             Model = model;
@@ -85,6 +109,7 @@ namespace PULSE.WinUI.Pages.Part
             }
 
             lblTitle.Text = TitleEdit;
+            LoadImages();
         }
 
         public void LoadComboBoxes(List<Brand> brands, List<ProductCategory> categories)
@@ -218,5 +243,27 @@ namespace PULSE.WinUI.Pages.Part
         }
 
         #endregion
+
+        private void lblAddImage_Click(object sender, EventArgs e)
+        {
+            var frm = new frmAddImage(Model.Id, LoadImages);
+
+            frm.Show();
+        }
+
+        private async void dgvImages_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvImages.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var item = dgvImages.Rows[e.RowIndex].DataBoundItem as ProductImageDGVModel;
+
+                var response = await ProductImageService.Delete<Model.ProductImage>(item.Id);
+
+                if (response != null)
+                {
+                    LoadImages();
+                }
+            }
+        }
     }
 }

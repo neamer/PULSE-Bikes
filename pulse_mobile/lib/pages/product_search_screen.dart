@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pulse_mobile/model/bicycle/bicycle.dart';
-import 'package:pulse_mobile/model/gear/gear.dart';
-import 'package:pulse_mobile/model/product/product.dart';
+import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/pages/product_details_screen.dart';
 import 'package:pulse_mobile/providers/base_crud_provider.dart';
-import 'package:pulse_mobile/providers/bicycle_provider.dart';
-import 'package:pulse_mobile/providers/gear_provider.dart';
 import 'package:pulse_mobile/utils/config.dart';
 import 'package:pulse_mobile/widgets/filter_drawer.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 import 'package:pulse_mobile/widgets/product_grid_tile.dart';
 import 'package:pulse_mobile/widgets/product_list_tile.dart';
 
-import '../providers/part_provider.dart';
 
 enum ViewType { List, Grid }
 
@@ -21,17 +16,19 @@ class ProductSearchObject {
   List<int>? bicycleSizes;
   int? brandId;
   int? productCategoryId;
-  RangeValues? price = RangeValues(0, 100000);
+  RangeValues? price = const RangeValues(0, 100000);
 
   ProductSearchObject(
-      {this.bicycleSizes = null,
-      this.brandId = null,
-      this.productCategoryId = null,
-      this.price = null});
+      {this.bicycleSizes,
+      this.brandId,
+      this.productCategoryId,
+      this.price});
 }
 
 class ProductSearchScreen<T extends Product, TProvider extends BaseCRUDProvider<T>> extends StatefulWidget {
   static String routeName = "/search";
+
+  const ProductSearchScreen({super.key});
 
   @override
   State<ProductSearchScreen<T, TProvider>> createState() =>
@@ -44,7 +41,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
   bool _showBackToTop = false;
   final _searchObject = ProductSearchObject();
 
-  TProvider? _provider = null;
+  TProvider? _provider;
   final _searchController = TextEditingController();
   String _searchCriteria = "";
 
@@ -83,7 +80,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
   Future resetData(ProductSearchObject? filterObject) async {
     print(filterObject?.brandId);
     await _scrollController.animateTo(0,
-        duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+        duration: const Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
     setState(() {
       _page = 0;
       _data = [];
@@ -91,7 +88,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
     loadData(filterObject: filterObject);
   }
 
-  Future loadData({ProductSearchObject? filterObject = null}) async {
+  Future loadData({ProductSearchObject? filterObject}) async {
     if (_page != -1) {
       var searchObject = {
         "AnyField": _searchCriteria,
@@ -149,7 +146,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: _buildBackToTopButton(),
-      drawer: SafeArea(child: Drawer(child: GlobalNavigationDrawer())),
+      drawer: const SafeArea(child: Drawer(child: GlobalNavigationDrawer())),
       endDrawer: SafeArea(child: Drawer(child: FilterDrawer<T>(resetData))),
       appBar: AppBar(
         title: Image.asset(
@@ -161,7 +158,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
           Builder(
             builder: (context) {
               return IconButton(
-                icon: Icon(Icons.filter_list),
+                icon: const Icon(Icons.filter_list),
                 onPressed: () {
                   Scaffold.of(context).openEndDrawer();
                 },
@@ -171,12 +168,12 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
         ],
         toolbarHeight: 75,
         centerTitle: true,
-        shape: Border(bottom: BorderSide(color: Colors.cyan, width: 1)),
+        shape: const Border(bottom: BorderSide(color: Colors.cyan, width: 1)),
       ),
       body: ListView(
         controller: _scrollController,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -187,7 +184,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
               Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: themeData.primaryColor),
-                    borderRadius: BorderRadius.all(Radius.circular(7))),
+                    borderRadius: const BorderRadius.all(Radius.circular(7))),
                 child: IconButton(
                   iconSize: 32,
                   icon: Icon(
@@ -203,10 +200,10 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                           : ViewType.List;
                     });
                   },
-                  padding: EdgeInsets.all(13),
+                  padding: const EdgeInsets.all(13),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 14,
               ),
             ],
@@ -214,13 +211,13 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
           _viewType == ViewType.List
               ? ListView.builder(
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   itemCount: _data.length,
                   itemBuilder: (ctx, index) => ProductListTile<T>(_data[index], onTap: (productId) => openDetails(context, productId)))
               : GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200,
                       childAspectRatio: itemWidth / itemHeight,
@@ -231,7 +228,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
           _page == -1
               ? Center(
                   child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
                     "No more products to show!",
                     style: themeData.textTheme.bodyText1,
@@ -248,7 +245,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
   }
 
   Widget _buildBackToTopButton() => AnimatedOpacity(
-        duration: Duration(milliseconds: 200), //show/hide animation
+        duration: const Duration(milliseconds: 200), //show/hide animation
         opacity:
             _showBackToTop ? 1.0 : 0.0, //set obacity to 1 on visible, or hide
         child: Padding(
@@ -256,14 +253,14 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color.fromARGB(255, 84, 117, 145), width: 1),
-                color: Color.fromRGBO(19, 19, 29, 0.9),
+                    color: const Color.fromARGB(255, 84, 117, 145), width: 1),
+                color: const Color.fromRGBO(19, 19, 29, 0.9),
                 shape: BoxShape.circle),
             height: 60,
             child: Center(
               child: IconButton(
                 iconSize: 35,
-                icon: Icon(
+                icon: const Icon(
                   Icons.keyboard_arrow_up_outlined,
                   color: Color.fromRGBO(188, 188, 188, 1),
                 ),
@@ -272,7 +269,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                       //go to top of scroll
                       0, //scroll offset to go
                       duration:
-                          Duration(milliseconds: 500), //duration of scroll
+                          const Duration(milliseconds: 500), //duration of scroll
                       curve: Curves.fastOutSlowIn //scroll type
                       );
                 },
@@ -298,7 +295,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
               enabledBorder: OutlineInputBorder(
                   borderSide:
                       BorderSide(color: themeData.primaryColor, width: 1),
-                  borderRadius: BorderRadius.all(Radius.circular(7))),
+                  borderRadius: const BorderRadius.all(Radius.circular(7))),
               hintStyle: themeData.textTheme.bodyText1,
               hintText: "Enter search criteria"),
         ),

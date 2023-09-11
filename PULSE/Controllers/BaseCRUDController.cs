@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PULSE.Services.Interfaces;
-using System.Collections.Generic;
 
 namespace PULSE.Controllers
 {
@@ -37,6 +36,17 @@ namespace PULSE.Controllers
             }
         }
 
-
+        [HttpDelete("{id}")]
+        public virtual ActionResult<T> Delete(int id)
+        {
+            try
+            {
+                return Ok(((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Delete(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

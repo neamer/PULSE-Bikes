@@ -7,7 +7,7 @@ part of 'part.dart';
 // **************************************************************************
 
 Part _$PartFromJson(Map<String, dynamic> json) => Part()
-  ..productId = json['productId'] as int?
+  ..id = json['id'] as int?
   ..brandId = json['brandId'] as int?
   ..productCategoryId = json['productCategoryId'] as int?
   ..productNumber = json['productNumber'] as String?
@@ -30,7 +30,7 @@ Part _$PartFromJson(Map<String, dynamic> json) => Part()
   ..availableQty = json['availableQty'] as int?;
 
 Map<String, dynamic> _$PartToJson(Part instance) => <String, dynamic>{
-      'productId': instance.productId,
+      'id': instance.id,
       'brandId': instance.brandId,
       'productCategoryId': instance.productCategoryId,
       'productNumber': instance.productNumber,

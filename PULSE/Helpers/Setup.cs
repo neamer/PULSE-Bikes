@@ -37,6 +37,7 @@ namespace PULSE.Helpers
             builder.Services.AddTransient<IPartService, PartService>();
             builder.Services.AddTransient<IGearService, GearService>();
             builder.Services.AddTransient<IBicycleService, BicycleService>();
+            builder.Services.AddTransient<IProductImageService, ProductImageService>();
 
             builder.Services.AddTransient<IBicycleSizeService, BicycleSizeService>();
             builder.Services.AddTransient<IAvailableSizeService, AvailableSizeService>();

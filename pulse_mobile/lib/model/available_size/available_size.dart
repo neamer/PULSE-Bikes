@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pulse_mobile/model/bicycle_size/bicycle_size.dart';
 
+import '../abstract/base_model.dart';
+
 part 'available_size.g.dart';
 
 @JsonSerializable()
-class AvailableSize {
+class AvailableSize extends BaseModel {
   int? bicycleSizeId;
   int? productId;
   int? availableQty;

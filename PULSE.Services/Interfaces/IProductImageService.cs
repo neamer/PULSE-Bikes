@@ -4,7 +4,7 @@ using PULSE.Model.SearchObjects;
 
 namespace PULSE.Services.Interfaces
 {
-    public interface IProductImageService : ICRUDService<ProductImage, BaseSearchObject, ProductImageUpsertRequest, ProductImageUpsertRequest>
-    {
-    }
+    public interface IProductImageService 
+        : ICRUDService<ProductImage, ProductImageSearchObject, ProductImageUpsertRequest, ProductImageUpsertRequest>
+    {}
 }

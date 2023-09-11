@@ -1,4 +1,4 @@
-import 'package:pulse_mobile/model/product/product.dart';
+import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/product_category/product_category.dart';
 
 import '../model/brand/brand.dart';

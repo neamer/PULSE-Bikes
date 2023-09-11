@@ -2,6 +2,7 @@
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.WinUI.Helpers;
+using PULSE.WinUI.Pages.ProductImage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace PULSE.WinUI.Pages.Bicycle
     {
 
         public APIService AvailableSizeService { get; set; } = new APIService("AvailableSize");
+        public APIService ProductImageService { get; set; } = new APIService("ProductImage");
 
         Model.Bicycle Model;
 
@@ -48,6 +50,25 @@ namespace PULSE.WinUI.Pages.Bicycle
             }
 
             dgvAvailableSizes.DataSource = items;
+        }
+
+        public async void LoadImages()
+        {
+            var searchObject = new AvailableSizeSearchObject()
+            {
+                ProductId = Model.Id
+            };
+
+            var items = await ProductImageService.Get<List<Model.ProductImage>>(searchObject);
+
+            if (items == null)
+            {
+                return;
+            }
+
+            var map = items.Select(item => new ProductImageDGVModel(item)).ToList();
+
+            dgvImages.DataSource = map;
         }
 
         public void ResetForm()
@@ -115,6 +136,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
             dgvAvailableSizes.Enabled = true;
             LoadSizes();
+            LoadImages();
         }
 
         public void DisableDGV()
@@ -285,6 +307,7 @@ namespace PULSE.WinUI.Pages.Bicycle
 
                 frm.Show();
                 frm.ModelSubmitted += LoadSizes;
+                frm.ModelSubmitted += LoadImages;
             }
         }
 
@@ -300,9 +323,39 @@ namespace PULSE.WinUI.Pages.Bicycle
 
         private void lblAddImage_Click(object sender, EventArgs e)
         {
-            var frm = new frmAddImage();
+            var frm = new frmAddImage(Model.Id, LoadImages);
 
             frm.Show();
+        }
+
+        private async void dgvImages_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvImages.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var item = dgvImages.Rows[e.RowIndex].DataBoundItem as ProductImageDGVModel;
+
+                var response = await ProductImageService.Delete<Model.ProductImage>(item.Id);
+
+                if (response != null)
+                {
+                    LoadImages();
+                }
+            }
+        }
+
+        private async void dgvAvailableSizes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvAvailableSizes.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var item = dgvAvailableSizes.Rows[e.RowIndex].DataBoundItem as Model.AvailableSize;
+
+                var response = await AvailableSizeService.Delete<Model.AvailableSize>(item.Id);
+
+                if (response != null)
+                {
+                    LoadSizes();
+                }
+            }
         }
     }
 }

@@ -8,11 +8,10 @@ namespace PULSE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductImageController : BaseCRUDController<ProductImage, BaseSearchObject, ProductImageUpsertRequest, ProductImageUpsertRequest>
+    public class ProductImageController : BaseCRUDController<ProductImage, ProductImageSearchObject, ProductImageUpsertRequest, ProductImageUpsertRequest>
     {
         public ProductImageController(IProductImageService service)
             : base(service)
-        {
-        }
+        {}
     }
 }

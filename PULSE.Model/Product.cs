@@ -4,7 +4,7 @@
     {
         public Product()
         {
-            ProductImages = new HashSet<ProductImage>();
+            Images = new HashSet<ProductImage>();
         }
 
         public int? BrandId { get; set; }
@@ -16,6 +16,6 @@
         public byte[]? ThumbImage { get; set; }
 
         public virtual Brand? Brand { get; set; }
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
+        public virtual ICollection<ProductImage> Images { get; set; }
     }
 }

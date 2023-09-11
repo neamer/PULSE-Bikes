@@ -1,10 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../abstract/base_model.dart';
+
 part 'bicycle_size.g.dart';
 
 @JsonSerializable()
-class BicycleSize {
-  int? bicycleSizeId;
+class BicycleSize extends BaseModel {
   String? size;
 
   BicycleSize();

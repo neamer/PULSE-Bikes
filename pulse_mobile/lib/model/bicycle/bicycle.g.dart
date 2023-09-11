@@ -7,7 +7,7 @@ part of 'bicycle.dart';
 // **************************************************************************
 
 Bicycle _$BicycleFromJson(Map<String, dynamic> json) => Bicycle()
-  ..productId = json['productId'] as int?
+  ..id = json['id'] as int?
   ..brandId = json['brandId'] as int?
   ..productCategoryId = json['productCategoryId'] as int?
   ..productNumber = json['productNumber'] as String?
@@ -35,7 +35,7 @@ Bicycle _$BicycleFromJson(Map<String, dynamic> json) => Bicycle()
       .toList();
 
 Map<String, dynamic> _$BicycleToJson(Bicycle instance) => <String, dynamic>{
-      'productId': instance.productId,
+      'id': instance.id,
       'brandId': instance.brandId,
       'productCategoryId': instance.productCategoryId,
       'productNumber': instance.productNumber,

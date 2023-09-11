@@ -17,5 +17,6 @@ namespace PULSE.Model.SearchObjects
 
         public bool? IncludeBrand { get; set; }
         public bool? IncludeCategory { get; set; }
+        public bool? IncludeImages { get; set; }
     }
 }
