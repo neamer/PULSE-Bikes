@@ -39,7 +39,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
     extends State<ProductSearchScreen<T, TProvider>> {
   final ScrollController _scrollController = ScrollController();
   bool _showBackToTop = false;
-  final _searchObject = ProductSearchObject();
+  final ProductSearchObject _searchObject = ProductSearchObject();
 
   TProvider? _provider;
   final _searchController = TextEditingController();
@@ -77,37 +77,41 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
     });
   }
 
-  Future resetData(ProductSearchObject? filterObject) async {
-    print(filterObject?.brandId);
+  Future resetData() async {
     await _scrollController.animateTo(0,
         duration: const Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
     setState(() {
       _page = 0;
       _data = [];
     });
-    loadData(filterObject: filterObject);
+    loadData();
   }
 
-  Future loadData({ProductSearchObject? filterObject}) async {
+  Future loadData() async {
     if (_page != -1) {
       var searchObject = {
-        "AnyField": _searchCriteria,
         "IncludeBrand": true,
         "IncludeCategory": true,
         "IncludeSizes": true,
+
+        "AnyField": _searchCriteria,
+        "BrandId": _searchObject.brandId,
+        "PriceFrom": _searchObject.price?.start,
+        "PriceTo": _searchObject.price?.end,
+        "BicycleSizes": _searchObject.bicycleSizes,
+        "ProductCategoryId": _searchObject.productCategoryId,
+
         "Page": _page,
         "PageSize": Config.productItemsPerPage,
-        "BrandId": filterObject?.brandId,
-        "ProductCategoryId": filterObject?.productCategoryId,
-        "PriceFrom": filterObject?.price?.start,
-        "PriceTo": filterObject?.price?.end,
-        "BicycleSizes": filterObject?.bicycleSizes,
       };
 
       var tmpData = await _provider?.get(searchObject);
 
       if (tmpData!.length < Config.productItemsPerPage) {
-        _page = -1;
+        setState(() {
+          _data += (tmpData as List<T>);
+          _page = -1;
+        });
       } else {
         setState(() {
           _data += (tmpData as List<T>);
@@ -147,7 +151,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: _buildBackToTopButton(),
       drawer: const SafeArea(child: Drawer(child: GlobalNavigationDrawer())),
-      endDrawer: SafeArea(child: Drawer(child: FilterDrawer<T>(resetData))),
+      endDrawer: SafeArea(child: Drawer(child: FilterDrawer<T>(resetData, _searchObject))),
       appBar: AppBar(
         title: Image.asset(
           "assets/images/logo.png",
@@ -230,7 +234,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                   child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
-                    "No more products to show!",
+                    "",
                     style: themeData.textTheme.bodyText1,
                   ),
                 ))

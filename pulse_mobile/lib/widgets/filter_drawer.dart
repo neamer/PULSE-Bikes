@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:non_linear_slider/models/interval.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_mobile/model/available_size/available_size.dart';
 import 'package:pulse_mobile/model/brand/brand.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/product_category/product_category.dart';
@@ -70,56 +71,72 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
   ProductCategory? _selectedCategory;
 
   List<BicycleSize> _bicycleSizes = [];
-  List<BicycleSize>? _selectedBicycleSizes = [];
+  List<BicycleSize> _selectedBicycleSizes = [];
 
   @override
   void initState() {
     super.initState();
+    initValues();
+  }
+
+  void initValues() async {
     _brandProvider = context.read<BrandProvider>();
     _categoryProvider = context.read<ProductCategoryProvider<TProduct>>();
     _bicycleSizeProvider = context.read<BicycleSizeProvider>();
 
-    _brandProvider?.get(null).then((value) {
+    await _brandProvider?.get(null).then((value) {
       setState(() {
         _brands = value;
+        _selectedBrand = widget._currentConfig.brandId != null
+            ? value.singleWhere(
+                (element) => element.id == widget._currentConfig.brandId)
+            : null;
       });
     });
 
-    _categoryProvider?.get(null).then((value) {
+    await _categoryProvider?.get(null).then((value) {
       setState(() {
         _categories = value;
+        _selectedCategory = widget._currentConfig.productCategoryId != null
+            ? value.singleWhere((element) =>
+                element.id == widget._currentConfig.productCategoryId)
+            : null;
       });
     });
 
-    _bicycleSizeProvider?.get(null).then((value) {
+    await _bicycleSizeProvider?.get(null).then((value) {
       setState(() {
         _bicycleSizes = value;
+        _selectedBicycleSizes = widget._currentConfig.bicycleSizes != null
+            ? _bicycleSizes
+                .where((element) =>
+                    widget._currentConfig.bicycleSizes?.contains(element.id) ??
+                    false)
+                .toList()
+            : [...value];
       });
     });
 
-    initValues();
-  }
-
-  void initValues() {
-    _selectedBrand = widget._currentConfig.brandId != null ? _brands.singleWhere((element) => element.id == widget._currentConfig.brandId) : null;
-    _selectedCategory = widget._currentConfig.productCategoryId != null ? _categories.singleWhere((element) => element.id == widget._currentConfig.productCategoryId) : null;
-    _selectedBicycleSizes = widget._currentConfig.bicycleSizes != null ? _bicycleSizes.where((element) => widget._currentConfig.bicycleSizes.contains(element.id)).toList() : null;
+    if (widget._currentConfig.price != null) {
+      _currentRangeValues = widget._currentConfig.price!;
+    }
   }
 
   void onRefresh() {
-    // OBJECT DONT GET FILLED BY DROPDOWN
-    print(_selectedBrand?.id);
-    final searchObject = ProductSearchObject(
-        brandId: _selectedBrand?.id,
-        productCategoryId: _selectedCategory?.id,
-        price:
-            _currentRangeValues.start != 0 && _currentRangeValues.end != 100000
-                ? _currentRangeValues
-                : null);
+    widget._currentConfig.brandId = _selectedBrand?.id;
+    widget._currentConfig.productCategoryId = _selectedCategory?.id;
+    widget._currentConfig.price = _currentRangeValues;
+    widget._currentConfig.bicycleSizes = _selectedBicycleSizes.map((e) => e.id ?? -1).toList();
 
-    widget.reloadData(searchObject);
+    widget.reloadData();
     Navigator.pop(context);
   }
+
+  bool isChecked(BicycleSize item) => _selectedBicycleSizes.contains(item);
+  void check(BicycleSize item) =>
+      setState(() => _selectedBicycleSizes.add(item));
+  void uncheck(BicycleSize item) =>
+      setState(() => _selectedBicycleSizes.remove(item));
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +169,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                   setState(() {
                     this._selectedBrand = value;
                   });
-                }, themeData),
+                }, themeData, selected: _selectedBrand),
                 const SizedBox(
                   height: 25,
                 ),
@@ -160,7 +177,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                   setState(() {
                     this._selectedCategory = value;
                   });
-                }, themeData),
+                }, themeData, selected: _selectedCategory),
                 const SizedBox(
                   height: 25,
                 ),
@@ -203,14 +220,32 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                 const SizedBox(
                   height: 15,
                 ),
-                ..._bicycleSizes.map((e) => Row(
-                      children: [
-                        Checkbox(value: true, onChanged: (value) {}),
-                        Text(e.toString(),
-                            style: themeData.textTheme.headline6
-                                ?.copyWith(fontSize: 18)),
-                      ],
-                    )),
+                Container(
+                  constraints: const BoxConstraints(minHeight: 50),
+                  child: Column(
+                    children: [
+                      ..._bicycleSizes.map((e) => Row(
+                            children: [
+                              Checkbox(
+                                  value: isChecked(e),
+                                  onChanged: (value) {
+                                    print(value);
+                                    if (value != null) {
+                                      if (value) {
+                                        check(e);
+                                      } else {
+                                        uncheck(e);
+                                      }
+                                    }
+                                  }),
+                              Text(e.toString(),
+                                  style: themeData.textTheme.headline6
+                                      ?.copyWith(fontSize: 18)),
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 25,
                 ),

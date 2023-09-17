@@ -25,7 +25,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   BaseProvider(String endpoint) {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://192.168.1.2:5000/");
+        defaultValue: "http://192.168.1.20:5000/");
     print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {
@@ -37,12 +37,21 @@ abstract class BaseProvider<T> with ChangeNotifier {
     http = IOClient(client);
   }
 
-  Future<T?> getById(int id, [dynamic additionalData]) async {
-    var url = Uri.parse("$_baseUrl$_endpoint/$id");
+  Future<T?> getById(int id, [dynamic search]) async {
+    var url = "$_baseUrl$_endpoint/$id";
+
+    if (search != null) {
+      String queryString = getQueryString(search);
+      url = url + "?" + queryString;
+    }
+
+    var uri = Uri.parse(url);
+
+    print(uri);
 
     Map<String, String> headers = createHeaders();
 
-    var response = await http!.get(url, headers: headers);
+    var response = await http!.get(uri, headers: headers);
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
       return fromJson(data);

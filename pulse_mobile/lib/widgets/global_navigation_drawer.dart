@@ -19,7 +19,7 @@ class GlobalNavigationDrawer extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 40,
+          height: 60,
         ),
         InkWell(
           onTap: () {
@@ -28,15 +28,15 @@ class GlobalNavigationDrawer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(
-                Icons.directions_bike,
-                color: themeData.colorScheme.primary,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              // Icon(
+              //   Icons.directions_bike,
+              //   color: themeData.colorScheme.primary,
+              // ),
+              // const SizedBox(
+              //   width: 10,
+              // ),
               Text("BIKES",
-                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 23))
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 20))
             ],
           ),
         ),
@@ -50,15 +50,15 @@ class GlobalNavigationDrawer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(
-                Icons.settings,
-                color: themeData.colorScheme.primary,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              // Icon(
+              //   Icons.settings,
+              //   color: themeData.colorScheme.primary,
+              // ),
+              // const SizedBox(
+              //   width: 10,
+              // ),
               Text("GEAR",
-                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 23))
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 20))
             ],
           ),
         ),
@@ -72,15 +72,15 @@ class GlobalNavigationDrawer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(
-                Icons.handyman_outlined,
-                color: themeData.colorScheme.primary,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              // Icon(
+              //   Icons.handyman_outlined,
+              //   color: themeData.colorScheme.primary,
+              // ),
+              // const SizedBox(
+              //   width: 10,
+              // ),
               Text("PARTS",
-                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 23))
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 20))
             ],
           ),
         ),
