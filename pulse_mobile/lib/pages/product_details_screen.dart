@@ -39,8 +39,16 @@ class _ProductDetailsScreenState<T extends Product,
       _loading = true;
     });
 
+    var searchObject = {
+      "IncludeBrand": true,
+      "IncludeCategory": true,
+      "IncludeSizes": true,
+    };
+
+  print(widget.productId);
+
     try {
-      _product = await _provider?.getById(widget.productId);
+      _product = await _provider?.getById(widget.productId, searchObject);
     } catch (e) {
       log(e.toString());
       Navigator.pop(context);
