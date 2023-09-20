@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
             primaryColor: Color.fromRGBO(188, 188, 188, 1),
             backgroundColor: Color.fromRGBO(19, 19, 29, 1),
             scaffoldBackgroundColor: Color.fromRGBO(19, 19, 29, 1),
+            buttonTheme: ThemeData.light().buttonTheme.copyWith(
+              
+            ),
             textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
                     fontSize: 24,
@@ -53,6 +56,10 @@ class MyApp extends StatelessWidget {
                     color: Colors.white),
                 bodyText1: TextStyle(
                     fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                    color: Color.fromRGBO(188, 188, 188, 1)),
+                    bodyText2: TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.w300,
                     color: Color.fromRGBO(188, 188, 188, 1))),
             colorScheme: ColorScheme.fromSwatch().copyWith(

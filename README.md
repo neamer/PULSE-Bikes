@@ -39,18 +39,7 @@ CONTENT LIGHT ACCENT LINE - 95; 95; 111
 Order services planning
 
     Order header
-
-TO DO:
-
-    Order details CRUD              [x] ET 1:30h || RT ~3h
-    Order process from frontend     [x] ET 30min ||
-    Change Shipping Status          [x] ET 2h    ||
-    Cancel Order                    [x] ET 15min ||
-    Delete Order                    [x] ET 15min ||
-
-
-    TEST FLURL ERROR HANDLING
-
+    
 change state after offer send
 
 ## ROLES

@@ -45,8 +45,6 @@ class _ProductDetailsScreenState<T extends Product,
       "IncludeSizes": true,
     };
 
-  print(widget.productId);
-
     try {
       _product = await _provider?.getById(widget.productId, searchObject);
     } catch (e) {
@@ -93,25 +91,41 @@ class _ProductDetailsScreenState<T extends Product,
                 padding: EdgeInsets.all(20),
                 child: CircularProgressIndicator(),
               ))
-            : Column(
-                children: [
-                  Container(
-                    height: 270,
-                    color: Colors.grey.shade300,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Category: ${_product?.productCategory?.name}",
-                            style: themeData.textTheme.bodyText1),
-                        Text("${_product?.brand?.name} · ${_product?.model}",
-                            style: themeData.textTheme.headline6),
-                      ],
+            : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 270,
+                      color: Colors.grey.shade300,
                     ),
-                  )
-                ],
-              ));
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Category: ${_product?.productCategory?.name}",
+                              style: themeData.textTheme.bodyText1?.copyWith(color: Colors.white)),
+                              SizedBox(height: 10,),
+                          Text("${_product?.brand?.name} · ${_product?.model}",
+                              style: themeData.textTheme.headline6),
+                              SizedBox(height: 10,),
+                          Text("${_product?.description}",
+                              style: themeData.textTheme.bodyText2,
+                              textAlign: TextAlign.justify,),
+                              SizedBox(height: 20,),
+                          Row(children: [
+                            Container(),
+                            OutlinedButton(style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical:15, horizontal:30)) 
+  ),   onPressed: () {}, child: Text("ADD TO CART", style: themeData.textTheme.headline6?.copyWith(color: themeData.backgroundColor, fontSize: 18)))
+                          ],)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+            ));
   }
 }
