@@ -112,23 +112,23 @@ namespace PULSE.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator,Salesperson")]
-        [HttpDelete("{id}")]
-        public virtual ActionResult<Model.OrderHeader> Delete(int id)
-        {
-            try
-            {
-                return ((IOrderService)this.Service).Delete(id);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
+        //[Authorize(Roles = "Administrator,Salesperson")]
+        //[HttpDelete("{id}")]
+        //public virtual ActionResult<Model.OrderHeader> Delete(int id)
+        //{
+        //    try
+        //    {
+        //        return ((IOrderService)this.Service).Delete(id);
+        //    }
+        //    catch (InvalidOperationException ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //}
 
         [Authorize(Roles = "Administrator,Salesperson")]
         [HttpDelete("Cancel/{id}")]

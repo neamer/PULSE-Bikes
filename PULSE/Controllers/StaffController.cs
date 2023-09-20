@@ -55,19 +55,19 @@ namespace PULSE.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
-        public ActionResult<Staff> Delete(int id)
-        {
-            try
-            {
-                return Ok((Service as IStaffService).Delete(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[Authorize(Roles = "Administrator")]
+        //[HttpDelete("{id}")]
+        //public ActionResult<Staff> Delete(int id)
+        //{
+        //    try
+        //    {
+        //        return Ok((Service as IStaffService).Delete(id));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpPost("login")]
         public ActionResult<Staff> Login([FromBody] LoginRequest req)

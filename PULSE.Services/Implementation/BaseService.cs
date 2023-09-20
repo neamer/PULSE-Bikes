@@ -39,8 +39,8 @@ namespace PULSE.Services.Implementation
             var set = Context.Set<TDb>().AsQueryable();
 
             set = AddInclude(set, search);
-
-            var entity = set.Where(element => element.Id == id);
+            
+            var entity = set.Where(element => element.Id == id).FirstOrDefault();
 
             if (entity == null)
             {
