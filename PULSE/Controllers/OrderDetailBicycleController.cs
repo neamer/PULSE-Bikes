@@ -12,9 +12,7 @@ namespace PULSE.Controllers
     public class OrderDetailBicycleController : BaseCRUDController<OrderDetail, BaseSearchObject, OrderDetailBicycleInsertRequest, OrderDetailsUpdateRequest>
     {
         public OrderDetailBicycleController(IOrderDetailBicycleService service)
-            : base(service)
-        {
-        }
+            : base(service) {}
 
         [Authorize(Roles = "Administrator,Salesperson")]
         public override ActionResult<OrderDetail> Insert([FromBody] OrderDetailBicycleInsertRequest insert)
@@ -28,10 +26,20 @@ namespace PULSE.Controllers
             return base.Update(id, update);
         }
 
-        [ExcludeFromDescription]
-        public override ActionResult<IEnumerable<OrderDetail>>  Get([FromQuery] BaseSearchObject search = null)
+        [HttpPost("public")]
+        public ActionResult<OrderDetail> PublicInsert([FromBody] OrderDetailBicycleInsertRequest insert)
         {
-            return new List<OrderDetail>();
+            try
+            {
+                var userId = HttpContext.Session.GetString("AuthenticatedUser");
+
+
+                return Ok(((IOrderDetailBicycleService)Service).Insert(insert));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -133,7 +133,7 @@ namespace PULSE.WinUI.Pages.Orders
 
             if (cbState.SelectedIndex != 0 && cbState.SelectedIndex != -1)
             {
-                searchObject.Status = (int)Model.OrderStateHelper.GetStateFromName(cbState.SelectedItem as string);
+                searchObject.Status = Model.OrderStateHelper.GetStateFromName(cbState.SelectedItem as string);
             }
 
             var list = await OrderService.Get<List<Model.OrderHeader>>(searchObject);

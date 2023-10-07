@@ -17,6 +17,8 @@ namespace PULSE.WinUI.Helpers
         public static string Username = null;
         public static string Password = null;
 
+        public static string UserType = "STAFF";
+
         public APIService(string resource)
         {
             _resource = resource;
@@ -32,7 +34,7 @@ namespace PULSE.WinUI.Helpers
                     query = await search.ToQueryString();
                 }
 
-                var list = await $"{_endpoint}{_resource}/{resource}?{query}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+                var list = await $"{_endpoint}{_resource}/{resource}?{query}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).GetJsonAsync<T>();
 
                 return list;
             }
@@ -49,7 +51,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}/{resource}".WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}/{resource}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).PostJsonAsync(request).ReceiveJson<T>();
                 return result;
             }
             catch (FlurlHttpException ex)
@@ -65,7 +67,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}/{resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}/{resource}/{id}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).PutJsonAsync(request).ReceiveJson<T>();
                 return result;
             }
             catch (FlurlHttpException ex)
@@ -87,7 +89,7 @@ namespace PULSE.WinUI.Helpers
                     query = await search.ToQueryString();
                 }
 
-                var list = await $"{_endpoint}{_resource}?{query}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+                var list = await $"{_endpoint}{_resource}?{query}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).GetJsonAsync<T>();
 
                 return list;
             }
@@ -104,7 +106,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).GetJsonAsync<T>();
                 return result;
             }
             catch (FlurlHttpException ex)
@@ -120,7 +122,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).PostJsonAsync(request).ReceiveJson<T>();
                 return result;
             }
             catch (FlurlHttpException ex)
@@ -137,7 +139,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).PutJsonAsync(request).ReceiveJson<T>();
 
                 return result;
             }
@@ -154,7 +156,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).DeleteAsync().ReceiveJson<T>();
                 return result;
             }
             catch (FlurlHttpException ex)
@@ -170,7 +172,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}/{resource}/{id}".WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}/{resource}/{id}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).DeleteAsync().ReceiveJson<T>();
                 return result;
             }
             catch (FlurlHttpException ex)
@@ -186,7 +188,7 @@ namespace PULSE.WinUI.Helpers
         {
             try
             {
-                var result = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
+                var result = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).WithHeader("X-User-Type", UserType).PutJsonAsync(request).ReceiveJson<T>();
 
                 return result;
             }

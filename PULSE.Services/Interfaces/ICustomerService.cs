@@ -11,6 +11,6 @@ namespace PULSE.Services.Interfaces
 {
     public interface ICustomerService : ICRUDService<Customer, NameGenericSearchObject, CustomerInsertRequest, CustomerUpdateRequest>
     {
-
+        public Customer Login(LoginRequest request);
     }
 }

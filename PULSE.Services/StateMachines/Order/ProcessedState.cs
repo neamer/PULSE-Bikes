@@ -13,7 +13,7 @@ namespace PULSE.Services.StateMachines.Order
         {
             if (CurrentEntity == null) { return null; }
 
-            CurrentEntity.Status = (int)Model.OrderState.Cancelled;
+            CurrentEntity.Status = Model.OrderState.Cancelled;
 
             foreach (var item in CurrentEntity.OrderDetails)
             {
@@ -45,7 +45,7 @@ namespace PULSE.Services.StateMachines.Order
 
         public override void Pack()
         {
-            CurrentEntity.Status = (int)Model.OrderState.Packed;
+            CurrentEntity.Status = Model.OrderState.Packed;
             CurrentEntity.TimePacked = DateTime.Now;
             Context.SaveChanges();
         }

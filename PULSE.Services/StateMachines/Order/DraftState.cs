@@ -234,7 +234,7 @@ namespace PULSE.Services.StateMachines.Order
                 Context.Payments.Add(payment);
                 Context.SaveChanges();
 
-                CurrentEntity.Status = (int)Model.OrderState.Processed;
+                CurrentEntity.Status = Model.OrderState.Processed;
                 CurrentEntity.TimeProcessed = DateTime.Now;
                 CurrentEntity.PaymentId = payment.Id;
 

@@ -24,6 +24,29 @@ namespace PULSE.Services.Implementation
             return state.InsertEmployee(insert);
         }
 
+        private Data.OrderHeader CreateDraftOrderForCustomer(int customerId)
+        {
+            var order = new Data.OrderHeader()
+            {
+                Status = Model.OrderState.Draft,
+                CustomerId = customerId
+            };
+
+            Context.OrderHeaders.Add(order);
+            Context.SaveChangesAsync();
+
+            return order;
+        }
+
+        public Data.OrderHeader GetDraftOrderForCustomer(int customerId)
+        {
+            var order = Context.OrderHeaders.Where(item => item.CustomerId == customerId).First();
+
+            return order == null
+                ? CreateDraftOrderForCustomer(customerId)
+                : order;
+        }
+
         public override Model.OrderHeader Update(int id, OrderHeaderUpdateRequest update)
         {
             var item = Context.OrderHeaders.Find(id);

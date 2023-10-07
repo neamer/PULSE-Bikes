@@ -31,6 +31,14 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddDistributedMemoryCache(); // For in-memory session storage
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Adjust the session timeout as needed
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 Setup.RegisterStates(builder);
 Setup.RegisterServices(builder);
 
@@ -43,6 +51,8 @@ builder.Services.AddDbContext<PULSE.Services.Data.PULSEContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

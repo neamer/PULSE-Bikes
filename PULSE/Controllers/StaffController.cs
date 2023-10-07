@@ -4,6 +4,7 @@ using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Interfaces;
+using System.Security.Claims;
 
 namespace PULSE.Controllers
 {
@@ -74,7 +75,7 @@ namespace PULSE.Controllers
         {
             try
             {
-                return Ok((Service as IStaffService).Login(req.Username, req.Password));
+                return Ok((Service as IStaffService).Login(req));
             }
             catch (Exception ex)
             {

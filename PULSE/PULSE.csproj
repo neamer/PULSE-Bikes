@@ -24,4 +24,8 @@
     <ProjectReference Include="..\PULSE.Services\PULSE.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Public\" />
+  </ItemGroup>
+
 </Project>

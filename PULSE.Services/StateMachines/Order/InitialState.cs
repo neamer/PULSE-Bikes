@@ -17,7 +17,7 @@ namespace PULSE.Services.StateMachines.Order
             entity.OrderDetails = new List<OrderDetail>();
 
             CurrentEntity = entity;
-            CurrentEntity.Status = (int)Model.OrderState.Draft;
+            CurrentEntity.Status = Model.OrderState.Draft;
 
             if (request.ShippingInfo != null)
             {

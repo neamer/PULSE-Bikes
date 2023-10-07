@@ -1,4 +1,6 @@
-﻿namespace PULSE.Services.Data
+﻿using PULSE.Model;
+
+namespace PULSE.Services.Data
 {
     public partial class OrderHeader : BaseEntity
     {
@@ -11,7 +13,7 @@
         public int? CustomerId { get; set; }
         public int? PaymentId { get; set; }
         public int? ShippingInfoId { get; set; }
-        public int? Status { get; set; }
+        public OrderState? Status { get; set; }
         public DateTime? TimeProcessed { get; set; }
         public DateTime? TimePacked { get; set; }
         public DateTime? TimeShipped { get; set; }

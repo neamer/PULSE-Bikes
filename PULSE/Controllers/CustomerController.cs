@@ -11,8 +11,19 @@ namespace PULSE.Controllers
     public class CustomerController : BaseCRUDController<Customer, NameGenericSearchObject, CustomerInsertRequest, CustomerUpdateRequest>
     {
         public CustomerController(ICustomerService service)
-            : base(service)
+            : base(service) {}
+
+        [HttpPost("login")]
+        public ActionResult<Staff> Login([FromBody] LoginRequest req)
         {
+            try
+            {
+                return Ok((Service as IStaffService).Login(req));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

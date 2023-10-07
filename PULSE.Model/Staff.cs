@@ -1,16 +1,10 @@
 ﻿namespace PULSE.Model
 {
-    public partial class Staff : BaseModel
+    public partial class Staff : User
     {
-        public string? FirstName { get; set; }
         public string? FullName { get; set; }
         public string? RolesNames { get; set; }
-        public string? LastName { get; set; }
-        public string? Username { get; set; }
-        public string? Email { get; set; }
-        public bool? Status { get; set; }
         public string? StatusName { get; set; }
-        public string? PhoneNumber { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime? DateOfEmployment { get; set; }
 

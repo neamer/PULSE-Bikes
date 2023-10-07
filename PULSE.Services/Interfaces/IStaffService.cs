@@ -11,7 +11,7 @@ namespace PULSE.Services.Interfaces
 {
     public interface IStaffService : ICRUDService<Staff, StaffSearchObject, StaffInsertRequest, StaffUpdateRequest>
     {
-        Model.Staff Login(string username, string password);
+        Model.Staff Login(LoginRequest request);
         public Model.Staff Delete(int id);
         public IEnumerable<Role> GetRoles();
     }
