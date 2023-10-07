@@ -1,8 +1,6 @@
 import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/product_category/product_category.dart';
-
-import '../model/brand/brand.dart';
-import 'base_provider.dart';
+import 'package:pulse_mobile/providers/abstract/base_provider.dart';
 
 class ProductCategoryProvider<T extends Product>
     extends BaseProvider<ProductCategory> {

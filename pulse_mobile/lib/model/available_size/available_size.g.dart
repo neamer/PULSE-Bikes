@@ -8,6 +8,7 @@ part of 'available_size.dart';
 
 AvailableSize _$AvailableSizeFromJson(Map<String, dynamic> json) =>
     AvailableSize()
+      ..id = json['id'] as int?
       ..bicycleSizeId = json['bicycleSizeId'] as int?
       ..productId = json['productId'] as int?
       ..availableQty = json['availableQty'] as int?
@@ -17,6 +18,7 @@ AvailableSize _$AvailableSizeFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$AvailableSizeToJson(AvailableSize instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'bicycleSizeId': instance.bicycleSizeId,
       'productId': instance.productId,
       'availableQty': instance.availableQty,

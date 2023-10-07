@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:non_linear_slider/models/interval.dart';
 import 'package:provider/provider.dart';
-import 'package:pulse_mobile/model/available_size/available_size.dart';
 import 'package:pulse_mobile/model/brand/brand.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/product_category/product_category.dart';
@@ -10,6 +9,7 @@ import 'package:pulse_mobile/providers/bicycle_size_provider.dart';
 import 'package:pulse_mobile/providers/brand_provider.dart';
 import 'package:pulse_mobile/providers/category_provider.dart';
 
+import '../model/bicycle/bicycle.dart';
 import '../model/bicycle_size/bicycle_size.dart';
 import 'non_linear_range_slider.dart';
 
@@ -73,6 +73,8 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
   List<BicycleSize> _bicycleSizes = [];
   List<BicycleSize> _selectedBicycleSizes = [];
 
+  final isBicycle = TProduct is Bicycle;
+
   @override
   void initState() {
     super.initState();
@@ -126,7 +128,8 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
     widget._currentConfig.brandId = _selectedBrand?.id;
     widget._currentConfig.productCategoryId = _selectedCategory?.id;
     widget._currentConfig.price = _currentRangeValues;
-    widget._currentConfig.bicycleSizes = _selectedBicycleSizes.map((e) => e.id ?? -1).toList();
+    widget._currentConfig.bicycleSizes =
+        _selectedBicycleSizes.map((e) => e.id ?? -1).toList();
 
     widget.reloadData();
     Navigator.pop(context);
@@ -141,132 +144,145 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
+    print("TProduct");
+    print(TProduct);
 
-    return SingleChildScrollView(
-      child: Container(
-          color: themeData.backgroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                ..._buildDropDownButton(
-                    "SORT BY", SortByOptions, (value) {}, themeData,
-                    selected: _sortBy),
-                const SizedBox(
-                  height: 25,
-                ),
-                const Divider(
-                  color: Color.fromARGB(255, 183, 183, 197),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                ..._buildDropDownButton<Brand>("BRANDS", _brands, (value) {
-                  setState(() {
-                    this._selectedBrand = value;
-                  });
-                }, themeData, selected: _selectedBrand),
-                const SizedBox(
-                  height: 25,
-                ),
-                ..._buildDropDownButton("CATEGORY", _categories, (value) {
-                  setState(() {
-                    this._selectedCategory = value;
-                  });
-                }, themeData, selected: _selectedCategory),
-                const SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "PRICE",
-                  style: themeData.textTheme.headline6?.copyWith(fontSize: 18),
-                ),
-                NonLinearRangeSlider(
-                  intervals: [
-                    NLSInterval(0, 2000, 0.5),
-                    NLSInterval(2000, 10000, 0.25),
-                    NLSInterval(10000, 100000, 0.25),
-                  ],
-                  divisions: 80,
-                  values: _currentRangeValues,
-                  onChanged: (RangeValues values) {
+    return Drawer(
+      child: SingleChildScrollView(
+        child: Container(
+            constraints:
+                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+            color: themeData.backgroundColor,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ..._buildDropDownButton(
+                      "SORT BY", SortByOptions, (value) {}, themeData,
+                      selected: _sortBy),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 183, 183, 197),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  ..._buildDropDownButton<Brand>("BRANDS", _brands, (value) {
                     setState(() {
-                      _currentRangeValues = values;
+                      this._selectedBrand = value;
                     });
-                  },
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "SIZES",
-                      style:
-                          themeData.textTheme.headline6?.copyWith(fontSize: 18),
-                    ),
-                    Text(
-                      "CHECK ALL",
-                      style: themeData.textTheme.headline6?.copyWith(
-                          fontSize: 16, decoration: TextDecoration.underline),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  constraints: const BoxConstraints(minHeight: 50),
-                  child: Column(
-                    children: [
-                      ..._bicycleSizes.map((e) => Row(
-                            children: [
-                              Checkbox(
-                                  value: isChecked(e),
-                                  onChanged: (value) {
-                                    print(value);
-                                    if (value != null) {
-                                      if (value) {
-                                        check(e);
-                                      } else {
-                                        uncheck(e);
-                                      }
-                                    }
-                                  }),
-                              Text(e.toString(),
-                                  style: themeData.textTheme.headline6
-                                      ?.copyWith(fontSize: 18)),
-                            ],
-                          ))
+                  }, themeData, selected: _selectedBrand),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  ..._buildDropDownButton("CATEGORY", _categories, (value) {
+                    setState(() {
+                      this._selectedCategory = value;
+                    });
+                  }, themeData, selected: _selectedCategory),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    "PRICE",
+                    style:
+                        themeData.textTheme.headline6?.copyWith(fontSize: 18),
+                  ),
+                  NonLinearRangeSlider(
+                    intervals: [
+                      NLSInterval(0, 2000, 0.5),
+                      NLSInterval(2000, 10000, 0.25),
+                      NLSInterval(10000, 100000, 0.25),
                     ],
+                    divisions: 80,
+                    values: _currentRangeValues,
+                    onChanged: (RangeValues values) {
+                      setState(() {
+                        _currentRangeValues = values;
+                      });
+                    },
                   ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                OutlinedButton(
-                  onPressed: onRefresh,
-                  style: OutlinedButton.styleFrom(
-                      textStyle:
-                          themeData.textTheme.headline6?.copyWith(fontSize: 20),
-                      side: const BorderSide(
-                          width: 2.0,
-                          color: Color.fromARGB(255, 222, 224, 226))),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Center(
-                      child: Text("REFRESH"),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  if (TProduct == Bicycle)
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "SIZES",
+                              style: themeData.textTheme.headline6
+                                  ?.copyWith(fontSize: 18),
+                            ),
+                            Text(
+                              "CHECK ALL",
+                              style: themeData.textTheme.headline6?.copyWith(
+                                  fontSize: 16,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          constraints: const BoxConstraints(minHeight: 50),
+                          child: Column(
+                            children: [
+                              ..._bicycleSizes.map((e) => Row(
+                                    children: [
+                                      Checkbox(
+                                          value: isChecked(e),
+                                          onChanged: (value) {
+                                            print(value);
+                                            if (value != null) {
+                                              if (value) {
+                                                check(e);
+                                              } else {
+                                                uncheck(e);
+                                              }
+                                            }
+                                          }),
+                                      Text(e.toString(),
+                                          style: themeData.textTheme.headline6
+                                              ?.copyWith(fontSize: 18)),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
+                  const SizedBox(
+                    height: 25,
                   ),
-                )
-              ],
-            ),
-          )),
+                  OutlinedButton(
+                    onPressed: onRefresh,
+                    style: OutlinedButton.styleFrom(
+                        textStyle: themeData.textTheme.headline6
+                            ?.copyWith(fontSize: 20),
+                        side: const BorderSide(
+                            width: 2.0,
+                            color: Color.fromARGB(255, 222, 224, 226))),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Center(
+                        child: Text("REFRESH"),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )),
+      ),
     );
   }
 

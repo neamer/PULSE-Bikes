@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
-import 'package:pulse_mobile/pages/product_details_screen.dart';
-import 'package:pulse_mobile/providers/base_crud_provider.dart';
+import 'package:pulse_mobile/providers/abstract/base_crud_provider.dart';
+import 'package:pulse_mobile/screens/product_details_screen.dart';
 import 'package:pulse_mobile/utils/config.dart';
 import 'package:pulse_mobile/widgets/filter_drawer.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 import 'package:pulse_mobile/widgets/product_grid_tile.dart';
 import 'package:pulse_mobile/widgets/product_list_tile.dart';
 
-
-enum ViewType { List, Grid }
+enum ViewType { list, grid }
 
 class ProductSearchObject {
   List<int>? bicycleSizes;
@@ -19,23 +18,22 @@ class ProductSearchObject {
   RangeValues? price = const RangeValues(0, 100000);
 
   ProductSearchObject(
-      {this.bicycleSizes,
-      this.brandId,
-      this.productCategoryId,
-      this.price});
+      {this.bicycleSizes, this.brandId, this.productCategoryId, this.price});
 }
 
-class ProductSearchScreen<T extends Product, TProvider extends BaseCRUDProvider<T>> extends StatefulWidget {
+class ProductSearchScreen<T extends Product,
+    TProvider extends BaseCRUDProvider<T>> extends StatefulWidget {
   static String routeName = "/search";
 
   const ProductSearchScreen({super.key});
 
   @override
   State<ProductSearchScreen<T, TProvider>> createState() =>
-      _ProductSearchScreenState<T, TProvider >();
+      _ProductSearchScreenState<T, TProvider>();
 }
 
-class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDProvider<T>>
+class _ProductSearchScreenState<T extends Product,
+        TProvider extends BaseCRUDProvider<T>>
     extends State<ProductSearchScreen<T, TProvider>> {
   final ScrollController _scrollController = ScrollController();
   bool _showBackToTop = false;
@@ -45,7 +43,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
   final _searchController = TextEditingController();
   String _searchCriteria = "";
 
-  ViewType _viewType = ViewType.List;
+  ViewType _viewType = ViewType.list;
   List<T> _data = [];
 
   int _page = 0;
@@ -79,7 +77,8 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
 
   Future resetData() async {
     await _scrollController.animateTo(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn);
     setState(() {
       _page = 0;
       _data = [];
@@ -93,14 +92,12 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
         "IncludeBrand": true,
         "IncludeCategory": true,
         "IncludeSizes": true,
-
         "AnyField": _searchCriteria,
         "BrandId": _searchObject.brandId,
         "PriceFrom": _searchObject.price?.start,
         "PriceTo": _searchObject.price?.end,
         "BicycleSizes": _searchObject.bicycleSizes,
         "ProductCategoryId": _searchObject.productCategoryId,
-
         "Page": _page,
         "PageSize": Config.productItemsPerPage,
       };
@@ -109,12 +106,12 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
 
       if (tmpData!.length < Config.productItemsPerPage) {
         setState(() {
-          _data += (tmpData as List<T>);
+          _data += tmpData;
           _page = -1;
         });
       } else {
         setState(() {
-          _data += (tmpData as List<T>);
+          _data += tmpData;
           _page++;
         });
       }
@@ -122,11 +119,13 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
   }
 
   void openDetails(BuildContext context, int? productId) {
-    productId != null ?
-    Navigator.of(context).push(MaterialPageRoute<dynamic>(builder: 
-  (BuildContext context) { 
-      return ProductDetailsScreen<T, TProvider>(productId);
-    },)) : null;
+    productId != null
+        ? Navigator.of(context).push(MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) {
+              return ProductDetailsScreen<T, TProvider>(productId);
+            },
+          ))
+        : null;
   }
 
   search() {
@@ -144,14 +143,14 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
     var size = MediaQuery.of(context).size;
 
     /*24 is for notification bar on Android*/
-    final double itemHeight = 247;
+    const double itemHeight = 247;
     final double itemWidth = (size.width - 30) / 2;
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: _buildBackToTopButton(),
       drawer: const SafeArea(child: Drawer(child: GlobalNavigationDrawer())),
-      endDrawer: SafeArea(child: Drawer(child: FilterDrawer<T>(resetData, _searchObject))),
+      endDrawer: SafeArea(child: FilterDrawer<T>(resetData, _searchObject)),
       appBar: AppBar(
         title: Image.asset(
           "assets/images/logo.png",
@@ -192,16 +191,16 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                 child: IconButton(
                   iconSize: 32,
                   icon: Icon(
-                    _viewType == ViewType.List
+                    _viewType == ViewType.list
                         ? Icons.grid_view_sharp
                         : Icons.table_rows_sharp,
                     color: themeData.primaryColor,
                   ),
                   onPressed: () {
                     setState(() {
-                      _viewType = _viewType == ViewType.List
-                          ? ViewType.Grid
-                          : ViewType.List;
+                      _viewType = _viewType == ViewType.list
+                          ? ViewType.grid
+                          : ViewType.list;
                     });
                   },
                   padding: const EdgeInsets.all(13),
@@ -212,12 +211,13 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
               ),
             ],
           ),
-          _viewType == ViewType.List
+          _viewType == ViewType.list
               ? ListView.builder(
                   shrinkWrap: true,
                   physics: const ScrollPhysics(),
                   itemCount: _data.length,
-                  itemBuilder: (ctx, index) => ProductListTile<T>(_data[index], onTap: (productId) => openDetails(context, productId)))
+                  itemBuilder: (ctx, index) => ProductListTile<T>(_data[index],
+                      onTap: (productId) => openDetails(context, productId)))
               : GridView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   shrinkWrap: true,
@@ -228,14 +228,15 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
                   itemCount: _data.length,
-                  itemBuilder: (ctx, index) => ProductGridTile(_data[index], onTap: (productId) => openDetails(context, productId))),
+                  itemBuilder: (ctx, index) => ProductGridTile(_data[index],
+                      onTap: (productId) => openDetails(context, productId))),
           _page == -1
               ? Center(
                   child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
                     "",
-                    style: themeData.textTheme.bodyText1,
+                    style: themeData.textTheme.bodyLarge,
                   ),
                 ))
               : const Center(
@@ -272,8 +273,8 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                   _scrollController.animateTo(
                       //go to top of scroll
                       0, //scroll offset to go
-                      duration:
-                          const Duration(milliseconds: 500), //duration of scroll
+                      duration: const Duration(
+                          milliseconds: 500), //duration of scroll
                       curve: Curves.fastOutSlowIn //scroll type
                       );
                 },
@@ -290,7 +291,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
           onSubmitted: (value) {
             search();
           },
-          style: themeData.textTheme.bodyText1,
+          style: themeData.textTheme.bodyLarge,
           decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.search,
@@ -300,7 +301,7 @@ class _ProductSearchScreenState<T extends Product, TProvider extends BaseCRUDPro
                   borderSide:
                       BorderSide(color: themeData.primaryColor, width: 1),
                   borderRadius: const BorderRadius.all(Radius.circular(7))),
-              hintStyle: themeData.textTheme.bodyText1,
+              hintStyle: themeData.textTheme.bodyLarge,
               hintText: "Enter search criteria"),
         ),
       );

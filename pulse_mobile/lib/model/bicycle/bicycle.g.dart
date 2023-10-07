@@ -8,6 +8,12 @@ part of 'bicycle.dart';
 
 Bicycle _$BicycleFromJson(Map<String, dynamic> json) => Bicycle()
   ..id = json['id'] as int?
+  ..createdAt = json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String)
+  ..updatedAt = json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String)
   ..brandId = json['brandId'] as int?
   ..productCategoryId = json['productCategoryId'] as int?
   ..productNumber = json['productNumber'] as String?
@@ -21,12 +27,6 @@ Bicycle _$BicycleFromJson(Map<String, dynamic> json) => Bicycle()
       ? null
       : Brand.fromJson(json['brand'] as Map<String, dynamic>)
   ..price = (json['price'] as num?)?.toDouble()
-  ..createdAt = json['createdAt'] == null
-      ? null
-      : DateTime.parse(json['createdAt'] as String)
-  ..updatedAt = json['updatedAt'] == null
-      ? null
-      : DateTime.parse(json['updatedAt'] as String)
   ..weight = (json['weight'] as num?)?.toDouble()
   ..productionYear = json['productionYear'] as int?
   ..wheelSize = json['wheelSize'] as String?
@@ -36,6 +36,8 @@ Bicycle _$BicycleFromJson(Map<String, dynamic> json) => Bicycle()
 
 Map<String, dynamic> _$BicycleToJson(Bicycle instance) => <String, dynamic>{
       'id': instance.id,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
       'brandId': instance.brandId,
       'productCategoryId': instance.productCategoryId,
       'productNumber': instance.productNumber,
@@ -44,8 +46,6 @@ Map<String, dynamic> _$BicycleToJson(Bicycle instance) => <String, dynamic>{
       'productCategory': instance.productCategory,
       'brand': instance.brand,
       'price': instance.price,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
       'weight': instance.weight,
       'productionYear': instance.productionYear,
       'wheelSize': instance.wheelSize,
