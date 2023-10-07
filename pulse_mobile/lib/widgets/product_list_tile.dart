@@ -8,7 +8,7 @@ import '../model/abstract/product.dart';
 
 class ProductListTile<T extends Product> extends StatelessWidget {
   final T _product;
-    final Function(int?)? onTap;
+  final Function(int?)? onTap;
 
   const ProductListTile(this._product, {super.key, this.onTap});
 

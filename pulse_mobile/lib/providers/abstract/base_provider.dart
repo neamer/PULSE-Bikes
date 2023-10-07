@@ -4,50 +4,37 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:flutter/foundation.dart';
-
-/*
-
-  Classes -> query params
-
-  Classes Lists of Query Params?
-
-
-  use cases : set query parameters in code
-
-*/
+import 'package:pulse_mobile/utils/util.dart';
 
 abstract class BaseProvider<T> with ChangeNotifier {
-  static String? _baseUrl;
-  String? _endpoint;
+  static String? baseUrl;
+  String? endpoint;
 
-  HttpClient client = new HttpClient();
+  HttpClient client = HttpClient();
   IOClient? http;
 
-  BaseProvider(String endpoint) {
-    _baseUrl = const String.fromEnvironment("baseUrl",
+  BaseProvider(String endpointParam) {
+    baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "http://192.168.1.20:5000/");
-    print("baseurl: $_baseUrl");
 
-    if (_baseUrl!.endsWith("/") == false) {
-      _baseUrl = _baseUrl! + "/";
+    if (baseUrl!.endsWith("/") == false) {
+      baseUrl = "${baseUrl!}/";
     }
 
-    _endpoint = endpoint;
+    endpoint = endpointParam;
     client.badCertificateCallback = (cert, host, port) => true;
     http = IOClient(client);
   }
 
   Future<T?> getById(int id, [dynamic search]) async {
-    var url = "$_baseUrl$_endpoint/$id";
+    var url = "$baseUrl$endpoint/$id";
 
     if (search != null) {
       String queryString = getQueryString(search);
-      url = url + "?" + queryString;
+      url = "$url?$queryString";
     }
 
     var uri = Uri.parse(url);
-
-    print(uri);
 
     Map<String, String> headers = createHeaders();
 
@@ -61,39 +48,35 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<List<T>> get([dynamic search]) async {
-    var url = "$_baseUrl$_endpoint";
+    var url = "$baseUrl$endpoint";
 
     if (search != null) {
       String queryString = getQueryString(search);
-      url = url + "?" + queryString;
+      url = "$url?$queryString";
     }
 
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
-    print("get me");
     var response = await http!.get(uri, headers: headers);
-    print("done ${response.statusCode}");
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
       return data.map((x) => fromJson(x)).cast<T>().toList();
     } else {
-      print(response.statusCode);
-      print(response.body);
       throw Exception("Exception... handle this gracefully");
     }
   }
 
   Map<String, String> createHeaders() {
-    // String? username = Authorization.username;
-    // String? password = Authorization.password;
+    String? username = Authorization.username;
+    String? password = Authorization.password;
 
-    // String basicAuth =
-    //     "Basic ${base64Encode(utf8.encode('$username:$password'))}";
+    String basicAuth =
+        "Basic ${base64Encode(utf8.encode('$username:$password'))}";
 
     var headers = {
       "Content-Type": "application/json",
-      //"Authorization": basicAuth
+      "Authorization": basicAuth
     };
     return headers;
   }
@@ -103,7 +86,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   String getQueryString(Map params,
-      {String prefix: '&', bool inRecursion: false}) {
+      {String prefix = '&', bool inRecursion = false}) {
     String query = '';
     params.forEach((key, value) {
       if (inRecursion) {
@@ -122,7 +105,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
         }
         query += '$prefix$key=$encoded';
       } else if (value is DateTime) {
-        query += '$prefix$key=${(value as DateTime).toIso8601String()}';
+        query += '$prefix$key=${(value).toIso8601String()}';
       } else if (value is List || value is Map) {
         if (value is List) value = value.asMap();
         value.forEach((k, v) {
