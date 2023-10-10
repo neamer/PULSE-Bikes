@@ -6,7 +6,7 @@
         public int? ProductionYear { get; set; }
         public string? WheelSize { get; set; }
 
-        public string formattedSizes => string.Join(", ", AvailableSizes.Select(s => s.BicycleSize));
+        public string formattedSizes => AvailableSizes != null ? string.Join(", ", AvailableSizes.Select(s => s.BicycleSize)) : "";
 
         public virtual ProductCategory? ProductCategory { get; set; }
         public virtual ICollection<AvailableSize> AvailableSizes { get; set; }

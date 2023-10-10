@@ -1,7 +1,7 @@
 import 'package:pulse_mobile/model/part/part.dart';
-import 'package:pulse_mobile/providers/abstract/base_crud_provider.dart';
+import 'package:pulse_mobile/providers/abstract/product_provider.dart';
 
-class PartProvider extends BaseCRUDProvider<Part> {
+class PartProvider extends ProductProvider<Part> {
   PartProvider() : super("Part");
 
   @override

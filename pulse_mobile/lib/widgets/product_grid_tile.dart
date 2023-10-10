@@ -6,22 +6,22 @@ class ProductGridTile extends StatelessWidget {
   final Product _product;
   final Function(int?)? onTap;
 
-  ProductGridTile(this._product, {this.onTap});
+  const ProductGridTile(this._product, {super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => this.onTap!(_product.id),
+      onTap: () => onTap!(_product.id),
       child: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(7)),
-              border: Border.all(color: Color.fromRGBO(43, 43, 62, 1))),
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: const BorderRadius.all(Radius.circular(7)),
+              border: Border.all(color: const Color.fromRGBO(43, 43, 62, 1))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(7), topRight: Radius.circular(7)),
                 child: Container(
                   height: 120,
@@ -29,7 +29,7 @@ class ProductGridTile extends StatelessWidget {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -37,23 +37,23 @@ class ProductGridTile extends StatelessWidget {
                         "${_product.brand?.name}",
                         style: Theme.of(context)
                             .textTheme
-                            .headline6
+                            .titleLarge
                             ?.copyWith(fontSize: 18),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        child: Container(
+                        child: SizedBox(
                           height: 20,
                           child: Text(
                             "${_product.model}",
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
+                                .titleLarge
                                 ?.copyWith(fontSize: 18),
                           ),
                         ),
@@ -63,21 +63,21 @@ class ProductGridTile extends StatelessWidget {
                       // ),
                       // Text("Available Sizes",
                       //     style: Theme.of(context).textTheme.bodyText1),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text("${_product.productCategory?.name}",
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .bodyLarge
                               ?.copyWith(fontSize: 16)),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text("\$${_product.price}",
                           style: Theme.of(context)
                               .textTheme
-                              .headline2
+                              .displayMedium
                               ?.copyWith(fontSize: 16))
                     ],
                   ))

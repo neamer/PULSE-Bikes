@@ -77,8 +77,6 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
 
         var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-        Context.Session.SetString("AuthenticatedUser", username);
-
         return AuthenticateResult.Success(ticket);  
     }
 }

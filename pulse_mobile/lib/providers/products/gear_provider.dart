@@ -1,7 +1,7 @@
 import 'package:pulse_mobile/model/gear/gear.dart';
-import 'package:pulse_mobile/providers/abstract/base_crud_provider.dart';
+import 'package:pulse_mobile/providers/abstract/product_provider.dart';
 
-class GearProvider extends BaseCRUDProvider<Gear> {
+class GearProvider extends ProductProvider<Gear> {
   GearProvider() : super("Gear");
 
   @override

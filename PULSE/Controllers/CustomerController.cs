@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
@@ -14,16 +15,23 @@ namespace PULSE.Controllers
             : base(service) {}
 
         [HttpPost("login")]
-        public ActionResult<Staff> Login([FromBody] LoginRequest req)
+        public ActionResult Login()
         {
             try
             {
-                return Ok((Service as IStaffService).Login(req));
+                return Ok("AUTHENTICATED");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+        [AllowAnonymous]
+        public override ActionResult<Customer> Insert([FromBody] CustomerInsertRequest insert)
+        {
+            return base.Insert(insert);
+        }
+
     }
 }

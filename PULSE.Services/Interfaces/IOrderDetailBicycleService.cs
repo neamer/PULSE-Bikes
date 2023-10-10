@@ -11,5 +11,6 @@ namespace PULSE.Services.Interfaces
 {
     public interface IOrderDetailBicycleService : ICRUDService<OrderDetail, BaseSearchObject, OrderDetailBicycleInsertRequest, OrderDetailsUpdateRequest>
     {
+        public Model.OrderDetail AddToCart(int customerId, OrderDetailBicycleInsertRequest req);
     }
 }

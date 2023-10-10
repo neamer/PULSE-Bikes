@@ -21,6 +21,7 @@ namespace PULSE.Services.Interfaces
         public OrderHeader Pack(int id);
         public OrderHeader Ship(int id);
         public OrderHeader Deliver(int id);
+        public Data.OrderHeader GetDraftOrderForCustomer(int customerId);
 
     }
 }

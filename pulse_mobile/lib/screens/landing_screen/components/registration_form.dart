@@ -3,20 +3,35 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/user/requests/registration_request.dart';
 import 'package:pulse_mobile/providers/auth/user_provider.dart';
 import 'package:pulse_mobile/screens/product_search_screen.dart';
+import 'package:pulse_mobile/utils/util.dart';
+import 'package:pulse_mobile/widgets/basic_text_field.dart';
 
-class RegistrationForm extends StatelessWidget {
+class RegistrationForm extends StatefulWidget {
   final Function switchForm;
   final Function onSuccess;
 
-  RegistrationForm(
+  const RegistrationForm(
       {super.key, required this.switchForm, required this.onSuccess});
 
+  @override
+  State<RegistrationForm> createState() => _RegistrationFormState();
+}
+
+class _RegistrationFormState extends State<RegistrationForm> {
+  bool isSubmitting = false;
+
   final TextEditingController _usernameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final TextEditingController _firstNameController = TextEditingController();
+
   final TextEditingController _lastNameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneNumberCntroller = TextEditingController();
+
+  final TextEditingController _phoneNumberController = TextEditingController();
+
   final TextEditingController _passwordVerificationController =
       TextEditingController();
 
@@ -32,81 +47,35 @@ class RegistrationForm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(40),
           child: Column(children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey))),
-              child: TextField(
-                controller: _usernameController,
-                style: themeData.textTheme.bodyMedium,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Username",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
+            BasicTextField(
+              name: "Username",
+              controller: _usernameController,
+              enabled: !isSubmitting,
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: TextField(
-                style: themeData.textTheme.bodyMedium,
-                controller: _passwordController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Pasword",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
+            BasicTextField(
+              name: "Password",
+              controller: _passwordController,
+              enabled: !isSubmitting,
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey))),
-              child: TextField(
-                controller: _firstNameController,
-                style: themeData.textTheme.bodyMedium,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "First Name",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
+            BasicTextField(
+              name: "First name",
+              controller: _firstNameController,
+              enabled: !isSubmitting,
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey))),
-              child: TextField(
-                controller: _lastNameController,
-                style: themeData.textTheme.bodyMedium,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Last Name",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
+            BasicTextField(
+              name: "Last name",
+              controller: _lastNameController,
+              enabled: !isSubmitting,
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey))),
-              child: TextField(
-                controller: _emailController,
-                style: themeData.textTheme.bodyMedium,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Email",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
+            BasicTextField(
+              name: "Email",
+              controller: _emailController,
+              enabled: !isSubmitting,
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey))),
-              child: TextField(
-                controller: _phoneNumberCntroller,
-                style: themeData.textTheme.bodyMedium,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Phone Number",
-                    hintStyle: TextStyle(color: Colors.grey[400])),
-              ),
+            BasicTextField(
+              name: "Phone number",
+              controller: _phoneNumberController,
+              enabled: !isSubmitting,
             ),
           ]),
         ),
@@ -127,12 +96,14 @@ class RegistrationForm extends StatelessWidget {
                     firstName: _firstNameController.text,
                     lastName: _lastNameController.text,
                     email: _emailController.text,
-                    phoneNumber: _phoneNumberCntroller.text);
+                    phoneNumber: _phoneNumberController.text);
 
                 await _userProvider.insert(request);
 
-                Navigator.pushNamed(
-                    context, "${ProductSearchScreen.routeName}/bikes");
+                Authorization.username = _usernameController.text;
+                Authorization.password = _passwordController.text;
+
+                widget.onSuccess();
               } catch (e) {
                 showDialog(
                     context: context,
@@ -155,7 +126,7 @@ class RegistrationForm extends StatelessWidget {
           height: 40,
         ),
         TextButton(
-            onPressed: () => switchForm(),
+            onPressed: () => widget.switchForm(),
             child: const Text("Already have an account? Tap here to Login")),
       ],
     );

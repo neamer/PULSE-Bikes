@@ -9,11 +9,13 @@ namespace PULSE.Services.Implementation
 {
     public class OrderDetailGearService : BaseCRUDService<Model.OrderDetail, Data.OrderDetailGear, BaseSearchObject, OrderDetailsInsertRequest, OrderDetailsUpdateRequest>, IOrderDetailGearService
     {
+        private IOrderService OrderService { get; set; }
         public BaseState BaseState { get; set; }
 
-        public OrderDetailGearService(PULSEContext context, IMapper mapper, BaseState baseState) : base(context, mapper)
+        public OrderDetailGearService(PULSEContext context, IMapper mapper, BaseState baseState, IOrderService orderService) : base(context, mapper)
         {
             BaseState = baseState;
+            OrderService = orderService;
         }
 
         public override Model.OrderDetail Insert(OrderDetailsInsertRequest insert)
@@ -29,6 +31,16 @@ namespace PULSE.Services.Implementation
             state.CurrentEntity = item;
 
             return state.AddGearDetail(insert);
+        }
+
+        public Model.OrderDetail AddToCart(int customerId, OrderDetailsInsertRequest req)
+        {
+            var order = OrderService.GetDraftOrderForCustomer(customerId);
+
+            var state = BaseState.CreateState((Model.OrderState)order.Status);
+            state.CurrentEntity = order;
+
+            return state.AddGearDetail(req);
         }
     }
 }

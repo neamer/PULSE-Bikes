@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/brand/brand.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/product_category/product_category.dart';
-import 'package:pulse_mobile/pages/product_search_screen.dart';
-import 'package:pulse_mobile/providers/bicycle_size_provider.dart';
-import 'package:pulse_mobile/providers/brand_provider.dart';
-import 'package:pulse_mobile/providers/category_provider.dart';
+import 'package:pulse_mobile/providers/products/bicycle_size_provider.dart';
+import 'package:pulse_mobile/providers/products/brand_provider.dart';
+import 'package:pulse_mobile/providers/products/category_provider.dart';
+import 'package:pulse_mobile/screens/product_search_screen.dart';
 
 import '../model/bicycle/bicycle.dart';
 import '../model/bicycle_size/bicycle_size.dart';

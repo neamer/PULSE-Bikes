@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_mobile/screens/product_search_screen.dart';
 
 import 'components/login_form.dart';
 import 'components/registration_form.dart';
@@ -16,6 +17,9 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   LandingScreenType _type = LandingScreenType.login;
+
+  void onSuccess() =>
+      Navigator.pushNamed(context, "${ProductSearchScreen.routeName}/bikes");
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class _LandingScreenState extends State<LandingScreen> {
             ),
             if (_type == LandingScreenType.login)
               LoginForm(
-                onSuccess: () {},
+                onSuccess: onSuccess,
                 switchForm: () => {
                   setState(() {
                     _type = LandingScreenType.register;
@@ -46,7 +50,7 @@ class _LandingScreenState extends State<LandingScreen> {
               )
             else
               RegistrationForm(
-                  onSuccess: () {},
+                  onSuccess: onSuccess,
                   switchForm: () {
                     setState(() {
                       _type = LandingScreenType.login;

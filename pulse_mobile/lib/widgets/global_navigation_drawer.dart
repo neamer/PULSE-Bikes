@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_mobile/pages/product_search_screen.dart';
+import 'package:pulse_mobile/screens/product_search_screen.dart';
 
 class GlobalNavigationDrawer extends StatelessWidget {
   const GlobalNavigationDrawer({super.key});

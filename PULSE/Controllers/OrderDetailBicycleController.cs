@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PULSE.Helpers;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Interfaces;
+using System.Security.Claims;
 
 namespace PULSE.Controllers
 {
@@ -26,15 +28,13 @@ namespace PULSE.Controllers
             return base.Update(id, update);
         }
 
-        [HttpPost("public")]
-        public ActionResult<OrderDetail> PublicInsert([FromBody] OrderDetailBicycleInsertRequest insert)
+        [HttpPost("Cart")]
+        public ActionResult<OrderDetail> AddToCart([FromBody] OrderDetailBicycleInsertRequest insert)
         {
             try
             {
-                var userId = HttpContext.Session.GetString("AuthenticatedUser");
-
-
-                return Ok(((IOrderDetailBicycleService)Service).Insert(insert));
+                return Ok(((IOrderDetailBicycleService)Service)
+                    .AddToCart(AuthHelper.GetUserId(HttpContext.User), insert));
             }
             catch (Exception ex)
             {

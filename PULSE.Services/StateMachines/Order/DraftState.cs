@@ -62,7 +62,8 @@ namespace PULSE.Services.StateMachines.Order
         public override Model.OrderDetail AddBicycleDetail(OrderDetailBicycleInsertRequest req)
         {
             var detailProduct = Context.Bicycles.Find(req.ProductId);
-            var detailSize = Context.AvailableSizes.Find(req.BicycleSizeId, req.ProductId);
+            var detailSize = Context.AvailableSizes.Where(item => item.BicycleSizeId == req.BicycleSizeId &&
+                item.ProductId == req.ProductId).FirstOrDefault();
 
             if (detailProduct != null && detailSize != null)
             {

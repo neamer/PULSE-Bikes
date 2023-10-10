@@ -4,14 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
-import 'package:pulse_mobile/providers/abstract/base_crud_provider.dart';
+import 'package:pulse_mobile/model/available_size/available_size.dart';
+import 'package:pulse_mobile/model/gear/gear.dart';
+import 'package:pulse_mobile/model/orders/order_detail.dart';
+import 'package:pulse_mobile/model/part/part.dart';
+import 'package:pulse_mobile/providers/abstract/product_provider.dart';
+import 'package:pulse_mobile/utils/messages.dart';
+import 'package:pulse_mobile/utils/numeric_range_formatter.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
 import '../model/bicycle/bicycle.dart';
 import '../model/bicycle_size/bicycle_size.dart';
 
 class ProductDetailsScreen<T extends Product,
-    TProvider extends BaseCRUDProvider<T>> extends StatefulWidget {
+    TProvider extends ProductProvider<T>> extends StatefulWidget {
   static String routeName = "/product";
   final int productId;
 
@@ -23,43 +29,41 @@ class ProductDetailsScreen<T extends Product,
 }
 
 class _ProductDetailsScreenState<T extends Product,
-        TProvider extends BaseCRUDProvider<T>>
+        TProvider extends ProductProvider<T>>
     extends State<ProductDetailsScreen<T, TProvider>> {
   TProvider? _provider;
   T? _product;
+  bool _isSubmitting = false;
+
+  final TextEditingController _quantityController = TextEditingController();
 
   bool _loading = false;
 
-  BicycleSize? _selectedSize;
+  AvailableSize? _selectedSize;
 
-  @override
-  void initState() {
-    _provider = context.read<TProvider>();
-    loadData();
-
-    super.initState();
+  int getAvailableQty() {
+    if(_product is Bicycle) {
+      return _selectedSize?.availableQty ?? 0;
+    } else if(_product is Gear) {
+      return (_product as Gear).availableQty ?? 0;
+    }else {
+      return (_product as Part).availableQty ?? 0;
+    }
   }
 
-  Future loadData() async {
-    setState(() {
-      _loading = true;
-    });
-
-    var searchObject = {
-      "IncludeBrand": true,
-      "IncludeCategory": true,
-      "IncludeSizes": true,
-    };
+  void addToCart() async {
+    final request = OrderDetail.build(
+        productId: _product?.id,
+        quantity: int.tryParse(_quantityController.text),
+        bicycleSizeId: _selectedSize?.id);
 
     try {
-      _product = await _provider?.getById(widget.productId, searchObject);
+      await _provider?.addToCart(request);
+
+      Messages.errorMessage(context, "Successfully added $_product to cart!");
     } catch (e) {
-      log(e.toString());
-      Navigator.pop(context);
+      Messages.errorMessage(context, e.toString());
     }
-    setState(() {
-      _loading = false;
-    });
   }
 
   @override
@@ -152,7 +156,7 @@ class _ProductDetailsScreenState<T extends Product,
                                                   : () {
                                                       setState(() {
                                                         _selectedSize =
-                                                            size.bicycleSize;
+                                                            size;
                                                       });
                                                     },
                                               child: Text(size.bicycleSize.toString(), style: themeData.textTheme.titleLarge?.copyWith(color: _selectedSize?.id == size.bicycleSizeId ? themeData.colorScheme.background : Colors.white, fontSize: 18))),
@@ -176,6 +180,7 @@ class _ProductDetailsScreenState<T extends Product,
                               SizedBox(
                                 width: 75,
                                 child: TextField(
+                                  controller: _quantityController,
                                   style: themeData.textTheme.bodyLarge,
                                   decoration: InputDecoration(
                                       enabledBorder: const OutlineInputBorder(
@@ -188,7 +193,8 @@ class _ProductDetailsScreenState<T extends Product,
                                   // backgroundColor: themeData.backgroundColor,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    NumericRangeFormatter(1, pro)
                                   ], // Only numbers can be entered
                                 ),
                               ),
@@ -204,7 +210,7 @@ class _ProductDetailsScreenState<T extends Product,
                                         padding: MaterialStateProperty.all(
                                             const EdgeInsets.symmetric(
                                                 vertical: 20, horizontal: 30))),
-                                    onPressed: () {},
+                                    onPressed: addToCart,
                                     child: Text("ADD TO CART",
                                         style: themeData.textTheme.titleLarge
                                             ?.copyWith(
@@ -220,5 +226,35 @@ class _ProductDetailsScreenState<T extends Product,
                   ],
                 ),
               ));
+  }
+
+  @override
+  void initState() {
+    _provider = context.read<TProvider>();
+    loadData();
+
+    super.initState();
+  }
+
+  Future loadData() async {
+    setState(() {
+      _loading = true;
+    });
+
+    var searchObject = {
+      "IncludeBrand": true,
+      "IncludeCategory": true,
+      "IncludeSizes": true,
+    };
+
+    try {
+      _product = await _provider?.getById(widget.productId, searchObject);
+    } catch (e) {
+      log(e.toString());
+      Navigator.pop(context);
+    }
+    setState(() {
+      _loading = false;
+    });
   }
 }

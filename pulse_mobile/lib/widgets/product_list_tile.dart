@@ -29,7 +29,7 @@ class ProductListTile<T extends Product> extends StatelessWidget {
       onTap: () => this.onTap!(_product.id),
       child: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: const BorderRadius.all(Radius.circular(7)),
               border: Border.all(color: const Color.fromRGBO(43, 43, 62, 1))),
           margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
@@ -51,20 +51,20 @@ class ProductListTile<T extends Product> extends StatelessWidget {
                     children: [
                       Text(
                         "${_product.brand?.name} · ${_product.model}",
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       if (T == Bicycle)
                         Text("Available Sizes ${_formatAvailableSizes()}",
-                            style: Theme.of(context).textTheme.bodyText1),
+                            style: Theme.of(context).textTheme.bodyLarge),
                       if (T == Gear)
                         Text("${(_product as Gear).availableQty} Available",
-                            style: Theme.of(context).textTheme.bodyText1),
+                            style: Theme.of(context).textTheme.bodyLarge),
                       if (T == Part)
                         Text("${(_product as Part).availableQty} Available",
-                            style: Theme.of(context).textTheme.bodyText1),
+                            style: Theme.of(context).textTheme.bodyLarge),
                       const SizedBox(
                         height: 5,
                       ),
@@ -72,9 +72,9 @@ class ProductListTile<T extends Product> extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Category · ${_product.productCategory?.name}",
-                              style: Theme.of(context).textTheme.bodyText1),
+                              style: Theme.of(context).textTheme.bodyLarge),
                           Text("\$${_product.price}",
-                              style: Theme.of(context).textTheme.headline2)
+                              style: Theme.of(context).textTheme.displayMedium)
                         ],
                       ),
                     ],

@@ -47,14 +47,14 @@ namespace PULSE.Services.Implementation
             var entity = Context.Customers.FirstOrDefault(x => x.Username == request.Username);
             if (entity == null)
             {
-                throw new Exception("User not found");
+                return null;
             }
 
             var hash = AuthUtils.GenerateHash(entity.PasswordSalt, request.Password);
 
             if (hash != entity.PasswordHash)
             {
-                throw new Exception("Wrong Password");
+                return null;
             }
 
             return Mapper.Map<Model.Customer>(entity);

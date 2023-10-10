@@ -7,7 +7,14 @@ using PULSE.Services.StateMachines.Order;
 
 namespace PULSE.Services.Implementation
 {
-    public class OrderDetailBicycleService : BaseCRUDService<Model.OrderDetail, Data.OrderDetailBicycle, BaseSearchObject, OrderDetailBicycleInsertRequest, OrderDetailsUpdateRequest>, IOrderDetailBicycleService
+    public class OrderDetailBicycleService 
+        : BaseCRUDService<
+            Model.OrderDetail, 
+            Data.OrderDetailBicycle, 
+            BaseSearchObject,
+            OrderDetailBicycleInsertRequest, 
+            OrderDetailsUpdateRequest>, 
+        IOrderDetailBicycleService
     {
         private IOrderService OrderService { get; set; }
 
@@ -34,19 +41,14 @@ namespace PULSE.Services.Implementation
             return state.AddBicycleDetail(insert);
         }
 
-        //public Model.OrderDetail PublicInsert(OrderDetailBicycleInsertRequest insert)
-        //{
-        //    var item = OrderService;
+        public Model.OrderDetail AddToCart(int customerId, OrderDetailBicycleInsertRequest req)
+        {
+            var order = OrderService.GetDraftOrderForCustomer(customerId);
 
-        //    if (item == null)
-        //    {
-        //        throw new Exception("Order Not Found");
-        //    }
+            var state = BaseState.CreateState((Model.OrderState)order.Status);
+            state.CurrentEntity = order;
 
-        //    var state = BaseState.CreateState((Model.OrderState)item.Status);
-        //    state.CurrentEntity = item;
-
-        //    return state.AddBicycleDetail(insert);
-        //}
+            return state.AddBicycleDetail(req);
+        }
     }
 }

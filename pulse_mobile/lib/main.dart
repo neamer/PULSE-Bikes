@@ -3,16 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/part/part.dart';
-import 'package:pulse_mobile/pages/landing_screen/landing_screen.dart';
-import 'package:pulse_mobile/pages/product_search_screen.dart';
-import 'package:pulse_mobile/providers/bicycle_size_provider.dart';
-import 'package:pulse_mobile/providers/brand_provider.dart';
-import 'package:pulse_mobile/providers/category_provider.dart';
-import 'package:pulse_mobile/providers/gear_provider.dart';
-import 'package:pulse_mobile/providers/part_provider.dart';
-
-import 'providers/bicycle_provider.dart';
-import 'providers/user_provider.dart';
+import 'package:pulse_mobile/providers/auth/user_provider.dart';
+import 'package:pulse_mobile/providers/products/bicycle_provider.dart';
+import 'package:pulse_mobile/providers/products/bicycle_size_provider.dart';
+import 'package:pulse_mobile/providers/products/brand_provider.dart';
+import 'package:pulse_mobile/providers/products/category_provider.dart';
+import 'package:pulse_mobile/providers/products/gear_provider.dart';
+import 'package:pulse_mobile/providers/products/part_provider.dart';
+import 'package:pulse_mobile/screens/landing_screen/landing_screen.dart';
+import 'package:pulse_mobile/screens/product_search_screen.dart';
 
 void main() {
   runApp(const MyApp());

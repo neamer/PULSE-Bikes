@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
-import 'package:pulse_mobile/providers/abstract/base_crud_provider.dart';
+import 'package:pulse_mobile/providers/abstract/product_provider.dart';
 import 'package:pulse_mobile/screens/product_details_screen.dart';
 import 'package:pulse_mobile/utils/config.dart';
 import 'package:pulse_mobile/widgets/filter_drawer.dart';
@@ -22,7 +22,7 @@ class ProductSearchObject {
 }
 
 class ProductSearchScreen<T extends Product,
-    TProvider extends BaseCRUDProvider<T>> extends StatefulWidget {
+    TProvider extends ProductProvider<T>> extends StatefulWidget {
   static String routeName = "/search";
 
   const ProductSearchScreen({super.key});
@@ -33,7 +33,7 @@ class ProductSearchScreen<T extends Product,
 }
 
 class _ProductSearchScreenState<T extends Product,
-        TProvider extends BaseCRUDProvider<T>>
+        TProvider extends ProductProvider<T>>
     extends State<ProductSearchScreen<T, TProvider>> {
   final ScrollController _scrollController = ScrollController();
   bool _showBackToTop = false;

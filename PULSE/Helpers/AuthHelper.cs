@@ -18,17 +18,10 @@ namespace PULSE.Helpers
             return int.Parse(id);
         }
 
-        public static int GetAccountIdFromRequest(HttpRequest request)
+        public static int GetUserId(ClaimsPrincipal user)
         {
-            try
-            {
-                string token = request.Headers["authorization"].First().Remove(0, 7);
-                return GetAccountIdFromToken(token);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return -1; // korisnik nije logiran
-            }
+            var userUriClaim = user.FindFirst(ClaimTypes.Uri);
+            return int.Parse(userUriClaim.Value);
         }
     }
 }
