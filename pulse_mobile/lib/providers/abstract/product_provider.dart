@@ -12,10 +12,8 @@ abstract class ProductProvider<T extends Product> extends BaseCRUDProvider<T> {
     var url = "${BaseProvider.baseUrl}OrderDetail$endpoint/Cart";
     var uri = Uri.parse(url);
 
-
     Map<String, String> headers = createHeaders();
     var jsonRequest = jsonEncode(item);
-    print(jsonRequest);
 
     var response = await http!.post(uri, headers: headers, body: jsonRequest);
 

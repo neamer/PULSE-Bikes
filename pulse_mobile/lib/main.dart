@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSwatch()
                 .copyWith(
                     primary: Colors.white,
+                    primaryContainer: const Color.fromRGBO(188, 188, 188, 1),
                     secondary: Colors.cyan,
                     background: const Color.fromRGBO(19, 19, 29, 1),
                     outline: const Color.fromRGBO(43, 43, 62, 1))

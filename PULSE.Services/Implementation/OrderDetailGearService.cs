@@ -39,8 +39,16 @@ namespace PULSE.Services.Implementation
 
             var state = BaseState.CreateState((Model.OrderState)order.Status);
             state.CurrentEntity = order;
+            var detail = state.AddGearDetail(req);
 
-            return state.AddGearDetail(req);
+            if (detail != null)
+            {
+                return detail;
+            } 
+            else
+            {
+                throw new InvalidDataException();
+            }
         }
     }
 }

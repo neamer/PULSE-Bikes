@@ -163,6 +163,12 @@ class _ProductDetailsScreenState<T extends Product,
                                         ))
                               ],
                             ),
+                          Center(
+                            child: Text(
+                              ("Available Qty: ${getAvailableQty()}"),
+                              style: themeData.textTheme.titleLarge?.copyWith(fontSize: 16, color: themeData.colorScheme.primaryContainer),
+                            ),
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -194,7 +200,7 @@ class _ProductDetailsScreenState<T extends Product,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: <TextInputFormatter>[
                                     FilteringTextInputFormatter.digitsOnly,
-                                    NumericRangeFormatter(1, pro)
+                                    NumericRangeFormatter(min: 1, max: getAvailableQty().toDouble())
                                   ], // Only numbers can be entered
                                 ),
                               ),

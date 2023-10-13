@@ -65,7 +65,7 @@ namespace PULSE.Services.StateMachines.Order
             var detailSize = Context.AvailableSizes.Where(item => item.BicycleSizeId == req.BicycleSizeId &&
                 item.ProductId == req.ProductId).FirstOrDefault();
 
-            if (detailProduct != null && detailSize != null)
+            if (detailProduct != null && detailSize != null && detailSize.AvailableQty - req.Quantity >= 0)
             {
                 var detail = Mapper.Map<OrderDetailBicycle>(req);
                 detail.OrderId = CurrentEntity.Id;
@@ -82,7 +82,7 @@ namespace PULSE.Services.StateMachines.Order
         public override Model.OrderDetail AddGearDetail(OrderDetailsInsertRequest item)
         {
             var detailProduct = Context.Gear.Find(item.ProductId);
-            if (detailProduct != null)
+            if (detailProduct != null && detailProduct.AvailableQty - item.Quantity >= 0)
             {
                 var detail = Mapper.Map<OrderDetailGear>(item);
                 detail.OrderId = CurrentEntity.Id;
@@ -99,7 +99,7 @@ namespace PULSE.Services.StateMachines.Order
         public override Model.OrderDetail AddPartDetail(OrderDetailsInsertRequest item)
         {
             var detailProduct = Context.Parts.Find(item.ProductId);
-            if (detailProduct != null)
+            if (detailProduct != null && detailProduct.AvailableQty - item.Quantity >= 0)
             {
                 var detail = Mapper.Map<OrderDetailPart>(item);
                 detail.OrderId = CurrentEntity.Id;
