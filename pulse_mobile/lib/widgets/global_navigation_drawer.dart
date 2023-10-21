@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_mobile/screens/cart_screen/cart_screen.dart';
 import 'package:pulse_mobile/screens/product_search_screen.dart';
 
 class GlobalNavigationDrawer extends StatelessWidget {
@@ -80,6 +81,27 @@ class GlobalNavigationDrawer extends StatelessWidget {
               //   width: 10,
               // ),
               Text("PARTS",
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 20))
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(CartScreen.routeName);
+          },
+          child: Row(
+            children: [
+              // Icon(
+              //   Icons.handyman_outlined,
+              //   color: themeData.colorScheme.primary,
+              // ),
+              // const SizedBox(
+              //   width: 10,
+              // ),
+              Text("CART",
                   style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 20))
             ],
           ),

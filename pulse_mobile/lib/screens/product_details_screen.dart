@@ -14,7 +14,6 @@ import 'package:pulse_mobile/utils/numeric_range_formatter.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
 import '../model/bicycle/bicycle.dart';
-import '../model/bicycle_size/bicycle_size.dart';
 
 class ProductDetailsScreen<T extends Product,
     TProvider extends ProductProvider<T>> extends StatefulWidget {
@@ -41,18 +40,20 @@ class _ProductDetailsScreenState<T extends Product,
 
   AvailableSize? _selectedSize;
 
+  bool isDisabled() => _isSubmitting || T == Bicycle && _selectedSize == null;
+
   int getAvailableQty() {
-    if(_product is Bicycle) {
+    if (_product is Bicycle) {
       return _selectedSize?.availableQty ?? 0;
-    } else if(_product is Gear) {
+    } else if (_product is Gear) {
       return (_product as Gear).availableQty ?? 0;
-    }else {
+    } else {
       return (_product as Part).availableQty ?? 0;
     }
   }
 
   void addToCart() async {
-    final request = OrderDetail.build(
+    final request = OrderDetailRequest.build(
         productId: _product?.id,
         quantity: int.tryParse(_quantityController.text),
         bicycleSizeId: _selectedSize?.id);
@@ -121,54 +122,60 @@ class _ProductDetailsScreenState<T extends Product,
                             height: 20,
                           ),
                           if (T == Bicycle)
-                            Wrap(
-                              children: [
-                                ...?(_product as Bicycle)
-                                    .availableSizes
-                                    ?.map((size) => Container(
-                                          margin: const EdgeInsets.all(5),
-                                          child: OutlinedButton(
-                                              style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all(
-                                                      _selectedSize?.id ==
-                                                              size.bicycleSizeId
-                                                          ? Colors.white
-                                                          : size.availableQty ==
-                                                                  0
-                                                              ? themeData
-                                                                  .primaryColor
-                                                              : themeData
-                                                                  .colorScheme
-                                                                  .background),
-                                                  side: MaterialStateProperty.all(BorderSide(
-                                                      width: _selectedSize?.id ==
-                                                              size.bicycleSizeId
-                                                          ? 0
-                                                          : 1.0,
-                                                      color: themeData
-                                                          .primaryColor)),
-                                                  padding: MaterialStateProperty.all(
-                                                      const EdgeInsets.symmetric(
-                                                          vertical: 15,
-                                                          horizontal: 5))),
-                                              onPressed: size.availableQty == 0
-                                                  ? null
-                                                  : () {
-                                                      setState(() {
-                                                        _selectedSize =
-                                                            size;
-                                                      });
-                                                    },
-                                              child: Text(size.bicycleSize.toString(), style: themeData.textTheme.titleLarge?.copyWith(color: _selectedSize?.id == size.bicycleSizeId ? themeData.colorScheme.background : Colors.white, fontSize: 18))),
-                                        ))
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Wrap(
+                                children: [
+                                  ...?(_product as Bicycle)
+                                      .availableSizes
+                                      ?.map((size) => Container(
+                                            margin: const EdgeInsets.all(5),
+                                            child: OutlinedButton(
+                                                style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all(_selectedSize
+                                                                ?.id ==
+                                                            size.bicycleSizeId
+                                                        ? Colors.white
+                                                        : size.availableQty == 0
+                                                            ? themeData
+                                                                .primaryColor
+                                                            : themeData
+                                                                .colorScheme
+                                                                .background),
+                                                    side: MaterialStateProperty.all(BorderSide(
+                                                        width: _selectedSize?.id ==
+                                                                size
+                                                                    .bicycleSizeId
+                                                            ? 0
+                                                            : 1.0,
+                                                        color: themeData
+                                                            .primaryColor)),
+                                                    padding: MaterialStateProperty.all(
+                                                        const EdgeInsets.symmetric(
+                                                            vertical: 15,
+                                                            horizontal: 5))),
+                                                onPressed: size.availableQty == 0
+                                                    ? null
+                                                    : () {
+                                                        setState(() {
+                                                          _selectedSize = size;
+                                                        });
+                                                      },
+                                                child: Text(size.bicycleSize.toString(), style: themeData.textTheme.titleLarge?.copyWith(color: _selectedSize?.id == size.bicycleSizeId ? themeData.colorScheme.background : Colors.white, fontSize: 18))),
+                                          ))
+                                ],
+                              ),
                             ),
-                          Center(
-                            child: Text(
-                              ("Available Qty: ${getAvailableQty()}"),
-                              style: themeData.textTheme.titleLarge?.copyWith(fontSize: 16, color: themeData.colorScheme.primaryContainer),
+                          if (T != Bicycle || _selectedSize != null)
+                            Center(
+                              child: Text(
+                                ("Available Qty: ${getAvailableQty()}"),
+                                style: themeData.textTheme.titleLarge?.copyWith(
+                                    fontSize: 16,
+                                    color:
+                                        themeData.colorScheme.primaryContainer),
+                              ),
                             ),
-                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -188,6 +195,7 @@ class _ProductDetailsScreenState<T extends Product,
                                 child: TextField(
                                   controller: _quantityController,
                                   style: themeData.textTheme.bodyLarge,
+                                  enabled: !isDisabled(),
                                   decoration: InputDecoration(
                                       enabledBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -200,7 +208,9 @@ class _ProductDetailsScreenState<T extends Product,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: <TextInputFormatter>[
                                     FilteringTextInputFormatter.digitsOnly,
-                                    NumericRangeFormatter(min: 1, max: getAvailableQty().toDouble())
+                                    NumericRangeFormatter(
+                                        min: 1,
+                                        max: getAvailableQty().toDouble())
                                   ], // Only numbers can be entered
                                 ),
                               ),
@@ -216,13 +226,19 @@ class _ProductDetailsScreenState<T extends Product,
                                         padding: MaterialStateProperty.all(
                                             const EdgeInsets.symmetric(
                                                 vertical: 20, horizontal: 30))),
-                                    onPressed: addToCart,
-                                    child: Text("ADD TO CART",
-                                        style: themeData.textTheme.titleLarge
-                                            ?.copyWith(
-                                                color: themeData
-                                                    .colorScheme.background,
-                                                fontSize: 18))),
+                                    onPressed: isDisabled() ? null : addToCart,
+                                    child: _isSubmitting
+                                        ? CircularProgressIndicator(
+                                            color: themeData
+                                                .colorScheme.background,
+                                          )
+                                        : Text("ADD TO CART",
+                                            style: themeData
+                                                .textTheme.titleLarge
+                                                ?.copyWith(
+                                                    color: themeData
+                                                        .colorScheme.background,
+                                                    fontSize: 18))),
                               )
                             ],
                           )

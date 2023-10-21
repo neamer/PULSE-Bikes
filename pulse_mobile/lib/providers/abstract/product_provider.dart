@@ -8,7 +8,7 @@ import 'package:pulse_mobile/providers/abstract/base_provider.dart';
 abstract class ProductProvider<T extends Product> extends BaseCRUDProvider<T> {
   ProductProvider(String endpoint) : super(endpoint);
 
-  Future<OrderDetail?> addToCart(OrderDetail item) async {
+  Future<OrderDetailRequest?> addToCart(OrderDetailRequest item) async {
     var url = "${BaseProvider.baseUrl}OrderDetail$endpoint/Cart";
     var uri = Uri.parse(url);
 
@@ -19,7 +19,7 @@ abstract class ProductProvider<T extends Product> extends BaseCRUDProvider<T> {
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      return OrderDetail.fromJson(data);
+      return OrderDetailRequest.fromJson(data);
     } else {
       return null;
     }

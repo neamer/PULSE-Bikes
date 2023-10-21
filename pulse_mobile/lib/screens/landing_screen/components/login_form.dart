@@ -4,7 +4,6 @@ import 'package:pulse_mobile/providers/auth/user_provider.dart';
 import 'package:pulse_mobile/utils/messages.dart';
 import 'package:pulse_mobile/widgets/basic_text_field.dart';
 
-import '../../../model/user/requests/login_request.dart';
 import '../../../utils/util.dart';
 
 class LoginForm extends StatefulWidget {
@@ -21,9 +20,11 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   bool isSubmitting = false;
 
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _usernameController =
+      TextEditingController(text: "djohnson");
 
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController =
+      TextEditingController(text: "djohnson");
 
   UserProvider? _userProvider;
 
@@ -37,26 +38,28 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           Column(children: [
-              BasicTextField(
-                name: "Username",
-                controller: _usernameController,
-                enabled: !isSubmitting,
-              ),
-              BasicTextField(
-                name: "Password",
-                controller: _passwordController,
-                enabled: !isSubmitting,
-              ),
-            ]),
+            BasicTextField(
+              name: "Username",
+              controller: _usernameController,
+              enabled: !isSubmitting,
+            ),
+            BasicTextField(
+              name: "Password",
+              controller: _passwordController,
+              enabled: !isSubmitting,
+            ),
+          ]),
           const SizedBox(
             height: 40,
           ),
           OutlinedButton(
               style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)), 
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30))),
+                  minimumSize:
+                      MaterialStateProperty.all(const Size.fromHeight(50)),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
+                      vertical: 20, horizontal: 30))),
               onPressed: () async {
                 setState(() {
                   isSubmitting = true;
