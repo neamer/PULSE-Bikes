@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PULSE.Helpers;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace PULSE.Controllers
 {
@@ -42,6 +44,23 @@ namespace PULSE.Controllers
                 {
                     return BadRequest(new HttpStatusMessage() { Success = false });
                 }
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost("Cart")]
+        public virtual ActionResult<OrderHeader> Cart()
+        {
+            try
+            {
+                return Ok(((IOrderService)this.Service).GetDraftOrderForCustomer(AuthHelper.GetUserId(HttpContext.User)));
             }
             catch (InvalidOperationException ex)
             {

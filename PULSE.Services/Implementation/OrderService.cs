@@ -40,7 +40,7 @@ namespace PULSE.Services.Implementation
 
         public Data.OrderHeader GetDraftOrderForCustomer(int customerId)
         {
-            var order = Context.OrderHeaders.Where(item => item.Status == Model.OrderState.Draft && 
+            var order = Context.OrderHeaders.Include(element => element.OrderDetails).Where(item => item.Status == Model.OrderState.Draft && 
             item.CustomerId == customerId).FirstOrDefault();
 
             return order == null
