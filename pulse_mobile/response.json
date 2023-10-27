@@ -1,0 +1,67 @@
+{
+  "orderNumber": null,
+  "customerId": 1,
+  "paymentId": null,
+  "shippingInfoId": null,
+  "status": 2,
+  "statusName": null,
+  "timeProcessed": null,
+  "timePacked": null,
+  "timeShipped": null,
+  "timeDelivered": null,
+  "onlineOrder": null,
+  "delivery": null,
+  "shippingConst": null,
+  "noOfItems": 0,
+  "total": 0,
+  "customer": null,
+  "payment": null,
+  "shippingInfo": null,
+  "orderDetails": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "productId": 4,
+      "bicycleSizeId": 1,
+      "unitPrice": 1247.0,
+      "quantity": 1,
+      "discriminator": "Bicycle",
+      "bicycleSize": null,
+      "product": null
+    },
+    {
+      "id": 2,
+      "orderId": 1,
+      "productId": 110,
+      "bicycleSizeId": null,
+      "unitPrice": 332.77,
+      "quantity": 2,
+      "discriminator": "Gear",
+      "bicycleSize": null,
+      "product": null
+    },
+    {
+      "id": 3,
+      "orderId": 1,
+      "productId": 110,
+      "bicycleSizeId": null,
+      "unitPrice": 332.77,
+      "quantity": 2,
+      "discriminator": "Gear",
+      "bicycleSize": null,
+      "product": null
+    },
+    {
+      "id": 4,
+      "orderId": 1,
+      "productId": 110,
+      "bicycleSizeId": null,
+      "unitPrice": 332.77,
+      "quantity": 2552,
+      "discriminator": "Gear",
+      "bicycleSize": null,
+      "product": null
+    }
+  ],
+  "id": 1
+}

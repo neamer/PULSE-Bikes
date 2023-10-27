@@ -55,12 +55,12 @@ namespace PULSE.Controllers
             }
         }
 
-        [HttpPost("Cart")]
+        [HttpGet("Cart")]
         public virtual ActionResult<OrderHeader> Cart()
         {
             try
             {
-                return Ok(((IOrderService)this.Service).GetDraftOrderForCustomer(AuthHelper.GetUserId(HttpContext.User)));
+                return Ok(((IOrderService)this.Service).Cart(AuthHelper.GetUserId(HttpContext.User)));
             }
             catch (InvalidOperationException ex)
             {

@@ -4,6 +4,7 @@ import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/part/part.dart';
 import 'package:pulse_mobile/providers/auth/user_provider.dart';
+import 'package:pulse_mobile/providers/orders/order_provider.dart';
 import 'package:pulse_mobile/providers/products/bicycle_provider.dart';
 import 'package:pulse_mobile/providers/products/bicycle_size_provider.dart';
 import 'package:pulse_mobile/providers/products/brand_provider.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductCategoryProvider<Part>()),
         ChangeNotifierProvider(create: (_) => ProductCategoryProvider<Gear>()),
         ChangeNotifierProvider(create: (_) => BicycleSizeProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
       ],
       child: MaterialApp(
         title: 'PULSE Bikes',

@@ -33,7 +33,7 @@ class CartItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${item.product.brand?.name} · ${item.product.model}",
+                        "${item.product?.brand?.name} · ${item.product?.model}",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(
@@ -49,9 +49,9 @@ class CartItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                              "Category · ${item.product.productCategory?.name}",
+                              "Category · ${item.product?.productCategory?.name}",
                               style: Theme.of(context).textTheme.bodyLarge),
-                          Text("\$${item.product.price}",
+                          Text("\$${item.product?.price}",
                               style: Theme.of(context).textTheme.displayMedium)
                         ],
                       ),

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/abstract/product.dart';
 import 'package:pulse_mobile/model/available_size/available_size.dart';
 import 'package:pulse_mobile/model/gear/gear.dart';
-import 'package:pulse_mobile/model/orders/order_detail.dart';
+import 'package:pulse_mobile/model/orders/order_detail_request.dart';
 import 'package:pulse_mobile/model/part/part.dart';
 import 'package:pulse_mobile/providers/abstract/product_provider.dart';
 import 'package:pulse_mobile/utils/messages.dart';

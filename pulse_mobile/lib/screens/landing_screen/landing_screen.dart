@@ -30,10 +30,14 @@ class _LandingScreenState extends State<LandingScreen> {
             const SizedBox(
               height: 60,
             ),
-            FittedBox(
-              child: Image.asset(
-                "assets/images/logo.png",
-                fit: BoxFit.fill,
+            SizedBox(
+              height: 60,
+              width: double.infinity,
+              child: FittedBox(
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             const SizedBox(

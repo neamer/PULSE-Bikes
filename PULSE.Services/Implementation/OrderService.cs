@@ -40,12 +40,19 @@ namespace PULSE.Services.Implementation
 
         public Data.OrderHeader GetDraftOrderForCustomer(int customerId)
         {
-            var order = Context.OrderHeaders.Include(element => element.OrderDetails).Where(item => item.Status == Model.OrderState.Draft && 
+            var order = Context.OrderHeaders
+                .Include(element => element.OrderDetails).ThenInclude(od => od.Product)
+                .Where(item => item.Status == Model.OrderState.Draft && 
             item.CustomerId == customerId).FirstOrDefault();
 
             return order == null
                 ? CreateDraftOrderForCustomer(customerId)
                 : order;
+        }
+
+        public Model.OrderHeader Cart(int customerId)
+        {
+            return Mapper.Map<Model.OrderHeader>(GetDraftOrderForCustomer(customerId));
         }
 
         public override Model.OrderHeader Update(int id, OrderHeaderUpdateRequest update)

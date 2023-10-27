@@ -21,26 +21,6 @@ class _CartScreenState extends State<CartScreen> {
   OrderHeader? _data;
 
   @override
-  void initState() {
-    super.initState();
-
-    _provider = context.read<OrderProvider>();
-
-    loadData();
-  }
-
-  Future loadData() async {
-    setState(() {
-      _loading = true;
-    });
-    var tmpData = await _provider?.fetchCart();
-    setState(() {
-      _data = tmpData;
-      _loading = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
 
@@ -84,5 +64,25 @@ class _CartScreenState extends State<CartScreen> {
                   ]),
                 ),
               ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _provider = context.read<OrderProvider>();
+
+    loadData();
+  }
+
+  Future loadData() async {
+    setState(() {
+      _loading = true;
+    });
+    var tmpData = await _provider?.fetchCart();
+    setState(() {
+      _data = tmpData;
+      _loading = false;
+    });
   }
 }

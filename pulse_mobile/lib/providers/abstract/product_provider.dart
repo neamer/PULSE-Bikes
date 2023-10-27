@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:pulse_mobile/model/abstract/product.dart';
-import 'package:pulse_mobile/model/orders/order_detail.dart';
+import 'package:pulse_mobile/model/orders/order_detail_request.dart';
 import 'package:pulse_mobile/providers/abstract/base_crud_provider.dart';
 import 'package:pulse_mobile/providers/abstract/base_provider.dart';
 

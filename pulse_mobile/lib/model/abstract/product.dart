@@ -18,6 +18,11 @@ class Product extends AuditableModel {
   double? price;
 
   Product();
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 }
 
 enum ProductType { Bicycle, Gear, Part }
