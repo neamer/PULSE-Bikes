@@ -12,7 +12,7 @@ namespace PULSE.WinUI.Helpers
     public class APIService
     {
         private string _resource = null;
-        public static string _endpoint = "https://localhost:7098/";//Settings.Default.ApiURL;
+        public static string _endpoint = "http://localhost:5000/";//Settings.Default.ApiURL;
 
         public static string Username = null;
         public static string Password = null;

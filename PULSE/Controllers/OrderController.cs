@@ -55,6 +55,7 @@ namespace PULSE.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("Cart")]
         public virtual ActionResult<OrderHeader> Cart()
         {

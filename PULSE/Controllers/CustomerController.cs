@@ -14,6 +14,7 @@ namespace PULSE.Controllers
         public CustomerController(ICustomerService service)
             : base(service) {}
 
+        [Authorize]
         [HttpPost("login")]
         public ActionResult Login()
         {
