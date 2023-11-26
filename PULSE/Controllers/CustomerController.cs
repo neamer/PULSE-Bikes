@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PULSE.Helpers;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
@@ -28,6 +29,20 @@ namespace PULSE.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("me")]
+        public ActionResult me()
+        {
+            try
+            {
+                return Ok(Service.GetById(AuthHelper.GetUserId(HttpContext.User)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [AllowAnonymous]
         public override ActionResult<Customer> Insert([FromBody] CustomerInsertRequest insert)
         {

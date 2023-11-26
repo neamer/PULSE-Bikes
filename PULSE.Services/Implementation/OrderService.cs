@@ -1,25 +1,42 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using PULSE.Services.Data;
 using PULSE.Services.Interfaces;
 using PULSE.Services.StateMachines.Order;
+using PULSE.Services.Utils;
+using Bicycle = PULSE.Model.Bicycle;
+using OrderDetail = PULSE.Model.OrderDetail;
+using OrderHeader = PULSE.Model.OrderHeader;
 
 namespace PULSE.Services.Implementation
 {
-    public class OrderService : BaseCRUDService<Model.OrderHeader, Data.OrderHeader, OrderSearchObject, OrderHeaderInsertRequest, OrderHeaderUpdateRequest>, IOrderService
+    public class OrderService : BaseCRUDService<OrderHeader, Data.OrderHeader, OrderSearchObject, OrderHeaderInsertRequest, OrderHeaderUpdateRequest>, IOrderService
     {
-        public BaseState BaseState { get; set; }
+        private BaseState BaseState { get; }
+        
+        private IBicycleService BicycleService { get; }
+        private IGearService GearService { get; }
+        private IPartService PartService { get; }
 
-        public OrderService(PULSEContext context, IMapper mapper, BaseState baseState) : base(context, mapper)
+        public OrderService(PULSEContext context, 
+            IMapper mapper, 
+            BaseState baseState, 
+            IBicycleService bicycleService, 
+            IGearService gearService, 
+            IPartService partService) : base(context, mapper)
         {
             BaseState = baseState;
+            BicycleService = bicycleService;
+            GearService = gearService;
+            PartService = partService;
         }
 
-        public override Model.OrderHeader Insert(OrderHeaderInsertRequest insert)
+        public override OrderHeader Insert(OrderHeaderInsertRequest insert)
         {
-            var state = BaseState.CreateState(Model.OrderState.Initial);
+            var state = BaseState.CreateState(OrderState.Initial);
 
             return state.InsertEmployee(insert);
         }
@@ -28,7 +45,7 @@ namespace PULSE.Services.Implementation
         {
             var order = new Data.OrderHeader()
             {
-                Status = Model.OrderState.Draft,
+                Status = OrderState.Draft,
                 CustomerId = customerId
             };
 
@@ -41,21 +58,68 @@ namespace PULSE.Services.Implementation
         public Data.OrderHeader GetDraftOrderForCustomer(int customerId)
         {
             var order = Context.OrderHeaders
-                .Include(element => element.OrderDetails).ThenInclude(od => od.Product)
-                .Where(item => item.Status == Model.OrderState.Draft && 
-            item.CustomerId == customerId).FirstOrDefault();
+                .Include(element => element.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .FirstOrDefault(item => item.Status == OrderState.Draft && item.CustomerId == customerId);
 
             return order == null
                 ? CreateDraftOrderForCustomer(customerId)
                 : order;
         }
 
-        public Model.OrderHeader Cart(int customerId)
+        private void enrichOrderDetail(OrderDetail order)
         {
-            return Mapper.Map<Model.OrderHeader>(GetDraftOrderForCustomer(customerId));
+            if (order.Discriminator == "Bicycle")
+            {
+                order.Product = Mapper.Map<ProductAIO>(this.BicycleService.GetById(order.ProductId, IncludeAll.Bicycle));
+            } else if (order.Discriminator == "Gear")
+            {
+                order.Product = Mapper.Map<ProductAIO>(this.GearService.GetById(order.ProductId, IncludeAll.Gear));
+            } else if (order.Discriminator == "Part")
+            {
+                order.Product = Mapper.Map<ProductAIO>(this.PartService.GetById(order.ProductId, IncludeAll.Part));
+            }
         }
 
-        public override Model.OrderHeader Update(int id, OrderHeaderUpdateRequest update)
+        private void enrichOrder(OrderHeader order)
+        {
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                enrichOrderDetail(orderDetail);
+            }
+        }
+
+        public OrderHeader Cart(int customerId)
+        {
+            var item = Mapper.Map<OrderHeader>(GetDraftOrderForCustomer(customerId));
+
+            enrichOrder(item);
+            
+            return item;
+        }
+
+        public OrderDetail RemoveCartItem(int customerId, int itemId)
+        {
+            var item = Context.OrderDetail
+                .Include(item => item.Order)
+                .FirstOrDefault(item => item.Id == itemId);
+
+            if (item == null)
+            {
+                throw new KeyNotFoundException("Order detail was not found");
+            }
+
+            if (item.Order.CustomerId != customerId)
+            {
+                throw new UnauthorizedAccessException("Unauthorized");
+            }
+
+            Context.OrderDetail.Remove(item);
+            Context.SaveChanges();
+            return Mapper.Map<OrderDetail>(item);
+        }
+
+        public override OrderHeader Update(int id, OrderHeaderUpdateRequest update)
         {
             var item = Context.OrderHeaders.Find(id);
 
@@ -65,7 +129,7 @@ namespace PULSE.Services.Implementation
             }
 
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             return state.Update(update);
@@ -80,13 +144,13 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Not Found");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             return state.Process(req);
         }
 
-        public override IQueryable<OrderHeader> AddInclude(IQueryable<OrderHeader> query, OrderSearchObject search = null)
+        public override IQueryable<Data.OrderHeader> AddInclude(IQueryable<Data.OrderHeader> query, OrderSearchObject search = null)
         {
             if (search?.IncludeDetails == true)
             {
@@ -106,7 +170,7 @@ namespace PULSE.Services.Implementation
             return query;
         }
 
-        public override IQueryable<OrderHeader> AddFilter(IQueryable<OrderHeader> query, OrderSearchObject search = null)
+        public override IQueryable<Data.OrderHeader> AddFilter(IQueryable<Data.OrderHeader> query, OrderSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
 
@@ -122,7 +186,7 @@ namespace PULSE.Services.Implementation
 
             return filteredQuery;
         }
-        public Model.OrderHeader GetDetails(int id)
+        public OrderHeader GetDetails(int id)
         {
             var query = Context.Set<Data.OrderHeader>().Where(x => x.Id == id);
 
@@ -143,14 +207,14 @@ namespace PULSE.Services.Implementation
             {
                 if (detail.Product is Data.Bicycle)
                 {
-                    (detail as Data.OrderDetailBicycle).BicycleSize = Context.BicycleSizes.Find((detail as Data.OrderDetailBicycle).BicycleSizeId);
+                    (detail as OrderDetailBicycle).BicycleSize = Context.BicycleSizes.Find((detail as OrderDetailBicycle).BicycleSizeId);
                 }
             }
 
-            return Mapper.Map<Model.OrderHeader>(entity);
+            return Mapper.Map<OrderHeader>(entity);
         }
 
-        public Model.OrderDetail UpdateDetail(int id, OrderDetailsUpdateRequest req)
+        public OrderDetail UpdateDetail(int id, OrderDetailsUpdateRequest req)
         {
             var detail = Context.OrderDetail.Find(id);
 
@@ -161,13 +225,13 @@ namespace PULSE.Services.Implementation
 
             var order = Context.OrderHeaders.Find(detail.OrderId);
 
-            var state = BaseState.CreateState((Model.OrderState)order.Status);
+            var state = BaseState.CreateState((OrderState)order.Status);
             state.CurrentEntity = order;
 
             return state.UpdateOrderDetail(id, req);
         }
 
-        public Model.OrderDetail DeleteDetail(int id)
+        public OrderDetail DeleteDetail(int id)
         {
             var detail = Context.OrderDetail.Find(id);
 
@@ -179,7 +243,7 @@ namespace PULSE.Services.Implementation
 
             var order = Context.OrderHeaders.Find(detail.OrderId);
 
-            var state = BaseState.CreateState((Model.OrderState)order.Status);
+            var state = BaseState.CreateState((OrderState)order.Status);
             state.CurrentEntity = order;
 
             return state.DeleteOrderDetail(id);
@@ -199,13 +263,13 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Doesn't Have Shipping Details");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)order.Status);
+            var state = BaseState.CreateState((OrderState)order.Status);
             state.CurrentEntity = order;
 
             return state.DeleteShippingInfo();
         }
 
-        public Model.OrderHeader Delete(int id)
+        public OrderHeader Delete(int id)
         {
             var item = Context.OrderHeaders.Find(id);
 
@@ -214,14 +278,14 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Not Found");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             return state.Delete();
         }
 
 
-        public Model.OrderHeader Cancel(int id)
+        public OrderHeader Cancel(int id)
         {
             var item = Context.OrderHeaders.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Where(x => x.Id == id).First();
 
@@ -230,14 +294,14 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Not Found");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             return state.Cancel();
         }
 
 
-        public Model.OrderHeader Pack(int id)
+        public OrderHeader Pack(int id)
         {
             var item = Context.OrderHeaders.Find(id);
 
@@ -246,16 +310,16 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Not Found");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             state.Pack();
 
-            return Mapper.Map<Model.OrderHeader>(item);
+            return Mapper.Map<OrderHeader>(item);
 
         }
 
-        public Model.OrderHeader Ship(int id)
+        public OrderHeader Ship(int id)
         {
             var item = Context.OrderHeaders.Find(id);
 
@@ -264,15 +328,15 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Not Found");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             state.Ship();
 
-            return Mapper.Map<Model.OrderHeader>(item);
+            return Mapper.Map<OrderHeader>(item);
         }
 
-        public Model.OrderHeader Deliver(int id)
+        public OrderHeader Deliver(int id)
         {
             var item = Context.OrderHeaders.Find(id);
 
@@ -281,12 +345,12 @@ namespace PULSE.Services.Implementation
                 throw new Exception("Order Not Found");
             }
 
-            var state = BaseState.CreateState((Model.OrderState)item.Status);
+            var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
             state.Deliver();
 
-            return Mapper.Map<Model.OrderHeader>(item);
+            return Mapper.Map<OrderHeader>(item);
         }
     }
 }

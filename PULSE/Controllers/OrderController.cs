@@ -72,6 +72,24 @@ namespace PULSE.Controllers
                 return NotFound(ex.Message);
             }
         }
+        
+        [Authorize]
+        [HttpDelete("Cart/{id}")]
+        public virtual ActionResult<OrderDetail> RemoveOrderDetail(int id)
+        {
+            try
+            {
+                return Ok(((IOrderService)this.Service).RemoveCartItem(AuthHelper.GetUserId(HttpContext.User), id));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
         public override ActionResult<OrderHeader> GetById(int id, [FromBody] OrderSearchObject? search = null)
         {

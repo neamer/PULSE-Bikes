@@ -1,11 +1,13 @@
-﻿using PULSE.Model;
-using PULSE.Model.Requests;
+﻿using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PULSE.Services.Data;
+using OrderDetail = PULSE.Model.OrderDetail;
+using OrderHeader = PULSE.Model.OrderHeader;
 
 namespace PULSE.Services.Interfaces
 {
@@ -23,6 +25,7 @@ namespace PULSE.Services.Interfaces
         public OrderHeader Deliver(int id);
         public Data.OrderHeader GetDraftOrderForCustomer(int customerId);
         public OrderHeader Cart(int customerId);
+        public OrderDetail RemoveCartItem(int customerId, int itemId);
 
     }
 }

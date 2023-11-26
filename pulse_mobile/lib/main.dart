@@ -11,6 +11,7 @@ import 'package:pulse_mobile/providers/products/brand_provider.dart';
 import 'package:pulse_mobile/providers/products/category_provider.dart';
 import 'package:pulse_mobile/providers/products/gear_provider.dart';
 import 'package:pulse_mobile/providers/products/part_provider.dart';
+import 'package:pulse_mobile/screens/account_screen/account_screen.dart';
 import 'package:pulse_mobile/screens/cart_screen/cart_screen.dart';
 import 'package:pulse_mobile/screens/landing_screen/landing_screen.dart';
 import 'package:pulse_mobile/screens/product_search_screen.dart';
@@ -83,6 +84,7 @@ class MyApp extends StatelessWidget {
           "${ProductSearchScreen.routeName}/parts": (context) =>
               const ProductSearchScreen<Part, PartProvider>(),
           CartScreen.routeName: (context) => const CartScreen(),
+          AccountScreen.routeName: (context) => const AccountScreen(),
         },
       ),
     );

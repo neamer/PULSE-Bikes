@@ -23,6 +23,11 @@ class Product extends AuditableModel {
       _$ProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
+
+  @override
+  String toString() {
+      return "$brand $model";
+    }
 }
 
 enum ProductType { Bicycle, Gear, Part }

@@ -48,6 +48,10 @@ namespace PULSE.Services
             CreateMap<Data.Bicycle, Model.ProductAIO>();
             CreateMap<Data.Part, Model.ProductAIO>();
             CreateMap<Data.Gear, Model.ProductAIO>();
+            
+            CreateMap<Model.Bicycle, Model.ProductAIO>();
+            CreateMap<Model.Part, Model.ProductAIO>();
+            CreateMap<Model.Gear, Model.ProductAIO>();
 
             #endregion
 
@@ -60,6 +64,7 @@ namespace PULSE.Services
             CreateMap<Data.OrderDetailGear, Model.OrderDetail>();
             CreateMap<Data.OrderDetailBicycle, Model.OrderDetail>();
             CreateMap<Data.OrderDetailAIO, Model.OrderDetail>();
+            CreateMap<Data.OrderDetail, Model.OrderDetail>();
 
             CreateMap<OrderDetailsInsertRequest, Data.OrderDetailPart>();
             CreateMap<OrderDetailsInsertRequest, Data.OrderDetailGear>();

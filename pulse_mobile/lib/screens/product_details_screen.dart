@@ -34,7 +34,8 @@ class _ProductDetailsScreenState<T extends Product,
   T? _product;
   bool _isSubmitting = false;
 
-  final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _quantityController =
+      TextEditingController(text: "1");
 
   bool _loading = false;
 
@@ -53,17 +54,24 @@ class _ProductDetailsScreenState<T extends Product,
   }
 
   void addToCart() async {
+    setState(() {
+      _isSubmitting = true;
+    });
     final request = OrderDetailRequest.build(
         productId: _product?.id,
         quantity: int.tryParse(_quantityController.text),
-        bicycleSizeId: _selectedSize?.id);
+        bicycleSizeId: _selectedSize?.bicycleSizeId);
 
     try {
       await _provider?.addToCart(request);
 
       Messages.errorMessage(context, "Successfully added $_product to cart!");
     } catch (e) {
-      Messages.errorMessage(context, e.toString());
+      Messages.errorMessage(context, "Error while adding item to cart!");
+    } finally {
+      setState(() {
+        _isSubmitting = false;
+      });
     }
   }
 
@@ -228,10 +236,14 @@ class _ProductDetailsScreenState<T extends Product,
                                                 vertical: 20, horizontal: 30))),
                                     onPressed: isDisabled() ? null : addToCart,
                                     child: _isSubmitting
-                                        ? CircularProgressIndicator(
-                                            color: themeData
-                                                .colorScheme.background,
-                                          )
+                                        ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                              color: themeData
+                                                  .colorScheme.background,
+                                            ),
+                                        )
                                         : Text("ADD TO CART",
                                             style: themeData
                                                 .textTheme.titleLarge

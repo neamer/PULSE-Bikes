@@ -20,6 +20,8 @@ class _CartScreenState extends State<CartScreen> {
   OrderProvider? _provider;
   OrderHeader? _data;
 
+  
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -46,22 +48,116 @@ class _CartScreenState extends State<CartScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 30),
-                  child: Column(children: [
-                    Text(
-                      "SHOPPING CART",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
-                      itemCount: _data?.orderDetails.length,
-                      itemBuilder: (ctx, index) =>
-                          CartItem(_data!.orderDetails[index]),
-                    )
-                  ]),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "SHOPPING CART",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _loading == false && _data?.orderDetails.length == 0
+                            ? const Text("Your cart is empty!")
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("${_data?.orderDetails.length} items"),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    itemCount: _data?.orderDetails.length,
+                                    itemBuilder: (ctx, index) =>
+                                        CartItem(_data!.orderDetails[index], removeItem),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 25, right: 25, top: 15, bottom: 30),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Subtotal",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(fontSize: 14)),
+                                            Text("10101",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium
+                                                    ?.copyWith(fontSize: 14))
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Shipping",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(fontSize: 14)),
+                                            Text("Free",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium
+                                                    ?.copyWith(fontSize: 14))
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Total",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(fontSize: 14)),
+                                            Text("10101",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium
+                                                    ?.copyWith(fontSize: 14))
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: OutlinedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.white),
+                                            padding: MaterialStateProperty.all(
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 20,
+                                                    horizontal: 30))),
+                                        onPressed: () {},
+                                        child: Text("PROCEED TO CHECKOUT",
+                                            style: themeData
+                                                .textTheme.titleLarge
+                                                ?.copyWith(
+                                                    color: themeData
+                                                        .colorScheme.background,
+                                                    fontSize: 18))),
+                                  ),
+                                ],
+                              )
+                      ]),
                 ),
               ));
   }
@@ -84,5 +180,13 @@ class _CartScreenState extends State<CartScreen> {
       _data = tmpData;
       _loading = false;
     });
+  }
+
+  Future removeItem(int id) async {
+    var removedItem = await _provider?.removeCartItem(id);
+
+    if(removedItem != null) {
+      loadData();
+    }
   }
 }

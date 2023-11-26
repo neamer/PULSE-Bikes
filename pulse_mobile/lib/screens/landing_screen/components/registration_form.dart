@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/user/requests/registration_request.dart';
 import 'package:pulse_mobile/providers/auth/user_provider.dart';
-import 'package:pulse_mobile/screens/product_search_screen.dart';
+import 'package:pulse_mobile/utils/messages.dart';
 import 'package:pulse_mobile/utils/util.dart';
 import 'package:pulse_mobile/widgets/basic_text_field.dart';
 
@@ -105,18 +105,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
                 widget.onSuccess();
               } catch (e) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          title: const Text("Error"),
-                          content: Text(e.toString()),
-                          actions: [
-                            TextButton(
-                              child: const Text("Ok"),
-                              onPressed: () => Navigator.pop(context),
-                            )
-                          ],
-                        ));
+                Messages.errorMessage(context, e.toString());
               }
             },
             child: Text("REGISTER",

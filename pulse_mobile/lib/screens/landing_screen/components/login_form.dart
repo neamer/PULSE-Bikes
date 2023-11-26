@@ -72,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
 
                   widget.onSuccess();
                 } catch (e) {
-                  Messages.errorMessage(context, e.toString());
+                  Messages.errorMessage(context, "Wrong username or password");
                 } finally {
                   setState(() {
                     isSubmitting = false;
@@ -80,9 +80,13 @@ class _LoginFormState extends State<LoginForm> {
                 }
               },
               child: isSubmitting
-                  ? CircularProgressIndicator(
-                      color: themeData.colorScheme.background,
-                    )
+                  ? SizedBox(
+                    height: 21,
+                    width: 21,
+                    child: CircularProgressIndicator(
+                        color: themeData.colorScheme.background,
+                      ),
+                  )
                   : Text("LOGIN",
                       style: themeData.textTheme.titleLarge?.copyWith(
                           color: themeData.colorScheme.background,
