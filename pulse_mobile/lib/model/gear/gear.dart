@@ -15,4 +15,8 @@ class Gear extends Product {
   factory Gear.fromJson(Map<String, dynamic> json) => _$GearFromJson(json);
 
   Map<String, dynamic> toJson() => _$GearToJson(this);
+
+  bool isAvailable() {
+    return (availableQty ?? 0) > 0;
+  }
 }

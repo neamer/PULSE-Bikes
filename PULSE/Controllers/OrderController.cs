@@ -74,6 +74,24 @@ namespace PULSE.Controllers
         }
         
         [Authorize]
+        [HttpPost("Process")]
+        public virtual ActionResult<OrderHeader> Process([FromBody] OrderRequest request)
+        {
+            try
+            {
+                return Ok(((IOrderService)this.Service).ProcessCustomer(AuthHelper.GetUserId(HttpContext.User), request));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            { 
+                return NotFound(ex.Message);
+            }
+        }
+        
+        [Authorize]
         [HttpDelete("Cart/{id}")]
         public virtual ActionResult<OrderDetail> RemoveOrderDetail(int id)
         {
@@ -90,10 +108,42 @@ namespace PULSE.Controllers
                 return NotFound(ex.Message);
             }
         }
+        
+        [Authorize]
+        [HttpGet("Customer")]
+        public virtual ActionResult<IEnumerable<OrderHeader>> GetForCustomer([FromQuery] OrderSearchObject? search)
+        {
+            try
+            {
+                search.ExcludeStates = new List<OrderState>();
+                
+                search.ExcludeStates.Add(OrderState.Cancelled);
+                search.ExcludeStates.Add(OrderState.Cart);
+                search.ExcludeStates.Add(OrderState.Initial);
+                search.ExcludeStates.Add(OrderState.Draft);
+                
+                search.CustomerId = AuthHelper.GetUserId(HttpContext.User);
+                return Ok(((IOrderService)this.Service).Get(search));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
         public override ActionResult<OrderHeader> GetById(int id, [FromBody] OrderSearchObject? search = null)
         {
             return Ok(((IOrderService)Service).GetDetails(id));
+        }
+        
+        [HttpGet("Details/{id}")]
+        public ActionResult<OrderHeader> Details(int id)
+        {
+            return Ok(((IOrderService)Service).GetDetailsForCustomer(id));
         }
 
         [Authorize(Roles = "Administrator,Salesperson")]
@@ -149,24 +199,6 @@ namespace PULSE.Controllers
                 return NotFound(ex.Message);
             }
         }
-
-        //[Authorize(Roles = "Administrator,Salesperson")]
-        //[HttpDelete("{id}")]
-        //public virtual ActionResult<Model.OrderHeader> Delete(int id)
-        //{
-        //    try
-        //    {
-        //        return ((IOrderService)this.Service).Delete(id);
-        //    }
-        //    catch (InvalidOperationException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //}
 
         [Authorize(Roles = "Administrator,Salesperson")]
         [HttpDelete("Cancel/{id}")]

@@ -21,4 +21,8 @@ class OrderDetail extends BaseModel {
       _$OrderDetailFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrderDetailToJson(this);
+
+  double total() {
+    return unitPrice != null && quantity != null ? unitPrice! * quantity! : 0;
+  }
 }

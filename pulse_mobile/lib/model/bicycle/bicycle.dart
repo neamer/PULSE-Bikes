@@ -20,4 +20,10 @@ class Bicycle extends Product {
       _$BicycleFromJson(json);
 
   Map<String, dynamic> toJson() => _$BicycleToJson(this);
+
+  bool isAvailable() {
+    return (availableSizes
+                ?.map((e) => e.availableQty ?? 0)
+                .reduce((a, b) => a + b) ?? 0) > 0;
+  }
 }

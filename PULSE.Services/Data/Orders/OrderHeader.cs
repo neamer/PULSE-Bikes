@@ -26,5 +26,17 @@ namespace PULSE.Services.Data
         public virtual Payment? Payment { get; set; }
         public virtual ShippingInfo? ShippingInfo { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        
+        public decimal Total()
+        {
+            decimal result = 0;
+
+            foreach (var item in OrderDetails)
+            {
+                result += (item.UnitPrice ?? 0) * (item.Quantity ?? 0);
+            }
+
+            return result;
+        }
     }
 }

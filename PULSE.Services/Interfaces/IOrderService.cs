@@ -15,6 +15,7 @@ namespace PULSE.Services.Interfaces
     {
         public bool Process(int id, PaymentInsertRequest req);
         public OrderHeader GetDetails(int id);
+        public OrderHeader GetDetailsForCustomer(int id);
         public OrderDetail UpdateDetail(int id, OrderDetailsUpdateRequest req);
         public OrderDetail DeleteDetail(int id);
         public OrderHeader Delete(int id);
@@ -25,6 +26,7 @@ namespace PULSE.Services.Interfaces
         public OrderHeader Deliver(int id);
         public Data.OrderHeader GetDraftOrderForCustomer(int customerId);
         public OrderHeader Cart(int customerId);
+        public OrderHeader ProcessCustomer(int customerId, OrderRequest request);
         public OrderDetail RemoveCartItem(int customerId, int itemId);
 
     }

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pulse_mobile/model/abstract/base_model.dart';
+import 'package:pulse_mobile/model/generic/shipping_info.dart';
 import 'package:pulse_mobile/model/orders/order_detail.dart';
 
 part 'order_header.g.dart';
@@ -12,6 +13,7 @@ class OrderHeader extends BaseModel {
   int? shippingInfoId;
   int? status;
   String? statusName;
+  String? statusNamee;
   DateTime? timeProcessed;
   DateTime? timePacked;
   DateTime? timeShipped;
@@ -21,6 +23,7 @@ class OrderHeader extends BaseModel {
   double? shippingCost;
   int? noOfItems;
   double? total;
+  ShippingInfo? shippingInfo;
 
   List<OrderDetail> orderDetails = [];
 
@@ -30,4 +33,12 @@ class OrderHeader extends BaseModel {
       _$OrderHeaderFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrderHeaderToJson(this);
+
+  double getTotal() {
+    double result = 0;
+
+    orderDetails.forEach((element) => result += element.total());
+
+    return result;
+  }
 }

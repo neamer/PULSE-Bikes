@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
 using PULSE.Services.Data;
+using PULSE.Services.Utils;
 
 namespace PULSE.Services.StateMachines.Order
 {
@@ -166,7 +167,7 @@ namespace PULSE.Services.StateMachines.Order
             return Mapper.Map<Model.OrderHeader>(CurrentEntity);
         }
 
-        public override bool Process(PaymentInsertRequest req)
+        public override bool Process(PaymentInsertRequest req, Model.ShippingInfo? shippingInfo)
         {
             if(Helpers.ValidateOrder(Context, CurrentEntity.OrderDetails))
             {
@@ -207,7 +208,8 @@ namespace PULSE.Services.StateMachines.Order
 
                         case "Bicycle":
                             var detailProductB = Context.Bicycles.Find(item.ProductId);
-                            var detailSize = Context.AvailableSizes.Find((item as OrderDetailBicycle).BicycleSizeId, item.ProductId);
+                            var detailSize = Context.AvailableSizes
+                                .FirstOrDefault(x => x.BicycleSizeId == (item as OrderDetailBicycle).BicycleSizeId && x.ProductId == item.ProductId);
 
                             if (detailProductB != null && detailSize != null && detailSize.AvailableQty - item.Quantity >= 0)
                             {
@@ -223,9 +225,16 @@ namespace PULSE.Services.StateMachines.Order
                     }
                 }
 
+                
+                CurrentEntity.Delivery = shippingInfo != null;
+                
                 if(CurrentEntity.Delivery == true)
                 {
                     totalPrice += CurrentEntity.ShippingConst ?? 0;
+                    var shippingInfoDB = Mapper.Map<Data.ShippingInfo>(shippingInfo);
+                    Context.Add(shippingInfoDB);
+                    Context.SaveChanges();
+                    CurrentEntity.ShippingInfo = shippingInfoDB;
                 }
 
                 var payment = Mapper.Map<Payment>(req);
@@ -238,6 +247,7 @@ namespace PULSE.Services.StateMachines.Order
                 CurrentEntity.Status = Model.OrderState.Processed;
                 CurrentEntity.TimeProcessed = DateTime.Now;
                 CurrentEntity.PaymentId = payment.Id;
+                CurrentEntity.OrderNumber = OrderUtils.GenerateOrderNumber();
 
                 Context.SaveChanges();
 

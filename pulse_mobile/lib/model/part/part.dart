@@ -15,4 +15,8 @@ class Part extends Product {
   factory Part.fromJson(Map<String, dynamic> json) => _$PartFromJson(json);
 
   Map<String, dynamic> toJson() => _$PartToJson(this);
+
+  bool isAvailable() {
+    return (availableQty ?? 0) > 0;
+  }
 }

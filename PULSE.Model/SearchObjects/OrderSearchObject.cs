@@ -10,9 +10,12 @@ namespace PULSE.Model.SearchObjects
     {
         public string? AnyField { get; set; }
         public OrderState? Status { get; set; }
+        public ICollection<OrderState>? ExcludeStates { get; set; }
 
         public bool? IncludePayment { get; set; }
         public bool? IncludeCustomer { get; set; }
         public bool? IncludeDetails { get; set; }
+        
+        public int CustomerId { get; set; }
     }
 }

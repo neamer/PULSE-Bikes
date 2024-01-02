@@ -13,6 +13,7 @@
         public int? ShippingInfoId { get; set; }
         public int? Status { get; set; }
         public string? StatusName { get; set; }
+        public string StatusNamee => OrderStateHelper.GetNameFromState((OrderState)Status);
         public DateTime? TimeProcessed { get; set; }
         public DateTime? TimePacked { get; set; }
         public DateTime? TimeShipped { get; set; }

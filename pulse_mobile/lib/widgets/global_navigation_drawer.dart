@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_mobile/screens/account_screen/account_screen.dart';
-import 'package:pulse_mobile/screens/cart_screen/cart_screen.dart';
+import 'package:pulse_mobile/screens/account/account_screen.dart';
+import 'package:pulse_mobile/screens/cart/cart_screen.dart';
+import 'package:pulse_mobile/screens/order/list/order_list_screen.dart';
 import 'package:pulse_mobile/screens/product_search_screen.dart';
 
 class GlobalNavigationDrawer extends StatelessWidget {
@@ -102,6 +103,20 @@ class GlobalNavigationDrawer extends StatelessWidget {
         ),
         const SizedBox(
           height: 20,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(OrderListScreen.routeName);
+          },
+          child: Row(
+            children: [
+              Text("ORDERS",
+                  style: themeData.textTheme.bodyLarge?.copyWith(fontSize: 20))
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 50,
         ),
         InkWell(
           onTap: () {

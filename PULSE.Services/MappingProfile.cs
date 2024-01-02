@@ -12,6 +12,9 @@ namespace PULSE.Services
             CreateMap<StaffUpdateRequest, Data.staff>();
             CreateMap<Data.Role, Model.Role>();
 
+            CreateMap<Data.ShippingInfo, Model.ShippingInfo>();
+            CreateMap<Model.ShippingInfo, Data.ShippingInfo>();
+
             #region ProductSection
 
             CreateMap<Data.PartCategory, Model.ProductCategory>();

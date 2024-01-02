@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model;
 using PULSE.Model.Requests;
@@ -50,7 +51,7 @@ namespace PULSE.Services.Implementation
             };
 
             Context.OrderHeaders.Add(order);
-            Context.SaveChangesAsync();
+            Context.SaveChanges();
 
             return order;
         }
@@ -96,6 +97,48 @@ namespace PULSE.Services.Implementation
             enrichOrder(item);
             
             return item;
+        }
+        
+        public OrderHeader GetDetailsForCustomer(int id)
+        {
+            var itemDB = Context.OrderHeaders
+                .Include(element => element.ShippingInfo)
+                .Include(element => element.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (itemDB == null)
+            {
+                return null;
+            }
+            
+            var item = Mapper.Map<OrderHeader>(itemDB);
+
+            enrichOrder(item);
+            
+            return item;
+        }
+
+        public OrderHeader ProcessCustomer(int customerId, OrderRequest request)
+        {
+            var order = GetDraftOrderForCustomer(customerId);
+
+            var payment = new PaymentInsertRequest()
+            {
+                Method = "PayPal"
+            };
+            
+            var state = BaseState.CreateState((OrderState)order.Status);
+            state.CurrentEntity = order;
+
+            if (!state.Process(payment, request.ShippingInfo))
+            {
+                throw new BadHttpRequestException("");
+            }
+            
+            Context.SaveChanges();
+
+            return Mapper.Map<OrderHeader>(order);
         }
 
         public OrderDetail RemoveCartItem(int customerId, int itemId)
@@ -147,7 +190,7 @@ namespace PULSE.Services.Implementation
             var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
-            return state.Process(req);
+            return state.Process(req, null);
         }
 
         public override IQueryable<Data.OrderHeader> AddInclude(IQueryable<Data.OrderHeader> query, OrderSearchObject search = null)
@@ -184,6 +227,11 @@ namespace PULSE.Services.Implementation
                 filteredQuery = filteredQuery.Where(x => x.Status == search.Status);
             }
 
+            if (search?.ExcludeStates != null && search.ExcludeStates.Count != 0)
+            {
+                filteredQuery = filteredQuery.Where(x => search.ExcludeStates.Count(y => x.Status != y) == 0);
+            }
+
             return filteredQuery;
         }
         public OrderHeader GetDetails(int id)
@@ -213,6 +261,8 @@ namespace PULSE.Services.Implementation
 
             return Mapper.Map<OrderHeader>(entity);
         }
+        
+        
 
         public OrderDetail UpdateDetail(int id, OrderDetailsUpdateRequest req)
         {

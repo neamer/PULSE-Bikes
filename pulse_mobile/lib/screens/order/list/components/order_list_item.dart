@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_mobile/model/orders/order_detail.dart';
-import 'package:pulse_mobile/model/product_type/product_type.dart';
+import 'package:intl/intl.dart';
+import 'package:pulse_mobile/model/orders/order_header.dart';
+import 'package:pulse_mobile/utils/util.dart';
 
-class CartItem extends StatelessWidget {
-  final OrderDetail item;
-  final Function onDelete;
+class OrderListItem extends StatelessWidget {
+  final OrderHeader item;
+  final Function onClick;
 
-  const CartItem(this.item, this.onDelete, {super.key});
+  const OrderListItem(this.item, this.onClick, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: InkWell(
+        onTap: () => onClick(),
         child: Stack(clipBehavior: Clip.none, children: [
           Container(
               decoration: BoxDecoration(
@@ -24,23 +26,13 @@ class CartItem extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(7),
-                        bottomLeft: Radius.circular(7)),
-                    child: Container(
-                      height: 87,
-                      width: 87,
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
                   Container(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(14),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${item.product?.brand?.name} · ${item.product?.model}",
+                            "${item.orderNumber}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -49,21 +41,9 @@ class CartItem extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          if (item.discriminator == ProductType.bicycle)
-                            Column(
-                              children: [
-                                Text("Selected size: ${item.bicycleSize?.size}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(fontSize: 14)),
-                                const SizedBox(
-                                  height: 7,
-                                ),
-                              ],
-                            ),
+                          if(item.timeProcessed != null)
                           Text(
-                              "Category · ${item.product?.productCategory?.name}",
+                              DateFormat.yMMMEd().format(item.timeProcessed!),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
@@ -74,7 +54,7 @@ class CartItem extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("\$${item.product?.price}",
+                              Text("Status · ${GetStateName(OrderState.values[item.status!])}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -86,20 +66,9 @@ class CartItem extends StatelessWidget {
                 ],
               )),
           Positioned(
-              top: -20,
-              right: -20,
-              child: Container(
-                child: IconButton(
-                    onPressed: () => onDelete(item.id),
-                    icon: const Icon(
-                      Icons.cancel,
-                      color: Colors.red,
-                    )),
-              )),
-          Positioned(
-              bottom: 10,
-              right: 10,
-              child: Text(item.quantity.toString(),
+              bottom: 14,
+              right: 14,
+              child: Text("\$${item.getTotal().toString()}",
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium

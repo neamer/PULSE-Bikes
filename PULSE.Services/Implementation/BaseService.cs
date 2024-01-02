@@ -30,6 +30,8 @@ namespace PULSE.Services.Implementation
                 entity = entity.Skip(search.Page.Value * search.PageSize.Value).Take(search.PageSize.Value);
             }
 
+            entity = entity.OrderByDescending(x => x.Id);
+
             var list = entity.ToList();
             return Mapper.Map<IList<T>>(list);
         }

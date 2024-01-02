@@ -66,7 +66,7 @@ namespace PULSE.Services.StateMachines.Order
             throw new InvalidOperationException("The current state is unable to perform the requested action");
         }
 
-        public virtual bool Process(PaymentInsertRequest req)
+        public virtual bool Process(PaymentInsertRequest req, Model.ShippingInfo? shippingInfo)
         {
             throw new InvalidOperationException("The current state is unable to perform the requested action");
         }        

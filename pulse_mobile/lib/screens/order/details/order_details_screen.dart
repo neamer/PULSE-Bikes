@@ -2,25 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/orders/order_header.dart';
 import 'package:pulse_mobile/providers/orders/order_provider.dart';
-import 'package:pulse_mobile/screens/cart_screen/components/cart_item.dart';
+import 'package:pulse_mobile/screens/cart/components/cart_item.dart';
+import 'package:pulse_mobile/widgets/basic_text_field.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
-class CartScreen extends StatefulWidget {
-  static String routeName = "/cart";
+class OrderDetailsScreen extends StatefulWidget {
+  static String routeName = "/order";
+  final int orderId;
 
-  const CartScreen({super.key});
+  const OrderDetailsScreen(this.orderId, {super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   bool _loading = false;
 
   OrderProvider? _provider;
   OrderHeader? _data;
 
-  
+  final TextEditingController _countryController = TextEditingController();
+
+  final TextEditingController _stateController = TextEditingController();
+
+  final TextEditingController _cityController = TextEditingController();
+
+  final TextEditingController _streetController = TextEditingController();
+
+  final TextEditingController _zipCodeController = TextEditingController();
+
+  double _subtotal = 0;
+  double _shipping = 0;
+  double _total = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +66,14 @@ class _CartScreenState extends State<CartScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "SHOPPING CART",
+                          _data?.orderNumber ?? "",
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         _loading == false && _data?.orderDetails.length == 0
-                            ? const Text("Your cart is empty!")
+                            ? const Text("Order has no items!")
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -71,11 +85,16 @@ class _CartScreenState extends State<CartScreen> {
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
                                     itemCount: _data?.orderDetails.length,
-                                    itemBuilder: (ctx, index) =>
-                                        CartItem(_data!.orderDetails[index], removeItem),
+                                    itemBuilder: (ctx, index) => CartItem(
+                                        _data!.orderDetails[index], null),
                                   ),
+
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 25, right: 25, top: 15, bottom: 30),
+                                    padding: const EdgeInsets.only(
+                                        left: 25,
+                                        right: 25,
+                                        top: 15,
+                                        bottom: 30),
                                     child: Column(
                                       children: [
                                         Row(
@@ -87,7 +106,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text("10101",
+                                            Text(_subtotal.toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
@@ -106,7 +125,10 @@ class _CartScreenState extends State<CartScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text("Free",
+                                            Text(
+                                                _shipping == 0
+                                                    ? "Free"
+                                                    : _shipping.toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
@@ -125,35 +147,56 @@ class _CartScreenState extends State<CartScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text("10101",
+                                            Text(_total.toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
                                                     ?.copyWith(fontSize: 14))
                                           ],
                                         ),
+                                        if (_data?.delivery == true)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                                          height: 35,
+                                        ),
+                            Text(
+                          "SHIPPING ADDRESS",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+
+                          BasicTextField(
+                            name: "Country",
+                            controller: _countryController,
+                            enabled: false,
+                          ),
+                          BasicTextField(
+                            name: "State",
+                            controller: _stateController,
+                            enabled: false,
+                          ),
+                          BasicTextField(
+                            name: "City",
+                            controller: _cityController,
+                            enabled: false,
+                          ),
+                          BasicTextField(
+                            name: "Street Address",
+                            controller: _streetController,
+                            enabled: false,
+                          ),
+                          BasicTextField(
+                            name: "Zip Code",
+                            controller: _zipCodeController,
+                            enabled: false,
+                          ),
+                        ],
+                      ),
+                    ),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: OutlinedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.white),
-                                            padding: MaterialStateProperty.all(
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 20,
-                                                    horizontal: 30))),
-                                        onPressed: () {},
-                                        child: Text("PROCEED TO CHECKOUT",
-                                            style: themeData
-                                                .textTheme.titleLarge
-                                                ?.copyWith(
-                                                    color: themeData
-                                                        .colorScheme.background,
-                                                    fontSize: 18))),
                                   ),
                                 ],
                               )
@@ -175,18 +218,35 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {
       _loading = true;
     });
-    var tmpData = await _provider?.fetchCart();
+
+    var tmpData = await _provider?.getDetails(widget.orderId);
+
     setState(() {
       _data = tmpData;
       _loading = false;
+      calculateCosts();
     });
   }
 
-  Future removeItem(int id) async {
-    var removedItem = await _provider?.removeCartItem(id);
-
-    if(removedItem != null) {
-      loadData();
+  void calculateCosts() {
+    if (_data == null ||
+        _data!.orderDetails == null ||
+        _data!.orderDetails.isEmpty) {
+      return;
     }
+    setState(() {
+      _subtotal = (_data?.orderDetails
+              .map((e) => (e.unitPrice ?? 0 * (e.quantity ?? 0)))
+              .reduce((a, b) => a + b) ??
+          0) as double;
+      _shipping = _subtotal > 100 ? 0 : 10;
+      _total = _subtotal + _shipping;
+
+      _countryController.text = _data?.shippingInfo?.country ?? "";
+      _stateController.text = _data?.shippingInfo?.state ?? "";
+      _cityController.text = _data?.shippingInfo?.city ?? "";
+      _streetController.text = _data?.shippingInfo?.street ?? "";
+      _zipCodeController.text = _data?.shippingInfo?.zipCode ?? "";
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_mobile/model/available_size/available_size.dart';
 import 'package:pulse_mobile/model/bicycle/bicycle.dart';
+import 'package:pulse_mobile/utils/product_util.dart';
 
 import '../model/gear/gear.dart';
 import '../model/part/part.dart';
@@ -25,6 +26,8 @@ class ProductListTile<T extends Product> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isAvailable = ProductUtil.isAvailable(_product);
+
     return InkWell(
       onTap: () => this.onTap!(_product.id),
       child: Container(
@@ -56,13 +59,16 @@ class ProductListTile<T extends Product> extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      if (T == Bicycle)
-                        Text("Available Sizes ${_formatAvailableSizes()}",
+                      if (!isAvailable)
+                        Text("Currently unavailable",
                             style: Theme.of(context).textTheme.bodyLarge),
-                      if (T == Gear)
+                      if (isAvailable && T == Bicycle)
+                        Text("Available Sizes: ${_formatAvailableSizes()}",
+                            style: Theme.of(context).textTheme.bodyLarge),
+                      if (isAvailable && T == Gear)
                         Text("${(_product as Gear).availableQty} Available",
                             style: Theme.of(context).textTheme.bodyLarge),
-                      if (T == Part)
+                      if (isAvailable && T == Part)
                         Text("${(_product as Part).availableQty} Available",
                             style: Theme.of(context).textTheme.bodyLarge),
                       const SizedBox(

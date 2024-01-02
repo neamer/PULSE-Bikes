@@ -28,3 +28,51 @@ String formatNumber(dynamic) {
 
   return f.format(dynamic);
 }
+
+enum OrderState {
+  Initial,
+  Cart,
+  Draft,
+  Processed,
+  Packed,
+  Shipped,
+  Collected,
+  Delivered,
+  Cancelled
+}
+
+String GetStateName(OrderState state) {
+  switch (state) {
+    case OrderState.Initial:
+      return "INITIAL";
+      break;
+    case OrderState.Cart:
+      return "CART";
+      break;
+    case OrderState.Draft:
+      return "DRAFT";
+      break;
+    case OrderState.Processed:
+      return "PROCESSED";
+      break;
+    case OrderState.Packed:
+      return "PACKED";
+      break;
+    case OrderState.Shipped:
+      return "SHIPPED";
+      break;
+    case OrderState.Collected:
+      return "COLLECTED";
+      break;
+    case OrderState.Delivered:
+      return "DELIVERED";
+      break;
+    case OrderState.Cancelled:
+      return "CANCELLED";
+      break;
+    default:
+      return "";
+      break;
+  }
+}
+

@@ -24,4 +24,10 @@
     <Folder Include="Interfaces\Abstract\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.app.ref\6.0.25\ref\net6.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

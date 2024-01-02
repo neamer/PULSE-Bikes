@@ -34,7 +34,8 @@ namespace PULSE.Services.StateMachines.Order
 
                     case "Bicycle":
                         var detailProductB = Context.Bicycles.Find(item.ProductId);
-                        var detailSize = Context.AvailableSizes.Find((item as OrderDetailBicycle).BicycleSizeId, item.ProductId);
+                        var detailSize = Context.AvailableSizes
+                            .FirstOrDefault(x => x.BicycleSizeId == (item as OrderDetailBicycle).BicycleSizeId && x.ProductId == item.ProductId);
 
                         if (detailProductB == null || detailSize == null || (detailSize.AvailableQty - item.Quantity) <- 0)
                         {
