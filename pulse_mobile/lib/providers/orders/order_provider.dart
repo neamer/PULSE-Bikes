@@ -60,7 +60,7 @@ class OrderProvider extends BaseProvider<OrderHeader> {
     }
   }
 
-    Future<List<OrderHeader>> getOrders([dynamic search]) async {
+  Future<List<OrderHeader>> getOrders([dynamic search]) async {
     var url = "$BaseProvider.baseUrl$endpoint/Customer";
 
     if (search != null) {
@@ -80,7 +80,7 @@ class OrderProvider extends BaseProvider<OrderHeader> {
     }
   }
 
-    Future<OrderHeader?> getDetails(int id) async {
+  Future<OrderHeader?> getDetails(int id) async {
     var url = "${BaseProvider.baseUrl}$endpoint/Details/$id";
 
     var uri = Uri.parse(url);

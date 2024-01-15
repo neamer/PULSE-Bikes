@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pulse_mobile/model/orders/order_header.dart';
-import 'package:pulse_mobile/providers/orders/order_provider.dart';
-import 'package:pulse_mobile/screens/order/details/order_details_screen.dart';
-import 'package:pulse_mobile/screens/order/list/components/order_list_item.dart';
+import 'package:pulse_mobile/model/servicing/servicing.dart';
+import 'package:pulse_mobile/providers/servicing/servicing_provider.dart';
+import 'package:pulse_mobile/screens/Servicing/list/components/Servicing_list_item.dart';
+import 'package:pulse_mobile/screens/servicing/detail/servicing_detail_screen.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
-class OrderListScreen extends StatefulWidget {
-  static String routeName = "/orders";
+class ServicingListScreen extends StatefulWidget {
+  static String routeName = "/Servicings";
 
-  const OrderListScreen({super.key});
+  const ServicingListScreen({super.key});
 
   @override
-  State<OrderListScreen> createState() => _OrderListScreenState();
+  State<ServicingListScreen> createState() => _ServicingListScreenState();
 }
 
-class _OrderListScreenState extends State<OrderListScreen> {
+class _ServicingListScreenState extends State<ServicingListScreen> {
   bool _loading = true;
 
-  OrderProvider? _provider;
-  List<OrderHeader>? _data;
+  ServicingProvider? _provider;
+  List<Servicing>? _data;
 
   Future loadData() async {
     var searchObject = {
-      "IncludePayment": true,
-      "IncludeCustomer": true,
-      "IncludeDetails": true,
+      // "IncludePayment": true,
+      // "IncludeCustomer": true,
+      // "IncludeDetails": true,
     };
 
-    var tmpData = await _provider?.get(searchObject);
+    var tmpData = await _provider?.fetchServicingHistory();
 
     if (tmpData != null) {
       setState(() {
@@ -73,7 +73,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "ORDERS",
+                          "Servicing",
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(
@@ -92,10 +92,11 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
                                     itemCount: _data?.length,
-                                    itemBuilder: (ctx, index) => OrderListItem(
-                                        _data![index],
-                                        () => openDetails(
-                                            context, _data![index].id)),
+                                    itemBuilder: (ctx, index) =>
+                                        ServicingListItem(
+                                            _data![index],
+                                            () => openDetails(
+                                                context, _data![index].id)),
                                   ),
                                 ],
                               )
@@ -108,16 +109,16 @@ class _OrderListScreenState extends State<OrderListScreen> {
   void initState() {
     super.initState();
 
-    _provider = context.read<OrderProvider>();
+    _provider = context.read<ServicingProvider>();
 
     loadData();
   }
 
-  void openDetails(BuildContext context, int? orderId) {
-    orderId != null
+  void openDetails(BuildContext context, int? ServicingId) {
+    ServicingId != null
         ? Navigator.of(context).push(MaterialPageRoute<dynamic>(
             builder: (BuildContext context) {
-              return OrderDetailsScreen(orderId);
+              return ServicingDetailsScreen(ServicingId);
             },
           ))
         : null;

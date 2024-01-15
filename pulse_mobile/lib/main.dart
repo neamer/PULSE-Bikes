@@ -11,11 +11,13 @@ import 'package:pulse_mobile/providers/products/brand_provider.dart';
 import 'package:pulse_mobile/providers/products/category_provider.dart';
 import 'package:pulse_mobile/providers/products/gear_provider.dart';
 import 'package:pulse_mobile/providers/products/part_provider.dart';
+import 'package:pulse_mobile/providers/servicing/servicing_provider.dart';
 import 'package:pulse_mobile/screens/account/account_screen.dart';
 import 'package:pulse_mobile/screens/cart/cart_screen.dart';
 import 'package:pulse_mobile/screens/landing_screen/landing_screen.dart';
 import 'package:pulse_mobile/screens/order/list/order_list_screen.dart';
 import 'package:pulse_mobile/screens/product_search_screen.dart';
+import 'package:pulse_mobile/screens/servicing/list/servicing_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductCategoryProvider<Gear>()),
         ChangeNotifierProvider(create: (_) => BicycleSizeProvider()),
         ChangeNotifierProvider(create: (_) => OrderProvider()),
+        ChangeNotifierProvider(create: (_) => ServicingProvider()),
       ],
       child: MaterialApp(
         title: 'PULSE Bikes',
@@ -86,6 +89,8 @@ class MyApp extends StatelessWidget {
               const ProductSearchScreen<Part, PartProvider>(),
           CartScreen.routeName: (context) => const CartScreen(),
           OrderListScreen.routeName: (context) => const OrderListScreen(),
+          ServicingListScreen.routeName: (context) =>
+              const ServicingListScreen(),
           AccountScreen.routeName: (context) => const AccountScreen(),
         },
       ),

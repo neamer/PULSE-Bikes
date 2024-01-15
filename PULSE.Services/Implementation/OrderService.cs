@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PULSE.Model;
 using PULSE.Model.Requests;
@@ -133,7 +132,7 @@ namespace PULSE.Services.Implementation
 
             if (!state.Process(payment, request.ShippingInfo))
             {
-                throw new BadHttpRequestException("");
+                throw new HttpRequestException("");
             }
             
             Context.SaveChanges();

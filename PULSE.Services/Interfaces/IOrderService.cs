@@ -1,11 +1,5 @@
 ﻿using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PULSE.Services.Data;
 using OrderDetail = PULSE.Model.OrderDetail;
 using OrderHeader = PULSE.Model.OrderHeader;
 

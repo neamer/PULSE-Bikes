@@ -176,7 +176,7 @@ namespace PULSE.Services.StateMachines.Order
                 foreach (var item in CurrentEntity.OrderDetails)
                 {
                     totalPrice += (item.UnitPrice ?? 0) * (item.Quantity ?? 0);
-
+                    
                     switch (item.Discriminator)
                     {
                         case "Part":

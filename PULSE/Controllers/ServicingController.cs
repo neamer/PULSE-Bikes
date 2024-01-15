@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PULSE.Helpers;
 using PULSE.Model;
 using PULSE.Model.Requests;
 using PULSE.Model.SearchObjects;
@@ -126,6 +127,32 @@ namespace PULSE.Controllers
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [Authorize]
+        [HttpGet("Customer")]
+        public virtual ActionResult<IEnumerable<Servicing>> GetForCustomer([FromQuery] ServicingSearchObject? search)
+        {
+            try
+            {
+                search.CustomerId = AuthHelper.GetUserId(HttpContext.User);
+                return Ok(((IServicingService)this.Service).Get(search));
+            } 
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("Details/{id}")]
+        public ActionResult<Servicing> Details(int id)
+        {
+            // TODO: Protect endpoint
+            return Ok(((IServicingService)Service).GetDetailsForCustomer(id));
         }
     }
 }

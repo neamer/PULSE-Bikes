@@ -11,7 +11,8 @@ namespace PULSE.Services.StateMachines.Servicings
 
         public override Model.Servicing SubmitOffer(ServicingOfferInsertRequest request)
         {
-            var item = Mapper.Map(request, CurrentEntity);
+            CurrentEntity.LabourCost = request.LabourCost;
+            CurrentEntity.OfferDetails = request.OfferDetails;
 
             foreach (var partReq in request.ServicingParts)
             {
@@ -23,17 +24,17 @@ namespace PULSE.Services.StateMachines.Servicings
                     throw new Exception("Servicing Part Not Found");
                 }
 
-                partDb.ServicingId = item.Id;
+                partDb.ServicingId = CurrentEntity.Id;
                 partDb.UnitPrice = part.Price;
 
                 Context.ServicingParts.Add(partDb);
             }
 
-            item.Status = (int)Model.ServicingState.PendingPayment;
-            item.UpdatedAt = DateTime.Now;
+            CurrentEntity.Status = (int)Model.ServicingState.PendingPayment;
+            CurrentEntity.UpdatedAt = DateTime.Now;
             Context.SaveChanges();
 
-            return Mapper.Map<Model.Servicing>(item);
+            return Mapper.Map<Model.Servicing>(CurrentEntity);
         }
 
         public override Model.Servicing Cancel()

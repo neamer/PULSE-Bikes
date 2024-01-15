@@ -14,5 +14,7 @@ namespace PULSE.Model.SearchObjects
         public bool? IncludePayment { get; set; }
         public bool? IncludeCustomer { get; set; }
         public bool? IncludeParts { get; set; }
+
+        public int? CustomerId { get; set; }
     }
 }

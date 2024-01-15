@@ -76,3 +76,32 @@ String GetStateName(OrderState state) {
   }
 }
 
+enum ServicingState {
+  Initial,
+  PendingReview,
+  PendingPayment,
+  PendingServicing,
+  Cancelled
+}
+
+String GetServicingStateName(ServicingState state) {
+  switch (state) {
+    case ServicingState.Initial:
+      return "INITIAL";
+      break;
+    case ServicingState.PendingReview:
+      return "PENDING REVIEW";
+      break;
+    case ServicingState.PendingPayment:
+      return "PENDING PAYMENT";
+      break;
+    case ServicingState.PendingServicing:
+      return "PENDING SERVICING";
+      break;
+    case ServicingState.Cancelled:
+      return "CANCELLED";
+      break;
+    default:
+      return "";
+  }
+}

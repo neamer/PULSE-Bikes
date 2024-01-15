@@ -116,6 +116,11 @@ namespace PULSE.Services.Implementation
                 query = query.Where(x => x.Status == search.Status);
             }
 
+            if (search?.CustomerId != null)
+            {
+                query = query.Where(x => x.CustomerId == search.CustomerId);
+            }
+
 
             var entity = query.AsQueryable();
 
@@ -156,6 +161,24 @@ namespace PULSE.Services.Implementation
             state.CurrentEntity = item;
 
             return state.Cancel();
+        }
+
+        public Model.Servicing GetDetailsForCustomer(int id)
+        {
+            var itemDB = Context.Servicings
+                .Include(element => element.ServicingParts)
+                .Include(element => element.Customer)
+                .Include(element => element.Payment)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (itemDB == null)
+            {
+                return null;
+            }
+
+            var item = Mapper.Map<Model.Servicing>(itemDB);
+
+            return item;
         }
     }
 }

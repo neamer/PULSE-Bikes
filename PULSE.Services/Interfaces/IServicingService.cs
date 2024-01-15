@@ -19,5 +19,6 @@ namespace PULSE.Services.Interfaces
         public Servicing SubmitOFfer(int id, ServicingOfferInsertRequest req);
         public Servicing Update(int id, ServicingUpdateRequest req);
         public Servicing RegisterAcceptedOffer(int id, PaymentInsertRequest req);
+        public Servicing GetDetailsForCustomer(int id);
     }
 }

@@ -143,6 +143,7 @@ namespace PULSE.Controllers
         [HttpGet("Details/{id}")]
         public ActionResult<OrderHeader> Details(int id)
         {
+            // TODO: Protect endpoint
             return Ok(((IOrderService)Service).GetDetailsForCustomer(id));
         }
 
