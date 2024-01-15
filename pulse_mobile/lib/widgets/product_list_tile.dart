@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_mobile/model/available_size/available_size.dart';
 import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/utils/product_util.dart';
 
@@ -13,16 +12,12 @@ class ProductListTile<T extends Product> extends StatelessWidget {
 
   const ProductListTile(this._product, {super.key, this.onTap});
 
-  String _formatAvailableSizes() {
-    var bicycle = _product as Bicycle;
-    var output = "";
-
-    for (var size in bicycle.availableSizes ?? <AvailableSize>[]) {
-      output += size.bicycleSize?.size ?? "";
-    }
-
-    return output;
-  }
+  String _formatAvailableSizes() =>
+      (_product as Bicycle)
+          .availableSizes
+          ?.map((e) => e.bicycleSize?.size ?? "")
+          .join(", ") ??
+      "";
 
   @override
   Widget build(BuildContext context) {

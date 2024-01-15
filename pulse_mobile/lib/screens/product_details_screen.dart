@@ -75,6 +75,21 @@ class _ProductDetailsScreenState<T extends Product,
     }
   }
 
+  void preselectFirstAvailableSize() {
+    if(_product == null) {
+      return;
+    }
+
+
+    for (var availableSize in (_product as Bicycle).availableSizes!) {
+      if(availableSize.availableQty != null && availableSize.availableQty! > 0) {
+        _selectedSize = availableSize;
+        return;
+      }
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -141,7 +156,7 @@ class _ProductDetailsScreenState<T extends Product,
                                             child: OutlinedButton(
                                                 style: ButtonStyle(
                                                     backgroundColor: MaterialStateProperty.all(_selectedSize
-                                                                ?.id ==
+                                                                ?.bicycleSizeId ==
                                                             size.bicycleSizeId
                                                         ? Colors.white
                                                         : size.availableQty == 0
@@ -151,7 +166,7 @@ class _ProductDetailsScreenState<T extends Product,
                                                                 .colorScheme
                                                                 .background),
                                                     side: MaterialStateProperty.all(BorderSide(
-                                                        width: _selectedSize?.id ==
+                                                        width: _selectedSize?.bicycleSizeId ==
                                                                 size
                                                                     .bicycleSizeId
                                                             ? 0
@@ -169,7 +184,7 @@ class _ProductDetailsScreenState<T extends Product,
                                                           _selectedSize = size;
                                                         });
                                                       },
-                                                child: Text(size.bicycleSize.toString(), style: themeData.textTheme.titleLarge?.copyWith(color: _selectedSize?.id == size.bicycleSizeId ? themeData.colorScheme.background : Colors.white, fontSize: 18))),
+                                                child: Text(size.bicycleSize.toString(), style: themeData.textTheme.titleLarge?.copyWith(color: _selectedSize?.bicycleSizeId == size.bicycleSizeId ? themeData.colorScheme.background : Colors.white, fontSize: 18))),
                                           ))
                                 ],
                               ),
@@ -283,6 +298,7 @@ class _ProductDetailsScreenState<T extends Product,
 
     try {
       _product = await _provider?.getById(widget.productId, searchObject);
+      preselectFirstAvailableSize();
     } catch (e) {
       log(e.toString());
       Navigator.pop(context);

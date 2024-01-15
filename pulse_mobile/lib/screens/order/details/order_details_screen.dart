@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/orders/order_header.dart';
 import 'package:pulse_mobile/providers/orders/order_provider.dart';
 import 'package:pulse_mobile/screens/cart/components/cart_item.dart';
+import 'package:pulse_mobile/screens/order/details/components/order_tracker.dart';
 import 'package:pulse_mobile/widgets/basic_text_field.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
@@ -81,6 +82,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   const SizedBox(
                                     height: 15,
                                   ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  OrderTracker(_data!),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
                                   ListView.builder(
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
@@ -88,7 +96,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     itemBuilder: (ctx, index) => CartItem(
                                         _data!.orderDetails[index], null),
                                   ),
-
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 25,
@@ -106,7 +113,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text(_subtotal.toString(),
+                                            Text(_subtotal.toStringAsFixed(2),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
@@ -147,7 +154,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text(_total.toString(),
+                                            Text(_total.toStringAsFixed(2),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
@@ -155,46 +162,50 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                           ],
                                         ),
                                         if (_data?.delivery == true)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                                          height: 35,
-                                        ),
-                            Text(
-                          "SHIPPING ADDRESS",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-
-                          BasicTextField(
-                            name: "Country",
-                            controller: _countryController,
-                            enabled: false,
-                          ),
-                          BasicTextField(
-                            name: "State",
-                            controller: _stateController,
-                            enabled: false,
-                          ),
-                          BasicTextField(
-                            name: "City",
-                            controller: _cityController,
-                            enabled: false,
-                          ),
-                          BasicTextField(
-                            name: "Street Address",
-                            controller: _streetController,
-                            enabled: false,
-                          ),
-                          BasicTextField(
-                            name: "Zip Code",
-                            controller: _zipCodeController,
-                            enabled: false,
-                          ),
-                        ],
-                      ),
-                    ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15.0),
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 35,
+                                                ),
+                                                Text(
+                                                  "SHIPPING ADDRESS",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge,
+                                                ),
+                                                BasicTextField(
+                                                  name: "Country",
+                                                  controller:
+                                                      _countryController,
+                                                  enabled: false,
+                                                ),
+                                                BasicTextField(
+                                                  name: "State",
+                                                  controller: _stateController,
+                                                  enabled: false,
+                                                ),
+                                                BasicTextField(
+                                                  name: "City",
+                                                  controller: _cityController,
+                                                  enabled: false,
+                                                ),
+                                                BasicTextField(
+                                                  name: "Street Address",
+                                                  controller: _streetController,
+                                                  enabled: false,
+                                                ),
+                                                BasicTextField(
+                                                  name: "Zip Code",
+                                                  controller:
+                                                      _zipCodeController,
+                                                  enabled: false,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),

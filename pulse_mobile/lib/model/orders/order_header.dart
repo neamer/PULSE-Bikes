@@ -2,8 +2,19 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:pulse_mobile/model/abstract/base_model.dart';
 import 'package:pulse_mobile/model/generic/shipping_info.dart';
 import 'package:pulse_mobile/model/orders/order_detail.dart';
+import 'package:pulse_mobile/utils/util.dart';
 
 part 'order_header.g.dart';
+
+        // Initial,
+        // Cart,
+        // Draft,
+        // Processed,
+        // Packed,
+        // Shipped,
+        // Collected,
+        // Delivered,
+        // Cancelled
 
 @JsonSerializable()
 class OrderHeader extends BaseModel {
@@ -11,7 +22,7 @@ class OrderHeader extends BaseModel {
   int? customerId;
   int? paymentId;
   int? shippingInfoId;
-  int? status;
+  OrderState? status;
   String? statusName;
   String? statusNamee;
   DateTime? timeProcessed;

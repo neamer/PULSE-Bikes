@@ -90,7 +90,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text(_subtotal.toString(),
+                                            Text(_subtotal.toStringAsFixed(2),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
@@ -128,7 +128,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.copyWith(fontSize: 14)),
-                                            Text(_total.toString(),
+                                            Text(_total.toStringAsFixed(2),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
