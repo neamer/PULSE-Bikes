@@ -54,7 +54,7 @@ class OrderListItem extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Status · ${GetStateName(OrderState.values[item.status!])}",
+                              Text("Status · ${GetStateName(item.status!)}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
