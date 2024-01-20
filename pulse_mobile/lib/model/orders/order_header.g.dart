@@ -12,7 +12,7 @@ OrderHeader _$OrderHeaderFromJson(Map<String, dynamic> json) => OrderHeader()
   ..customerId = json['customerId'] as int?
   ..paymentId = json['paymentId'] as int?
   ..shippingInfoId = json['shippingInfoId'] as int?
-  ..status = $enumDecodeNullable(_$OrderStateEnumMap, json['status'])
+  ..status = json['status'] as int?
   ..statusName = json['statusName'] as String?
   ..statusNamee = json['statusNamee'] as String?
   ..timeProcessed = json['timeProcessed'] == null
@@ -46,7 +46,7 @@ Map<String, dynamic> _$OrderHeaderToJson(OrderHeader instance) =>
       'customerId': instance.customerId,
       'paymentId': instance.paymentId,
       'shippingInfoId': instance.shippingInfoId,
-      'status': _$OrderStateEnumMap[instance.status],
+      'status': instance.status,
       'statusName': instance.statusName,
       'statusNamee': instance.statusNamee,
       'timeProcessed': instance.timeProcessed?.toIso8601String(),
@@ -61,15 +61,3 @@ Map<String, dynamic> _$OrderHeaderToJson(OrderHeader instance) =>
       'shippingInfo': instance.shippingInfo,
       'orderDetails': instance.orderDetails,
     };
-
-const _$OrderStateEnumMap = {
-  OrderState.Initial: 'Initial',
-  OrderState.Cart: 'Cart',
-  OrderState.Draft: 'Draft',
-  OrderState.Processed: 'Processed',
-  OrderState.Packed: 'Packed',
-  OrderState.Shipped: 'Shipped',
-  OrderState.Collected: 'Collected',
-  OrderState.Delivered: 'Delivered',
-  OrderState.Cancelled: 'Cancelled',
-};

@@ -80,14 +80,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 children: [
                                   Text("${_data?.orderDetails.length} items"),
                                   const SizedBox(
-                                    height: 15,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
+                                    height: 7,
                                   ),
                                   OrderTracker(_data!),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 25,
                                   ),
                                   ListView.builder(
                                     shrinkWrap: true,

@@ -41,20 +41,20 @@ class OrderListItem extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          if(item.timeProcessed != null)
-                          Text(
-                              DateFormat.yMMMEd().format(item.timeProcessed!),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(fontSize: 15)),
+                          if (item.timeProcessed != null)
+                            Text(
+                                DateFormat.yMMMEd().format(item.timeProcessed!),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(fontSize: 15)),
                           const SizedBox(
                             height: 7,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Status · ${GetStateName(item.status!)}",
+                              Text("Status · ${item.statusNamee}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
