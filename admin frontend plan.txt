@@ -1,0 +1,36 @@
+
+
+Most screens are going to be a variation of the list screens
+
+  +------------------------------------+
+  | TITLE                      ACTIONS |
+  |                                    |
+  | FILTERS                            |
+  |                                    |
+  | CONTENT                            |
+  |                                    |
+  |                                    |
+  |                                    |
+  |                                    |
+  |                                    |
+  +------------------------------------+
+
+  SPECIFIC PAGE COMPONENT
+
+    GENERIC PAGE COMPONENT
+
+      filters state
+
+      fetch / refetch logic
+      
+      
+
+
+
+  Each page will need a wrapper component to manage state / additional screens.
+
+  Title and actions should be pretty straightforward
+
+  FILTERS section:
+
+    state should be managed inside the 

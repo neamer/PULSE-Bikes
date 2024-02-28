@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse_mobile/model/orders/order_header.dart';
-import 'package:pulse_mobile/utils/util.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderHeader item;
