@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_admin/components/pages/product_list_page.dart';
+import 'package:pulse_admin/components/pages/bicycle/bicycle_list_page.dart';
 import 'package:pulse_admin/layout/components/side_bar.dart';
 
 class Layout extends StatefulWidget {
@@ -29,7 +29,7 @@ class _LayoutState extends State<Layout> {
             onGenerateRoute: (settings) {
               // You can define your route handlers here
               return MaterialPageRoute(
-                builder: (context) => const ProductListPage(),
+                builder: (context) => const BicycleListPage(),
               );
             },
           ),

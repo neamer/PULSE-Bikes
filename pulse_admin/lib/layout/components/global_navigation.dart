@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_admin/components/pages/product_list_page.dart';
+import 'package:pulse_admin/components/pages/bicycle/bicycle_list_page.dart';
 import 'package:pulse_admin/layout/layout.dart';
 
 class GlobalNavigation extends StatelessWidget {
@@ -16,7 +16,7 @@ class GlobalNavigation extends StatelessWidget {
         InkWell(
           onTap: () {
             navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
-                builder: (context) => const ProductListPage()));
+                builder: (context) => const BicycleListPage()));
           },
           child: const Padding(
             padding: EdgeInsets.all(8.0),
