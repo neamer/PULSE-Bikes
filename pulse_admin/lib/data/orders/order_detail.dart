@@ -1,0 +1,28 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:pulse_admin/data/abstract/base_model.dart';
+import 'package:pulse_admin/data/abstract/product.dart';
+import 'package:pulse_admin/data/bicycle_size/bicycle_size.dart';
+
+part 'order_detail.g.dart';
+
+@JsonSerializable()
+class OrderDetail extends BaseModel {
+  int? productId;
+  int? quantity;
+  int? bicycleSizeId;
+  double? unitPrice;
+  String? discriminator;
+  BicycleSize? bicycleSize;
+  Product? product;
+
+  OrderDetail();
+
+  factory OrderDetail.fromJson(Map<String, dynamic> json) =>
+      _$OrderDetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrderDetailToJson(this);
+
+  double total() {
+    return unitPrice != null && quantity != null ? unitPrice! * quantity! : 0;
+  }
+}

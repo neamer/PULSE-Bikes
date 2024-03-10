@@ -1,3 +1,0 @@
-class AbstractFilter {
-  String toQueryString();
-}

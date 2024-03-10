@@ -18,7 +18,7 @@ class Button extends ButtonBase {
             backgroundColor: MaterialStateProperty.all<Color>(
                 const Color.fromRGBO(35, 35, 51, 1)),
             padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(vertical: 7, horizontal: 15))),
+                const EdgeInsets.symmetric(vertical: 18, horizontal: 15))),
         onPressed: disabled ? null : onClick,
         child: loading
             ? SizedBox(
