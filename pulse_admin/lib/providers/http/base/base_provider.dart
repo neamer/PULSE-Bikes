@@ -14,8 +14,8 @@ abstract class BaseProvider<T> with ChangeNotifier {
   IOClient? http;
 
   BaseProvider(String endpointParam) {
-    baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://localhost:5000");
+    baseUrl =
+        const String.fromEnvironment("baseUrl", defaultValue: HttpConfig.url);
 
     if (baseUrl!.endsWith("/") == false) {
       baseUrl = "${baseUrl!}/";

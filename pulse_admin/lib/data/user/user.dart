@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pulse_admin/data/user/role.dart';
 
 part 'user.g.dart';
 
@@ -10,6 +11,9 @@ class User {
   String? username;
   String? email;
   String? phoneNumber;
+  DateTime? dateOfBirth;
+  DateTime? dateOfEmployment;
+  Role? role;
 
   User();
 

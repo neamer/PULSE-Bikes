@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
-import 'package:pulse_admin/components/atoms/text_field.dart';
+import 'package:pulse_admin/components/atoms/fields/text_field.dart';
 import 'package:pulse_admin/components/molecules/select/single/bicycle_category_single_select.dart';
 import 'package:pulse_admin/components/molecules/select/single/brand_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
@@ -39,7 +39,7 @@ class _BicycleListFilterState extends State<BicycleListFilters> {
         Expanded(
           child: TextInput(
             controller: searchController,
-            name: 'Enter your search criteria',
+            hint: 'Enter your search criteria',
             clearable: true,
           ),
         ),

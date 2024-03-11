@@ -1,5 +1,5 @@
 import 'package:pulse_admin/data/brand/brand.dart';
-import 'package:pulse_admin/providers/http/base_provider.dart';
+import 'package:pulse_admin/providers/http/base/base_provider.dart';
 
 class BrandProvider extends BaseProvider<Brand> {
   BrandProvider() : super('Brand');

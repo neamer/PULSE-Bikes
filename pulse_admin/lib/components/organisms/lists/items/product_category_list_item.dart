@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_admin/components/atoms/text/labels/list_text_content.dart';
+import 'package:pulse_admin/components/atoms/typography/list_text_content.dart';
 import 'package:pulse_admin/components/organisms/lists/items/list_item_base.dart';
 import 'package:pulse_admin/data/product_category/product_category.dart';
 

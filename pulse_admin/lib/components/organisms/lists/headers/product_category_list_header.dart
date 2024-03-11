@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_admin/components/atoms/text/labels/list_heading.dart';
+import 'package:pulse_admin/components/atoms/typography/list_heading.dart';
 
 class ProductCategoryListHeader extends StatelessWidget {
   const ProductCategoryListHeader({super.key});

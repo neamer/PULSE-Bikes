@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulse_admin/components/atoms/text/labels/list_heading.dart';
+import 'package:pulse_admin/components/atoms/typography/list_heading.dart';
 
 class BicycleListHeader extends StatelessWidget {
   const BicycleListHeader({super.key});

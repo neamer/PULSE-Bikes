@@ -4,11 +4,11 @@ import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/organisms/filters/bicycle_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/bicycle_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/bicycle_list_item.dart';
-import 'package:pulse_admin/components/templates/list_page/list_page.dart';
+import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/data/bicycle/bicycle.dart';
 import 'package:pulse_admin/model/filters/bicycle_filter.dart';
 import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/bicycle_provider.dart';
+import 'package:pulse_admin/providers/http/products/bicycle_provider.dart';
 
 class BicycleListPage extends StatelessWidget {
   const BicycleListPage({super.key});

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/core/layout/components/side_bar.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/pages/bicycle/bicycle_list_page.dart';
+import 'package:pulse_admin/pages/products/bicycle/bicycle_list_page.dart';
 
 class Layout extends StatefulWidget {
+  static const String route = '/main';
+
   const Layout({super.key});
 
   @override
@@ -15,27 +17,29 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 300,
-          color: ColorTheme.m800,
-          child: SideBar(
-            navigatorKey: _navigatorKey,
+    return Material(
+      child: Row(
+        children: [
+          Container(
+            width: 300,
+            color: ColorTheme.m800,
+            child: SideBar(
+              navigatorKey: _navigatorKey,
+            ),
           ),
-        ),
-        Expanded(
-          child: Navigator(
-            key: _navigatorKey,
-            onGenerateRoute: (settings) {
-              // You can define your route handlers here
-              return MaterialPageRoute(
-                builder: (context) => const BicycleListPage(),
-              );
-            },
+          Expanded(
+            child: Navigator(
+              key: _navigatorKey,
+              onGenerateRoute: (settings) {
+                // You can define your route handlers here
+                return MaterialPageRoute(
+                  builder: (context) => const BicycleListPage(),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

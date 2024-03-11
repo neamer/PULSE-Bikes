@@ -5,9 +5,9 @@ import 'package:pulse_admin/core/http/fetch_state.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
 import 'package:pulse_admin/core/types/list_item.dart';
-import 'package:pulse_admin/core/abstract/abstract_filter.dart';
+import 'package:pulse_admin/model/filters/abstract_filter.dart';
 import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/base_provider.dart';
+import 'package:pulse_admin/providers/http/base/base_provider.dart';
 
 class ListPage<T, TProvider extends BaseProvider<T>> extends StatefulWidget {
   final String title;

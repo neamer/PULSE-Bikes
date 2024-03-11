@@ -50,9 +50,9 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                   ColorTheme.n500, // Customize collapsed text color
               collapsedIconColor:
                   ColorTheme.n500, // Customize collapsed icon color
-              backgroundColor: ColorTheme.m700, // Customize background color
+              backgroundColor: ColorTheme.m750, // Customize background color
               collapsedBackgroundColor:
-                  isHovered ? ColorTheme.m500.withAlpha(150) : ColorTheme.m700,
+                  isHovered ? ColorTheme.m500.withAlpha(150) : ColorTheme.m750,
               children: [
                 SpacedColumn(
                     spacing: Spacing.sm,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/components/organisms/user_card.dart';
 import 'package:pulse_admin/core/layout/components/global_navigation.dart';
 
 class SideBar extends StatelessWidget {
@@ -27,11 +28,14 @@ class SideBar extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        SingleChildScrollView(
-          child: GlobalNavigation(
-            navigatorKey: navigatorKey,
+        Expanded(
+          child: SingleChildScrollView(
+            child: GlobalNavigation(
+              navigatorKey: navigatorKey,
+            ),
           ),
         ),
+        UserCard(),
       ],
     );
   }

@@ -1,4 +1,4 @@
-import 'package:pulse_admin/core/abstract/abstract_filter.dart';
+import 'package:pulse_admin/model/filters/abstract_filter.dart';
 import 'package:pulse_admin/data/brand/brand.dart';
 import 'package:pulse_admin/data/product_category/product_category.dart';
 

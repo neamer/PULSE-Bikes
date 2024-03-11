@@ -4,13 +4,13 @@ import 'package:pulse_admin/core/style/spacing.dart';
 
 class TextInput extends StatelessWidget {
   final TextEditingController controller;
-  final String name;
+  final String hint;
   final bool enabled;
   final bool clearable;
 
   const TextInput(
       {super.key,
-      required this.name,
+      required this.hint,
       required this.controller,
       this.enabled = true,
       this.clearable = false});
@@ -29,7 +29,7 @@ class TextInput extends StatelessWidget {
             horizontal: Spacing.lg, vertical: Spacing.lg),
         fillColor: ColorTheme.m600,
         isDense: true,
-        hintText: name,
+        hintText: hint,
         hintStyle:
             themeData.textTheme.bodyMedium!.copyWith(color: ColorTheme.n500),
         border: OutlineInputBorder(

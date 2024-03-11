@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+class HttpConfig {
+  static const url = "http://localhost:5000/";
+}
+
 class Authorization {
-  static String? username = "jdoe";
-  static String? password = "jdoe";
+  static String? username;
+  static String? password;
 }
 
 Map<String, String> createHeaders() {

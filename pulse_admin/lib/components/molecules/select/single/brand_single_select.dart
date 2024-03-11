@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/molecules/select/single/generic_single_select.dart';
 import 'package:pulse_admin/core/types/delegate.dart';
 import 'package:pulse_admin/data/brand/brand.dart';
-import 'package:pulse_admin/providers/http/brand_provider.dart';
+import 'package:pulse_admin/providers/http/products/brand_provider.dart';
 
 class BrandSingleSelect extends StatefulWidget {
   final double width;

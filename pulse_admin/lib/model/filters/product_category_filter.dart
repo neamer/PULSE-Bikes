@@ -1,4 +1,4 @@
-import 'package:pulse_admin/core/abstract/abstract_filter.dart';
+import 'package:pulse_admin/model/filters/abstract_filter.dart';
 
 class ProductCategoryFilter implements AbstractFilter {
   String anyField = "";

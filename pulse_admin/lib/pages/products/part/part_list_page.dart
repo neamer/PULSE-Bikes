@@ -4,11 +4,11 @@ import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/organisms/filters/part_list_fitlers.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/product_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/part_list_item.dart';
-import 'package:pulse_admin/components/templates/list_page/list_page.dart';
+import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/data/part/part.dart';
 import 'package:pulse_admin/model/filters/part_filter.dart';
 import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/part_provider.dart';
+import 'package:pulse_admin/providers/http/products/part_provider.dart';
 
 class PartListPage extends StatelessWidget {
   const PartListPage({super.key});

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/molecules/select/single/generic_single_select.dart';
 import 'package:pulse_admin/core/types/delegate.dart';
 import 'package:pulse_admin/data/product_category/product_category.dart';
-import 'package:pulse_admin/providers/http/gear_category_provider.dart';
+import 'package:pulse_admin/providers/http/products/gear_category_provider.dart';
 
 class GearCategorySingleSelect extends StatefulWidget {
   final double width;

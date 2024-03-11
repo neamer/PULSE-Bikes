@@ -1,5 +1,5 @@
 import 'package:pulse_admin/data/gear/gear.dart';
-import 'package:pulse_admin/providers/http/base_provider.dart';
+import 'package:pulse_admin/providers/http/base/base_provider.dart';
 
 class GearProvider extends BaseProvider<Gear> {
   GearProvider() : super('Gear');

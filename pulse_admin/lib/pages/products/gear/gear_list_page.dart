@@ -4,11 +4,11 @@ import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/organisms/filters/gear_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/product_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/gear_list_item.dart';
-import 'package:pulse_admin/components/templates/list_page/list_page.dart';
+import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/data/gear/gear.dart';
 import 'package:pulse_admin/model/filters/gear_filter.dart';
 import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/gear_provider.dart';
+import 'package:pulse_admin/providers/http/products/gear_provider.dart';
 
 class GearListPage extends StatelessWidget {
   const GearListPage({super.key});
