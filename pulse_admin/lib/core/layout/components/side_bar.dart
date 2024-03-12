@@ -16,7 +16,7 @@ class SideBar extends StatelessWidget {
           height: 30,
         ),
         SizedBox(
-          height: 60,
+          height: 50,
           width: 100,
           child: FittedBox(
             child: Image.asset(
@@ -26,7 +26,7 @@ class SideBar extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 25,
+          height: 23,
         ),
         Expanded(
           child: SingleChildScrollView(
@@ -35,7 +35,7 @@ class SideBar extends StatelessWidget {
             ),
           ),
         ),
-        UserCard(),
+        const UserCard(),
       ],
     );
   }

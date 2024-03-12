@@ -35,6 +35,9 @@ OrderHeader _$OrderHeaderFromJson(Map<String, dynamic> json) => OrderHeader()
   ..shippingInfo = json['shippingInfo'] == null
       ? null
       : ShippingInfo.fromJson(json['shippingInfo'] as Map<String, dynamic>)
+  ..customer = json['customer'] == null
+      ? null
+      : Customer.fromJson(json['customer'] as Map<String, dynamic>)
   ..orderDetails = (json['orderDetails'] as List<dynamic>)
       .map((e) => OrderDetail.fromJson(e as Map<String, dynamic>))
       .toList();
@@ -59,5 +62,6 @@ Map<String, dynamic> _$OrderHeaderToJson(OrderHeader instance) =>
       'noOfItems': instance.noOfItems,
       'total': instance.total,
       'shippingInfo': instance.shippingInfo,
+      'customer': instance.customer,
       'orderDetails': instance.orderDetails,
     };

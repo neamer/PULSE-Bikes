@@ -28,7 +28,6 @@ class _PartCategorySingleSelectState extends State<PartCategorySingleSelect> {
           value: widget.value,
           text: "Category",
           renderOption: ((item) => SizedBox(
-                width: widget.width,
                 child: Text(
                   item.toString(),
                   style: Theme.of(context).textTheme.bodyMedium,

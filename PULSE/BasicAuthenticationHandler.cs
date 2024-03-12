@@ -32,7 +32,8 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             return AuthenticateResult.Fail("Missing auth header");
         }
 
-        var userType = AuthenticationHeaderValue.Parse(Request.Headers["X-User-Type"]).ToString();
+        //var userType = AuthenticationHeaderValue.Parse(Request.Headers["X-User-Type"]).ToString();
+        var userType = UserType.STAFF;
         var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
 
         var credentialsBytes = Convert.FromBase64String(authHeader.Parameter);

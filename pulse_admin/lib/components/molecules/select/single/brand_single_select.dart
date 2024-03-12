@@ -27,7 +27,6 @@ class _BrandSingleSelectState extends State<BrandSingleSelect> {
           value: widget.value,
           text: "Brand",
           renderOption: ((item) => SizedBox(
-                width: widget.width,
                 child: Text(
                   item.toString(),
                   style: Theme.of(context).textTheme.bodyMedium,

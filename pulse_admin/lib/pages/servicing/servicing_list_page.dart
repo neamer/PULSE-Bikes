@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pulse_admin/components/atoms/buttons/button.dart';
+import 'package:pulse_admin/components/organisms/filters/servicing_list_filters.dart';
+import 'package:pulse_admin/components/organisms/lists/headers/servicing_list_header.dart';
+import 'package:pulse_admin/components/organisms/lists/items/servicing_list_item.dart';
+import 'package:pulse_admin/components/templates/list_page.dart';
+import 'package:pulse_admin/data/servicing/servicing.dart';
+import 'package:pulse_admin/model/filters/servicing_filter.dart';
+import 'package:pulse_admin/providers/core/list_page_provider.dart';
+import 'package:pulse_admin/providers/http/servicing/servicing_provider.dart';
+
+class ServicingListPage extends StatelessWidget {
+  const ServicingListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => ListPageProvider(
+          defaultFilters: ServicingFilter(
+              includeCustomer: true, includeParts: true, includePayment: true)),
+      child: ListPage<Servicing, ServicingProvider>(
+        title: "Browse Servicings",
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Button(text: "Add Servicing", onClick: () {}),
+          )
+        ],
+        filters: const ServicingListFilters(),
+        listHeader: const ServicingListHeader(),
+        itemBuilder: (item) => ServicingListItem(item),
+      ),
+    );
+  }
+}

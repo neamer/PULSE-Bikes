@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: passwordController,
               ),
               const SizedBox(
-                height: 60,
+                height: 50,
               ),
               SizedBox(
                 width: double.infinity,

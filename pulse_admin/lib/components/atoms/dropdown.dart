@@ -8,7 +8,7 @@ class Dropdown<T> extends StatefulWidget {
   final T? value;
   final String hintText;
   final void Function(T?) onChanged;
-  final ListItem renderOption;
+  final ListItem<T> renderOption;
   final bool isLoading;
 
   const Dropdown({
@@ -18,7 +18,7 @@ class Dropdown<T> extends StatefulWidget {
     required this.hintText,
     required this.onChanged,
     required this.renderOption,
-    required this.isLoading,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override

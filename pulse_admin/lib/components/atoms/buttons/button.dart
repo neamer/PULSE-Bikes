@@ -22,11 +22,12 @@ class Button extends ButtonBase {
                 const EdgeInsets.symmetric(vertical: 18, horizontal: 15))),
         onPressed: disabled || loading ? null : onClick,
         child: loading
-            ? SizedBox(
+            ? const SizedBox(
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(
-                  color: themeData.colorScheme.background,
+                  color: ColorTheme.n500,
+                  strokeWidth: 2.5,
                 ),
               )
             : Text(text, style: themeData.textTheme.titleSmall));

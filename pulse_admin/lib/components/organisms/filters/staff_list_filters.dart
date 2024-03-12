@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/atoms/fields/text_field.dart';
+import 'package:pulse_admin/components/molecules/select/single/role_single_select.dart';
+import 'package:pulse_admin/components/molecules/select/single/status_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/filters/product_category_filter.dart';
+import 'package:pulse_admin/model/filters/staff_filter.dart';
 import 'package:pulse_admin/providers/core/list_page_provider.dart';
 
-class ProductCategoryListFilters extends StatefulWidget {
-  const ProductCategoryListFilters({super.key});
+class StaffListFilters extends StatefulWidget {
+  const StaffListFilters({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ProductCategoryListFilterState();
+    return _StaffListFilterState();
   }
 }
 
-class _ProductCategoryListFilterState
-    extends State<ProductCategoryListFilters> {
+class _StaffListFilterState extends State<StaffListFilters> {
   final TextEditingController searchController = TextEditingController();
-  final ProductCategoryFilter _data = ProductCategoryFilter();
+  final StaffFilter _data = StaffFilter(includeRole: true);
 
   @override
   void initState() {
@@ -41,6 +42,18 @@ class _ProductCategoryListFilterState
             clearable: true,
           ),
         ),
+        StatusSingleSelect(
+            width: 170,
+            value: _data.status,
+            onChanged: (value) => setState(() {
+                  _data.status = value;
+                })),
+        RoleSingleSelect(
+            width: 170,
+            value: _data.role,
+            onChanged: (value) => setState(() {
+                  _data.role = value;
+                })),
         Button(
             text: "Search",
             onClick: () =>

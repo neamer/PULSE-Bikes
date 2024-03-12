@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/components/atoms/user_icon.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
@@ -33,26 +34,22 @@ class _UserCardState extends State<UserCard> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(Spacing.sm),
-      child: Padding(
-        padding: const EdgeInsets.all(Spacing.md),
+    return Padding(
+      padding: const EdgeInsets.all(Spacing.md),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Spacing.xs),
         child: Container(
           color: ColorTheme.m750,
           child: Padding(
             padding: const EdgeInsets.all(Spacing.md),
             child: Row(children: [
-              Container(
-                color: ColorTheme.n500,
-                height: 50,
-                width: 50,
-              ),
+              UserIcon(role: _data?.getUserRole()),
               const SizedBox(
                 width: Spacing.md,
               ),
               SpacedColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: Spacing.xxs,
+                spacing: 1,
                 children: [
                   Text(
                     "${_data?.firstName ?? ""} ${_data?.lastName ?? ""}",

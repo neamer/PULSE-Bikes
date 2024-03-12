@@ -1,14 +1,14 @@
 import 'package:pulse_admin/model/filters/abstract_filter.dart';
 
-class ProductCategoryFilter implements AbstractFilter {
+class BasicFilter implements Filter {
   String anyField = "";
 
-  ProductCategoryFilter();
+  BasicFilter();
 
   @override
   Map<String, Object?> toQuery() {
     return {
-      "AnyField": anyField,
+      "Name": anyField,
     };
   }
 }

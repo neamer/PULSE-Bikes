@@ -62,10 +62,7 @@ class _SingleSelectState<T> extends State<SingleSelect<T>> {
       value: widget.value,
       hintText: widget.text,
       onChanged: widget.onChanged,
-      renderOption: ((item) => Text(
-            item.toString(),
-            style: Theme.of(context).textTheme.bodyMedium,
-          )),
+      renderOption: widget.renderOption,
       isLoading: _fetchState == FetchState.loading,
     );
   }

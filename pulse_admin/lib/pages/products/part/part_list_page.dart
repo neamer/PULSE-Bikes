@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
-import 'package:pulse_admin/components/organisms/filters/part_list_fitlers.dart';
+import 'package:pulse_admin/components/organisms/filters/part_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/product_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/part_list_item.dart';
 import 'package:pulse_admin/components/templates/list_page.dart';

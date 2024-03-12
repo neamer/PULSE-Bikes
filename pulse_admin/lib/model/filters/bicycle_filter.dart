@@ -2,7 +2,7 @@ import 'package:pulse_admin/model/filters/abstract_filter.dart';
 import 'package:pulse_admin/data/brand/brand.dart';
 import 'package:pulse_admin/data/product_category/product_category.dart';
 
-class BicycleFilter implements AbstractFilter {
+class BicycleFilter implements Filter {
   final bool includeBrand;
   final bool includeCategory;
   final bool includeSizes;

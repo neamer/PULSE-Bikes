@@ -12,6 +12,7 @@
         public int? PaymentId { get; set; }
         public string? CustomerRequest { get; set; }
         public int? Status { get; set; }
+        public string StatusNamee => ServicingStateHelper.GetNameFromState((ServicingState)Status);
         public string? StatusName { get; set; }
         public bool? OnlinePayment { get; set; }
         public decimal? LabourCost { get; set; }

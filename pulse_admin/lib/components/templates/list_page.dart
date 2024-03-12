@@ -45,7 +45,7 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
     fetchData(context.read<ListPageProvider>().defaultFilters);
   }
 
-  void fetchData(AbstractFilter? filters) async {
+  void fetchData(Filter? filters) async {
     try {
       setState(() {
         _fetchState = FetchState.loading;
