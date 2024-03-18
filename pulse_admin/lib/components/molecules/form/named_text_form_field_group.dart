@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
 
-class TextFormGroup extends StatelessWidget {
-  final TextEditingController controller;
+class NamedTextFormFieldGroup extends StatelessWidget {
+  final String name;
+  final TextEditingController? controller;
   final String hint;
   final bool enabled;
   final bool clearable;
   final String label;
+  final String? initialValue;
+  final String? Function(String?)? validator;
 
-  const TextFormGroup({
+  const NamedTextFormFieldGroup({
     Key? key,
     this.hint = '',
-    required this.controller,
+    this.controller,
     this.enabled = true,
     this.clearable = false,
     required this.label,
+    this.validator,
+    required this.name,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -32,9 +39,12 @@ class TextFormGroup extends StatelessWidget {
           padding: const EdgeInsets.only(left: Spacing.xs),
           child: FieldLabel(label),
         ),
-        TextFormField(
+        FormBuilderTextField(
+          initialValue: initialValue,
+          name: name,
           enabled: enabled,
           controller: controller,
+          validator: validator,
           style: themeData.textTheme.bodyMedium,
           decoration: InputDecoration(
             filled: true,
@@ -52,14 +62,16 @@ class TextFormGroup extends StatelessWidget {
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(Radius.xs),
             ),
-            suffixIcon: clearable && controller.value.text.isNotEmpty
+            suffixIcon: clearable &&
+                    controller != null &&
+                    controller!.value.text.isNotEmpty
                 ? IconButton(
                     icon: const Icon(
                       Icons.clear,
                       color: ColorTheme.n500,
                     ),
                     onPressed: () {
-                      controller.clear();
+                      controller?.clear();
                     },
                   )
                 : null,

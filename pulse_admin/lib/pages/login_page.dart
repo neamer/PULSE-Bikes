@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
-import 'package:pulse_admin/components/molecules/form/text_form_group.dart';
-import 'package:pulse_admin/core/http/fetch_state.dart';
+import 'package:pulse_admin/components/molecules/form/text_form_field_group.dart';
+import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/layout/layout.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/data/user/requests/login_request.dart';
@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  FetchState _submitState = FetchState.init;
+  RequestState _submitState = RequestState.init;
 
   final TextEditingController usernameController = TextEditingController();
 
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   void login() async {
     try {
       setState(() {
-        _submitState = FetchState.loading;
+        _submitState = RequestState.loading;
       });
 
       await context.read<AuthProvider>().login(LoginRequest.init(
@@ -35,14 +35,14 @@ class _LoginPageState extends State<LoginPage> {
           password: passwordController.value.text));
 
       setState(() {
-        _submitState = FetchState.success;
+        _submitState = RequestState.success;
       });
 
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, Layout.route);
     } catch (e) {
       setState(() {
-        _submitState = FetchState.error;
+        _submitState = RequestState.error;
       });
     }
   }
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Center(
             child: SizedBox(
           width: 300,
-          height: 400,
+          height: 430,
           child: Column(
             children: [
               SizedBox(
@@ -71,14 +71,14 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 30,
               ),
-              TextFormGroup(
+              TextFormFieldGroup(
                 label: "Username",
                 controller: usernameController,
               ),
               const SizedBox(
                 height: 20,
               ),
-              TextFormGroup(
+              TextFormFieldGroup(
                 label: "Password",
                 controller: passwordController,
               ),
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: Button(
-                  loading: _submitState == FetchState.loading,
+                  loading: _submitState == RequestState.loading,
                   onClick: login,
                   text: "LOGIN",
                 ),

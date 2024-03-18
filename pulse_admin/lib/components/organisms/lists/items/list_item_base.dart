@@ -4,8 +4,15 @@ import 'package:pulse_admin/core/style/spacing.dart';
 
 class ListItemBase extends StatefulWidget {
   final List<Widget> children;
+  final List<Widget>? actions;
+  final VoidCallback? onClick;
 
-  const ListItemBase({Key? key, required this.children}) : super(key: key);
+  const ListItemBase({
+    Key? key,
+    required this.children,
+    this.actions,
+    this.onClick,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ListItemBaseState();
@@ -33,19 +40,35 @@ class _ListItemBaseState extends State<ListItemBase> {
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(Spacing.sm),
           ),
-          onTap: () {},
+          onTap: widget.onClick,
           child: Container(
             decoration: BoxDecoration(
               color: isHovered ? ColorTheme.m600 : ColorTheme.m700,
-              borderRadius: BorderRadius.circular(
-                  Radius.sm), // Adjust the radius as needed
+              borderRadius: BorderRadius.circular(Spacing.sm),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: Spacing.lg, vertical: Spacing.lg),
-              child: Row(
-                children: widget.children,
-              ),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Spacing.lg, vertical: Spacing.lg),
+                  child: Row(
+                    children: widget.children,
+                  ),
+                ),
+                if (isHovered && widget.actions != null)
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: Spacing.md),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: widget.actions!,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
         ),

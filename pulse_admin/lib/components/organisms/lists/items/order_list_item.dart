@@ -18,7 +18,7 @@ class OrderListItem extends StatelessWidget {
         ListTextContent(data.statusNamee ?? "", 17),
         ListTextContent(data.customer.toString(), 17),
         ListTextContent(data.orderDetails.length.toString(), 15),
-        ListTextContent(data.getTotal().toStringAsFixed(2) ?? "", 11),
+        ListTextContent(data.getTotal().toStringAsFixed(2), 11),
       ],
     );
   }

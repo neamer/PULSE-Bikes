@@ -26,13 +26,29 @@ abstract class BaseCRUDProvider<T> extends BaseProvider<T> {
   }
 
   Future<T?> update(int id, [dynamic request]) async {
-    var url = "${BaseProvider.baseUrl}$endpoint";
+    var url = "${BaseProvider.baseUrl}$endpoint/$id";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
 
     var response =
         await http!.put(uri, headers: headers, body: jsonEncode(request));
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return fromJson(data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<T?> delete(int id) async {
+    var url = "${BaseProvider.baseUrl}$endpoint/$id";
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.delete(uri, headers: headers);
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);

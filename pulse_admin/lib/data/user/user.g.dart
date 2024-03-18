@@ -21,7 +21,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
       : DateTime.parse(json['dateOfEmployment'] as String)
   ..role = json['role'] == null
       ? null
-      : Role.fromJson(json['role'] as Map<String, dynamic>);
+      : Role.fromJson(json['role'] as Map<String, dynamic>)
+  ..status = json['status'] as bool?;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
@@ -33,4 +34,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'dateOfEmployment': instance.dateOfEmployment?.toIso8601String(),
       'role': instance.role,
+      'status': instance.status,
     };

@@ -23,8 +23,9 @@ class GlobalNavigation extends StatelessWidget {
   const GlobalNavigation({Key? key, required this.navigatorKey})
       : super(key: key);
 
-  void navigate(Widget page) => navigatorKey.currentState!
-      .pushReplacement(MaterialPageRoute(builder: (context) => page));
+  void navigate(Widget page) => navigatorKey.currentState!.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => page),
+      (Route<dynamic> route) => false);
 
   @override
   Widget build(BuildContext context) {

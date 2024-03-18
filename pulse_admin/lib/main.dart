@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/core/layout/layout.dart';
+import 'package:pulse_admin/core/style/sizes.dart';
 import 'package:pulse_admin/core/style/theme_data.dart';
 import 'package:pulse_admin/pages/login_page.dart';
 import 'package:pulse_admin/providers/http/global_multi_provider.dart';
@@ -8,7 +9,8 @@ import 'package:window_size/window_size.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  setWindowMinSize(const Size(1280, 720));
+  setWindowMinSize(
+      const Size(AppSizes.minWindowWidth, AppSizes.minWindowHeight));
 
   runApp(const App());
 }

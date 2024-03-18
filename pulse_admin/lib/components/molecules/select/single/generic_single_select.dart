@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/components/atoms/dropdown.dart';
-import 'package:pulse_admin/core/http/fetch_state.dart';
+import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/types/delegate.dart';
 import 'package:pulse_admin/core/types/list_item.dart';
 
@@ -27,7 +27,7 @@ class SingleSelect<T> extends StatefulWidget {
 
 class _SingleSelectState<T> extends State<SingleSelect<T>> {
   List<T> _options = [];
-  FetchState _fetchState = FetchState.init;
+  RequestState _fetchState = RequestState.init;
 
   @override
   void initState() {
@@ -39,18 +39,18 @@ class _SingleSelectState<T> extends State<SingleSelect<T>> {
   void fetchOptions() async {
     try {
       setState(() {
-        _fetchState = FetchState.loading;
+        _fetchState = RequestState.loading;
       });
 
       var response = await widget.fetch();
 
       setState(() {
         _options = response;
-        _fetchState = FetchState.success;
+        _fetchState = RequestState.success;
       });
     } catch (e) {
       setState(() {
-        _fetchState = FetchState.error;
+        _fetchState = RequestState.error;
       });
     }
   }
@@ -63,7 +63,7 @@ class _SingleSelectState<T> extends State<SingleSelect<T>> {
       hintText: widget.text,
       onChanged: widget.onChanged,
       renderOption: widget.renderOption,
-      isLoading: _fetchState == FetchState.loading,
+      isLoading: _fetchState == RequestState.loading,
     );
   }
 }

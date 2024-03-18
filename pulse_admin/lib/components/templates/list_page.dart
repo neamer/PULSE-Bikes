@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/molecules/errors/error_state.dart';
-import 'package:pulse_admin/core/http/fetch_state.dart';
+import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
 import 'package:pulse_admin/core/types/list_item.dart';
@@ -14,7 +14,7 @@ class ListPage<T, TProvider extends BaseProvider<T>> extends StatefulWidget {
   final List<Widget>? actions;
   final Widget? filters;
   final Widget? listHeader;
-  final ListItem itemBuilder;
+  final ListItem<T> itemBuilder;
 
   const ListPage(
       {super.key,
@@ -25,12 +25,12 @@ class ListPage<T, TProvider extends BaseProvider<T>> extends StatefulWidget {
       this.listHeader});
 
   @override
-  State<ListPage> createState() => _ListPageState<T, TProvider>();
+  State<ListPage<T, TProvider>> createState() => _ListPageState<T, TProvider>();
 }
 
 class _ListPageState<T, TProvider extends BaseProvider<T>>
-    extends State<ListPage> {
-  FetchState _fetchState = FetchState.init;
+    extends State<ListPage<T, TProvider>> {
+  RequestState _fetchState = RequestState.init;
   List<T> _data = [];
 
   TProvider? _provider;
@@ -48,18 +48,18 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
   void fetchData(Filter? filters) async {
     try {
       setState(() {
-        _fetchState = FetchState.loading;
+        _fetchState = RequestState.loading;
       });
 
       var response = await _provider!.get(filters?.toQuery());
 
       setState(() {
         _data = response;
-        _fetchState = FetchState.success;
+        _fetchState = RequestState.success;
       });
     } catch (e) {
       setState(() {
-        _fetchState = FetchState.error;
+        _fetchState = RequestState.error;
       });
     }
   }
@@ -68,7 +68,7 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: ColorTheme.m800,
+          backgroundColor: ColorTheme.m750,
           title: Text(widget.title),
           actions: widget.actions,
         ),
@@ -86,13 +86,13 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
                       top: Spacing.sm,
                       bottom: Spacing.md),
                   child: widget.listHeader!),
-            if (_fetchState == FetchState.loading)
+            if (_fetchState == RequestState.loading)
               const Center(
                   child: Padding(
                 padding: EdgeInsets.all(20),
                 child: CircularProgressIndicator(),
               )),
-            if (_fetchState == FetchState.success)
+            if (_fetchState == RequestState.success)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
                 child: ListView.builder(
@@ -103,7 +103,7 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
                           _data[index],
                         )),
               ),
-            if (_fetchState == FetchState.error)
+            if (_fetchState == RequestState.error)
               Padding(
                 padding: const EdgeInsets.only(top: Spacing.xxl),
                 child: ErrorState(

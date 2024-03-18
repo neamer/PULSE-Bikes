@@ -16,7 +16,7 @@ class ServicingListItem extends StatelessWidget {
         ListTextContent(data.servicingNumber ?? "", 25),
         ListTextContent(data.statusNamee ?? "", 25),
         ListTextContent(data.customer.toString(), 25),
-        ListTextContent(DateFormat.yMMMd().format(data.createdAt!), 17),
+        ListTextContent(DateFormat.yMMMd().format(data.createdAt!), 25),
       ],
     );
   }

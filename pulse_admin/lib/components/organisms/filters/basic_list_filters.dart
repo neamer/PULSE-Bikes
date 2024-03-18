@@ -26,7 +26,13 @@ class _BasicListFilterState extends State<BasicListFilters> {
     searchController.addListener(() => setState(() {
           _data.anyField = searchController.text;
         }));
+    context.read<ListPageProvider>().fetchEvent.subscribe((arg) {
+      fetchWithFilters();
+    });
   }
+
+  void fetchWithFilters() =>
+      context.read<ListPageProvider>().searchEvent.publish(_data);
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +46,7 @@ class _BasicListFilterState extends State<BasicListFilters> {
             clearable: true,
           ),
         ),
-        Button(
-            text: "Search",
-            onClick: () =>
-                context.read<ListPageProvider>().searchEvent.publish(_data))
+        Button(text: "Search", onClick: fetchWithFilters)
       ],
     );
   }

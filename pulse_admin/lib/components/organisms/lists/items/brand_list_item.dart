@@ -5,12 +5,18 @@ import 'package:pulse_admin/data/brand/brand.dart';
 
 class BrandListItem extends StatelessWidget {
   final Brand data;
+  final VoidCallback onClick;
+  final List<Widget>? actions;
 
-  const BrandListItem(this.data, {Key? key}) : super(key: key);
+  const BrandListItem(this.data,
+      {Key? key, required this.onClick, this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListItemBase(
+      onClick: onClick,
+      actions: actions,
       children: [
         ListTextContent(data.id.toString(), 30),
         ListTextContent(data.name ?? "", 70),
