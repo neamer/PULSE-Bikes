@@ -1,7 +1,7 @@
 import 'package:pulse_admin/data/gear/gear.dart';
-import 'package:pulse_admin/providers/http/base/base_provider.dart';
+import 'package:pulse_admin/providers/http/base/base_crud_provider.dart';
 
-class GearProvider extends BaseProvider<Gear> {
+class GearProvider extends BaseCRUDProvider<Gear> {
   GearProvider() : super('Gear');
 
   @override

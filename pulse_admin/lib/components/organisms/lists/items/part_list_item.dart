@@ -5,12 +5,17 @@ import 'package:pulse_admin/data/part/part.dart';
 
 class PartListItem extends StatelessWidget {
   final Part data;
+  final VoidCallback onClick;
+  final List<Widget>? actions;
 
-  const PartListItem(this.data, {Key? key}) : super(key: key);
+  const PartListItem(this.data, {Key? key, required this.onClick, this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListItemBase(
+      onClick: onClick,
+      actions: actions,
       children: [
         ListTextContent(data.productNumber ?? "", 17),
         ListTextContent(data.brand.toString(), 14),

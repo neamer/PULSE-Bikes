@@ -12,7 +12,9 @@ class SingleSelect<T> extends StatefulWidget {
       required this.renderOption,
       this.text = "",
       required this.onChanged,
-      required this.fetch});
+      required this.fetch,
+      this.enabled = true,
+      this.clearable = true});
 
   final String text;
   final T? value;
@@ -20,6 +22,8 @@ class SingleSelect<T> extends StatefulWidget {
   final ListItem<T> renderOption;
   final double? width;
   final Future<List<T>> Function() fetch;
+  final bool enabled;
+  final bool clearable;
 
   @override
   State<SingleSelect<T>> createState() => _SingleSelectState<T>();
@@ -64,6 +68,8 @@ class _SingleSelectState<T> extends State<SingleSelect<T>> {
       onChanged: widget.onChanged,
       renderOption: widget.renderOption,
       isLoading: _fetchState == RequestState.loading,
+      enabled: widget.enabled,
+      clearable: widget.clearable,
     );
   }
 }

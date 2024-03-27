@@ -5,12 +5,18 @@ import 'package:pulse_admin/data/product_category/product_category.dart';
 
 class ProductCategoryListItem extends StatelessWidget {
   final ProductCategory data;
+  final VoidCallback onClick;
+  final List<Widget>? actions;
 
-  const ProductCategoryListItem(this.data, {Key? key}) : super(key: key);
+  const ProductCategoryListItem(this.data,
+      {Key? key, this.actions, required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListItemBase(
+      onClick: onClick,
+      actions: actions,
       children: [
         ListTextContent(data.id.toString(), 30),
         ListTextContent(data.name ?? "", 70),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/components/atoms/buttons/button_base.dart';
 import 'package:pulse_admin/core/style/colors.dart';
+import 'package:pulse_admin/core/style/spacing.dart';
 
 class GhostButton extends ButtonBase {
   const GhostButton({
@@ -23,8 +24,12 @@ class GhostButton extends ButtonBase {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
 
-    return OutlinedButton(
+    return TextButton(
       style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Radius.xs),
+                side: BorderSide.none)),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
         side: MaterialStateProperty.all<BorderSide>(
           BorderSide(color: super.color), // Border color
@@ -43,7 +48,7 @@ class GhostButton extends ButtonBase {
                 strokeWidth: 2.5,
               ),
             )
-          : Text(text!, style: themeData.textTheme.titleSmall),
+          : Text(text, style: themeData.textTheme.titleSmall),
     );
   }
 }

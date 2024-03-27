@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  pulse_db:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    container_name: pulse_db
+    user: root
+    environment:
+        SA_PASSWORD: "QWEasd123!"
+        ACCEPT_EULA: "Y"
+    ports:
+    - 1434:1433
+    volumes:
+    - ./data:/var/opt/mssql/data/

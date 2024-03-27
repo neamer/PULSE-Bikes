@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/molecules/form/text_form_field_group.dart';
+import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/layout/layout.dart';
 import 'package:pulse_admin/core/style/colors.dart';
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  void login() async {
+  Future login() async {
     try {
       setState(() {
         _submitState = RequestState.loading;
@@ -89,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 child: Button(
                   loading: _submitState == RequestState.loading,
-                  onClick: login,
+                  onClick: genericErrorHandler(context, login),
                   text: "LOGIN",
                 ),
               )

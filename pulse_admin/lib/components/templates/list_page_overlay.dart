@@ -19,13 +19,17 @@ class ListPageOverlay extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        scrolledUnderElevation: 0,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Spacing.xxl),
-          child: SizedBox(
-            width: AppSizes.detailsWidth,
-            child: form,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: Spacing.xl, bottom: 4 * Spacing.xxl),
+            child: SizedBox(
+              width: AppSizes.detailsWidth,
+              child: form,
+            ),
           ),
         ),
       ),

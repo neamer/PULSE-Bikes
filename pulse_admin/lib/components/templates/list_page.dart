@@ -68,6 +68,7 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           backgroundColor: ColorTheme.m750,
           title: Text(widget.title),
           actions: widget.actions,

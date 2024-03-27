@@ -42,6 +42,9 @@ class _ExpandableButtonState extends State<ExpandableButton> {
               : ColorTheme.m750,
           width: double.infinity,
           child: ExpansionTile(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Radius.xs),
+                  side: BorderSide.none),
               onExpansionChanged: (_) => setState(() {}),
               controller: _expansionTileController,
               title: Text(

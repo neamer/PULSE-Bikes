@@ -7,14 +7,14 @@ import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
 import 'package:pulse_admin/pages/brand/brand_list_page.dart';
 import 'package:pulse_admin/pages/order/order_list_page.dart';
-import 'package:pulse_admin/pages/products/bicycle/bicycle_category_list_page.dart';
+import 'package:pulse_admin/pages/products/bicycle/category/bicycle_category_list_page.dart';
 import 'package:pulse_admin/pages/products/bicycle/bicycle_list_page.dart';
-import 'package:pulse_admin/pages/products/bicycle/bicycle_size_list_page.dart';
-import 'package:pulse_admin/pages/products/gear/gear_category_list_page.dart';
+import 'package:pulse_admin/pages/products/bicycle/size/bicycle_size_list_page.dart';
+import 'package:pulse_admin/pages/products/gear/category/gear_category_list_page.dart';
 import 'package:pulse_admin/pages/products/gear/gear_list_page.dart';
-import 'package:pulse_admin/pages/products/part/part_category_list_page.dart';
+import 'package:pulse_admin/pages/products/part/category/part_category_list_page.dart';
 import 'package:pulse_admin/pages/products/part/part_list_page.dart';
-import 'package:pulse_admin/pages/products/staff/staff_list_page.dart';
+import 'package:pulse_admin/pages/staff/staff_list_page.dart';
 import 'package:pulse_admin/pages/servicing/servicing_list_page.dart';
 
 class GlobalNavigation extends StatelessWidget {

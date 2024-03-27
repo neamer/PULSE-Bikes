@@ -5,6 +5,7 @@ import 'package:pulse_admin/components/molecules/form/named_text_form_field_grou
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
 import 'package:pulse_admin/data/brand/brand.dart';
+import 'package:pulse_admin/data/brand/brand_upsert_request.dart';
 
 class BrandForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
@@ -24,7 +25,7 @@ class BrandForm extends StatelessWidget {
       enabled: enabled,
       child: SpacedColumn(spacing: Spacing.lg, children: [
         NamedTextFormFieldGroup(
-          name: "name",
+          name: BrandUpsertRequestFieldNames.name,
           label: "Name",
           initialValue: initialValues?.name,
           validator: ValidationBuilder().minLength(2).build(),

@@ -5,12 +5,18 @@ import 'package:pulse_admin/data/user/user.dart';
 
 class StaffListItem extends StatelessWidget {
   final User data;
+  final VoidCallback onClick;
+  final List<Widget> actions;
 
-  const StaffListItem(this.data, {Key? key}) : super(key: key);
+  const StaffListItem(this.data,
+      {Key? key, required this.onClick, required this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListItemBase(
+      onClick: onClick,
+      actions: actions,
       children: [
         ListTextContent(data.id.toString(), 19),
         ListTextContent(data.toString(), 27),

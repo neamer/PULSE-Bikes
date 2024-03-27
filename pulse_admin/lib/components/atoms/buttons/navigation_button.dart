@@ -20,8 +20,12 @@ class NavigationButton extends ButtonBase {
         borderRadius: BorderRadius.circular(Radius.xs),
         child: SizedBox(
           width: double.infinity,
-          child: OutlinedButton(
+          child: TextButton(
               style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(Radius.xs),
+                          side: BorderSide.none)),
                   overlayColor: MaterialStateProperty.all<Color>(
                       ColorTheme.m600.withAlpha(150)),
                   backgroundColor:

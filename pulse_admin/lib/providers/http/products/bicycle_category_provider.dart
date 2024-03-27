@@ -1,7 +1,7 @@
 import 'package:pulse_admin/data/product_category/product_category.dart';
-import 'package:pulse_admin/providers/http/base/base_provider.dart';
+import 'package:pulse_admin/providers/http/base/base_crud_provider.dart';
 
-class BicycleCategoryProvider extends BaseProvider<ProductCategory> {
+class BicycleCategoryProvider extends BaseCRUDProvider<ProductCategory> {
   BicycleCategoryProvider() : super('BicycleCategory');
 
   @override

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'brand_upsert_request.g.dart';
 
-class BrandUpsertRequestFieldNames {
+abstract class BrandUpsertRequestFieldNames {
   static const String name = "name";
 }
 

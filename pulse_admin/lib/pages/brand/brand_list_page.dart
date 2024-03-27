@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
-import 'package:pulse_admin/components/organisms/dialog/confirm_deletion_dialog.dart';
 import 'package:pulse_admin/components/organisms/filters/basic_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/basic_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/brand_list_item.dart';
@@ -88,8 +87,11 @@ class _BrandListPage extends StatelessWidget {
             },
           ),
         ],
-        onClick: () => openOverlay(context,
-            BrandDetailsPage(item, onSuccess: () => onActionSuccess(context))),
+        onClick: () => openOverlay(
+            context,
+            BrandDetailsPage(
+              item,
+            )),
       ),
     );
   }

@@ -31,6 +31,10 @@ class _ConfirmDeletionDialogState extends State<ConfirmDeletionDialog> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     return AlertDialog(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Radius.xs),
+          side: BorderSide.none),
       backgroundColor: ColorTheme.m750,
       actionsPadding: const EdgeInsets.only(bottom: Spacing.xl),
       icon: const Icon(

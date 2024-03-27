@@ -5,12 +5,17 @@ import 'package:pulse_admin/data/gear/gear.dart';
 
 class GearListItem extends StatelessWidget {
   final Gear data;
+  final VoidCallback onClick;
+  final List<Widget>? actions;
 
-  const GearListItem(this.data, {Key? key}) : super(key: key);
+  const GearListItem(this.data, {Key? key, required this.onClick, this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListItemBase(
+      onClick: onClick,
+      actions: actions,
       children: [
         ListTextContent(data.productNumber ?? "", 17),
         ListTextContent(data.brand.toString(), 14),

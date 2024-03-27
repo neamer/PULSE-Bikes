@@ -10,6 +10,8 @@ class Dropdown<T> extends StatefulWidget {
   final void Function(T?) onChanged;
   final ListItem<T> renderOption;
   final bool isLoading;
+  final bool enabled;
+  final bool clearable;
 
   const Dropdown({
     Key? key,
@@ -19,6 +21,8 @@ class Dropdown<T> extends StatefulWidget {
     required this.onChanged,
     required this.renderOption,
     this.isLoading = false,
+    this.enabled = true,
+    this.clearable = true,
   }) : super(key: key);
 
   @override
@@ -42,6 +46,8 @@ class _DropdownState<T> extends State<Dropdown<T>> {
           strokeWidth: 2.5,
         ),
       );
+    } else if (!widget.enabled) {
+      icon = const SizedBox();
     } else if (widget.value != null) {
       icon = IconButton(
         padding: EdgeInsets.zero,
@@ -75,15 +81,16 @@ class _DropdownState<T> extends State<Dropdown<T>> {
             child: widget.renderOption(item),
           );
         }).toList(),
-        onChanged: widget.onChanged,
+        onChanged: widget.enabled ? widget.onChanged : null,
         borderRadius: BorderRadius.circular(Radius.md),
         dropdownColor: ColorTheme.m600,
         decoration: InputDecoration(
           filled: true,
           contentPadding: const EdgeInsets.symmetric(
               horizontal: Spacing.lg, vertical: Spacing.lg - 1),
-          fillColor:
-              isHovered ? ColorTheme.m500.withAlpha(150) : ColorTheme.m600,
+          fillColor: isHovered && widget.enabled
+              ? ColorTheme.m500.withAlpha(150)
+              : ColorTheme.m600,
           isDense: true,
           hintText: widget.hintText,
           hintStyle:

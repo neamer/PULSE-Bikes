@@ -12,4 +12,10 @@ class Role extends BaseModel {
   factory Role.fromJson(Map<String, dynamic> json) => _$RoleFromJson(json);
 
   Map<String, dynamic> toJson() => _$RoleToJson(this);
+
+  @override
+  bool operator ==(covariant Role other) => id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
 }

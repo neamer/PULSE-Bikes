@@ -14,18 +14,22 @@ class NamedTextFormFieldGroup extends StatelessWidget {
   final String label;
   final String? initialValue;
   final String? Function(String?)? validator;
+  final bool obscureText;
+  final int maxLines;
 
-  const NamedTextFormFieldGroup({
-    Key? key,
-    this.hint = '',
-    this.controller,
-    this.enabled = true,
-    this.clearable = false,
-    required this.label,
-    this.validator,
-    required this.name,
-    this.initialValue,
-  }) : super(key: key);
+  const NamedTextFormFieldGroup(
+      {Key? key,
+      this.hint = '',
+      this.controller,
+      this.enabled = true,
+      this.clearable = false,
+      required this.label,
+      this.validator,
+      required this.name,
+      this.initialValue,
+      this.obscureText = false,
+      this.maxLines = 1})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +44,8 @@ class NamedTextFormFieldGroup extends StatelessWidget {
           child: FieldLabel(label),
         ),
         FormBuilderTextField(
+          maxLines: maxLines,
+          obscureText: obscureText,
           initialValue: initialValue,
           name: name,
           enabled: enabled,

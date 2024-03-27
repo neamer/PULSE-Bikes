@@ -23,6 +23,7 @@ Future Function() genericRequestHandler(
     } on ValidationException catch (e) {
       errorToast(context, e.msg ?? "There were errors in your form");
     } catch (e) {
+      print(e.toString());
       errorToast(context, errorMessage ?? "An error occured!");
     }
   };

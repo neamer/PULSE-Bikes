@@ -15,4 +15,10 @@ class Brand {
 
   @override
   String toString() => name ?? "";
+
+  @override
+  bool operator ==(covariant Brand other) => id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
 }

@@ -20,5 +20,5 @@ class ColorTheme {
   static const Color g400 = Color.fromARGB(255, 79, 143, 79);
 
   // RED
-  static const Color r400 = Color.fromARGB(255, 143, 39, 39);
+  static const Color r400 = Color.fromARGB(255, 163, 39, 39);
 }

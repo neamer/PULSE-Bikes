@@ -17,4 +17,10 @@ class ProductCategory extends BaseModel {
 
   @override
   String toString() => name ?? "";
+
+  @override
+  bool operator ==(covariant ProductCategory other) => id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
 }

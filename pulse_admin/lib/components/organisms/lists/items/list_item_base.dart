@@ -60,12 +60,30 @@ class _ListItemBaseState extends State<ListItemBase> {
                     top: 0,
                     right: 0,
                     bottom: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: Spacing.md),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: widget.actions!,
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [ColorTheme.m600, ColorTheme.m600],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          color: ColorTheme.m600,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Spacing.md),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: widget.actions!,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
               ],

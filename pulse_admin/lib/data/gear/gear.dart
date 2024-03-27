@@ -14,6 +14,7 @@ class Gear extends Product {
 
   factory Gear.fromJson(Map<String, dynamic> json) => _$GearFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GearToJson(this);
 
   bool isAvailable() {
