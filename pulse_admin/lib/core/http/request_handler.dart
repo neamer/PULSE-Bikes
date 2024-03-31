@@ -19,12 +19,12 @@ Future Function() genericRequestHandler(
   return () async {
     try {
       await action();
-      successToast(context, successMessage ?? "Success!");
+      successToast(context, successMessage ?? "Success");
     } on ValidationException catch (e) {
       errorToast(context, e.msg ?? "There were errors in your form");
     } catch (e) {
       print(e.toString());
-      errorToast(context, errorMessage ?? "An error occured!");
+      errorToast(context, errorMessage ?? "An error occured");
     }
   };
 }

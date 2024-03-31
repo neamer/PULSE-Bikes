@@ -3,6 +3,6 @@
     public class ProductImageUpsertRequest
     {
         public int ProductId { get; set; }
-        public byte[]? Data { get; set; }
+        public String? Data { get; set; }
     }
 }

@@ -9,6 +9,7 @@ class ColorTheme {
   static const Color n900 = Color.fromARGB(167, 53, 53, 53);
 
   // MARINE
+  static const Color m450 = Color.fromRGBO(39, 39, 58, 1);
   static const Color m500 = Color.fromRGBO(35, 35, 51, 1);
   static const Color m550 = Color.fromARGB(255, 30, 30, 43);
   static const Color m600 = Color.fromARGB(255, 24, 24, 36);

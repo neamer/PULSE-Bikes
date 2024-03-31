@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/components/molecules/select/single/abstract_single_select.dart';
 import 'package:pulse_admin/components/molecules/select/single/generic_single_select.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
 import 'package:pulse_admin/data/product_category/product_category.dart';
 import 'package:pulse_admin/providers/http/products/bicycle_category_provider.dart';
 
-class BicycleCategorySingleSelect extends StatefulWidget {
-  final double width;
-  final Delegate<ProductCategory?> onChanged;
-  final ProductCategory? value;
-
+class BicycleCategorySingleSelect extends AbstractSingleSelect {
   const BicycleCategorySingleSelect(
-      {super.key, required this.width, required this.onChanged, this.value});
+      {super.key,
+      required super.width,
+      required super.onChanged,
+      super.value,
+      super.enabled,
+      super.clearable,
+      super.text = "Category"});
 
   @override
   State<BicycleCategorySingleSelect> createState() =>
@@ -26,6 +28,8 @@ class _BicycleCategorySingleSelectState
         width: widget.width,
         child: SingleSelect<ProductCategory>(
           onChanged: widget.onChanged,
+          clearable: widget.clearable,
+          enabled: widget.enabled,
           value: widget.value,
           text: "Category",
           renderOption: ((item) => SizedBox(

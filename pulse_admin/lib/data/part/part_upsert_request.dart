@@ -17,10 +17,10 @@ class PartUpsertRequest {
 
   PartUpsertRequest();
 
-  // factory PartUpsertRequest.fromJson(Map<String, dynamic> json) =>
-  //     _$PartUpsertRequestFromJson(json);
-  //
-  // Map<String, dynamic> toJson() => _$PartUpsertRequestToJson(this);
+  factory PartUpsertRequest.fromJson(Map<String, dynamic> json) =>
+      _$PartUpsertRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PartUpsertRequestToJson(this);
 
   PartUpsertRequest.fromFormData(Map<String, dynamic> formData) {
     productNumber = formData[PartFormFieldNames.productNumber];

@@ -1,7 +1,7 @@
 import 'package:pulse_admin/data/bicycle/bicycle.dart';
-import 'package:pulse_admin/providers/http/base/base_provider.dart';
+import 'package:pulse_admin/providers/http/base/base_crud_provider.dart';
 
-class BicycleProvider extends BaseProvider<Bicycle> {
+class BicycleProvider extends BaseCRUDProvider<Bicycle> {
   BicycleProvider() : super('Bicycle');
 
   @override

@@ -8,12 +8,12 @@ class BicycleListHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        ListHeading("Product Number", 17),
+        ListHeading("Product Number", 19),
         ListHeading("Brand", 14),
         ListHeading("Model", 25),
-        ListHeading("Category", 16),
-        ListHeading("Sizes", 14),
-        ListHeading("Price", 14),
+        ListHeading("Category", 17),
+        ListHeading("Sizes", 15),
+        ListHeading("Price", 10),
       ],
     );
   }

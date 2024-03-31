@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pulse_admin/data/product_image/product_image.dart';
 
 import '../brand/brand.dart';
 import '../abstract/product.dart';

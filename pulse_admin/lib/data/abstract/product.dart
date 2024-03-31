@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pulse_admin/data/product_category/product_category.dart';
+import 'package:pulse_admin/data/product_image/product_image.dart';
 
 import '../brand/brand.dart';
 import 'auditable_model.dart';
@@ -16,6 +17,7 @@ class Product extends AuditableModel {
   ProductCategory? productCategory;
   Brand? brand;
   double? price;
+  List<ProductImage>? images;
 
   Product();
 

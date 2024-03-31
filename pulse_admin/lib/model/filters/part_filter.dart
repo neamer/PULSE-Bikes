@@ -20,7 +20,7 @@ class PartFilter implements Filter {
     return {
       "IncludeBrand": true,
       "IncludeCategory": true,
-      "IncludeSizes": true,
+      "IncludeImages": true,
       "AnyField": anyField,
       "BrandId": brand?.id,
       "ProductCategoryId": category?.id,

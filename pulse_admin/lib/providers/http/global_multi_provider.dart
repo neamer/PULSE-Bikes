@@ -10,6 +10,7 @@ import 'package:pulse_admin/providers/http/products/gear_category_provider.dart'
 import 'package:pulse_admin/providers/http/products/gear_provider.dart';
 import 'package:pulse_admin/providers/http/products/part_category_provider.dart';
 import 'package:pulse_admin/providers/http/products/part_provider.dart';
+import 'package:pulse_admin/providers/http/products/product_image_provider.dart';
 import 'package:pulse_admin/providers/http/servicing/servicing_provider.dart';
 import 'package:pulse_admin/providers/http/staff/staff_provider.dart';
 
@@ -34,6 +35,7 @@ class GlobalMultiProvider extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OrderProvider()),
         ChangeNotifierProvider(create: (_) => ServicingProvider()),
         ChangeNotifierProvider(create: (_) => StaffProvider()),
+        ChangeNotifierProvider(create: (_) => ProductImageProvider()),
       ],
       child: child,
     );

@@ -7,6 +7,9 @@ namespace PULSE.Services
     {
         public MappingProfile()
         {
+            CreateMap<string, byte[]>().ConvertUsing(s => System.Convert.FromBase64String(s));
+            CreateMap<byte[], string>().ConvertUsing(bytes => System.Convert.ToBase64String(bytes));
+            
             CreateMap<Data.staff, Model.Staff>();
             CreateMap<StaffInsertRequest, Data.staff>();
             CreateMap<StaffUpdateRequest, Data.staff>();

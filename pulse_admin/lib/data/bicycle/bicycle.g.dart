@@ -27,6 +27,9 @@ Bicycle _$BicycleFromJson(Map<String, dynamic> json) => Bicycle()
       ? null
       : Brand.fromJson(json['brand'] as Map<String, dynamic>)
   ..price = (json['price'] as num?)?.toDouble()
+  ..images = (json['images'] as List<dynamic>?)
+      ?.map((e) => ProductImage.fromJson(e as Map<String, dynamic>))
+      .toList()
   ..weight = (json['weight'] as num?)?.toDouble()
   ..productionYear = json['productionYear'] as int?
   ..wheelSize = json['wheelSize'] as String?
@@ -46,6 +49,7 @@ Map<String, dynamic> _$BicycleToJson(Bicycle instance) => <String, dynamic>{
       'productCategory': instance.productCategory,
       'brand': instance.brand,
       'price': instance.price,
+      'images': instance.images,
       'weight': instance.weight,
       'productionYear': instance.productionYear,
       'wheelSize': instance.wheelSize,

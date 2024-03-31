@@ -1,4 +1,3 @@
-
 import 'package:pulse_mobile/model/brand/brand.dart';
 import 'package:pulse_mobile/providers/abstract/base_provider.dart';
 

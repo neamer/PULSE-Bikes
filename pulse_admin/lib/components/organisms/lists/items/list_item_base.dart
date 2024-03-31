@@ -6,13 +6,17 @@ class ListItemBase extends StatefulWidget {
   final List<Widget> children;
   final List<Widget>? actions;
   final VoidCallback? onClick;
+  final Color backgroundColor;
+  final Color hoverColor;
 
-  const ListItemBase({
-    Key? key,
-    required this.children,
-    this.actions,
-    this.onClick,
-  }) : super(key: key);
+  const ListItemBase(
+      {Key? key,
+      required this.children,
+      this.actions,
+      this.onClick,
+      this.backgroundColor = ColorTheme.m700,
+      this.hoverColor = ColorTheme.m600})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ListItemBaseState();
@@ -43,7 +47,7 @@ class _ListItemBaseState extends State<ListItemBase> {
           onTap: widget.onClick,
           child: Container(
             decoration: BoxDecoration(
-              color: isHovered ? ColorTheme.m600 : ColorTheme.m700,
+              color: isHovered ? widget.hoverColor : widget.backgroundColor,
               borderRadius: BorderRadius.circular(Spacing.sm),
             ),
             child: Stack(

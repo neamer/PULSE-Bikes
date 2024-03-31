@@ -294,6 +294,7 @@ namespace PULSE.Services.Data
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Images)
+                    .OnDelete(DeleteBehavior.ClientCascade)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK_ProductImage_Product");
             });

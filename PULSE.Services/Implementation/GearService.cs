@@ -24,6 +24,11 @@ namespace PULSE.Services.Implementation
             {
                 query = query.Include(q => q.ProductCategory);
             }
+            
+            if (search?.IncludeImages == true)
+            {
+                query = query.Include(q => q.Images);
+            }
 
             return query;
         }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/components/molecules/form/image_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_numeric_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_text_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/select/brand_single_select_form_group.dart';
@@ -104,11 +105,12 @@ class GearForm extends StatelessWidget {
                 min: 1,
               )),
         ]),
-        const NamedTextFormFieldGroup(
-          maxLines: 5,
-          name: "TBD",
-          label: "Images",
-        ),
+        if (initialValues?.id != null)
+          ImageFieldGroup(
+            enabled: enabled,
+            productId: initialValues!.id!,
+            initialItems: initialValues?.images ?? [],
+          )
       ]),
     );
   }
