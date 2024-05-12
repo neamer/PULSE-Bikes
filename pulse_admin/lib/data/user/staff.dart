@@ -1,18 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pulse_admin/data/user/role.dart';
 
-part 'user.g.dart';
+part 'staff.g.dart';
 
-enum UserRole { administrator, mechanic, storekeeper, salesperson }
+enum StaffRole { administrator, mechanic, storekeeper, salesperson }
 
-extension Name on UserRole {
+extension Name on StaffRole {
   String getRoleName() {
     return "${name.substring(0, 1).toUpperCase()}${name.substring(1)}";
   }
 }
 
 @JsonSerializable()
-class User {
+class Staff {
   int? id;
   String? firstName;
   String? lastName;
@@ -24,39 +24,39 @@ class User {
   Role? role;
   bool? status;
 
-  User();
+  Staff();
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory Staff.fromJson(Map<String, dynamic> json) => _$StaffFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => _$StaffToJson(this);
 
   @override
   String toString() => "$firstName $lastName";
 
-  UserRole getUserRole() {
+  StaffRole getStaffRole() {
     switch (role?.name) {
       case "Administrator":
-        return UserRole.administrator;
+        return StaffRole.administrator;
       case "Mechanic":
-        return UserRole.mechanic;
+        return StaffRole.mechanic;
       case "Storekeeper":
-        return UserRole.storekeeper;
+        return StaffRole.storekeeper;
       case "Salesperson":
-        return UserRole.salesperson;
+        return StaffRole.salesperson;
       default:
-        return UserRole.salesperson;
+        return StaffRole.salesperson;
     }
   }
 
-  bool hasRole(UserRole role) {
+  bool hasRole(StaffRole role) {
     switch (role) {
-      case UserRole.administrator:
+      case StaffRole.administrator:
         return this.role?.name == "Administrator";
-      case UserRole.mechanic:
+      case StaffRole.mechanic:
         return this.role?.name == "Mechanic";
-      case UserRole.storekeeper:
+      case StaffRole.storekeeper:
         return this.role?.name == "Storekeeper";
-      case UserRole.salesperson:
+      case StaffRole.salesperson:
         return this.role?.name == "Salesperson";
       default:
         return false;

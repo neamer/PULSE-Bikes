@@ -7,8 +7,11 @@ import 'package:pulse_admin/components/organisms/lists/items/servicing_list_item
 import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/data/servicing/servicing.dart';
 import 'package:pulse_admin/model/filters/servicing_filter.dart';
+import 'package:pulse_admin/pages/servicing/servicing_details_page.dart';
+import 'package:pulse_admin/pages/servicing/servicing_register_page.dart';
 import 'package:pulse_admin/providers/core/list_page_provider.dart';
 import 'package:pulse_admin/providers/http/servicing/servicing_provider.dart';
+import 'package:pulse_admin/utils/navigation_utils.dart';
 
 class ServicingListPage extends StatelessWidget {
   const ServicingListPage({super.key});
@@ -19,17 +22,43 @@ class ServicingListPage extends StatelessWidget {
       create: (context) => ListPageProvider(
           defaultFilters: ServicingFilter(
               includeCustomer: true, includeParts: true, includePayment: true)),
-      child: ListPage<Servicing, ServicingProvider>(
-        title: "Browse Servicings",
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Button(text: "Add Servicing", onClick: () {}),
-          )
-        ],
-        filters: const ServicingListFilters(),
-        listHeader: const ServicingListHeader(),
-        itemBuilder: (item) => ServicingListItem(item),
+      child: const _ServicingListPage(),
+    );
+  }
+}
+
+class _ServicingListPage extends StatelessWidget {
+  const _ServicingListPage();
+
+  void onActionSuccess(BuildContext context) =>
+      context.read<ListPageProvider>().fetchEvent.publish(null);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListPage<Servicing, ServicingProvider>(
+      title: "Browse Servicings",
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Button(
+              text: "Register servicing",
+              onClick: () => openOverlay(
+                  context,
+                  ServicingRegisterPage(
+                    onSuccess: () => onActionSuccess(context),
+                  ))),
+        )
+      ],
+      filters: const ServicingListFilters(),
+      listHeader: const ServicingListHeader(),
+      itemBuilder: (item) => ServicingListItem(
+        item,
+        onClick: () => openOverlay(
+            context,
+            ServicingDetailsPage(
+              item,
+              onSuccess: () => onActionSuccess(context),
+            )),
       ),
     );
   }

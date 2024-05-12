@@ -6,16 +6,18 @@ class InlineList<T> extends StatelessWidget {
   final Widget? listHeader;
   final ListItem<T> itemBuilder;
   final List<T> data;
+  final bool scrollable;
 
   const InlineList(
       {super.key,
       required this.itemBuilder,
       this.listHeader,
-      required this.data});
+      required this.data,
+      this.scrollable = false});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
+    return Column(children: [
       if (listHeader != null)
         Padding(
             padding: const EdgeInsets.only(
@@ -24,14 +26,19 @@ class InlineList<T> extends StatelessWidget {
                 top: Spacing.sm,
                 bottom: Spacing.md),
             child: listHeader!),
-      ListView.builder(
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        itemCount: data.length,
-        itemBuilder: (ctx, index) => itemBuilder(
-          data[index],
-        ),
-      )
+      scrollable
+          ? ListView.builder(
+              shrinkWrap: false,
+              physics: const ScrollPhysics(),
+              itemCount: data.length,
+              itemBuilder: (ctx, index) => itemBuilder(
+                data[index],
+              ),
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: data.map((item) => itemBuilder(item)).toList(),
+            )
     ]);
   }
 }

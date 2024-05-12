@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/atoms/buttons/ghost_button.dart';
+import 'package:pulse_admin/components/organisms/dialog/base/dialog_base.dart';
 import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/core/style/spacing.dart';
 
 class ConfirmDeletionDialog extends StatefulWidget {
   final Future Function() onDelete;
@@ -30,28 +30,15 @@ class _ConfirmDeletionDialogState extends State<ConfirmDeletionDialog> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    return AlertDialog(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Radius.xs),
-          side: BorderSide.none),
-      backgroundColor: ColorTheme.m750,
-      actionsPadding: const EdgeInsets.only(bottom: Spacing.xl),
-      icon: const Icon(
-        Icons.error_outline,
-        color: ColorTheme.n500,
-      ),
-      title: Text(
-        "Confirm Deletion",
-        style: themeData.textTheme.titleSmall
-            ?.copyWith(color: Colors.white, fontSize: 18),
-      ),
+
+    return DialogBase(
+      icon: Icons.error_outline,
+      title: "Confirm Deletion",
       content: Text(
         "Are you sure you want to delete this item?",
         style: themeData.textTheme.bodyMedium?.copyWith(color: ColorTheme.n500),
       ),
-      actionsAlignment: MainAxisAlignment.center,
-      actions: <Widget>[
+      actions: [
         SizedBox(
           width: 100,
           child: Button(

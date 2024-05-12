@@ -29,7 +29,7 @@ OrderHeader _$OrderHeaderFromJson(Map<String, dynamic> json) => OrderHeader()
       : DateTime.parse(json['timeDelivered'] as String)
   ..onlineOrder = json['onlineOrder'] as bool?
   ..delivery = json['delivery'] as bool?
-  ..shippingCost = (json['shippingCost'] as num?)?.toDouble()
+  ..shippingConst = (json['shippingConst'] as num?)?.toDouble()
   ..noOfItems = json['noOfItems'] as int?
   ..total = (json['total'] as num?)?.toDouble()
   ..shippingInfo = json['shippingInfo'] == null
@@ -58,7 +58,7 @@ Map<String, dynamic> _$OrderHeaderToJson(OrderHeader instance) =>
       'timeDelivered': instance.timeDelivered?.toIso8601String(),
       'onlineOrder': instance.onlineOrder,
       'delivery': instance.delivery,
-      'shippingCost': instance.shippingCost,
+      'shippingConst': instance.shippingConst,
       'noOfItems': instance.noOfItems,
       'total': instance.total,
       'shippingInfo': instance.shippingInfo,

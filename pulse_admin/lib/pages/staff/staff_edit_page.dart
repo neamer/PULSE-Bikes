@@ -7,11 +7,11 @@ import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:pulse_admin/data/user/requests/staff_update_request.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 import 'package:pulse_admin/providers/http/staff/staff_provider.dart';
 
 class StaffEditPage extends StatefulWidget {
-  final User data;
+  final Staff data;
   final Function onSuccess;
 
   const StaffEditPage(this.data, {super.key, required this.onSuccess});

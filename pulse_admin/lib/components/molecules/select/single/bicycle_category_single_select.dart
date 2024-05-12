@@ -31,7 +31,7 @@ class _BicycleCategorySingleSelectState
           clearable: widget.clearable,
           enabled: widget.enabled,
           value: widget.value,
-          text: "Category",
+          text: widget.text,
           renderOption: ((item) => SizedBox(
                 child: Text(
                   item.toString(),

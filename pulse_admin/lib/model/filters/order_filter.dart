@@ -5,13 +5,15 @@ class OrderFilter implements Filter {
   final bool includePayment;
   final bool includeCustomer;
   final bool includeDetails;
+  final bool includeShippingInfo;
   String anyField = "";
   OrderStatus? status;
 
   OrderFilter(
       {required this.includePayment,
       required this.includeCustomer,
-      required this.includeDetails});
+      required this.includeDetails,
+      required this.includeShippingInfo});
 
   @override
   Map<String, Object?> toQuery() {
@@ -19,6 +21,7 @@ class OrderFilter implements Filter {
       "IncludePayment": includePayment,
       "IncludeCustomer": includeCustomer,
       "IncludeDetails": includeDetails,
+      "IncludeShippingInfo": includeShippingInfo,
       "AnyField": anyField,
       "Status": status?.index,
     };

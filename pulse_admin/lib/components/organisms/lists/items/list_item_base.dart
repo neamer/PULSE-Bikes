@@ -68,16 +68,17 @@ class _ListItemBaseState extends State<ListItemBase> {
                       children: [
                         Container(
                           width: 40,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [ColorTheme.m600, ColorTheme.m600],
-                            ),
-                          ),
+                          color: widget.hoverColor,
+                          // decoration: const BoxDecoration(
+                          //   gradient: LinearGradient(
+                          //     begin: Alignment.centerLeft,
+                          //     end: Alignment.centerRight,
+                          //     colors: [ColorTheme.m600, ColorTheme.m600],
+                          //   ),
+                          // ),
                         ),
                         Container(
-                          color: ColorTheme.m600,
+                          color: widget.hoverColor,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: Spacing.md),

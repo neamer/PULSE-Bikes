@@ -10,12 +10,12 @@ import 'package:pulse_admin/components/molecules/form/select/role_single_select_
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 import 'package:pulse_admin/model/forms/staff_form_field_names.dart';
 
 class StaffForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
-  final User? initialValues;
+  final Staff? initialValues;
   final bool enabled;
   final bool showPasswordFields;
   final bool showImmutableFields;

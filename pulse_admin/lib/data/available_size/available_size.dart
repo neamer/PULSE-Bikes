@@ -18,4 +18,13 @@ class AvailableSize extends BaseModel {
       _$AvailableSizeFromJson(json);
 
   Map<String, dynamic> toJson() => _$AvailableSizeToJson(this);
+
+  @override
+  String toString() => "$bicycleSize - ${availableQty.toString()} available";
+
+  @override
+  bool operator ==(covariant AvailableSize other) => id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
 }

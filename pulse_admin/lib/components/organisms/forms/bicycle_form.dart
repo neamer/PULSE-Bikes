@@ -35,7 +35,7 @@ class BicycleForm extends StatelessWidget {
           spacing: Spacing.md,
           children: [
             Expanded(
-              flex: 65,
+              flex: 66,
               child: NamedTextFormFieldGroup(
                 name: BicycleFormFieldNames.productNumber,
                 label: "Product number",
@@ -44,7 +44,7 @@ class BicycleForm extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 35,
+              flex: 33,
               child: BrandSingleSelectFormGroup(
                   enabled: enabled,
                   clearable: enabled,
@@ -59,7 +59,7 @@ class BicycleForm extends StatelessWidget {
           spacing: Spacing.md,
           children: [
             Expanded(
-              flex: 65,
+              flex: 66,
               child: NamedTextFormFieldGroup(
                 name: BicycleFormFieldNames.model,
                 label: "Model",
@@ -68,7 +68,7 @@ class BicycleForm extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 35,
+              flex: 33,
               child: BicycleCategorySingleSelectFormGroup(
                   enabled: enabled,
                   clearable: enabled,
@@ -132,6 +132,7 @@ class BicycleForm extends StatelessWidget {
           ),
         if (initialValues?.id != null)
           AvailableSizeFormGroup(
+            productId: initialValues!.id!,
             initialItems: initialValues?.availableSizes ?? [],
           )
       ]),

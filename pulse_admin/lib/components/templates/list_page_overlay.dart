@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/sizes.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
 
@@ -6,12 +7,14 @@ class ListPageOverlay extends StatelessWidget {
   final String title;
   final Widget form;
   final List<Widget>? actions;
+  final double actionsSpacing;
 
   const ListPageOverlay({
     Key? key,
     required this.title,
     required this.form,
     this.actions,
+    this.actionsSpacing = Spacing.md,
   }) : super(key: key);
 
   @override
@@ -33,7 +36,8 @@ class ListPageOverlay extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: Row(
+      floatingActionButton: SpacedRow(
+        spacing: actionsSpacing,
         mainAxisAlignment: MainAxisAlignment.center,
         children: actions ?? [],
       ),

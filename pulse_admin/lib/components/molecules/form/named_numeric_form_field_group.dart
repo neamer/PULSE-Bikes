@@ -14,6 +14,7 @@ class NamedNumericFormFieldGroup<T extends num> extends StatefulWidget {
   final bool enabled;
   final bool clearable;
   final String label;
+  final Function? onChange;
   final num? initialValue;
   final num? max;
   final num? min;
@@ -30,7 +31,8 @@ class NamedNumericFormFieldGroup<T extends num> extends StatefulWidget {
       this.initialValue,
       this.max,
       this.min,
-      required this.defaultValue})
+      required this.defaultValue,
+      this.onChange})
       : super(key: key);
 
   @override
@@ -71,6 +73,7 @@ class _NamedNumericFormFieldGroupState<T extends num>
           enabled: widget.enabled,
           onChanged: (value) {
             _controller.text = (value ?? widget.defaultValue).toString();
+            widget.onChange?.call();
           },
           validator: FormBuilderValidators.compose(validators),
           builder: (FormFieldState<num> field) {
@@ -107,6 +110,7 @@ class _NamedNumericFormFieldGroupState<T extends num>
               ),
               child: TextField(
                 controller: _controller,
+                enabled: widget.enabled,
                 decoration: InputDecoration(
                   isDense: true,
                   border: OutlineInputBorder(
@@ -124,11 +128,13 @@ class _NamedNumericFormFieldGroupState<T extends num>
                   FilteringTextInputFormatter.allow(RegExp(r'\d*\.?\d'))
                 ],
                 keyboardType: TextInputType.number,
-                onChanged: (value) =>
-                    // ignore: invalid_use_of_protected_member
-                    field.setValue(T == double
-                        ? double.tryParse(value)
-                        : int.tryParse(value) ?? widget.defaultValue),
+                onChanged: (value) {
+                  // ignore: invalid_use_of_protected_member
+                  field.setValue(T == double
+                      ? double.tryParse(value)
+                      : int.tryParse(value) ?? widget.defaultValue);
+                  widget.onChange?.call();
+                },
                 style: themeData.textTheme.bodyMedium,
               ),
             );

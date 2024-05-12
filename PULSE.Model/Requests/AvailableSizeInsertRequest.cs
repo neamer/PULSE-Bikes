@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PULSE.Model.Requests
 {
-    public class AvailableSizeUpsertRequest
+    public class AvailableSizeInsertRequest
     {
-        public int BicycleSizeId { get; set; }
         public int ProductId { get; set; }
+        public int BicycleSizeId { get; set; }
         public int AvailableQty { get; set; }
     }
 }

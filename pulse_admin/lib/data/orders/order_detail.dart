@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pulse_admin/data/abstract/base_model.dart';
 import 'package:pulse_admin/data/abstract/product.dart';
+import 'package:pulse_admin/data/available_size/available_size.dart';
 import 'package:pulse_admin/data/bicycle_size/bicycle_size.dart';
 
 part 'order_detail.g.dart';
@@ -16,6 +17,19 @@ class OrderDetail extends BaseModel {
   Product? product;
 
   OrderDetail();
+
+  OrderDetail.fromProduct(Product source, AvailableSize? size) {
+    quantity = 1;
+    product = source;
+    productId = source.id;
+    unitPrice = source.price;
+    discriminator = source.getDiscriminator();
+
+    if (size != null) {
+      bicycleSizeId = size.bicycleSizeId;
+      bicycleSize = size.bicycleSize;
+    }
+  }
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) =>
       _$OrderDetailFromJson(json);

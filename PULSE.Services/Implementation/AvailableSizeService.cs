@@ -7,7 +7,7 @@ using PULSE.Services.Interfaces;
 
 namespace PULSE.Services.Implementation
 {
-    public class AvailableSizeService : BaseCRUDService<Model.AvailableSize, Data.AvailableSize, AvailableSizeSearchObject, AvailableSizeUpsertRequest, AvailableSizeUpsertRequest>, IAvailableSizeService
+    public class AvailableSizeService : BaseCRUDService<Model.AvailableSize, Data.AvailableSize, AvailableSizeSearchObject, AvailableSizeInsertRequest, AvailableSizeUpdateRequest>, IAvailableSizeService
     {
         public AvailableSizeService(PULSEContext context, IMapper mapper) : base(context, mapper)
         {
@@ -30,26 +30,6 @@ namespace PULSE.Services.Implementation
             query = query.Include(x => x.BicycleSize);
 
             return query;
-        }
-
-        public override Model.AvailableSize Update(int id, AvailableSizeUpsertRequest update)
-        {
-            var set = Context.Set<Data.AvailableSize>();
-
-            var entity = set.Where(x => x.ProductId == update.ProductId && x.BicycleSizeId == update.BicycleSizeId).First();
-
-            if (entity != null)
-            {
-                Mapper.Map(update, entity);
-            }
-            else
-            {
-                return null;
-            }
-
-            Context.SaveChanges();
-
-            return Mapper.Map<Model.AvailableSize>(entity);
         }
     }
 }

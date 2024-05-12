@@ -40,8 +40,12 @@ namespace PULSE.Services.Implementation
 
             var state = BaseState.CreateState((ServicingState)item.Status);
             state.CurrentEntity = item;
+            
+            state.SubmitOffer(req);
 
-            return state.SubmitOffer(req);
+            Context.SaveChanges();
+
+            return Mapper.Map<Model.Servicing>(item);
         }
 
         public Model.Servicing GetDetails(int id)
@@ -68,8 +72,12 @@ namespace PULSE.Services.Implementation
 
             var state = BaseState.CreateState((ServicingState)item.Status);
             state.CurrentEntity = item;
+            
+            state.RegisterAcceptedOffer(req);
 
-            return state.RegisterAcceptedOffer(req);
+            Context.SaveChanges();
+
+            return Mapper.Map<Model.Servicing>(item);
         }
 
         public Model.Servicing Complete(int id)
@@ -83,8 +91,12 @@ namespace PULSE.Services.Implementation
 
             var state = BaseState.CreateState((ServicingState)item.Status);
             state.CurrentEntity = item;
+            
+            state.Completed();
 
-            return state.Completed();
+            Context.SaveChanges();
+
+            return Mapper.Map<Model.Servicing>(item);
         }
 
         public IEnumerable<Model.Servicing> Get(ServicingSearchObject search)
@@ -93,7 +105,9 @@ namespace PULSE.Services.Implementation
 
             if (search?.IncludeParts == true)
             {
-                query = query.Include(q => q.ServicingParts);
+                query = query.Include(q => q.ServicingParts)
+                    .ThenInclude((q => q.Product))
+                    .ThenInclude((q => q.Brand));
             }
 
             if (search?.IncludePayment == true)
@@ -121,8 +135,7 @@ namespace PULSE.Services.Implementation
                 query = query.Where(x => x.CustomerId == search.CustomerId);
             }
 
-
-            var entity = query.AsQueryable();
+            var entity = query.OrderByDescending(x => x.Id).AsQueryable();
 
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
             {

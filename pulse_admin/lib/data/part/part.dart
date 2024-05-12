@@ -9,6 +9,7 @@ part 'part.g.dart';
 
 @JsonSerializable()
 class Part extends Product {
+  static const String discriminator = "Part";
   int? availableQty;
 
   Part();
@@ -20,4 +21,6 @@ class Part extends Product {
   bool isAvailable() {
     return (availableQty ?? 0) > 0;
   }
+
+  String getDiscriminator() => discriminator;
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
+using PULSE.Services.Data;
 
 namespace PULSE.Services
 {
@@ -49,7 +50,8 @@ namespace PULSE.Services
             CreateMap<BicycleSizeUpsertRequest, Data.BicycleSize>();
 
             CreateMap<Data.AvailableSize, Model.AvailableSize>();
-            CreateMap<AvailableSizeUpsertRequest, Data.AvailableSize>();
+            CreateMap<AvailableSizeInsertRequest, Data.AvailableSize>();
+            CreateMap<AvailableSizeUpdateRequest, Data.AvailableSize>();
 
             CreateMap<Data.Bicycle, Model.ProductAIO>();
             CreateMap<Data.Part, Model.ProductAIO>();
@@ -62,8 +64,33 @@ namespace PULSE.Services
             #endregion
 
             #region OrderSection
+            
+            CreateMap<OrderDetailsInsertRequest, Data.OrderDetailPart>();
+            CreateMap<OrderDetailsInsertRequest, Data.OrderDetailGear>();
+            CreateMap<OrderDetailsInsertRequest, Data.OrderDetailBicycle>();
+            CreateMap<OrderDetailBicycleInsertRequest, Data.OrderDetailBicycle>();
+            CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetail>()
+                .Include<OrderDetailsAIOInsertRequest, Data.OrderDetailBicycle>()
+                .Include<OrderDetailsAIOInsertRequest, Data.OrderDetailGear>()
+                .Include<OrderDetailsAIOInsertRequest, Data.OrderDetailPart>()
+                .ConstructUsing((src, context) =>
+                {
+                    return src.Discriminator switch
+                    {
+                        "Bicycle" => context.Mapper.Map<OrderDetailBicycle>(src),
+                        "Gear" => context.Mapper.Map<OrderDetailGear>(src),
+                        "Part" => context.Mapper.Map<OrderDetailPart>(src),
+                        _ => throw new Exception("Missing discriminator from order detail")
+                    };
+                });
+            CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetailBicycle>();
+            CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetailGear>();
+            CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetailPart>();
+            
+            CreateMap<OrderDetailsUpdateRequest, Data.OrderDetail>();
 
-            CreateMap<Data.OrderHeader, Model.OrderHeader>();
+            CreateMap<Data.OrderHeader, Model.OrderHeader>()
+                .ForMember(x => x.ShippingConst, opt => opt.MapFrom(x => x.ShippingConst));
             CreateMap<OrderHeaderInsertRequest, Data.OrderHeader>();
             CreateMap<OrderHeaderUpdateRequest, Data.OrderHeader>();
             CreateMap<Data.OrderDetailPart, Model.OrderDetail>();
@@ -71,13 +98,6 @@ namespace PULSE.Services
             CreateMap<Data.OrderDetailBicycle, Model.OrderDetail>();
             CreateMap<Data.OrderDetailAIO, Model.OrderDetail>();
             CreateMap<Data.OrderDetail, Model.OrderDetail>();
-
-            CreateMap<OrderDetailsInsertRequest, Data.OrderDetailPart>();
-            CreateMap<OrderDetailsInsertRequest, Data.OrderDetailGear>();
-            CreateMap<OrderDetailsInsertRequest, Data.OrderDetailBicycle>();
-            CreateMap<OrderDetailBicycleInsertRequest, Data.OrderDetailBicycle>();
-            CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetail>();
-            CreateMap<OrderDetailsUpdateRequest, Data.OrderDetail>();
 
             CreateMap<Data.Payment, Model.Payment>();
             CreateMap<PaymentInsertRequest, Data.Payment>();

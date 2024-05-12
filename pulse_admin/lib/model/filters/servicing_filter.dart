@@ -18,7 +18,7 @@ class ServicingFilter implements Filter {
     return {
       "IncludePayment": includePayment,
       "IncludeCustomer": includeCustomer,
-      "IncludeDetails": includeParts,
+      "IncludeParts": includeParts,
       "AnyField": anyField,
       "Status": status?.index,
     };

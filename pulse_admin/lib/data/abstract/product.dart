@@ -28,8 +28,10 @@ class Product extends AuditableModel {
 
   @override
   String toString() {
-    return "$brand $model";
+    return "$model";
   }
+
+  String getDiscriminator() => "NOT ALLOWED";
 }
 
 enum ProductType { Bicycle, Gear, Part }

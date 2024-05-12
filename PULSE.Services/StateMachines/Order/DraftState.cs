@@ -226,17 +226,6 @@ namespace PULSE.Services.StateMachines.Order
                 }
 
                 
-                CurrentEntity.Delivery = shippingInfo != null;
-                
-                if(CurrentEntity.Delivery == true)
-                {
-                    totalPrice += CurrentEntity.ShippingConst ?? 0;
-                    var shippingInfoDB = Mapper.Map<Data.ShippingInfo>(shippingInfo);
-                    Context.Add(shippingInfoDB);
-                    Context.SaveChanges();
-                    CurrentEntity.ShippingInfo = shippingInfoDB;
-                }
-
                 var payment = Mapper.Map<Payment>(req);
                 payment.TimeOfPayment = DateTime.Now;
                 payment.Amount = totalPrice;

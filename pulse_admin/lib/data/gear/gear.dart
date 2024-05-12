@@ -9,6 +9,7 @@ part 'gear.g.dart';
 
 @JsonSerializable()
 class Gear extends Product {
+  static const String discriminator = "Gear";
   int? availableQty;
 
   Gear();
@@ -21,4 +22,7 @@ class Gear extends Product {
   bool isAvailable() {
     return (availableQty ?? 0) > 0;
   }
+
+  @override
+  String getDiscriminator() => discriminator;
 }

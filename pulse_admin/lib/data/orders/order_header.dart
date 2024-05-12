@@ -22,6 +22,10 @@ extension Name on OrderStatus {
   String getName() {
     return "${name.substring(0, 1).toUpperCase()}${name.substring(1)}";
   }
+
+  String getNameUppercase() {
+    return name.toUpperCase();
+  }
 }
 
 @JsonSerializable()
@@ -39,7 +43,7 @@ class OrderHeader extends BaseModel {
   DateTime? timeDelivered;
   bool? onlineOrder;
   bool? delivery;
-  double? shippingCost;
+  double? shippingConst;
   int? noOfItems;
   double? total;
   ShippingInfo? shippingInfo;

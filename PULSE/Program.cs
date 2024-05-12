@@ -11,25 +11,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("basicAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-        Scheme = "basic"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-         {
-             new OpenApiSecurityScheme
-             {
-                 Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "basicAuth" }
-             },
-             new string[]{}
-         }
-    });
-});
+// builder.Services.AddSwaggerGen(c =>
+// {
+//     c.AddSecurityDefinition("basicAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+//     {
+//         Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+//         Scheme = "basic"
+//     });
+//
+//     c.AddSecurityRequirement(new OpenApiSecurityRequirement
+//     {
+//          {
+//              new OpenApiSecurityScheme
+//              {
+//                  Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "basicAuth" }
+//              },
+//              new string[]{}
+//          }
+//     });
+// });
 
 builder.Services.AddDistributedMemoryCache(); // For in-memory session storage
 builder.Services.AddSession(options =>
@@ -55,11 +55,11 @@ var app = builder.Build();
 app.UseSession();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
 
 app.UseAuthentication();
 app.UseAuthorization();

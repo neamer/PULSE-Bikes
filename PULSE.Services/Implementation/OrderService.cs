@@ -177,7 +177,7 @@ namespace PULSE.Services.Implementation
             return state.Update(update);
         }
 
-        public bool Process(int id, PaymentInsertRequest req)
+        public Model.OrderHeader Process(int id, PaymentInsertRequest req)
         {
             var item = Context.OrderHeaders.Include(q => q.OrderDetails).ThenInclude(q => q.Product).Where(x => x.Id == id).First();
 
@@ -189,14 +189,24 @@ namespace PULSE.Services.Implementation
             var state = BaseState.CreateState((OrderState)item.Status);
             state.CurrentEntity = item;
 
-            return state.Process(req, null);
+            if (!state.Process(req, null))
+            {
+                throw new HttpRequestException();
+            }
+
+            Context.SaveChanges();
+
+            return Mapper.Map<Model.OrderHeader>(item);
         }
 
         public override IQueryable<Data.OrderHeader> AddInclude(IQueryable<Data.OrderHeader> query, OrderSearchObject search = null)
         {
             if (search?.IncludeDetails == true)
             {
-                query = query.Include(q => q.OrderDetails);
+                query = query
+                    .Include(q => q.OrderDetails)
+                    .ThenInclude((q => q.Product))
+                    .ThenInclude((q => q.Brand));
             }
 
             if (search?.IncludePayment == true)
@@ -207,6 +217,11 @@ namespace PULSE.Services.Implementation
             if (search?.IncludeCustomer == true)
             {
                 query = query.Include(q => q.Customer);
+            }
+            
+            if (search?.IncludeShippingInfo == true)
+            {
+                query = query.Include(q => q.ShippingInfo);
             }
 
             return query;
@@ -364,6 +379,8 @@ namespace PULSE.Services.Implementation
 
             state.Pack();
 
+            Context.SaveChanges();
+
             return Mapper.Map<OrderHeader>(item);
 
         }
@@ -381,6 +398,8 @@ namespace PULSE.Services.Implementation
             state.CurrentEntity = item;
 
             state.Ship();
+            
+            Context.SaveChanges();
 
             return Mapper.Map<OrderHeader>(item);
         }
@@ -398,6 +417,8 @@ namespace PULSE.Services.Implementation
             state.CurrentEntity = item;
 
             state.Deliver();
+            
+            Context.SaveChanges();
 
             return Mapper.Map<OrderHeader>(item);
         }

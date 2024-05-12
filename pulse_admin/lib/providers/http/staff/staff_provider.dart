@@ -2,17 +2,17 @@ import 'dart:convert';
 
 import 'package:pulse_admin/core/auth/authorization.dart';
 import 'package:pulse_admin/data/user/role.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 import 'package:pulse_admin/providers/http/base/base_crud_provider.dart';
 import 'package:pulse_admin/providers/http/base/base_provider.dart';
 import 'package:pulse_admin/utils/http_utils.dart';
 
-class StaffProvider extends BaseCRUDProvider<User> {
+class StaffProvider extends BaseCRUDProvider<Staff> {
   StaffProvider() : super('Staff');
 
   @override
-  User fromJson(data) {
-    return User.fromJson(data);
+  Staff fromJson(data) {
+    return Staff.fromJson(data);
   }
 
   Future<List<Role>> getRoles() async {

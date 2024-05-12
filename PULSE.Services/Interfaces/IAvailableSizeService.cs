@@ -4,7 +4,7 @@ using PULSE.Model.SearchObjects;
 
 namespace PULSE.Services.Interfaces
 {
-    public interface IAvailableSizeService : ICRUDService<AvailableSize, AvailableSizeSearchObject, AvailableSizeUpsertRequest, AvailableSizeUpsertRequest>
+    public interface IAvailableSizeService : ICRUDService<AvailableSize, AvailableSizeSearchObject, AvailableSizeInsertRequest, AvailableSizeUpdateRequest>
     {
     }
 }

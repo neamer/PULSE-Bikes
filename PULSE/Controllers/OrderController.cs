@@ -20,7 +20,7 @@ namespace PULSE.Controllers
 
         [Authorize(Roles = "Administrator,Salesperson")]
         public override ActionResult<OrderHeader> Insert([FromBody] OrderHeaderInsertRequest insert)
-        {
+        { 
             return base.Insert(insert);
         }
 
@@ -32,18 +32,11 @@ namespace PULSE.Controllers
 
         [Authorize(Roles = "Administrator,Salesperson")]
         [HttpPost("Process/{id}")]
-        public virtual ActionResult<HttpStatusMessage> Process(int id, [FromBody] PaymentInsertRequest payment)
+        public virtual ActionResult<OrderHeader> Process(int id, [FromBody] PaymentInsertRequest payment)
         {
             try
             {
-                if( ((IOrderService)this.Service).Process(id, payment))
-                {
-                    return Ok(new HttpStatusMessage() { Success = true});
-                }
-                else
-                {
-                    return BadRequest(new HttpStatusMessage() { Success = false });
-                }
+                return ((IOrderService)this.Service).Process(id, payment);
             }
             catch (InvalidOperationException ex)
             {

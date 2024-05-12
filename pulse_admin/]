@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:pulse_admin/components/atoms/buttons/button.dart';
+import 'package:pulse_admin/components/atoms/buttons/ghost_button.dart';
+import 'package:pulse_admin/components/organisms/dialog/base/dialog_base.dart';
+import 'package:pulse_admin/core/http/request_state.dart';
+import 'package:pulse_admin/core/style/colors.dart';
+import 'package:pulse_admin/core/style/spacing.dart';
+
+class EditDialog extends StatefulWidget {
+  final Future Function() onSubmit;
+  final String title;
+
+  const EditDialog({super.key, required this.onSubmit, required this.title});
+
+  @override
+  State<EditDialog> createState() => _EditDialogState();
+}
+
+class _EditDialogState extends State<EditDialog> {
+  RequestState _submitState = RequestState.init;
+
+  Future<void> handleConfirmClicked() async {
+    setState(() {
+      _submitState = RequestState.loading;
+    });
+
+    await widget.onSubmit();
+
+    Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+
+    return DialogBase(
+      icon: Icons.error_outline,
+      title: widget.title,
+      content: null,
+      actions: [
+        SizedBox(
+          width: 100,
+          child: Button(
+            text: "Update",
+            loading: _submitState == RequestState.loading,
+            onClick: handleConfirmClicked,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: GhostButton(
+            color: ColorTheme.n700,
+            text: "Cancel",
+            onClick: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}

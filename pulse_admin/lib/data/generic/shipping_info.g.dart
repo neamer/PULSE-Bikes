@@ -8,16 +8,16 @@ part of 'shipping_info.dart';
 
 ShippingInfo _$ShippingInfoFromJson(Map<String, dynamic> json) => ShippingInfo()
   ..country = json['country'] as String?
-  ..state = json['state'] as String?
+  ..stateOrProvince = json['stateOrProvince'] as String?
   ..city = json['city'] as String?
-  ..street = json['street'] as String?
+  ..streetAddress = json['streetAddress'] as String?
   ..zipCode = json['zipCode'] as String?;
 
 Map<String, dynamic> _$ShippingInfoToJson(ShippingInfo instance) =>
     <String, dynamic>{
       'country': instance.country,
-      'state': instance.state,
+      'stateOrProvince': instance.stateOrProvince,
       'city': instance.city,
-      'street': instance.street,
+      'streetAddress': instance.streetAddress,
       'zipCode': instance.zipCode,
     };

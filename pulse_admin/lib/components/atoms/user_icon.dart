@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 
 class UserIcon extends StatelessWidget {
-  final UserRole? role;
+  final StaffRole? role;
 
   const UserIcon({super.key, this.role});
 
   IconData getIconDate() {
     switch (role) {
-      case UserRole.administrator:
+      case StaffRole.administrator:
         return Icons.security;
-      case UserRole.mechanic:
+      case StaffRole.mechanic:
         return Icons.build_outlined;
-      case UserRole.storekeeper:
+      case StaffRole.storekeeper:
         return Icons.store_mall_directory_outlined;
       default:
         return Icons.shopping_cart_outlined;

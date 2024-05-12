@@ -20,7 +20,10 @@ class OrderListFilters extends StatefulWidget {
 class _OrderListFilterState extends State<OrderListFilters> {
   final TextEditingController searchController = TextEditingController();
   final OrderFilter _data = OrderFilter(
-      includeCustomer: true, includeDetails: true, includePayment: true);
+      includeCustomer: true,
+      includeDetails: true,
+      includePayment: true,
+      includeShippingInfo: true);
 
   @override
   void initState() {
@@ -28,7 +31,13 @@ class _OrderListFilterState extends State<OrderListFilters> {
     searchController.addListener(() => setState(() {
           _data.anyField = searchController.text;
         }));
+    context.read<ListPageProvider>().fetchEvent.subscribe((arg) {
+      fetchWithFilters();
+    });
   }
+
+  void fetchWithFilters() =>
+      context.read<ListPageProvider>().searchEvent.publish(_data);
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +57,7 @@ class _OrderListFilterState extends State<OrderListFilters> {
             onChanged: (value) => setState(() {
                   _data.status = value;
                 })),
-        Button(
-            text: "Search",
-            onClick: () =>
-                context.read<ListPageProvider>().searchEvent.publish(_data))
+        Button(text: "Search", onClick: fetchWithFilters)
       ],
     );
   }

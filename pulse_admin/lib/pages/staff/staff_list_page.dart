@@ -7,7 +7,7 @@ import 'package:pulse_admin/components/organisms/lists/items/staff_list_item.dar
 import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 import 'package:pulse_admin/model/filters/staff_filter.dart';
 import 'package:pulse_admin/pages/staff/staff_add_page.dart';
 import 'package:pulse_admin/pages/staff/staff_details_page.dart';
@@ -36,14 +36,14 @@ class _StaffListPage extends StatelessWidget {
   void onActionSuccess(BuildContext context) =>
       context.read<ListPageProvider>().fetchEvent.publish(null);
 
-  Future deleteItem(BuildContext context, User item) async {
+  Future deleteItem(BuildContext context, Staff item) async {
     await context.read<StaffProvider>().delete(item.id!);
     onActionSuccess(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListPage<User, StaffProvider>(
+    return ListPage<Staff, StaffProvider>(
       title: "Staff",
       actions: [
         Padding(

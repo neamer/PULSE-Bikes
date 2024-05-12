@@ -10,6 +10,8 @@ part 'bicycle.g.dart';
 
 @JsonSerializable()
 class Bicycle extends Product {
+  static const String discriminator = "Bicycle";
+
   double? weight;
   int? productionYear;
   String? wheelSize;
@@ -29,4 +31,7 @@ class Bicycle extends Product {
             0) >
         0;
   }
+
+  @override
+  String getDiscriminator() => discriminator;
 }

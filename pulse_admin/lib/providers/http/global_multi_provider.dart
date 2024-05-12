@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/providers/http/auth_provider.dart';
+import 'package:pulse_admin/providers/http/customer/customer_provider.dart';
 import 'package:pulse_admin/providers/http/orders/order_provider.dart';
+import 'package:pulse_admin/providers/http/products/available_size_provider.dart';
 import 'package:pulse_admin/providers/http/products/bicycle_category_provider.dart';
 import 'package:pulse_admin/providers/http/products/bicycle_provider.dart';
 import 'package:pulse_admin/providers/http/products/bicycle_size_provider.dart';
@@ -36,6 +38,8 @@ class GlobalMultiProvider extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ServicingProvider()),
         ChangeNotifierProvider(create: (_) => StaffProvider()),
         ChangeNotifierProvider(create: (_) => ProductImageProvider()),
+        ChangeNotifierProvider(create: (_) => AvailableSizeProvider()),
+        ChangeNotifierProvider(create: (_) => CustomerProvider()),
       ],
       child: child,
     );

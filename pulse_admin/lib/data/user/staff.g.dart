@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'staff.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) => User()
+Staff _$StaffFromJson(Map<String, dynamic> json) => Staff()
   ..id = json['id'] as int?
   ..firstName = json['firstName'] as String?
   ..lastName = json['lastName'] as String?
@@ -24,7 +24,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
       : Role.fromJson(json['role'] as Map<String, dynamic>)
   ..status = json['status'] as bool?;
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$StaffToJson(Staff instance) => <String, dynamic>{
       'id': instance.id,
       'firstName': instance.firstName,
       'lastName': instance.lastName,

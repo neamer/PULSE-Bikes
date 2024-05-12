@@ -16,6 +16,7 @@ class NamedTextFormFieldGroup extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final int maxLines;
+  final bool readOnly;
 
   const NamedTextFormFieldGroup(
       {Key? key,
@@ -28,6 +29,7 @@ class NamedTextFormFieldGroup extends StatelessWidget {
       required this.name,
       this.initialValue,
       this.obscureText = false,
+      this.readOnly = false,
       this.maxLines = 1})
       : super(key: key);
 
@@ -44,6 +46,7 @@ class NamedTextFormFieldGroup extends StatelessWidget {
           child: FieldLabel(label),
         ),
         FormBuilderTextField(
+          readOnly: readOnly,
           maxLines: maxLines,
           obscureText: obscureText,
           initialValue: initialValue,

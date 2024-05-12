@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/components/atoms/typography/list_text_content.dart';
 import 'package:pulse_admin/components/organisms/lists/items/list_item_base.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 
 class StaffListItem extends StatelessWidget {
-  final User data;
+  final Staff data;
   final VoidCallback onClick;
   final List<Widget> actions;
 

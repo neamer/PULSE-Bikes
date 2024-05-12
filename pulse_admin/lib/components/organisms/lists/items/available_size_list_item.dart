@@ -16,8 +16,8 @@ class AvailableSizeListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListItemBase(
-      backgroundColor: ColorTheme.m550,
-      hoverColor: ColorTheme.m550,
+      backgroundColor: ColorTheme.m600,
+      hoverColor: ColorTheme.m600,
       onClick: onClick,
       actions: actions,
       children: [

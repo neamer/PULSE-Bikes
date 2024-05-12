@@ -11,12 +11,6 @@
   "profiles": {
     "PULSE": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:7098;http://localhost:5098",
       "dotnetRunMessages": true
     },
     "IIS Express": {

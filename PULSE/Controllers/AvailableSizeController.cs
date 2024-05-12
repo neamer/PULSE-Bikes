@@ -9,7 +9,7 @@ namespace PULSE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AvailableSizeController : BaseCRUDController<AvailableSize, AvailableSizeSearchObject, AvailableSizeUpsertRequest, AvailableSizeUpsertRequest>
+    public class AvailableSizeController : BaseCRUDController<AvailableSize, AvailableSizeSearchObject, AvailableSizeInsertRequest, AvailableSizeUpdateRequest>
     {
         public AvailableSizeController(IAvailableSizeService service)
             : base(service)
@@ -17,7 +17,7 @@ namespace PULSE.Controllers
         }
 
         [Authorize(Roles = "Administrator,Storekeeper")]
-        public override ActionResult<AvailableSize> Insert([FromBody] AvailableSizeUpsertRequest insert)
+        public override ActionResult<AvailableSize> Insert([FromBody] AvailableSizeInsertRequest insert)
         {
             try
             {
@@ -30,8 +30,7 @@ namespace PULSE.Controllers
         }
 
         [Authorize(Roles = "Administrator,Storekeeper")]
-        [HttpPut]
-        public override ActionResult<AvailableSize> Update(int id, [FromBody] AvailableSizeUpsertRequest update)
+        public override ActionResult<AvailableSize> Update(int id, [FromBody] AvailableSizeUpdateRequest update)
         {
             return base.Update(id, update);
         }

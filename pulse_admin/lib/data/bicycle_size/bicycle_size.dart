@@ -17,4 +17,10 @@ class BicycleSize extends BaseModel {
 
   @override
   String toString() => size ?? "";
+
+  @override
+  bool operator ==(covariant BicycleSize other) => id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
 }

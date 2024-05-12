@@ -4,11 +4,24 @@ import 'package:pulse_admin/components/molecules/spacing/spaced_base.dart';
 class SpacedRow extends StatelessWidget with SpacedBase {
   final List<Widget> children;
   final double spacing;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
+  final MainAxisSize mainAxisSize;
 
-  const SpacedRow({super.key, required this.children, required this.spacing});
+  const SpacedRow(
+      {super.key,
+      required this.children,
+      required this.spacing,
+      this.mainAxisAlignment = MainAxisAlignment.start,
+      this.crossAxisAlignment = CrossAxisAlignment.center,
+      this.mainAxisSize = MainAxisSize.max});
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: buildSpacedChildren(children, spacing));
+    return Row(
+        mainAxisSize: mainAxisSize,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        children: buildSpacedChildren(children, spacing));
   }
 }

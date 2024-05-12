@@ -17,7 +17,7 @@ namespace PULSE.Model.Requests
         public int CustomerId { get; set; }
         public bool OnlineOrder { get; set; }
         public bool Delivery { get; set; }
-        public decimal ShippingConst { get; set; }
+        public decimal? ShippingConst { get; set; }
 
         public virtual ShippingInfoUpsertRequest? ShippingInfo { get; set; }
         public virtual ICollection<OrderDetailsAIOInsertRequest> OrderDetails { get; set; }

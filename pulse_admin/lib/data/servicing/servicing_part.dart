@@ -15,6 +15,13 @@ class ServicingPart extends BaseModel {
 
   ServicingPart();
 
+  ServicingPart.fromPart(Part source) {
+    quantity = 1;
+    product = source;
+    productId = source.id;
+    unitPrice = source.price;
+  }
+
   factory ServicingPart.fromJson(Map<String, dynamic> json) =>
       _$ServicingPartFromJson(json);
 

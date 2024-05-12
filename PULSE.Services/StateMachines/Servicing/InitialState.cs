@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PULSE.Model.Requests;
 using PULSE.Services.Data;
+using PULSE.Services.Utils;
 
 namespace PULSE.Services.StateMachines.Servicings
 {
@@ -14,6 +15,7 @@ namespace PULSE.Services.StateMachines.Servicings
         public override Model.Servicing RegisterServicing(RegisterServicingRequest request)
         {
             var item = Mapper.Map<Servicing>(request);
+            item.ServicingNumber = ServicingUtils.GenerateServicingNumber();
             item.Status = (int)Model.ServicingState.PendingReview;
             item.CreatedAt = DateTime.Now;
             item.UpdatedAt = DateTime.Now;

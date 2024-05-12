@@ -4,7 +4,7 @@ import 'package:pulse_admin/components/atoms/user_icon.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/user/user.dart';
+import 'package:pulse_admin/data/user/staff.dart';
 import 'package:pulse_admin/pages/login_page.dart';
 import 'package:pulse_admin/providers/http/auth_provider.dart';
 
@@ -16,7 +16,7 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
-  User? _data;
+  Staff? _data;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _UserCardState extends State<UserCard> {
           child: Padding(
             padding: const EdgeInsets.all(Spacing.md),
             child: Row(children: [
-              UserIcon(role: _data?.getUserRole()),
+              UserIcon(role: _data?.getStaffRole()),
               const SizedBox(
                 width: Spacing.md,
               ),
