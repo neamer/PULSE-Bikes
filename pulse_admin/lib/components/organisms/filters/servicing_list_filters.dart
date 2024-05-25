@@ -5,8 +5,8 @@ import 'package:pulse_admin/components/atoms/fields/text_field.dart';
 import 'package:pulse_admin/components/molecules/select/single/servicing_status_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/filters/servicing_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/servicing_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 
 class ServicingListFilters extends StatefulWidget {
   const ServicingListFilters({super.key});

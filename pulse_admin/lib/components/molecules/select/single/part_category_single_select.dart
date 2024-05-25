@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/part_category_provider.dart';
+import 'package:pulse_admin/api/types/product_category/product_category.dart';
 import 'package:pulse_admin/components/molecules/select/single/abstract_single_select.dart';
 import 'package:pulse_admin/components/molecules/select/single/generic_single_select.dart';
-import 'package:pulse_admin/data/product_category/product_category.dart';
-import 'package:pulse_admin/providers/http/products/part_category_provider.dart';
 
 class PartCategorySingleSelect extends AbstractSingleSelect {
   const PartCategorySingleSelect(

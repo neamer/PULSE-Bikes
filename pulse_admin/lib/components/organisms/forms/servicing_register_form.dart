@@ -6,7 +6,7 @@ import 'package:pulse_admin/components/molecules/form/named_text_form_field_grou
 import 'package:pulse_admin/components/molecules/form/picker/customer_picker_form_group.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/forms/servicing_register_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/servicing_register_form_field_names.dart';
 
 class ServicingRegisterForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;

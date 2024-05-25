@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/bicycle/bicycle.dart';
 import 'package:pulse_admin/components/atoms/typography/list_text_content.dart';
 import 'package:pulse_admin/components/organisms/lists/items/list_item_base.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/bicycle/bicycle.dart';
 
 class BicycleListItem extends StatelessWidget {
   final Bicycle data;

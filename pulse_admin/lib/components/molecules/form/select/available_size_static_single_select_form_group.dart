@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pulse_admin/api/types/available_size/available_size.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/select/single/abstract_single_select.dart';
 import 'package:pulse_admin/components/molecules/select/single/available_size_static_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/available_size/available_size.dart';
 
 class AvailableSizeSingleSelectStaticFormGroup<T extends AbstractSingleSelect>
     extends StatelessWidget {

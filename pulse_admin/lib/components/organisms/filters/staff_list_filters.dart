@@ -6,8 +6,8 @@ import 'package:pulse_admin/components/molecules/select/single/role_single_selec
 import 'package:pulse_admin/components/molecules/select/single/status_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/filters/staff_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/staff_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 
 class StaffListFilters extends StatefulWidget {
   const StaffListFilters({super.key});

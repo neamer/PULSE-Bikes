@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pulse_admin/api/types/orders/order_header.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/orders/order_header.dart';
 
 Map<String, String> messageWithoutDelivery = <String, String>{
   "DRAFT": "Order is in draft state",

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/available_size_provider.dart';
+import 'package:pulse_admin/api/types/available_size/available_size.dart';
+import 'package:pulse_admin/api/types/available_size/available_size_insert_request.dart';
 import 'package:pulse_admin/components/organisms/forms/available_size_form.dart';
 import 'package:pulse_admin/components/templates/edit_dialog.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
-import 'package:pulse_admin/data/available_size/available_size.dart';
-import 'package:pulse_admin/data/available_size/available_size_insert_request.dart';
-import 'package:pulse_admin/model/forms/available_size_form_field_names.dart';
-import 'package:pulse_admin/providers/http/products/available_size_provider.dart';
+import 'package:pulse_admin/domain/types/forms/available_size_form_field_names.dart';
 
 class AvailableSizeAddDialog extends StatefulWidget {
   final void Function(AvailableSize) onSuccess;

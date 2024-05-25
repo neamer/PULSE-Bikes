@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/core/types/list_item.dart';
+import 'package:pulse_admin/domain/types/list_item.dart';
 
 class InlineList<T> extends StatelessWidget {
   final Widget? listHeader;

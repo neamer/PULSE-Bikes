@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pulse_admin/api/types/orders/order_header.dart';
 import 'package:pulse_admin/components/atoms/typography/list_text_content.dart';
 import 'package:pulse_admin/components/organisms/lists/items/list_item_base.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/orders/order_header.dart';
 
 class OrderListItem extends StatelessWidget {
   final OrderHeader data;

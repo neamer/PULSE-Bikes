@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/bicycle/bicycle.dart';
 import 'package:pulse_admin/components/organisms/forms/bicycle_form.dart';
 import 'package:pulse_admin/components/templates/list_page_overlay.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:pulse_admin/data/bicycle/bicycle.dart';
 
 class BicycleDetailsPage extends StatefulWidget {
   final Bicycle data;

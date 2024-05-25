@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pulse_admin/api/types/orders/order_detail.dart';
 import 'package:pulse_admin/components/organisms/forms/order_detail_form.dart';
 import 'package:pulse_admin/components/templates/edit_dialog.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
-import 'package:pulse_admin/data/orders/order_detail.dart';
-import 'package:pulse_admin/model/forms/order_detail_form_fields.dart';
+import 'package:pulse_admin/domain/types/forms/order_detail_form_fields.dart';
 
 class OrderDetailEditDialog extends StatefulWidget {
   final OrderDetail initialValues;

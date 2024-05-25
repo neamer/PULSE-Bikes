@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pulse_admin/api/types/part/part.dart';
+import 'package:pulse_admin/api/types/servicing/servicing_part.dart';
 import 'package:pulse_admin/components/atoms/buttons/ghost_button.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
@@ -10,8 +12,6 @@ import 'package:pulse_admin/components/templates/inline_list.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/part/part.dart';
-import 'package:pulse_admin/data/servicing/servicing_part.dart';
 import 'package:pulse_admin/pages/products/part/part_select_page.dart';
 import 'package:pulse_admin/utils/confirmation_util.dart';
 import 'package:pulse_admin/utils/dialog_util.dart';

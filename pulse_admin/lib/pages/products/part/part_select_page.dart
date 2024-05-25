@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/part_provider.dart';
+import 'package:pulse_admin/api/types/part/part.dart';
 import 'package:pulse_admin/components/organisms/filters/basic_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/product_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/part_list_item.dart';
 import 'package:pulse_admin/components/templates/list_page.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
-import 'package:pulse_admin/data/part/part.dart';
-import 'package:pulse_admin/model/filters/part_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/products/part_provider.dart';
+import 'package:pulse_admin/domain/types/filters/part_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 
 class PartPickerPage extends StatefulWidget {
   final Delegate<Part> onPick;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pulse_admin/api/types/available_size/available_size.dart';
 import 'package:pulse_admin/components/organisms/forms/bicycle_size_select_form.dart';
 import 'package:pulse_admin/components/templates/edit_dialog.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
-import 'package:pulse_admin/data/available_size/available_size.dart';
-import 'package:pulse_admin/model/forms/bicycle_size_select_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/bicycle_size_select_form_field_names.dart';
 
 class AvailableSizeSelectDialog extends StatefulWidget {
   final List<AvailableSize> options;

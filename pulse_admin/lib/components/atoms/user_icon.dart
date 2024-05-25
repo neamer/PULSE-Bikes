@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/user/staff.dart';
 
 class UserIcon extends StatelessWidget {
   final StaffRole? role;

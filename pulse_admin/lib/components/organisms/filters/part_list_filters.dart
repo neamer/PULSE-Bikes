@@ -6,8 +6,8 @@ import 'package:pulse_admin/components/molecules/select/single/brand_single_sele
 import 'package:pulse_admin/components/molecules/select/single/part_category_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/filters/part_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/part_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 
 class PartListFilters extends StatefulWidget {
   const PartListFilters({super.key});

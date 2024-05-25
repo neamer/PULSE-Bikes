@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/user/customer.dart';
 import 'package:pulse_admin/components/molecules/form/named_picker_form_field_group.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
-import 'package:pulse_admin/data/user/customer.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 import 'package:pulse_admin/pages/customer/customer_picker_page.dart';
 import 'package:pulse_admin/utils/navigation_utils.dart';
 

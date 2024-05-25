@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/servicing/servicing_provider.dart';
+import 'package:pulse_admin/api/types/payment/payment_insert_request.dart';
+import 'package:pulse_admin/api/types/servicing/requests/servicing_offer_insert_request.dart';
+import 'package:pulse_admin/api/types/servicing/servicing.dart';
+import 'package:pulse_admin/api/types/servicing/servicing_status.dart';
 import 'package:pulse_admin/components/atoms/buttons/ghost_button.dart';
 import 'package:pulse_admin/components/atoms/buttons/submit_button.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
@@ -10,11 +15,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/payment/payment_insert_request.dart';
-import 'package:pulse_admin/data/servicing/requests/servicing_offer_insert_request.dart';
-import 'package:pulse_admin/data/servicing/servicing.dart';
-import 'package:pulse_admin/data/servicing/servicing_status.dart';
-import 'package:pulse_admin/providers/http/servicing/servicing_provider.dart';
 
 class ServicingDetailsPage extends StatefulWidget {
   final Servicing data;

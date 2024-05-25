@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/auth/auth_provider.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 import 'package:pulse_admin/components/atoms/user_icon.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/user/staff.dart';
 import 'package:pulse_admin/pages/login_page.dart';
-import 'package:pulse_admin/providers/http/auth_provider.dart';
 
 class UserCard extends StatefulWidget {
   const UserCard({super.key});

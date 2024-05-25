@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/api/types/servicing/servicing.dart';
+import 'package:pulse_admin/api/types/servicing/servicing_status.dart';
 import 'package:pulse_admin/components/molecules/form/named_text_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/picker/customer_picker_form_group.dart';
 import 'package:pulse_admin/components/molecules/form/static_text_field_group.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/servicing/servicing.dart';
-import 'package:pulse_admin/data/servicing/servicing_status.dart';
-import 'package:pulse_admin/model/forms/servicing_details_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/servicing_details_form_field_names.dart';
 
 class ServicingDetailsForm extends StatelessWidget {
   final Servicing initialValues;

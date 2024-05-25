@@ -6,8 +6,8 @@ import 'package:pulse_admin/components/molecules/select/single/bicycle_category_
 import 'package:pulse_admin/components/molecules/select/single/brand_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/model/filters/bicycle_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/bicycle_filter.dart';
 
 class BicycleListFilters extends StatefulWidget {
   const BicycleListFilters({super.key});

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pulse_admin/api/types/product_category/product_category.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/select/single/abstract_single_select.dart';
 import 'package:pulse_admin/components/molecules/select/single/gear_category_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/product_category/product_category.dart';
 
 class GearCategorySingleSelectFormGroup<T extends AbstractSingleSelect>
     extends StatelessWidget {

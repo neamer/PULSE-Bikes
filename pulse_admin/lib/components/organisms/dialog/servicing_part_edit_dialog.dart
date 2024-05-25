@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pulse_admin/api/types/servicing/servicing_part.dart';
 import 'package:pulse_admin/components/organisms/forms/servicing_part_form.dart';
 import 'package:pulse_admin/components/templates/edit_dialog.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
-import 'package:pulse_admin/data/servicing/servicing_part.dart';
-import 'package:pulse_admin/model/forms/servicing_part_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/servicing_part_form_field_names.dart';
 
 class ServicingPartEditDialog extends StatefulWidget {
   final ServicingPart initialValues;

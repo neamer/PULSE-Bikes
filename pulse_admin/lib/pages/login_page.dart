@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/auth/auth_provider.dart';
+import 'package:pulse_admin/api/types/user/requests/login_request.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/molecules/form/text_form_field_group.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/layout/layout.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/user/requests/login_request.dart';
-import 'package:pulse_admin/providers/http/auth_provider.dart';
 
 class LoginPage extends StatefulWidget {
   static const String route = '/login';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/available_size/available_size.dart';
+import 'package:pulse_admin/api/types/orders/order_detail.dart';
+import 'package:pulse_admin/api/types/servicing/servicing_part.dart';
 import 'package:pulse_admin/components/organisms/dialog/available_size_add_dialog.dart';
 import 'package:pulse_admin/components/organisms/dialog/available_size_edit_dialog.dart';
 import 'package:pulse_admin/components/organisms/dialog/available_size_select_dialog.dart';
 import 'package:pulse_admin/components/organisms/dialog/order_detail_edit_dialog.dart';
 import 'package:pulse_admin/components/organisms/dialog/servicing_part_edit_dialog.dart';
-import 'package:pulse_admin/data/available_size/available_size.dart';
-import 'package:pulse_admin/data/orders/order_detail.dart';
-import 'package:pulse_admin/data/servicing/servicing_part.dart';
 
 void showAvailableSizeEditDialog(
     {required BuildContext context,

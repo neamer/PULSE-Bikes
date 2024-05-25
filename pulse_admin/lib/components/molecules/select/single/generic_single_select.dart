@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/components/atoms/dropdown.dart';
 import 'package:pulse_admin/core/http/request_state.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
-import 'package:pulse_admin/core/types/list_item.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
+import 'package:pulse_admin/domain/types/list_item.dart';
 
 class SingleSelect<T> extends StatefulWidget {
   const SingleSelect(

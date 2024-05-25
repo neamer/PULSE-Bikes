@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/staff/staff_provider.dart';
+import 'package:pulse_admin/api/types/user/role.dart';
 import 'package:pulse_admin/components/molecules/select/single/abstract_single_select.dart';
 import 'package:pulse_admin/components/molecules/select/single/generic_single_select.dart';
-import 'package:pulse_admin/data/user/role.dart';
-import 'package:pulse_admin/providers/http/staff/staff_provider.dart';
 
 class RoleSingleSelect extends AbstractSingleSelect<Role> {
   const RoleSingleSelect(

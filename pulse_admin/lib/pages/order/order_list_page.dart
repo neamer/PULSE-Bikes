@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/orders/order_provider.dart';
+import 'package:pulse_admin/api/types/orders/order_header.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/organisms/filters/order_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/order_list_header.dart';
@@ -7,12 +9,10 @@ import 'package:pulse_admin/components/organisms/lists/items/order_list_item.dar
 import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/orders/order_header.dart';
-import 'package:pulse_admin/model/filters/order_filter.dart';
+import 'package:pulse_admin/domain/types/filters/order_filter.dart';
 import 'package:pulse_admin/pages/order/order_add_page.dart';
 import 'package:pulse_admin/pages/order/order_details_page.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/orders/order_provider.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 import 'package:pulse_admin/utils/confirmation_util.dart';
 import 'package:pulse_admin/utils/navigation_utils.dart';
 

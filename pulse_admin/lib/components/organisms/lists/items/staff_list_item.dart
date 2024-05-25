@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 import 'package:pulse_admin/components/atoms/typography/list_text_content.dart';
 import 'package:pulse_admin/components/organisms/lists/items/list_item_base.dart';
-import 'package:pulse_admin/data/user/staff.dart';
 
 class StaffListItem extends StatelessWidget {
   final Staff data;

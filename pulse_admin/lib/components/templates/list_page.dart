@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/base/base_provider.dart';
 import 'package:pulse_admin/components/molecules/errors/error_state.dart';
 import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/core/types/list_item.dart';
-import 'package:pulse_admin/model/filters/abstract_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/base/base_provider.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/abstract_filter.dart';
+import 'package:pulse_admin/domain/types/list_item.dart';
 
 class ListPage<T, TProvider extends BaseProvider<T>> extends StatefulWidget {
   final String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_admin/components/atoms/dropdown.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 
 class StatusSingleSelect extends StatefulWidget {
   final double width;

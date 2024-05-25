@@ -4,8 +4,8 @@ import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/atoms/fields/text_field.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/filters/basic_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/basic_filter.dart';
 
 class BasicListFilters extends StatefulWidget {
   const BasicListFilters({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/product_image/product_image.dart';
 import 'package:pulse_admin/components/atoms/images/image_add_button.dart';
 import 'package:pulse_admin/components/atoms/images/image_tile.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/product_image/product_image.dart';
 
 class ImageFieldGroup extends StatefulWidget {
   final bool enabled;

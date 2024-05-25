@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/bicycle_provider.dart';
+import 'package:pulse_admin/api/types/gear/bicycle_upsert_request.dart';
 import 'package:pulse_admin/components/atoms/buttons/submit_button.dart';
 import 'package:pulse_admin/components/organisms/forms/bicycle_form.dart';
 import 'package:pulse_admin/components/templates/list_page_overlay.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:pulse_admin/data/gear/bicycle_upsert_request.dart';
-import 'package:pulse_admin/providers/http/products/bicycle_provider.dart';
 
 class BicycleAddPage extends StatefulWidget {
   final Function onSuccess;

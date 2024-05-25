@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/gear_provider.dart';
+import 'package:pulse_admin/api/types/gear/gear.dart';
 import 'package:pulse_admin/components/organisms/filters/basic_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/product_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/gear_list_item.dart';
 import 'package:pulse_admin/components/templates/list_page.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
-import 'package:pulse_admin/data/gear/gear.dart';
-import 'package:pulse_admin/model/filters/gear_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/products/gear_provider.dart';
+import 'package:pulse_admin/domain/types/filters/gear_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 
 class GearPickerPage extends StatefulWidget {
   final Delegate<Gear> onPick;

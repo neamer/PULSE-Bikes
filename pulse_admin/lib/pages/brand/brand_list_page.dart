@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/brand_provider.dart';
+import 'package:pulse_admin/api/types/brand/brand.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/organisms/filters/basic_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/basic_list_header.dart';
@@ -7,13 +9,11 @@ import 'package:pulse_admin/components/organisms/lists/items/brand_list_item.dar
 import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/brand/brand.dart';
-import 'package:pulse_admin/model/filters/basic_filter.dart';
+import 'package:pulse_admin/domain/types/filters/basic_filter.dart';
 import 'package:pulse_admin/pages/brand/brand_add_page.dart';
 import 'package:pulse_admin/pages/brand/brand_details_page.dart';
 import 'package:pulse_admin/pages/brand/brand_edit_page.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/products/brand_provider.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 import 'package:pulse_admin/utils/confirmation_util.dart';
 import 'package:pulse_admin/utils/navigation_utils.dart';
 

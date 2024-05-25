@@ -6,8 +6,8 @@ import 'package:pulse_admin/components/molecules/select/single/brand_single_sele
 import 'package:pulse_admin/components/molecules/select/single/gear_category_single_select.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/model/filters/gear_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
+import 'package:pulse_admin/domain/types/filters/gear_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 
 class GearListFilters extends StatefulWidget {
   const GearListFilters({super.key});

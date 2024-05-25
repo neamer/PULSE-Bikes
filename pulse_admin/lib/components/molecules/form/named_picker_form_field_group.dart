@@ -4,7 +4,7 @@ import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 
 class NamedPickerFormFieldGroup<T> extends StatefulWidget {
   final String name;

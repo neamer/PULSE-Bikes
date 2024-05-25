@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/servicing/servicing_part.dart';
 import 'package:pulse_admin/components/atoms/typography/list_text_content.dart';
 import 'package:pulse_admin/components/organisms/lists/items/list_item_base.dart';
-import 'package:pulse_admin/data/servicing/servicing_part.dart';
 
 class ServicingPartListItem extends StatelessWidget {
   final ServicingPart data;

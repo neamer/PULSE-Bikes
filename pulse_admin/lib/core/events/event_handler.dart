@@ -1,4 +1,4 @@
-import 'package:pulse_admin/core/types/delegate.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 
 class EventHandler<T> {
   final List<Delegate<T>> _subscribers = [];

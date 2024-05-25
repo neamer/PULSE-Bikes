@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/api/types/orders/order_detail.dart';
+import 'package:pulse_admin/api/types/orders/order_header.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/form/named_checkbox_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_numeric_form_field_group.dart';
@@ -14,9 +15,7 @@ import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/components/organisms/lists/order_detail_form_group.dart';
 import 'package:pulse_admin/components/organisms/order_tracker.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/orders/order_detail.dart';
-import 'package:pulse_admin/data/orders/order_header.dart';
-import 'package:pulse_admin/model/forms/order_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/order_form_field_names.dart';
 
 class OrderForm extends StatefulWidget {
   final bool showOrderNumber;

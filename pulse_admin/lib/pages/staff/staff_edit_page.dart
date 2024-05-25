@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/staff/staff_provider.dart';
+import 'package:pulse_admin/api/types/user/requests/staff_update_request.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 import 'package:pulse_admin/components/atoms/buttons/submit_button.dart';
 import 'package:pulse_admin/components/organisms/forms/staff_form.dart';
 import 'package:pulse_admin/components/templates/list_page_overlay.dart';
 import 'package:pulse_admin/core/exceptions/validation_exception.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:pulse_admin/data/user/requests/staff_update_request.dart';
-import 'package:pulse_admin/data/user/staff.dart';
-import 'package:pulse_admin/providers/http/staff/staff_provider.dart';
 
 class StaffEditPage extends StatefulWidget {
   final Staff data;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/types/orders/order_header.dart';
 import 'package:pulse_admin/components/atoms/dropdown.dart';
-import 'package:pulse_admin/core/types/delegate.dart';
-import 'package:pulse_admin/data/orders/order_header.dart';
+import 'package:pulse_admin/domain/types/delegate.dart';
 
 class OrderStatusSingleSelect extends StatefulWidget {
   final double width;

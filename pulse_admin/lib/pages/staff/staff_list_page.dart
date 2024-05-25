@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/staff/staff_provider.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/organisms/filters/staff_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/staff_list_header.dart';
@@ -7,13 +9,11 @@ import 'package:pulse_admin/components/organisms/lists/items/staff_list_item.dar
 import 'package:pulse_admin/components/templates/list_page.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
-import 'package:pulse_admin/data/user/staff.dart';
-import 'package:pulse_admin/model/filters/staff_filter.dart';
+import 'package:pulse_admin/domain/types/filters/staff_filter.dart';
 import 'package:pulse_admin/pages/staff/staff_add_page.dart';
 import 'package:pulse_admin/pages/staff/staff_details_page.dart';
 import 'package:pulse_admin/pages/staff/staff_edit_page.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/staff/staff_provider.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 import 'package:pulse_admin/utils/confirmation_util.dart';
 import 'package:pulse_admin/utils/navigation_utils.dart';
 

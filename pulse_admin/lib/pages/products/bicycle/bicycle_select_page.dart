@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/bicycle_provider.dart';
+import 'package:pulse_admin/api/types/available_size/available_size.dart';
+import 'package:pulse_admin/api/types/bicycle/bicycle.dart';
 import 'package:pulse_admin/components/organisms/filters/basic_list_filters.dart';
 import 'package:pulse_admin/components/organisms/lists/headers/bicycle_list_header.dart';
 import 'package:pulse_admin/components/organisms/lists/items/bicycle_list_item.dart';
 import 'package:pulse_admin/components/templates/list_page.dart';
-import 'package:pulse_admin/data/available_size/available_size.dart';
-import 'package:pulse_admin/data/bicycle/bicycle.dart';
-import 'package:pulse_admin/model/filters/bicycle_filter.dart';
-import 'package:pulse_admin/providers/core/list_page_provider.dart';
-import 'package:pulse_admin/providers/http/products/bicycle_provider.dart';
+import 'package:pulse_admin/domain/types/filters/bicycle_filter.dart';
+import 'package:pulse_admin/domain/providers/list_page_provider.dart';
 import 'package:pulse_admin/utils/dialog_util.dart';
 import 'package:pulse_admin/utils/toast_utils.dart';
 

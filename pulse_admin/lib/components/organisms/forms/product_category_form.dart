@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/api/types/product_category/product_category.dart';
+import 'package:pulse_admin/api/types/product_category/product_category_upsert_request.dart';
 import 'package:pulse_admin/components/molecules/form/named_text_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/product_category/product_category.dart';
-import 'package:pulse_admin/data/product_category/product_category_upsert_request.dart';
 
 class ProductCategoryForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;

@@ -4,12 +4,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/product_image_provider.dart';
+import 'package:pulse_admin/api/types/product_image/product_image.dart';
+import 'package:pulse_admin/api/types/product_image/product_image_insert_request.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/product_image/product_image.dart';
-import 'package:pulse_admin/data/product_image/product_image_insert_request.dart';
-import 'package:pulse_admin/providers/http/products/product_image_provider.dart';
 
 class ImageAddButton extends StatefulWidget {
   final int productId;

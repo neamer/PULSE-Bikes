@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_admin/api/providers/api_provider.dart';
 import 'package:pulse_admin/core/layout/layout.dart';
 import 'package:pulse_admin/core/style/sizes.dart';
 import 'package:pulse_admin/core/style/theme_data.dart';
 import 'package:pulse_admin/pages/login_page.dart';
-import 'package:pulse_admin/providers/http/global_multi_provider.dart';
 import 'package:window_size/window_size.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalMultiProvider(
+    return ApiProvider(
         child: MaterialApp(
       title: 'PULSE Admin',
       theme: PulseTheme.themeData,

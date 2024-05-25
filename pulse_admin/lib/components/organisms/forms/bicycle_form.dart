@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/api/types/bicycle/bicycle.dart';
 import 'package:pulse_admin/components/molecules/form/image_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_numeric_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_text_form_field_group.dart';
@@ -11,8 +12,7 @@ import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/components/organisms/lists/available_size_form_group.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/bicycle/bicycle.dart';
-import 'package:pulse_admin/model/forms/bicycle_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/bicycle_form_field_names.dart';
 
 class BicycleForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;

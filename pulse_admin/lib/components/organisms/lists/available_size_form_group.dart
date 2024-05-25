@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_admin/api/providers/products/available_size_provider.dart';
+import 'package:pulse_admin/api/types/available_size/available_size.dart';
 import 'package:pulse_admin/components/atoms/buttons/button.dart';
 import 'package:pulse_admin/components/atoms/typography/field_label.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
@@ -9,8 +11,6 @@ import 'package:pulse_admin/components/templates/inline_list.dart';
 import 'package:pulse_admin/core/http/request_handler.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/available_size/available_size.dart';
-import 'package:pulse_admin/providers/http/products/available_size_provider.dart';
 import 'package:pulse_admin/utils/confirmation_util.dart';
 import 'package:pulse_admin/utils/dialog_util.dart';
 

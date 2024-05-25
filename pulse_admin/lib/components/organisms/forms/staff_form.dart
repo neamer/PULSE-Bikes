@@ -4,14 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 import 'package:pulse_admin/components/molecules/form/named_datetime_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_text_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/select/role_single_select_form_group.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/user/staff.dart';
-import 'package:pulse_admin/model/forms/staff_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/staff_form_field_names.dart';
 
 class StaffForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;

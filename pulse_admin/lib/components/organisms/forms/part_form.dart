@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:pulse_admin/api/types/part/part.dart';
 import 'package:pulse_admin/components/molecules/form/image_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_numeric_form_field_group.dart';
 import 'package:pulse_admin/components/molecules/form/named_text_form_field_group.dart';
@@ -10,8 +11,7 @@ import 'package:pulse_admin/components/molecules/form/select/part_category_singl
 import 'package:pulse_admin/components/molecules/spacing/spaced_column.dart';
 import 'package:pulse_admin/components/molecules/spacing/spaced_row.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
-import 'package:pulse_admin/data/part/part.dart';
-import 'package:pulse_admin/model/forms/part_form_field_names.dart';
+import 'package:pulse_admin/domain/types/forms/part_form_field_names.dart';
 
 class PartForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
