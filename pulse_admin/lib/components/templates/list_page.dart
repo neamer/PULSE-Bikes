@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_admin/api/providers/base/base_provider.dart';
 import 'package:pulse_admin/components/molecules/errors/error_state.dart';
+import 'package:pulse_admin/components/molecules/list/empty_state.dart';
 import 'package:pulse_admin/core/http/request_state.dart';
 import 'package:pulse_admin/core/style/colors.dart';
 import 'package:pulse_admin/core/style/spacing.dart';
@@ -94,16 +95,24 @@ class _ListPageState<T, TProvider extends BaseProvider<T>>
                 child: CircularProgressIndicator(),
               )),
             if (_fetchState == RequestState.success)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: _data.length,
-                    itemBuilder: (ctx, index) => widget.itemBuilder(
-                          _data[index],
-                        )),
-              ),
+              _data.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.all(Spacing.lg),
+                      child: EmptyState(
+                          onRetry: () => fetchData(
+                              context.read<ListPageProvider>().defaultFilters)),
+                    )
+                  : Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: Spacing.lg),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ScrollPhysics(),
+                          itemCount: _data.length,
+                          itemBuilder: (ctx, index) => widget.itemBuilder(
+                                _data[index],
+                              )),
+                    ),
             if (_fetchState == RequestState.error)
               Padding(
                 padding: const EdgeInsets.only(top: Spacing.xxl),

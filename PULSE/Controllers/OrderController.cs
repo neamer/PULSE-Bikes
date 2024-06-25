@@ -20,7 +20,7 @@ namespace PULSE.Controllers
 
         [Authorize(Roles = "Administrator,Salesperson")]
         public override ActionResult<OrderHeader> Insert([FromBody] OrderHeaderInsertRequest insert)
-        { 
+        {
             return base.Insert(insert);
         }
 
@@ -65,7 +65,7 @@ namespace PULSE.Controllers
                 return NotFound(ex.Message);
             }
         }
-        
+
         [Authorize]
         [HttpPost("Process")]
         public virtual ActionResult<OrderHeader> Process([FromBody] OrderRequest request)
@@ -79,11 +79,11 @@ namespace PULSE.Controllers
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
-            { 
+            {
                 return NotFound(ex.Message);
             }
         }
-        
+
         [Authorize]
         [HttpDelete("Cart/{id}")]
         public virtual ActionResult<OrderDetail> RemoveOrderDetail(int id)
@@ -101,7 +101,7 @@ namespace PULSE.Controllers
                 return NotFound(ex.Message);
             }
         }
-        
+
         [Authorize]
         [HttpGet("Customer")]
         public virtual ActionResult<IEnumerable<OrderHeader>> GetForCustomer([FromQuery] OrderSearchObject? search)
@@ -109,12 +109,12 @@ namespace PULSE.Controllers
             try
             {
                 search.ExcludeStates = new List<OrderState>();
-                
+
                 search.ExcludeStates.Add(OrderState.Cancelled);
                 search.ExcludeStates.Add(OrderState.Cart);
                 search.ExcludeStates.Add(OrderState.Initial);
                 search.ExcludeStates.Add(OrderState.Draft);
-                
+
                 search.CustomerId = AuthHelper.GetUserId(HttpContext.User);
                 return Ok(((IOrderService)this.Service).Get(search));
             }
@@ -132,7 +132,7 @@ namespace PULSE.Controllers
         {
             return Ok(((IOrderService)Service).GetDetails(id));
         }
-        
+
         [HttpGet("Details/{id}")]
         public ActionResult<OrderHeader> Details(int id)
         {

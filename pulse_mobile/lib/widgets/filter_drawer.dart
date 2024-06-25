@@ -152,7 +152,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
         child: Container(
             constraints:
                 BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-            color: themeData.backgroundColor,
+            color: themeData.colorScheme.background,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -191,8 +191,8 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                   ),
                   Text(
                     "PRICE",
-                    style:
-                        themeData.textTheme.headline6?.copyWith(fontSize: 18),
+                    style: themeData.textTheme.headlineSmall
+                        ?.copyWith(fontSize: 18),
                   ),
                   NonLinearRangeSlider(
                     intervals: [
@@ -219,14 +219,15 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                           children: [
                             Text(
                               "SIZES",
-                              style: themeData.textTheme.headline6
+                              style: themeData.textTheme.headlineSmall
                                   ?.copyWith(fontSize: 18),
                             ),
                             Text(
                               "CHECK ALL",
-                              style: themeData.textTheme.headline6?.copyWith(
-                                  fontSize: 16,
-                                  decoration: TextDecoration.underline),
+                              style: themeData.textTheme.headlineSmall
+                                  ?.copyWith(
+                                      fontSize: 16,
+                                      decoration: TextDecoration.underline),
                             ),
                           ],
                         ),
@@ -252,7 +253,8 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                                             }
                                           }),
                                       Text(e.toString(),
-                                          style: themeData.textTheme.headline6
+                                          style: themeData
+                                              .textTheme.headlineSmall
                                               ?.copyWith(fontSize: 18)),
                                     ],
                                   ))
@@ -267,7 +269,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                   OutlinedButton(
                     onPressed: onRefresh,
                     style: OutlinedButton.styleFrom(
-                        textStyle: themeData.textTheme.headline6
+                        textStyle: themeData.textTheme.headlineSmall
                             ?.copyWith(fontSize: 20),
                         side: const BorderSide(
                             width: 2.0,
@@ -292,18 +294,18 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
       <Widget>[
         Text(
           label,
-          style: themeData.textTheme.headline6?.copyWith(fontSize: 18),
+          style: themeData.textTheme.headlineSmall?.copyWith(fontSize: 18),
         ),
         const SizedBox(
           height: 10,
         ),
         DropdownButtonFormField(
-            style: themeData.textTheme.bodyText1,
+            style: themeData.textTheme.bodyMedium,
             decoration: const InputDecoration(
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Color.fromRGBO(43, 43, 62, 1))),
             ),
-            dropdownColor: themeData.backgroundColor,
+            dropdownColor: themeData.scaffoldBackgroundColor,
             value: selected,
             items: options
                 .map((e) => DropdownMenuItem(

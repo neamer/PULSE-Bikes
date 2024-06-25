@@ -51,6 +51,7 @@ namespace PULSE.Helpers
             builder.Services.AddTransient<ICustomerService, CustomerService>();
 
             builder.Services.AddTransient<IServicingService, ServicingService>();
+            builder.Services.AddTransient<IStatsService, StatsService>();
         }
     }
 }

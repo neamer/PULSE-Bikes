@@ -14,10 +14,10 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
     public IStaffService StaffService { get; set; }
     public ICustomerService CustomerService { get; set; }
     public BasicAuthenticationHandler(
-        IStaffService korisniciService, 
-        IOptionsMonitor<AuthenticationSchemeOptions> options, 
+        IStaffService korisniciService,
+        IOptionsMonitor<AuthenticationSchemeOptions> options,
         ILoggerFactory logger, UrlEncoder encoder,
-        ISystemClock clock, 
+        ISystemClock clock,
         ICustomerService customerService)
         : base(options, logger, encoder, clock)
     {
@@ -32,8 +32,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             return AuthenticateResult.Fail("Missing auth header");
         }
 
-        //var userType = AuthenticationHeaderValue.Parse(Request.Headers["X-User-Type"]).ToString();
-        var userType = UserType.STAFF;
+        var userType = AuthenticationHeaderValue.Parse(Request.Headers["X-User-Type"]).ToString();
         var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
 
         var credentialsBytes = Convert.FromBase64String(authHeader.Parameter);
@@ -55,7 +54,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
         {
             user = CustomerService.Login(loginRequest);
         }
-        
+
         if (user == null)
         {
             return AuthenticateResult.Fail("Incorrect username or password");
@@ -68,7 +67,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             new Claim(ClaimTypes.Uri, user.Id.ToString())
         };
 
-        if(userType == UserType.STAFF)
+        if (userType == UserType.STAFF)
         {
             claims.Add(new Claim(ClaimTypes.Role, (user as Staff).Role.Name));
         }
@@ -78,6 +77,6 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
 
         var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-        return AuthenticateResult.Success(ticket);  
+        return AuthenticateResult.Success(ticket);
     }
 }

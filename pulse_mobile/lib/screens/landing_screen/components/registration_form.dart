@@ -98,7 +98,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     email: _emailController.text,
                     phoneNumber: _phoneNumberController.text);
 
-                await _userProvider.insert(request);
+                await _userProvider.register(request);
 
                 Authorization.username = _usernameController.text;
                 Authorization.password = _passwordController.text;

@@ -16,6 +16,7 @@ import 'package:pulse_admin/pages/products/part/category/part_category_list_page
 import 'package:pulse_admin/pages/products/part/part_list_page.dart';
 import 'package:pulse_admin/pages/staff/staff_list_page.dart';
 import 'package:pulse_admin/pages/servicing/servicing_list_page.dart';
+import 'package:pulse_admin/pages/stats/stats_page.dart';
 
 class GlobalNavigation extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey;
@@ -86,6 +87,8 @@ class GlobalNavigation extends StatelessWidget {
               text: "SERVICING"),
           NavigationButton(
               onClick: () => navigate(const StaffListPage()), text: "STAFF"),
+          NavigationButton(
+              onClick: () => navigate(const StatsPage()), text: "STATS"),
         ],
       ),
     );

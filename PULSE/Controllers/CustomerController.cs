@@ -13,7 +13,7 @@ namespace PULSE.Controllers
     public class CustomerController : BaseCRUDController<Customer, NameGenericSearchObject, CustomerInsertRequest, CustomerUpdateRequest>
     {
         public CustomerController(ICustomerService service)
-            : base(service) {}
+            : base(service) { }
 
         [Authorize]
         [HttpPost("login")]
@@ -42,7 +42,7 @@ namespace PULSE.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [AllowAnonymous]
         public override ActionResult<Customer> Insert([FromBody] CustomerInsertRequest insert)
         {

@@ -76,18 +76,17 @@ class _ProductDetailsScreenState<T extends Product,
   }
 
   void preselectFirstAvailableSize() {
-    if(_product == null) {
+    if (_product == null) {
       return;
     }
 
-
     for (var availableSize in (_product as Bicycle).availableSizes!) {
-      if(availableSize.availableQty != null && availableSize.availableQty! > 0) {
+      if (availableSize.availableQty != null &&
+          availableSize.availableQty! > 0) {
         _selectedSize = availableSize;
         return;
       }
     }
-
   }
 
   @override
@@ -252,13 +251,13 @@ class _ProductDetailsScreenState<T extends Product,
                                     onPressed: isDisabled() ? null : addToCart,
                                     child: _isSubmitting
                                         ? SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: CircularProgressIndicator(
+                                            height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(
                                               color: themeData
                                                   .colorScheme.background,
                                             ),
-                                        )
+                                          )
                                         : Text("ADD TO CART",
                                             style: themeData
                                                 .textTheme.titleLarge
@@ -298,7 +297,9 @@ class _ProductDetailsScreenState<T extends Product,
 
     try {
       _product = await _provider?.getById(widget.productId, searchObject);
-      preselectFirstAvailableSize();
+      if (_product is Bicycle) {
+        preselectFirstAvailableSize();
+      }
     } catch (e) {
       log(e.toString());
       Navigator.pop(context);

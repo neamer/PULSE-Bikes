@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/servicing/servicing.dart';
 import 'package:pulse_mobile/providers/servicing/servicing_provider.dart';
-import 'package:pulse_mobile/screens/Servicing/list/components/Servicing_list_item.dart';
+import 'package:pulse_mobile/screens/servicing/list/components/servicing_list_item.dart';
 import 'package:pulse_mobile/screens/servicing/detail/servicing_detail_screen.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 

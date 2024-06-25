@@ -15,6 +15,7 @@ import 'package:pulse_admin/api/providers/products/part_provider.dart';
 import 'package:pulse_admin/api/providers/products/product_image_provider.dart';
 import 'package:pulse_admin/api/providers/servicing/servicing_provider.dart';
 import 'package:pulse_admin/api/providers/staff/staff_provider.dart';
+import 'package:pulse_admin/api/providers/stats/stats_provider.dart';
 
 class ApiProvider extends StatelessWidget {
   final Widget? child;
@@ -40,6 +41,7 @@ class ApiProvider extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductImageProvider()),
         ChangeNotifierProvider(create: (_) => AvailableSizeProvider()),
         ChangeNotifierProvider(create: (_) => CustomerProvider()),
+        ChangeNotifierProvider(create: (_) => StatsProvider()),
       ],
       child: child,
     );
