@@ -1,0 +1,4 @@
+
+
+
+I want the stats graph to dynamically display values

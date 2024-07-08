@@ -16,12 +16,51 @@ namespace PULSE.Controllers
       Service = service;
     }
 
-    [HttpGet("sales-per-month")]
-    public virtual ActionResult<List<Stats>> Get()
+    [HttpGet("revenue-per-month/{year}")]
+    public virtual ActionResult<List<MonthlyStats>> RevenuePerMonth(int year)
     {
       try
       {
-        return Ok(Service.GetSalesPerMonth());
+        return Ok(Service.GetRevenuePerMonth(year));
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
+    }
+
+    [HttpGet("sales-per-month/{year}")]
+    public virtual ActionResult<List<MonthlyStats>> GetSalesPerMonth(int year)
+    {
+      try
+      {
+        return Ok(Service.GetSalesPerMonth(year));
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
+    }
+
+    [HttpGet("bicycle-sales-per-category")]
+    public virtual ActionResult<List<BicycleCategoryStats>> GetBicycleCategoryStats()
+    {
+      try
+      {
+        return Ok(Service.GetBicycleSalesPerType());
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
+    }
+
+    [HttpGet("bicycle-sales-per-price-range")]
+    public virtual ActionResult<List<BicyclePriceStats>> GetBicycleSalesPerPriceRange()
+    {
+      try
+      {
+        return Ok(Service.GetBicycleSalesPerPriceRange());
       }
       catch (Exception ex)
       {

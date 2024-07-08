@@ -10,7 +10,7 @@ namespace PULSE.Services
         {
             CreateMap<string, byte[]>().ConvertUsing(s => System.Convert.FromBase64String(s));
             CreateMap<byte[], string>().ConvertUsing(bytes => System.Convert.ToBase64String(bytes));
-            
+
             CreateMap<Data.staff, Model.Staff>();
             CreateMap<StaffInsertRequest, Data.staff>();
             CreateMap<StaffUpdateRequest, Data.staff>();
@@ -41,7 +41,7 @@ namespace PULSE.Services
             CreateMap<Data.Gear, ProductUpsertRequest>();
             CreateMap<GearUpsertRequest, Data.Gear>();
             CreateMap<Data.Gear, Model.Gear>();
-            
+
             CreateMap<Data.Bicycle, ProductUpsertRequest>();
             CreateMap<BicycleUpsertRequest, Data.Bicycle>();
             CreateMap<Data.Bicycle, Model.Bicycle>();
@@ -56,15 +56,30 @@ namespace PULSE.Services
             CreateMap<Data.Bicycle, Model.ProductAIO>();
             CreateMap<Data.Part, Model.ProductAIO>();
             CreateMap<Data.Gear, Model.ProductAIO>();
-            
+
             CreateMap<Model.Bicycle, Model.ProductAIO>();
             CreateMap<Model.Part, Model.ProductAIO>();
             CreateMap<Model.Gear, Model.ProductAIO>();
 
+            CreateMap<Data.Product, Model.ProductAIO>()
+            .Include<Data.Bicycle, Model.ProductAIO>()
+            .Include<Data.Part, Model.ProductAIO>()
+            .Include<Data.Gear, Model.ProductAIO>()
+                .ConstructUsing((src, context) =>
+                {
+                    return src.Discriminator switch
+                    {
+                        "Bicycle" => context.Mapper.Map<Model.ProductAIO>(src as Data.Bicycle),
+                        "Gear" => context.Mapper.Map<Model.ProductAIO>(src as Data.Gear),
+                        "Part" => context.Mapper.Map<Model.ProductAIO>(src as Data.Part),
+                        _ => throw new Exception("Missing discriminator from product")
+                    };
+                });
+
             #endregion
 
             #region OrderSection
-            
+
             CreateMap<OrderDetailsInsertRequest, Data.OrderDetailPart>();
             CreateMap<OrderDetailsInsertRequest, Data.OrderDetailGear>();
             CreateMap<OrderDetailsInsertRequest, Data.OrderDetailBicycle>();
@@ -86,7 +101,7 @@ namespace PULSE.Services
             CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetailBicycle>();
             CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetailGear>();
             CreateMap<OrderDetailsAIOInsertRequest, Data.OrderDetailPart>();
-            
+
             CreateMap<OrderDetailsUpdateRequest, Data.OrderDetail>();
 
             CreateMap<Data.OrderHeader, Model.OrderHeader>()

@@ -23,6 +23,7 @@ namespace PULSE.Services.Data
         public virtual DbSet<OrderDetail> OrderDetail { get; set; } = null!;
         public virtual DbSet<OrderHeader> OrderHeaders { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Part> Parts { get; set; } = null!;
         public virtual DbSet<Gear> Gear { get; set; } = null!;
         public virtual DbSet<Bicycle> Bicycles { get; set; } = null!;

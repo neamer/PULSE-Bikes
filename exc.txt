@@ -1,0 +1,12 @@
+
+The LINQ expression 'DbSet<OrderDetail>()
+    .LeftJoin(
+        inner: DbSet<OrderHeader>(), 
+        outerKeySelector: o => EF.Property<int?>(o, "OrderId"), 
+        innerKeySelector: o0 => EF.Property<int?>(o0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<OrderDetail, OrderHeader>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Where(o => o.Inner.TimeProcessed.HasValue && o.Outer.Discriminator == __Bicycle_0)
+    .GroupBy(o => new { Range = StatsService.GetRange(o.Outer.UnitPrice ?? 0) })' could not be translated. Additional information: Translation of method 'PULSE.Services.Implementation.StatsService.GetRange' failed. If this method can be mapped to your custom function, see https://go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
