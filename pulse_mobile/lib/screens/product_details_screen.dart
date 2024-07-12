@@ -12,6 +12,7 @@ import 'package:pulse_mobile/providers/abstract/product_provider.dart';
 import 'package:pulse_mobile/utils/messages.dart';
 import 'package:pulse_mobile/utils/numeric_range_formatter.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
+import 'package:pulse_mobile/widgets/product_list_tile.dart';
 
 import '../model/bicycle/bicycle.dart';
 
@@ -32,12 +33,14 @@ class _ProductDetailsScreenState<T extends Product,
     extends State<ProductDetailsScreen<T, TProvider>> {
   TProvider? _provider;
   T? _product;
+  List<Product>? _frequentlyBoughtTogether;
   bool _isSubmitting = false;
 
   final TextEditingController _quantityController =
       TextEditingController(text: "1");
 
   bool _loading = false;
+  bool _frequentlyBoughtTogetherLoading = false;
 
   AvailableSize? _selectedSize;
 
@@ -270,7 +273,35 @@ class _ProductDetailsScreenState<T extends Product,
                           )
                         ],
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      child: Text(
+                        "Frequently bought together",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    if (_frequentlyBoughtTogetherLoading)
+                      const Center(
+                          child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: CircularProgressIndicator(),
+                      )),
+                    if (_frequentlyBoughtTogether?.isNotEmpty == true)
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ScrollPhysics(),
+                          itemCount: _frequentlyBoughtTogether!.length,
+                          itemBuilder: (ctx, index) => ProductListTile<Product>(
+                              _frequentlyBoughtTogether![index],
+                              onTap: (productId) =>
+                                  openDetails(context, productId)))
                   ],
                 ),
               ));
@@ -282,6 +313,16 @@ class _ProductDetailsScreenState<T extends Product,
     loadData();
 
     super.initState();
+  }
+
+  void openDetails(BuildContext context, int? productId) {
+    productId != null
+        ? Navigator.of(context).push(MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) {
+              return ProductDetailsScreen<T, TProvider>(productId);
+            },
+          ))
+        : null;
   }
 
   Future loadData() async {
@@ -300,12 +341,29 @@ class _ProductDetailsScreenState<T extends Product,
       if (_product is Bicycle) {
         preselectFirstAvailableSize();
       }
+      loadFrequentlyBoughtTogether();
     } catch (e) {
       log(e.toString());
       Navigator.pop(context);
     }
     setState(() {
       _loading = false;
+    });
+  }
+
+  Future loadFrequentlyBoughtTogether() async {
+    setState(() {
+      _frequentlyBoughtTogetherLoading = true;
+    });
+
+    try {
+      _frequentlyBoughtTogether =
+          await _provider?.getFrequentlyBoughtTogether(widget.productId);
+    } catch (e) {
+      log(e.toString());
+    }
+    setState(() {
+      _frequentlyBoughtTogetherLoading = false;
     });
   }
 }

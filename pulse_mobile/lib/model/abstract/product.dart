@@ -13,6 +13,7 @@ class Product extends AuditableModel {
   String? productNumber;
   String? model;
   String? description;
+  String? discriminator;
   ProductCategory? productCategory;
   Brand? brand;
   double? price;
@@ -26,8 +27,8 @@ class Product extends AuditableModel {
 
   @override
   String toString() {
-      return "$brand $model";
-    }
+    return "$brand $model";
+  }
 }
 
 enum ProductType { Bicycle, Gear, Part }

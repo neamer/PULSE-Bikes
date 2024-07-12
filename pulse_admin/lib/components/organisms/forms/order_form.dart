@@ -201,7 +201,7 @@ class _OrderFormState extends State<OrderForm> {
             padding: const EdgeInsets.only(top: Spacing.xs),
             child: OrderTracker(widget.initialValues!),
           ),
-        if (subtotal != 0 && shippingCost != 0)
+        if (subtotal != 0 || shippingCost != 0)
           SpacedColumn(spacing: Spacing.lg, children: [
             const Padding(
               padding: EdgeInsets.only(top: Spacing.xl + Spacing.lg),

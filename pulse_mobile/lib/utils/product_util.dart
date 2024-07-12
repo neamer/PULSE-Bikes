@@ -5,9 +5,9 @@ import 'package:pulse_mobile/model/part/part.dart';
 
 class ProductUtil {
   static bool isAvailable<T extends Product>(T product) {
-    if (T == Bicycle) {
+    if (product.discriminator == "Bicycle") {
       if ((product as Bicycle).availableSizes == null ||
-            (product as Bicycle).availableSizes!.isEmpty) {
+          (product as Bicycle).availableSizes!.isEmpty) {
         return false;
       }
 
@@ -17,7 +17,7 @@ class ProductUtil {
                   .reduce((a, b) => a + b) ??
               0) >
           0;
-    } else if (T == Gear) {
+    } else if (product.discriminator == "Gear") {
       return ((product as Gear).availableQty ?? 0) > 0;
     } else {
       return ((product as Part).availableQty ?? 0) > 0;

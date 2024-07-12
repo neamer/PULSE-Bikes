@@ -19,6 +19,7 @@ Gear _$GearFromJson(Map<String, dynamic> json) => Gear()
   ..productNumber = json['productNumber'] as String?
   ..model = json['model'] as String?
   ..description = json['description'] as String?
+  ..discriminator = json['discriminator'] as String?
   ..productCategory = json['productCategory'] == null
       ? null
       : ProductCategory.fromJson(
@@ -38,6 +39,7 @@ Map<String, dynamic> _$GearToJson(Gear instance) => <String, dynamic>{
       'productNumber': instance.productNumber,
       'model': instance.model,
       'description': instance.description,
+      'discriminator': instance.discriminator,
       'productCategory': instance.productCategory,
       'brand': instance.brand,
       'price': instance.price,
