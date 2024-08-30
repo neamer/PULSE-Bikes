@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_mobile/model/orders/order_detail.dart';
 import 'package:pulse_mobile/model/product_type/product_type.dart';
+import 'package:pulse_mobile/utils/util.dart';
 
 class CartItem extends StatelessWidget {
   final OrderDetail item;
@@ -32,6 +33,18 @@ class CartItem extends StatelessWidget {
                       height: 87,
                       width: 87,
                       color: Colors.grey.shade300,
+                      child: item.product?.images == null ||
+                              item.product!.images!.isEmpty ||
+                              item.product?.images?.first.data == null
+                          ? const Center(
+                              child: Icon(
+                                Icons.image_not_supported_outlined,
+                                color: Colors.black87,
+                                size: 40,
+                              ),
+                            )
+                          : imageFromBase64String(
+                              item.product!.images!.first.data!),
                     ),
                   ),
                   Container(
@@ -39,12 +52,20 @@ class CartItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "${item.product?.brand?.name} · ${item.product?.model}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontSize: 18),
+                          SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            child: SizedBox(
+                              height: 20,
+                              child: Text(
+                                "${item.product?.brand?.name} · ${item.product?.model}",
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(fontSize: 18),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 5,
@@ -85,18 +106,18 @@ class CartItem extends StatelessWidget {
                       )),
                 ],
               )),
-              if(onDelete != null)
-          Positioned(
-              top: -20,
-              right: -20,
-              child: Container(
-                child: IconButton(
-                    onPressed: () => onDelete!(item.id),
-                    icon: const Icon(
-                      Icons.cancel,
-                      color: Colors.red,
-                    )),
-              )),
+          if (onDelete != null)
+            Positioned(
+                top: -20,
+                right: -20,
+                child: Container(
+                  child: IconButton(
+                      onPressed: () => onDelete!(item.id),
+                      icon: const Icon(
+                        Icons.cancel,
+                        color: Colors.red,
+                      )),
+                )),
           Positioned(
               bottom: 10,
               right: 10,

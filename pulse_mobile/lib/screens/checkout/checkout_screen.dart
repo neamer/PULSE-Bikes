@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_mobile/model/generic/shipping_info.dart';
 import 'package:pulse_mobile/model/orders/order_header.dart';
 import 'package:pulse_mobile/model/orders/order_request.dart';
+import 'package:pulse_mobile/model/payment/payment_insert_request.dart';
 import 'package:pulse_mobile/providers/orders/order_provider.dart';
 import 'package:pulse_mobile/screens/order/details/order_details_screen.dart';
 import 'package:pulse_mobile/utils/messages.dart';
@@ -228,7 +230,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.symmetric(
                                     vertical: 20, horizontal: 30))),
-                        onPressed: () => process(context),
+                        onPressed: () => openPaypalCheckout(context),
                         child: isSubmitting
                             ? SizedBox(
                                 height: 21,
@@ -268,7 +270,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     });
   }
 
-void openDetails(BuildContext context, int? orderId) {
+  void openDetails(BuildContext context, int? orderId) {
     orderId != null
         ? Navigator.of(context).push(MaterialPageRoute<dynamic>(
             builder: (BuildContext context) {
@@ -278,7 +280,80 @@ void openDetails(BuildContext context, int? orderId) {
         : null;
   }
 
-  void process(BuildContext context) async {
+  void openPaypalCheckout(BuildContext context1) async {
+    Navigator.of(context1).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => UsePaypal(
+            sandboxMode: true,
+            clientId:
+                "AbwRhd401Pt9fQVzIH3RvySt5gDqM5ZleK18FV2Z9yO1D-GbV61FuU9F6vMMqp4SbNWlU6WBGmORbwUb",
+            secretKey:
+                "EEg0c8ds6xwrySgfY9lwMupUePcAyQcAC8DwiRnUk9FiwfQvlQnmHvhzpJq4Nad3ugrpSk4hGS9grRTt",
+            returnURL: "https://samplesite.com/return",
+            cancelURL: "https://samplesite.com/cancel",
+            transactions: [
+              {
+                "amount": {
+                  "total": _total.toStringAsFixed(2),
+                  "currency": "USD",
+                  "details": {
+                    "subtotal": _subtotal.toStringAsFixed(2),
+                    "shipping": _shipping.toStringAsFixed(2),
+                    "shipping_discount": _shipping.toStringAsFixed(2)
+                  }
+                },
+                "description": "The payment transaction description.",
+                "payment_options": {
+                  "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
+                },
+                "item_list": {
+                  "items": widget._data.orderDetails.map((item) => ({
+                        "name": item.product?.model ?? "",
+                        "quantity": item.quantity,
+                        "price": (item.unitPrice ?? 0) * (item.quantity ?? 0),
+                        "currency": "USD"
+                      })),
+
+                  // "items": [
+                  //   {
+                  //     "name": "A demo product",
+                  //     "quantity": 1,
+                  //     "price": '10.12',
+                  //     "currency": "USD"
+                  //   }
+                  // ],
+
+                  // shipping address is not required though
+                  "shipping_address": {
+                    "recipient_name": "Jane Foster",
+                    "line1": "Travis County",
+                    "line2": "",
+                    "city": "Austin",
+                    "country_code": "US",
+                    "postal_code": "73301",
+                    "phone": "+00000000",
+                    "state": "Texas"
+                  },
+                }
+              }
+            ],
+            note: "Contact us for any questions on your order.",
+            onSuccess: (Map params) async {
+              print("onSuccess: $params");
+              var paymentId = params["paymentId"];
+              process(context1, paymentId);
+            },
+            onError: (error) {
+              print("onError: $error");
+            },
+            onCancel: (params) {
+              print('cancelled: $params');
+            }),
+      ),
+    );
+  }
+
+  void process(BuildContext context, String paymentId) async {
     setState(() {
       isSubmitting = true;
     });
@@ -286,19 +361,19 @@ void openDetails(BuildContext context, int? orderId) {
     try {
       ShippingInfo? shippingInfo;
 
-      if(_viewType == ViewType.shipping) {
+      if (_viewType == ViewType.shipping) {
         shippingInfo = ShippingInfo.build(
-          country: _countryController.text,
-          state: _stateController.text,
-          city: _cityController.text,
-          street: _streetController.text,
-          zipCode: _zipCodeController.text
-        );
+            country: _countryController.text,
+            state: _stateController.text,
+            city: _cityController.text,
+            street: _streetController.text,
+            zipCode: _zipCodeController.text);
       }
 
-      var request = OrderRequest.build(shippingInfo: shippingInfo);
+      var request = OrderRequest.build(
+          shippingInfo: shippingInfo,
+          payment: PaymentInsertRequest.build("PayPal", paymentId));
       var response = await _provider?.process(request);
-      Messages.errorMessage(context, "Your order was processed succesfully!");
 
       openDetails(context, response?.id);
       // TODO: Redirect to order details

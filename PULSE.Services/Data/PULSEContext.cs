@@ -195,6 +195,8 @@ namespace PULSE.Services.Data
 
                 entity.Property(e => e.Method).HasMaxLength(30);
 
+                entity.Property(e => e.Method).HasMaxLength(200);
+
                 entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.TimeOfPayment).HasColumnType("datetime");

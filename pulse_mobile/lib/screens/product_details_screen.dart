@@ -9,8 +9,12 @@ import 'package:pulse_mobile/model/gear/gear.dart';
 import 'package:pulse_mobile/model/orders/order_detail_request.dart';
 import 'package:pulse_mobile/model/part/part.dart';
 import 'package:pulse_mobile/providers/abstract/product_provider.dart';
+import 'package:pulse_mobile/providers/products/bicycle_provider.dart';
+import 'package:pulse_mobile/providers/products/gear_provider.dart';
+import 'package:pulse_mobile/providers/products/part_provider.dart';
 import 'package:pulse_mobile/utils/messages.dart';
 import 'package:pulse_mobile/utils/numeric_range_formatter.dart';
+import 'package:pulse_mobile/utils/util.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 import 'package:pulse_mobile/widgets/product_list_tile.dart';
 
@@ -68,7 +72,7 @@ class _ProductDetailsScreenState<T extends Product,
     try {
       await _provider?.addToCart(request);
 
-      Messages.errorMessage(context, "Successfully added $_product to cart!");
+      Messages.successMessage(context, "Successfully added $_product to cart!");
     } catch (e) {
       Messages.errorMessage(context, "Error while adding item to cart!");
     } finally {
@@ -121,6 +125,18 @@ class _ProductDetailsScreenState<T extends Product,
                     Container(
                       height: 270,
                       color: Colors.grey.shade300,
+                      child: _product?.images == null ||
+                              _product!.images!.isEmpty ||
+                              _product?.images?.first.data == null
+                          ? const Center(
+                              child: Icon(
+                                Icons.image_not_supported_outlined,
+                                color: Colors.black87,
+                                size: 60,
+                              ),
+                            )
+                          : imageFromBase64String(
+                              _product!.images!.first.data!),
                     ),
                     Container(
                       padding: const EdgeInsets.all(20),
@@ -300,8 +316,8 @@ class _ProductDetailsScreenState<T extends Product,
                           itemCount: _frequentlyBoughtTogether!.length,
                           itemBuilder: (ctx, index) => ProductListTile<Product>(
                               _frequentlyBoughtTogether![index],
-                              onTap: (productId) =>
-                                  openDetails(context, productId)))
+                              onTap: (productId) => openDetails(
+                                  context, _frequentlyBoughtTogether![index])))
                   ],
                 ),
               ));
@@ -315,14 +331,28 @@ class _ProductDetailsScreenState<T extends Product,
     super.initState();
   }
 
-  void openDetails(BuildContext context, int? productId) {
-    productId != null
-        ? Navigator.of(context).push(MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) {
-              return ProductDetailsScreen<T, TProvider>(productId);
-            },
-          ))
-        : null;
+  void openDetails(BuildContext context, Product? product) {
+    if (product?.id != null) {
+      if (product is Bicycle) {
+        Navigator.of(context).push(MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) {
+            return ProductDetailsScreen<Bicycle, BicycleProvider>(product.id!);
+          },
+        ));
+      } else if (product is Gear) {
+        Navigator.of(context).push(MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) {
+            return ProductDetailsScreen<Gear, GearProvider>(product.id!);
+          },
+        ));
+      } else if (product is Part) {
+        Navigator.of(context).push(MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) {
+            return ProductDetailsScreen<Part, PartProvider>(product.id!);
+          },
+        ));
+      }
+    }
   }
 
   Future loadData() async {
@@ -334,6 +364,7 @@ class _ProductDetailsScreenState<T extends Product,
       "IncludeBrand": true,
       "IncludeCategory": true,
       "IncludeSizes": true,
+      "IncludeImages": true,
     };
 
     try {

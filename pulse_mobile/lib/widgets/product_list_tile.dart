@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pulse_mobile/model/bicycle/bicycle.dart';
 import 'package:pulse_mobile/utils/product_util.dart';
+import 'package:pulse_mobile/utils/util.dart';
 
 import '../model/gear/gear.dart';
 import '../model/part/part.dart';
@@ -22,6 +23,7 @@ class ProductListTile<T extends Product> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var isAvailable = ProductUtil.isAvailable(_product);
+    print(_product.images);
 
     return InkWell(
       onTap: () => this.onTap!(_product.id),
@@ -40,6 +42,17 @@ class ProductListTile<T extends Product> extends StatelessWidget {
                 child: Container(
                   height: 250,
                   color: Colors.grey.shade300,
+                  child: _product.images == null ||
+                          _product.images!.isEmpty ||
+                          _product.images?.first.data == null
+                      ? const Center(
+                          child: Icon(
+                            Icons.image_not_supported_outlined,
+                            color: Colors.black87,
+                            size: 60,
+                          ),
+                        )
+                      : imageFromBase64String(_product.images!.first.data!),
                 ),
               ),
               Container(

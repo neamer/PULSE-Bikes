@@ -8,18 +8,21 @@ public static class IncludeAll
     {
         IncludeBrand = true,
         IncludeCategory = true,
-        IncludeSizes = true
+        IncludeSizes = true,
+        IncludeImages = true
     };
     
     public static readonly GearSearchObject Gear = new GearSearchObject()
     {
         IncludeBrand = true,
         IncludeCategory = true,
+        IncludeImages = true
     };
     
     public static readonly PartSearchObject Part = new PartSearchObject()
     {
         IncludeBrand = true,
         IncludeCategory = true,
+        IncludeImages = true
     };
 }

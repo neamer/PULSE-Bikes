@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulse_mobile/utils/util.dart';
 
 import '../model/abstract/product.dart';
 
@@ -24,9 +25,19 @@ class ProductGridTile extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(7), topRight: Radius.circular(7)),
                 child: Container(
-                  height: 120,
-                  color: Colors.grey.shade300,
-                ),
+                    height: 120,
+                    color: Colors.grey.shade300,
+                    child: _product.images == null ||
+                            _product.images!.isEmpty ||
+                            _product.images?.first.data == null
+                        ? const Center(
+                            child: Icon(
+                              Icons.image_not_supported_outlined,
+                              color: Colors.black87,
+                              size: 60,
+                            ),
+                          )
+                        : imageFromBase64String(_product.images!.first.data!)),
               ),
               Container(
                   padding: const EdgeInsets.all(15),

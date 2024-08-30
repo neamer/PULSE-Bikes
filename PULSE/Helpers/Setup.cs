@@ -54,6 +54,7 @@ namespace PULSE.Helpers
             builder.Services.AddTransient<IStatsService, StatsService>();
 
             builder.Services.AddTransient<IRecommendationService, RecommendationService>();
+            builder.Services.AddTransient<IMessengerService, MessengerService>();
         }
     }
 }

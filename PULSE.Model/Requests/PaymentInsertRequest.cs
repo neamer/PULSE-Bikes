@@ -9,5 +9,6 @@ namespace PULSE.Model.Requests
     public class PaymentInsertRequest
     {
         public string Method { get; set; }
+        public string? PaymentId { get; set; }
     }
 }

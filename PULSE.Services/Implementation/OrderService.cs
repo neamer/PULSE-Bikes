@@ -20,18 +20,21 @@ namespace PULSE.Services.Implementation
         private IBicycleService BicycleService { get; }
         private IGearService GearService { get; }
         private IPartService PartService { get; }
+        private IMessengerService MessengerService { get; }
 
         public OrderService(PULSEContext context, 
             IMapper mapper, 
             BaseState baseState, 
             IBicycleService bicycleService, 
             IGearService gearService, 
-            IPartService partService) : base(context, mapper)
+            IPartService partService,
+            IMessengerService messengerService) : base(context, mapper)
         {
             BaseState = baseState;
             BicycleService = bicycleService;
             GearService = gearService;
             PartService = partService;
+            MessengerService = messengerService;
         }
 
         public override OrderHeader Insert(OrderHeaderInsertRequest insert)
@@ -121,16 +124,11 @@ namespace PULSE.Services.Implementation
         public OrderHeader ProcessCustomer(int customerId, OrderRequest request)
         {
             var order = GetDraftOrderForCustomer(customerId);
-
-            var payment = new PaymentInsertRequest()
-            {
-                Method = "PayPal"
-            };
             
             var state = BaseState.CreateState((OrderState)order.Status);
             state.CurrentEntity = order;
 
-            if (!state.Process(payment, request.ShippingInfo))
+            if (!state.Process(request.Payment, request.ShippingInfo))
             {
                 throw new HttpRequestException("");
             }
@@ -205,8 +203,11 @@ namespace PULSE.Services.Implementation
             {
                 query = query
                     .Include(q => q.OrderDetails)
-                    .ThenInclude((q => q.Product))
-                    .ThenInclude((q => q.Brand));
+                        .ThenInclude((q => q.Product))
+                            .ThenInclude((q => q.Brand))
+                    .Include(q => q.OrderDetails)
+                        .ThenInclude((q => q.Product))
+                            .ThenInclude((q => q.Images));
             }
 
             if (search?.IncludePayment == true)
@@ -381,6 +382,15 @@ namespace PULSE.Services.Implementation
 
             Context.SaveChanges();
 
+            var customer = Context.Customers.Find(item.CustomerId);
+
+            MessengerService.sendEmail(new Email()
+            {
+                Recipient = customer.Email,
+                Subject = $"Order {item.OrderNumber} has been packed",
+                Message = $"Hello {customer.FirstName},\n Your order with the number {item.OrderNumber} has been packed",
+            });
+
             return Mapper.Map<OrderHeader>(item);
 
         }
@@ -401,6 +411,15 @@ namespace PULSE.Services.Implementation
             
             Context.SaveChanges();
 
+            var customer = Context.Customers.Find(item.CustomerId);
+
+            MessengerService.sendEmail(new Email()
+            {
+                Recipient = customer.Email,
+                Subject = $"Order {item.OrderNumber} has been shipped",
+                Message = $"Hello {customer.FirstName},\n Your order with the number {item.OrderNumber} has been shipped",
+            });
+
             return Mapper.Map<OrderHeader>(item);
         }
 
@@ -419,6 +438,15 @@ namespace PULSE.Services.Implementation
             state.Deliver();
             
             Context.SaveChanges();
+
+            var customer = Context.Customers.Find(item.CustomerId);
+
+            MessengerService.sendEmail(new Email()
+            {
+                Recipient = customer.Email,
+                Subject = $"Order {item.OrderNumber} has been delivered",
+                Message = $"Hello {customer.FirstName},\n Your order with the number {item.OrderNumber} has been delivered",
+            });
 
             return Mapper.Map<OrderHeader>(item);
         }
