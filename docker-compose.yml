@@ -1,6 +1,5 @@
 version: "3"
 services:
-  #mssql docker
   pulse-database:
     image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
     restart: unless-stopped
@@ -17,7 +16,6 @@ services:
 
   pulse-rabbitmq:
     image: rabbitmq:3-management
-    container_name: pulse-rabbitmq
     restart: unless-stopped
     environment:
       - RABBITMQ_DEFAULT_USER=guest
@@ -25,6 +23,10 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
     networks:
       - pulse-network
 
@@ -35,15 +37,11 @@ services:
     environment:
       - ConnectionStrings:DefaultConnection=Server=pulse-database,1433;Database=IB190013;User=sa;Password=QWEasd123!;ConnectRetryCount=0; TrustServerCertificate=True
       - ASPNETCORE_ENVIRONMENT=Development
-      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_HOST=pulse-rabbitmq
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
-      - SERVER_ADDRESS=smtp.gmail.com
-      - MAIL_SENDER=noreply.pulsebikes@gmail.com
-      - MAIL_PASS=xdjshsnocmbhxfjd
-      - MAIL_PORT=587
     ports:
-      - 5146:80
+      - 6543:80
     networks:
       - pulse-network
     links:
@@ -52,22 +50,24 @@ services:
       - pulse-database
       - pulse-rabbitmq
 
-  # pulse-messenger:
-  #   restart: unless-stopped
-  #   build:
-  #     context: ./eAutokucaRabbitMQ
-  #   environment:
-  #     - RABBITMQ_HOST=rabbitmq
-  #     - RABBITMQ_USER=guest
-  #     - RABBITMQ_PASS=guest
-  #     - SERVER_ADDRESS=smtp.gmail.com
-  #     - MAIL_SENDER=autokucalena@gmail.com
-  #     - MAIL_PASS=iszgskdnofylaxqo
-  #     - MAIL_PORT=587
-  #   networks:
-  #     - eautokucanet
-  #   depends_on:
-  #     - rabbitmq
+  pulse-messenger:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./PULSE.Messenger/Dockerfile
+    environment:
+      - RABBITMQ_HOST=pulse-rabbitmq
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - SERVER_ADDRESS=smtp.gmail.com
+      - MAIL_SENDER=noreply.pulsebikes@gmail.com
+      - MAIL_PASS=xdjshsnocmbhxfjd
+      - MAIL_PORT=587
+    networks:
+      - pulse-network
+    depends_on:
+      pulse-rabbitmq:
+        condition: service_healthy
 
 networks:
   pulse-network:

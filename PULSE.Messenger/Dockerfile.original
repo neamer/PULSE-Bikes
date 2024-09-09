@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /app
+
+COPY *.csproj ./PULSE.Messenger/
+COPY ../PULSE.Model/*.csproj ./PULSE.Model/
+RUN dotnet restore "./PULSE.Messenger/PULSE.Messenger.csproj"
+
+COPY . ./
+RUN dotnet build "PUlSE.Messenger/PULSE.Messenger.csproj" -c Release -o /app/build
+
+FROM mcr.microsoft.com/dotnet/runtime:6.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/build .
+
+ENTRYPOINT ["dotnet", "PULSE.Messenger.dll"]

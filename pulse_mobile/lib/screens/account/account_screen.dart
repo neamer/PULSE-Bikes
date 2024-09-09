@@ -120,23 +120,24 @@ class _AccountScreenState extends State<AccountScreen> {
                                           color:
                                               themeData.colorScheme.background,
                                           fontSize: 18))),
-                        Row(
-                          children: [
-                            OutlinedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<
-                                        Color>(Colors.white),
-                                    padding: MaterialStateProperty.all(
-                                        const EdgeInsets.symmetric(
-                                            vertical: 20, horizontal: 30))),
-                                onPressed: () {},
-                                child: Text("Cancel",
-                                    style: themeData.textTheme.titleLarge
-                                        ?.copyWith(
-                                            color: themeData
-                                                .colorScheme.background,
-                                            fontSize: 18))),
-                            if (isEditing)
+                        if (isEditing)
+                          Row(
+                            children: [
+                              OutlinedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(
+                                              vertical: 20, horizontal: 30))),
+                                  onPressed: () {},
+                                  child: Text("Cancel",
+                                      style: themeData.textTheme.titleLarge
+                                          ?.copyWith(
+                                              color: themeData
+                                                  .colorScheme.background,
+                                              fontSize: 18))),
                               OutlinedButton(
                                   style: ButtonStyle(
                                       backgroundColor:
@@ -161,8 +162,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                                   color: themeData
                                                       .colorScheme.background,
                                                   fontSize: 18)))
-                          ],
-                        )
+                            ],
+                          )
                       ]),
                 ),
               ));
@@ -186,6 +187,8 @@ class _AccountScreenState extends State<AccountScreen> {
           lastName: _lastNameController.text,
           email: _emailController.text,
           phoneNumber: _phoneNumberController.text));
+
+      Messages.successMessage(context, "Succesfully updated profile");
     } catch (e) {
       Messages.errorMessage(
           context, "Error while performing the update request");

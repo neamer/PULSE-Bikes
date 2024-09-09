@@ -17,7 +17,10 @@ class Messages {
       showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-                title: const Text("Error"),
+                title: const Text(
+                  "Success",
+                  style: TextStyle(color: Colors.white),
+                ),
                 content: Text(message),
                 actions: [
                   TextButton(

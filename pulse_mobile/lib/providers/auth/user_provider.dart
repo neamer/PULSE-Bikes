@@ -59,7 +59,7 @@ class UserProvider extends BaseCRUDProvider<User> {
   }
 
   Future updateAccount([dynamic request]) async {
-    var url = "${BaseProvider.baseUrl}$endpoint";
+    var url = "${BaseProvider.baseUrl}$endpoint/Account";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();

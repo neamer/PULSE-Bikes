@@ -144,9 +144,6 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    print("TProduct");
-    print(TProduct);
-
     return Drawer(
       child: SingleChildScrollView(
         child: Container(
@@ -158,18 +155,15 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ..._buildDropDownButton(
-                      "SORT BY", SortByOptions, (value) {}, themeData,
-                      selected: _sortBy),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  const Divider(
-                    color: Color.fromARGB(255, 183, 183, 197),
-                  ),
+                  // ..._buildDropDownButton(
+                  //     "SORT BY", SortByOptions, (value) {}, themeData,
+                  //     selected: _sortBy),
+                  // const SizedBox(
+                  //   height: 25,
+                  // ),
+                  // const Divider(
+                  //   color: Color.fromARGB(255, 183, 183, 197),
+                  // ),
                   const SizedBox(
                     height: 25,
                   ),
@@ -192,7 +186,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                   Text(
                     "PRICE",
                     style: themeData.textTheme.headlineSmall
-                        ?.copyWith(fontSize: 18),
+                        ?.copyWith(fontSize: 18, color: Colors.white),
                   ),
                   NonLinearRangeSlider(
                     intervals: [
@@ -220,15 +214,15 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                             Text(
                               "SIZES",
                               style: themeData.textTheme.headlineSmall
-                                  ?.copyWith(fontSize: 18),
+                                  ?.copyWith(fontSize: 18, color: Colors.white),
                             ),
-                            Text(
-                              "CHECK ALL",
-                              style: themeData.textTheme.headlineSmall
-                                  ?.copyWith(
-                                      fontSize: 16,
-                                      decoration: TextDecoration.underline),
-                            ),
+                            // Text(
+                            //   "CHECK ALL",
+                            //   style: themeData.textTheme.headlineSmall
+                            //       ?.copyWith(
+                            //           fontSize: 16,
+                            //           decoration: TextDecoration.underline),
+                            // ),
                           ],
                         ),
                         const SizedBox(
@@ -241,6 +235,7 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                               ..._bicycleSizes.map((e) => Row(
                                     children: [
                                       Checkbox(
+                                          activeColor: Colors.green,
                                           value: isChecked(e),
                                           onChanged: (value) {
                                             print(value);
@@ -255,7 +250,9 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
                                       Text(e.toString(),
                                           style: themeData
                                               .textTheme.headlineSmall
-                                              ?.copyWith(fontSize: 18)),
+                                              ?.copyWith(
+                                                  fontSize: 18,
+                                                  color: Colors.white)),
                                     ],
                                   ))
                             ],
@@ -294,7 +291,8 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
       <Widget>[
         Text(
           label,
-          style: themeData.textTheme.headlineSmall?.copyWith(fontSize: 18),
+          style: themeData.textTheme.headlineSmall
+              ?.copyWith(fontSize: 18, color: Colors.white),
         ),
         const SizedBox(
           height: 10,
@@ -309,7 +307,10 @@ class _FilterDrawerState<TProduct extends Product> extends State<FilterDrawer> {
             value: selected,
             items: options
                 .map((e) => DropdownMenuItem(
-                      child: Text(e.toString()),
+                      child: Text(
+                        e.toString(),
+                        style: TextStyle(color: Colors.white),
+                      ),
                       value: e,
                     ))
                 .toList(),

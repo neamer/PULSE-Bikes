@@ -313,27 +313,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         "price": (item.unitPrice ?? 0) * (item.quantity ?? 0),
                         "currency": "USD"
                       })),
-
-                  // "items": [
-                  //   {
-                  //     "name": "A demo product",
-                  //     "quantity": 1,
-                  //     "price": '10.12',
-                  //     "currency": "USD"
-                  //   }
-                  // ],
-
-                  // shipping address is not required though
-                  "shipping_address": {
-                    "recipient_name": "Jane Foster",
-                    "line1": "Travis County",
-                    "line2": "",
-                    "city": "Austin",
-                    "country_code": "US",
-                    "postal_code": "73301",
-                    "phone": "+00000000",
-                    "state": "Texas"
-                  },
                 }
               }
             ],

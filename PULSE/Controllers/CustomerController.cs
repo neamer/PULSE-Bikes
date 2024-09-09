@@ -50,12 +50,12 @@ namespace PULSE.Controllers
         }
 
         [Authorize]
-        [HttpPut]
-        public ActionResult update()
+        [HttpPut("Account")]
+        public ActionResult UpdateAccount([FromBody] CustomerUpdateRequest request)
         {
             try
             {
-                return Ok(Service.GetById(AuthHelper.GetUserId(HttpContext.User)));
+                return Ok(((ICustomerService)Service).Update(AuthHelper.GetUserId(HttpContext.User), request));
             }
             catch (Exception ex)
             {
