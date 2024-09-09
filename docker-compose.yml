@@ -1,0 +1,74 @@
+version: "3"
+services:
+  #mssql docker
+  pulse-database:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=QWEasd123!
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+      - 1433
+    networks:
+      - pulse-network
+
+  pulse-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: pulse-rabbitmq
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - pulse-network
+
+  pulse-api:
+    restart: unless-stopped
+    build:
+      context: .
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=pulse-database,1433;Database=IB190013;User=sa;Password=QWEasd123!;ConnectRetryCount=0; TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - SERVER_ADDRESS=smtp.gmail.com
+      - MAIL_SENDER=noreply.pulsebikes@gmail.com
+      - MAIL_PASS=xdjshsnocmbhxfjd
+      - MAIL_PORT=587
+    ports:
+      - 5146:80
+    networks:
+      - pulse-network
+    links:
+      - pulse-database
+    depends_on:
+      - pulse-database
+      - pulse-rabbitmq
+
+  # pulse-messenger:
+  #   restart: unless-stopped
+  #   build:
+  #     context: ./eAutokucaRabbitMQ
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+  #     - RABBITMQ_USER=guest
+  #     - RABBITMQ_PASS=guest
+  #     - SERVER_ADDRESS=smtp.gmail.com
+  #     - MAIL_SENDER=autokucalena@gmail.com
+  #     - MAIL_PASS=iszgskdnofylaxqo
+  #     - MAIL_PORT=587
+  #   networks:
+  #     - eautokucanet
+  #   depends_on:
+  #     - rabbitmq
+
+networks:
+  pulse-network:
+    driver: bridge

@@ -3,6 +3,7 @@ using PULSE.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.OpenApi.Models;
 using PULSE.Helpers;
+using PULSE.Services.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,7 +48,7 @@ builder.Services.AddAutoMapper(typeof(IStaffService));
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-builder.Services.AddDbContext<PULSE.Services.Data.PULSEContext>(options =>
+builder.Services.AddDbContext<PULSEContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
 
 var app = builder.Build();
@@ -66,4 +67,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<PULSEContext>();
+    context.Database.Migrate();
+}
+
 app.Run();
+

@@ -49,5 +49,19 @@ namespace PULSE.Controllers
             return base.Insert(insert);
         }
 
+        [Authorize]
+        [HttpPut]
+        public ActionResult update()
+        {
+            try
+            {
+                return Ok(Service.GetById(AuthHelper.GetUserId(HttpContext.User)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

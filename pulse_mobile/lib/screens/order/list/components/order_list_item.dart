@@ -67,7 +67,7 @@ class OrderListItem extends StatelessWidget {
           Positioned(
               bottom: 14,
               right: 14,
-              child: Text("\$${item.getTotal().toString()}",
+              child: Text("\$${item.getTotal().toStringAsFixed(2)}",
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium

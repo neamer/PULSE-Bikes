@@ -157,7 +157,7 @@ namespace PULSE.Services.Data
             (
                 new Bicycle()
                 {
-                    Id = 9,
+                    Id = 1,
                     BrandId = 1,
                     ProductCategoryId = 6,
                     ProductNumber = "QBXZ-BPZVPK9806",
@@ -174,7 +174,7 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 10,
+                    Id = 2,
                     BrandId = 1,
                     ProductCategoryId = 6,
                     ProductNumber = "WJCM-IOXOZG4968",
@@ -191,8 +191,8 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 12,
-                    BrandId = 1,
+                    Id = 3,
+                    BrandId = 2,
                     ProductCategoryId = 6,
                     ProductNumber = "TDMC-QYYRUC9454",
                     Model = "Plains Zebra",
@@ -208,8 +208,8 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 14,
-                    BrandId = 1,
+                    Id = 4,
+                    BrandId = 3,
                     ProductCategoryId = 5,
                     ProductNumber = "LGVC-JWCPLB2398",
                     Model = "Northern Elephant Seal",
@@ -225,8 +225,8 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 18,
-                    BrandId = 1,
+                    Id = 5,
+                    BrandId = 4,
                     ProductCategoryId = 6,
                     ProductNumber = "UGBJ-KSQIJM0190",
                     Model = "Curlew, Black",
@@ -242,8 +242,8 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 20,
-                    BrandId = 1,
+                    Id = 6,
+                    BrandId = 4,
                     ProductCategoryId = 6,
                     ProductNumber = "EQKX-QCOLYA9831",
                     Model = "Kookaburra, Laughing",
@@ -259,8 +259,8 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 21,
-                    BrandId = 2,
+                    Id = 7,
+                    BrandId = 5,
                     ProductCategoryId = 6,
                     ProductNumber = "EAOK-QMEEBD8830",
                     Model = "Black-winged Stilt",
@@ -276,8 +276,8 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 24,
-                    BrandId = 2,
+                    Id = 8,
+                    BrandId = 5,
                     ProductCategoryId = 5,
                     ProductNumber = "YYMS-JFQGVN8586",
                     Model = "Pampa Gray Fox",
@@ -293,7 +293,7 @@ namespace PULSE.Services.Data
                 },
                 new Bicycle()
                 {
-                    Id = 27,
+                    Id = 9,
                     BrandId = 1,
                     ProductCategoryId = 6,
                     ProductNumber = "ZICU-WPDGRN0328",
@@ -315,7 +315,7 @@ namespace PULSE.Services.Data
             (
                 new Gear()
                 {
-                    Id = 3,
+                    Id = 10,
                     BrandId = 1,
                     ProductCategoryId = 3,
                     ProductNumber = "BTTL-2314ZK",
@@ -330,7 +330,7 @@ namespace PULSE.Services.Data
                 },
                 new Gear()
                 {
-                    Id = 4,
+                    Id = 11,
                     BrandId = 1,
                     ProductCategoryId = 4,
                     ProductNumber = "CCAR-7890LP",
@@ -345,7 +345,7 @@ namespace PULSE.Services.Data
                 },
                 new Gear()
                 {
-                    Id = 7,
+                    Id = 12,
                     BrandId = 1,
                     ProductCategoryId = 4,
                     ProductNumber = "CAM4-5642QS",
@@ -360,7 +360,7 @@ namespace PULSE.Services.Data
                 },
                 new Gear()
                 {
-                    Id = 8,
+                    Id = 13,
                     BrandId = 2,
                     ProductCategoryId = 4,
                     ProductNumber = "RCKS-2904BN",
@@ -375,7 +375,7 @@ namespace PULSE.Services.Data
                 },
                 new Gear()
                 {
-                    Id = 15,
+                    Id = 14,
                     BrandId = 2,
                     ProductCategoryId = 4,
                     ProductNumber = "JCKT-3345GH",
@@ -390,7 +390,7 @@ namespace PULSE.Services.Data
                 },
                 new Gear()
                 {
-                    Id = 13,
+                    Id = 15,
                     BrandId = 2,
                     ProductCategoryId = 4,
                     ProductNumber = "ILUM-4321FD",
@@ -475,113 +475,113 @@ namespace PULSE.Services.Data
                 new AvailableSize()
                 {
                     Id = 1,
-                    BicycleSizeId = 1, // Size M
-                    ProductId = 9, // Killer Zebra
+                    BicycleSizeId = 1,
+                    ProductId = 1,
                     AvailableQty = 10
                 },
                 new AvailableSize()
                 {
                     Id = 2,
-                    BicycleSizeId = 2, // Size S
-                    ProductId = 9, // Killer Zebra
+                    BicycleSizeId = 2,
+                    ProductId = 1,
                     AvailableQty = 5
                 },
                 new AvailableSize()
                 {
                     Id = 3,
-                    BicycleSizeId = 3, // Size L
-                    ProductId = 10, // Nile Crocodile
+                    BicycleSizeId = 3,
+                    ProductId = 2,
                     AvailableQty = 8
                 },
                 new AvailableSize()
                 {
                     Id = 4,
-                    BicycleSizeId = 4, // Size XL
-                    ProductId = 10, // Nile Crocodile
+                    BicycleSizeId = 4,
+                    ProductId = 2,
                     AvailableQty = 7
                 },
                 new AvailableSize()
                 {
                     Id = 5,
-                    BicycleSizeId = 1, // Size M
-                    ProductId = 12, // Plains Zebra
+                    BicycleSizeId = 1,
+                    ProductId = 3,
                     AvailableQty = 12
                 },
                 new AvailableSize()
                 {
                     Id = 6,
-                    BicycleSizeId = 3, // Size L
-                    ProductId = 12, // Plains Zebra
+                    BicycleSizeId = 3,
+                    ProductId = 3,
                     AvailableQty = 8
                 },
                 new AvailableSize()
                 {
                     Id = 7,
-                    BicycleSizeId = 4, // Size XL
-                    ProductId = 14, // Northern Elephant Seal
+                    BicycleSizeId = 4,
+                    ProductId = 4,
                     AvailableQty = 6
                 },
                 new AvailableSize()
                 {
                     Id = 8,
-                    BicycleSizeId = 1, // Size M
-                    ProductId = 18, // Curlew, Black
+                    BicycleSizeId = 1,
+                    ProductId = 5,
                     AvailableQty = 14
                 },
                 new AvailableSize()
                 {
                     Id = 9,
-                    BicycleSizeId = 2, // Size S
-                    ProductId = 18, // Curlew, Black
+                    BicycleSizeId = 2,
+                    ProductId = 5,
                     AvailableQty = 11
                 },
                 new AvailableSize()
                 {
                     Id = 10,
-                    BicycleSizeId = 3, // Size L
-                    ProductId = 20, // Kookaburra, Laughing
+                    BicycleSizeId = 3,
+                    ProductId = 6,
                     AvailableQty = 9
                 },
                 new AvailableSize()
                 {
                     Id = 11,
-                    BicycleSizeId = 4, // Size XL
-                    ProductId = 20, // Kookaburra, Laughing
+                    BicycleSizeId = 4,
+                    ProductId = 6,
                     AvailableQty = 5
                 },
                 new AvailableSize()
                 {
                     Id = 12,
-                    BicycleSizeId = 1, // Size M
-                    ProductId = 21, // Black-winged Stilt
+                    BicycleSizeId = 1,
+                    ProductId = 7,
                     AvailableQty = 10
                 },
                 new AvailableSize()
                 {
                     Id = 13,
-                    BicycleSizeId = 2, // Size S
-                    ProductId = 21, // Black-winged Stilt
+                    BicycleSizeId = 2,
+                    ProductId = 7,
                     AvailableQty = 8
                 },
                 new AvailableSize()
                 {
                     Id = 14,
-                    BicycleSizeId = 3, // Size L
-                    ProductId = 24, // Pampa Gray Fox
+                    BicycleSizeId = 3,
+                    ProductId = 8,
                     AvailableQty = 6
                 },
                 new AvailableSize()
                 {
                     Id = 15,
-                    BicycleSizeId = 4, // Size XL
-                    ProductId = 24, // Pampa Gray Fox
+                    BicycleSizeId = 4,
+                    ProductId = 8,
                     AvailableQty = 4
                 },
                 new AvailableSize()
                 {
                     Id = 16,
-                    BicycleSizeId = 1, // Size M
-                    ProductId = 27, // Caracara, Yellow
+                    BicycleSizeId = 1,
+                    ProductId = 9,
                     AvailableQty = 8
                 }
             );
@@ -657,7 +657,7 @@ namespace PULSE.Services.Data
                     TimeProcessed = DateTime.Parse("2024-08-25 21:23:40.760"),
                     TimePacked = DateTime.Parse("2024-08-25 21:23:44.133"),
                     TimeShipped = DateTime.Parse("2024-08-25 21:32:43.290"),
-                    TimeDelivered = null, // Not yet delivered
+                    TimeDelivered = null,
                     OnlineOrder = false,
                     Delivery = true,
                     ShippingConst = 123.00m
@@ -666,59 +666,56 @@ namespace PULSE.Services.Data
 
             modelBuilder.Entity<OrderDetailBicycle>().HasData
             (
-                // For OrderHeader with Id 1008
                 new OrderDetailBicycle()
                 {
                     Id = 1,
-                    OrderId = 1008,
-                    ProductId = 9, // Killer Zebra
+                    OrderId = 1,
+                    ProductId = 1,
                     UnitPrice = 364.38m,
                     Quantity = 1,
                     Discriminator = "Bicycle",
-                    BicycleSizeId = 1 // Size M
+                    BicycleSizeId = 1
                 },
                 new OrderDetailBicycle()
                 {
                     Id = 2,
-                    OrderId = 1008,
-                    ProductId = 12, // Plains Zebra
+                    OrderId = 1,
+                    ProductId = 3,
                     UnitPrice = 2900.49m,
                     Quantity = 2,
                     Discriminator = "Bicycle",
-                    BicycleSizeId = 3 // Size L
+                    BicycleSizeId = 3
                 },
 
-                // For OrderHeader with Id 1009
                 new OrderDetailBicycle()
                 {
                     Id = 3,
-                    OrderId = 1009,
-                    ProductId = 10, // Nile Crocodile
+                    OrderId = 2,
+                    ProductId = 2,
                     UnitPrice = 3201.41m,
                     Quantity = 1,
                     Discriminator = "Bicycle",
-                    BicycleSizeId = 2 // Size S
+                    BicycleSizeId = 2
                 },
                 new OrderDetailBicycle()
                 {
                     Id = 4,
-                    OrderId = 1009,
-                    ProductId = 18, // Curlew, Black
+                    OrderId = 2,
+                    ProductId = 5,
                     UnitPrice = 709.01m,
                     Quantity = 1,
                     Discriminator = "Bicycle",
-                    BicycleSizeId = 4 // Size XL
+                    BicycleSizeId = 4
                 }
             );
 
             modelBuilder.Entity<OrderDetailPart>().HasData
             (
-                // For OrderHeader with Id 1008
                 new OrderDetailPart()
                 {
                     Id = 5,
-                    OrderId = 1008,
-                    ProductId = 16, // Seat e
+                    OrderId = 1,
+                    ProductId = 16,
                     UnitPrice = 34.99m,
                     Quantity = 2,
                     Discriminator = "Part"
@@ -726,19 +723,18 @@ namespace PULSE.Services.Data
                 new OrderDetailPart()
                 {
                     Id = 6,
-                    OrderId = 1008,
-                    ProductId = 17, // Rear Derailleur
+                    OrderId = 1,
+                    ProductId = 17,
                     UnitPrice = 89.99m,
                     Quantity = 1,
                     Discriminator = "Part"
                 },
 
-                // For OrderHeader with Id 1009
                 new OrderDetailPart()
                 {
                     Id = 7,
-                    OrderId = 1009,
-                    ProductId = 18, // V-Brake
+                    OrderId = 2,
+                    ProductId = 18,
                     UnitPrice = 25.50m,
                     Quantity = 4,
                     Discriminator = "Part"
@@ -746,8 +742,8 @@ namespace PULSE.Services.Data
                 new OrderDetailPart()
                 {
                     Id = 8,
-                    OrderId = 1009,
-                    ProductId = 19, // Disk Brake
+                    OrderId = 2,
+                    ProductId = 19,
                     UnitPrice = 45.75m,
                     Quantity = 2,
                     Discriminator = "Part"
@@ -756,12 +752,11 @@ namespace PULSE.Services.Data
 
             modelBuilder.Entity<OrderDetailGear>().HasData
             (
-                // For OrderHeader with Id 1008
                 new OrderDetailGear()
                 {
                     Id = 9,
-                    OrderId = 1008,
-                    ProductId = 13, // Illumination
+                    OrderId = 1,
+                    ProductId = 13,
                     UnitPrice = 27.99m,
                     Quantity = 3,
                     Discriminator = "Gear"
@@ -769,19 +764,18 @@ namespace PULSE.Services.Data
                 new OrderDetailGear()
                 {
                     Id = 10,
-                    OrderId = 1008,
-                    ProductId = 15, // Basket
+                    OrderId = 1,
+                    ProductId = 15,
                     UnitPrice = 15.49m,
                     Quantity = 2,
                     Discriminator = "Gear"
                 },
 
-                // For OrderHeader with Id 1009
                 new OrderDetailGear()
                 {
                     Id = 11,
-                    OrderId = 1009,
-                    ProductId = 7, // Bottle
+                    OrderId = 2,
+                    ProductId = 10,
                     UnitPrice = 12.99m,
                     Quantity = 4,
                     Discriminator = "Gear"
@@ -789,8 +783,8 @@ namespace PULSE.Services.Data
                 new OrderDetailGear()
                 {
                     Id = 12,
-                    OrderId = 1009,
-                    ProductId = 8, // Mudguard
+                    OrderId = 2,
+                    ProductId = 12,
                     UnitPrice = 22.75m,
                     Quantity = 1,
                     Discriminator = "Gear"
@@ -806,7 +800,7 @@ namespace PULSE.Services.Data
                     CustomerId = 1,
                     PaymentId = null,
                     CustomerRequest = "Replace the front wheel and adjust the brakes.",
-                    Status = 2, // e.g., In Progress
+                    Status = 3,
                     OnlinePayment = false,
                     LabourCost = 75.00m,
                     OfferDetails = "Discount on labour for first-time customers.",
@@ -820,7 +814,7 @@ namespace PULSE.Services.Data
                     CustomerId = 1,
                     PaymentId = null,
                     CustomerRequest = "Full service and tune-up.",
-                    Status = 1, // e.g., Completed
+                    Status = 1,
                     OnlinePayment = false,
                     LabourCost = 120.00m,
                     OfferDetails = "Includes free bike check-up with full service.",
@@ -831,41 +825,39 @@ namespace PULSE.Services.Data
 
             modelBuilder.Entity<ServicingPart>().HasData
             (
-                // For Servicing with Id 1
                 new ServicingPart()
                 {
                     ServicingId = 1,
-                    ProductId = 17, // Rear Derailleur
+                    ProductId = 17,
                     UnitPrice = 89.99m,
                     Quantity = 1
                 },
                 new ServicingPart()
                 {
                     ServicingId = 1,
-                    ProductId = 18, // V-Brake
+                    ProductId = 18,
                     UnitPrice = 25.50m,
                     Quantity = 2
                 },
 
-                // For Servicing with Id 2
                 new ServicingPart()
                 {
                     ServicingId = 2,
-                    ProductId = 16, // Seat e
+                    ProductId = 16,
                     UnitPrice = 34.99m,
                     Quantity = 1
                 },
                 new ServicingPart()
                 {
                     ServicingId = 2,
-                    ProductId = 17, // Rear Derailleur
+                    ProductId = 17,
                     UnitPrice = 89.99m,
                     Quantity = 1
                 },
                 new ServicingPart()
                 {
                     ServicingId = 2,
-                    ProductId = 18, // V-Brake
+                    ProductId = 18,
                     UnitPrice = 25.50m,
                     Quantity = 2
                 }

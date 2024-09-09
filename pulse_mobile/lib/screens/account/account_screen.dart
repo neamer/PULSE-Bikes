@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pulse_mobile/model/user/requests/user_update_request.dart';
 import 'package:pulse_mobile/model/user/user.dart';
 import 'package:pulse_mobile/providers/auth/user_provider.dart';
+import 'package:pulse_mobile/utils/messages.dart';
 import 'package:pulse_mobile/widgets/basic_text_field.dart';
 import 'package:pulse_mobile/widgets/global_navigation_drawer.dart';
 
@@ -74,7 +76,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             BasicTextField(
                               name: "Username",
                               controller: _usernameController,
-                              enabled: isEditing,
+                              enabled: false,
                             ),
                             BasicTextField(
                               name: "First name",
@@ -97,6 +99,69 @@ class _AccountScreenState extends State<AccountScreen> {
                               enabled: isEditing,
                             ),
                           ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        if (!isEditing)
+                          OutlinedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<
+                                      Color>(Colors.white),
+                                  padding: MaterialStateProperty.all(
+                                      const EdgeInsets.symmetric(
+                                          vertical: 20, horizontal: 30))),
+                              onPressed: () => setState(() {
+                                    isEditing = true;
+                                  }),
+                              child: Text("Edit account",
+                                  style: themeData.textTheme.titleLarge
+                                      ?.copyWith(
+                                          color:
+                                              themeData.colorScheme.background,
+                                          fontSize: 18))),
+                        Row(
+                          children: [
+                            OutlinedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<
+                                        Color>(Colors.white),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(
+                                            vertical: 20, horizontal: 30))),
+                                onPressed: () {},
+                                child: Text("Cancel",
+                                    style: themeData.textTheme.titleLarge
+                                        ?.copyWith(
+                                            color: themeData
+                                                .colorScheme.background,
+                                            fontSize: 18))),
+                            if (isEditing)
+                              OutlinedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(
+                                              vertical: 20, horizontal: 30))),
+                                  onPressed: updateAccount,
+                                  child: isSubmitting
+                                      ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            color: themeData
+                                                .colorScheme.background,
+                                          ),
+                                        )
+                                      : Text("Submit",
+                                          style: themeData.textTheme.titleLarge
+                                              ?.copyWith(
+                                                  color: themeData
+                                                      .colorScheme.background,
+                                                  fontSize: 18)))
+                          ],
                         )
                       ]),
                 ),
@@ -104,12 +169,32 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   @override
-    void initState() {
-      super.initState();
+  void initState() {
+    super.initState();
 
-      _provider = context.read<UserProvider>();
-      loadData();
+    _provider = context.read<UserProvider>();
+    loadData();
+  }
+
+  void updateAccount() async {
+    setState(() {
+      isSubmitting = true;
+    });
+    try {
+      await _provider?.updateAccount(UserUpdateRequest.init(
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          email: _emailController.text,
+          phoneNumber: _phoneNumberController.text));
+    } catch (e) {
+      Messages.errorMessage(
+          context, "Error while performing the update request");
+    } finally {
+      setState(() {
+        isSubmitting = false;
+      });
     }
+  }
 
   Future loadData() async {
     setState(() {

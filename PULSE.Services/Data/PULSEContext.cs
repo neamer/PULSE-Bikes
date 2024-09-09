@@ -266,7 +266,7 @@ namespace PULSE.Services.Data
                 entity.Property(e => e.Weight).HasColumnType("decimal(18, 4)");
 
                 entity.Property(e => e.WheelSize)
-                    .HasMaxLength(1)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.ProductCategory)

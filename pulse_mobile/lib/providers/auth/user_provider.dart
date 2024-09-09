@@ -57,4 +57,20 @@ class UserProvider extends BaseCRUDProvider<User> {
       throw Exception("Wrong username or password");
     }
   }
+
+  Future updateAccount([dynamic request]) async {
+    var url = "${BaseProvider.baseUrl}$endpoint";
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+
+    var response =
+        await http!.put(uri, headers: headers, body: jsonEncode(request));
+
+    if (isValidResponseCode(response)) {
+      return;
+    } else {
+      throw Exception("Error");
+    }
+  }
 }

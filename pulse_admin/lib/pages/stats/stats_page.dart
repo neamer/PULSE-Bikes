@@ -30,61 +30,64 @@ class _StatsPageState extends State<StatsPage> {
           backgroundColor: ColorTheme.m750,
           title: const Text("Statistics"),
         ),
-        body: Center(
-          child: Container(
-            constraints: BoxConstraints(
-                minWidth: AppSizes.statsMinWidth,
-                maxWidth: AppSizes.statsMaxWidth),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: Spacing.xl,
-                      right: Spacing.xxl,
-                      left: 2 * Spacing.xxl,
-                      bottom: Spacing.lg),
-                  child: SpacedRow(
-                    spacing: Spacing.md,
-                    children: [
-                      Expanded(
-                        flex: 80,
-                        child: StatisticsOptionSingleSelect(
-                          onChanged: (option) => setState(() {
-                            _selectedOption = option!;
-                          }),
-                          width: double.infinity,
-                          value: _selectedOption,
-                        ),
-                      ),
-                      if (_selectedOption == StatisticsOption.revenueByMonth ||
-                          _selectedOption == StatisticsOption.salesByMonth)
+        body: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              constraints: BoxConstraints(
+                  minWidth: AppSizes.statsMinWidth,
+                  maxWidth: AppSizes.statsMaxWidth),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: Spacing.xl,
+                        right: Spacing.xxl,
+                        left: 2 * Spacing.xxl,
+                        bottom: Spacing.lg),
+                    child: SpacedRow(
+                      spacing: Spacing.md,
+                      children: [
                         Expanded(
-                          flex: 20,
-                          child: YearSingleSelect(
-                              width: double.infinity,
-                              onChanged: (selected) => setState(() {
-                                    _selectedYear = selected!;
-                                  }),
-                              value: _selectedYear,
-                              min: 2023,
-                              max: DateTime.now().year),
+                          flex: 80,
+                          child: StatisticsOptionSingleSelect(
+                            onChanged: (option) => setState(() {
+                              _selectedOption = option!;
+                            }),
+                            width: double.infinity,
+                            value: _selectedOption,
+                          ),
                         ),
-                    ],
+                        if (_selectedOption ==
+                                StatisticsOption.revenueByMonth ||
+                            _selectedOption == StatisticsOption.salesByMonth)
+                          Expanded(
+                            flex: 20,
+                            child: YearSingleSelect(
+                                width: double.infinity,
+                                onChanged: (selected) => setState(() {
+                                      _selectedYear = selected!;
+                                    }),
+                                value: _selectedYear,
+                                min: 2023,
+                                max: DateTime.now().year),
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-                if (_selectedOption == StatisticsOption.revenueByMonth)
-                  RevenueLineChart(
-                    selectedYear: _selectedYear,
-                  ),
-                if (_selectedOption == StatisticsOption.salesByMonth)
-                  SalesLineChart(
-                    selectedYear: _selectedYear,
-                  ),
-                if (_selectedOption == StatisticsOption.bikesSoldByType)
-                  const BicycleCategoryStatsRenderer(),
-                if (_selectedOption == StatisticsOption.bikesSoldByPrice)
-                  const BicyclePriceStatsRenderer()
-              ],
+                  if (_selectedOption == StatisticsOption.revenueByMonth)
+                    RevenueLineChart(
+                      selectedYear: _selectedYear,
+                    ),
+                  if (_selectedOption == StatisticsOption.salesByMonth)
+                    SalesLineChart(
+                      selectedYear: _selectedYear,
+                    ),
+                  if (_selectedOption == StatisticsOption.bikesSoldByType)
+                    const BicycleCategoryStatsRenderer(),
+                  if (_selectedOption == StatisticsOption.bikesSoldByPrice)
+                    const BicyclePriceStatsRenderer()
+                ],
+              ),
             ),
           ),
         ));

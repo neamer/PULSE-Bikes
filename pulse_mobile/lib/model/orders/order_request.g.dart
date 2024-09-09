@@ -10,8 +10,9 @@ OrderRequest _$OrderRequestFromJson(Map<String, dynamic> json) => OrderRequest()
   ..shippingInfo = json['shippingInfo'] == null
       ? null
       : ShippingInfo.fromJson(json['shippingInfo'] as Map<String, dynamic>)
-  ..payment =
-      PaymentInsertRequest.fromJson(json['payment'] as Map<String, dynamic>);
+  ..payment = json['payment'] == null
+      ? null
+      : PaymentInsertRequest.fromJson(json['payment'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$OrderRequestToJson(OrderRequest instance) =>
     <String, dynamic>{

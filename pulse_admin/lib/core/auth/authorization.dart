@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class HttpConfig {
-  static const url = "http://localhost:5000/";
+  static const url = "http://localhost:5146/";
 }
 
 class Authorization {
