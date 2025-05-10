@@ -7,6 +7,7 @@ namespace PULSE.Services.Interfaces
 {
     public interface IOrderService : ICRUDService<OrderHeader, OrderSearchObject, OrderHeaderInsertRequest, OrderHeaderUpdateRequest>
     {
+        public OrderHeader InsertEmployee(int employeeId, OrderHeaderInsertRequest req);
         public OrderHeader Process(int id, PaymentInsertRequest req);
         public OrderHeader GetDetails(int id);
         public OrderHeader GetDetailsForCustomer(int id);

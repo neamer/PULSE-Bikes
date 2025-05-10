@@ -7,5 +7,6 @@
         public DateTime? DateOfEmployment { get; set; }
 
         public virtual Role? Role { get; set; }
+        public virtual ICollection<OrderHeader> Orders { get; set; }
     }
 }

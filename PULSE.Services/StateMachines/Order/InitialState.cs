@@ -11,10 +11,11 @@ namespace PULSE.Services.StateMachines.Order
         {
         }
 
-        public override Model.OrderHeader InsertEmployee(OrderHeaderInsertRequest request)
+        public override Model.OrderHeader InsertEmployee(int employeeId, OrderHeaderInsertRequest request)
         {
             var entity = Mapper.Map<OrderHeader>(request);
             entity.OrderDetails = new List<OrderDetail>();
+            entity.StaffId = employeeId;
 
             CurrentEntity = entity;
             CurrentEntity.Status = Model.OrderState.Draft;

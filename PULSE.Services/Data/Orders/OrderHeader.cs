@@ -11,6 +11,7 @@ namespace PULSE.Services.Data
 
         public string? OrderNumber { get; set; }
         public int? CustomerId { get; set; }
+        public int? StaffId { get; set; }
         public int? PaymentId { get; set; }
         public int? ShippingInfoId { get; set; }
         public OrderState? Status { get; set; }
@@ -23,6 +24,7 @@ namespace PULSE.Services.Data
         public decimal? ShippingConst { get; set; }
 
         public virtual Customer? Customer { get; set; }
+        public virtual staff? Staff { get; set; }
         public virtual Payment? Payment { get; set; }
         public virtual ShippingInfo? ShippingInfo { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

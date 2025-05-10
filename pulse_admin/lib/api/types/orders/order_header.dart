@@ -3,6 +3,7 @@ import 'package:pulse_admin/api/types/abstract/base_model.dart';
 import 'package:pulse_admin/api/types/generic/shipping_info.dart';
 import 'package:pulse_admin/api/types/orders/order_detail.dart';
 import 'package:pulse_admin/api/types/user/customer.dart';
+import 'package:pulse_admin/api/types/user/staff.dart';
 
 part 'order_header.g.dart';
 
@@ -32,6 +33,7 @@ extension Name on OrderStatus {
 class OrderHeader extends BaseModel {
   String? orderNumber;
   int? customerId;
+  int? staffId;
   int? paymentId;
   int? shippingInfoId;
   int? status;
@@ -48,6 +50,7 @@ class OrderHeader extends BaseModel {
   double? total;
   ShippingInfo? shippingInfo;
   Customer? customer;
+  Staff? staff;
 
   List<OrderDetail> orderDetails = [];
 

@@ -178,6 +178,11 @@ namespace PULSE.Services.Data
                     .HasForeignKey(d => d.CustomerId)
                     .HasConstraintName("FK_OrderHeader_Customer");
 
+                entity.HasOne(d => d.Staff)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.StaffId)
+                    .HasConstraintName("FK_OrderHeader_Staff");
+
                 entity.HasOne(d => d.Payment)
                     .WithMany()
                     .HasForeignKey(d => d.PaymentId)

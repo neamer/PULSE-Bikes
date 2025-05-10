@@ -636,6 +636,7 @@ namespace PULSE.Services.Data
                     OrderNumber = "ORD4371386",
                     CustomerId = 1,
                     PaymentId = 1,
+                    StaffId = 1,
                     ShippingInfoId = 1,
                     Status = PULSE.Model.OrderState.Delivered,
                     TimeProcessed = DateTime.Parse("2024-08-25 20:51:29.623"),

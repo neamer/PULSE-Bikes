@@ -82,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
               TextFormFieldGroup(
                 label: "Password",
                 controller: passwordController,
+                obscureText: true,
               ),
               const SizedBox(
                 height: 50,

@@ -21,7 +21,18 @@ namespace PULSE.Controllers
         [Authorize(Roles = "Administrator,Salesperson")]
         public override ActionResult<OrderHeader> Insert([FromBody] OrderHeaderInsertRequest insert)
         {
-            return base.Insert(insert);
+            try
+            {
+                return Ok(((IOrderService)this.Service).InsertEmployee(AuthHelper.GetUserId(HttpContext.User), insert));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [Authorize(Roles = "Administrator,Salesperson")]
@@ -65,6 +76,7 @@ namespace PULSE.Controllers
                 return NotFound(ex.Message);
             }
         }
+
 
         [Authorize]
         [HttpPost("Process")]

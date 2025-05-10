@@ -57,6 +57,11 @@ class _OrderFormState extends State<OrderForm> {
       key: widget.formKey,
       enabled: widget.enabled,
       child: SpacedColumn(spacing: Spacing.lg, children: [
+        if (widget.initialValues?.staff != null)
+          StaticTextFormFieldGroup(
+              label: "Created by",
+              value:
+                  "${widget.initialValues?.staff?.firstName ?? ""} ${widget.initialValues?.staff?.lastName ?? ""}"),
         SpacedRow(
           spacing: Spacing.md,
           children: [

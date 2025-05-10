@@ -37,12 +37,14 @@ namespace PULSE.Services.Implementation
             MessengerService = messengerService;
         }
 
-        public override OrderHeader Insert(OrderHeaderInsertRequest insert)
+        public OrderHeader InsertEmployee(int employeeId, OrderHeaderInsertRequest req)
         {
             var state = BaseState.CreateState(OrderState.Initial);
 
-            return state.InsertEmployee(insert);
+            return state.InsertEmployee(employeeId, req);
         }
+
+
 
         private Data.OrderHeader CreateDraftOrderForCustomer(int customerId)
         {
@@ -199,6 +201,8 @@ namespace PULSE.Services.Implementation
 
         public override IQueryable<Data.OrderHeader> AddInclude(IQueryable<Data.OrderHeader> query, OrderSearchObject search = null)
         {
+            query = query.Include(q => q.Staff);
+
             if (search?.IncludeDetails == true)
             {
                 query = query

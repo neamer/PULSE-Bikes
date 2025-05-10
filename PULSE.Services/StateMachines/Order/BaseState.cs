@@ -22,7 +22,7 @@ namespace PULSE.Services.StateMachines.Order
 
         public PULSEContext Context { get; set; } = null;
 
-        public virtual Model.OrderHeader InsertEmployee(OrderHeaderInsertRequest request)
+        public virtual Model.OrderHeader InsertEmployee(int employeeId, OrderHeaderInsertRequest request)
         {
             throw new InvalidOperationException("The current state is unable to perform the requested action");
         }

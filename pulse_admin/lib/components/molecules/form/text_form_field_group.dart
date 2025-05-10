@@ -11,16 +11,18 @@ class TextFormFieldGroup extends StatelessWidget {
   final bool clearable;
   final String label;
   final String? Function(String?)? validator;
+  final bool obscureText;
 
-  const TextFormFieldGroup({
-    Key? key,
-    this.hint = '',
-    this.controller,
-    this.enabled = true,
-    this.clearable = false,
-    required this.label,
-    this.validator,
-  }) : super(key: key);
+  const TextFormFieldGroup(
+      {Key? key,
+      this.hint = '',
+      this.controller,
+      this.enabled = true,
+      this.clearable = false,
+      required this.label,
+      this.validator,
+      this.obscureText = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class TextFormFieldGroup extends StatelessWidget {
           controller: controller,
           validator: validator,
           style: themeData.textTheme.bodyMedium,
+          obscureText: obscureText,
           decoration: InputDecoration(
             filled: true,
             contentPadding: const EdgeInsets.symmetric(

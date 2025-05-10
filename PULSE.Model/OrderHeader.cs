@@ -9,6 +9,7 @@
 
         public string? OrderNumber { get; set; }
         public int? CustomerId { get; set; }
+        public int? StaffId { get; set; }
         public int? PaymentId { get; set; }
         public int? ShippingInfoId { get; set; }
         public int? Status { get; set; }
@@ -25,6 +26,7 @@
         public decimal Total { get; set; }
 
         public virtual Customer? Customer { get; set; }
+        public virtual Staff? Staff { get; set; }
         public virtual Payment? Payment { get; set; }
         public virtual ShippingInfo? ShippingInfo { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
