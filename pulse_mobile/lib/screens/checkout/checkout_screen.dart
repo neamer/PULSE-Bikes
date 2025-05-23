@@ -284,50 +284,53 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     Navigator.of(context1).push(
       MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
-            sandboxMode: true,
-            clientId:
-                "AbwRhd401Pt9fQVzIH3RvySt5gDqM5ZleK18FV2Z9yO1D-GbV61FuU9F6vMMqp4SbNWlU6WBGmORbwUb",
-            secretKey:
-                "EEg0c8ds6xwrySgfY9lwMupUePcAyQcAC8DwiRnUk9FiwfQvlQnmHvhzpJq4Nad3ugrpSk4hGS9grRTt",
-            returnURL: "https://samplesite.com/return",
-            cancelURL: "https://samplesite.com/cancel",
-            transactions: [
-              {
-                "amount": {
-                  "total": _total.toStringAsFixed(2),
-                  "currency": "USD",
-                  "details": {
-                    "subtotal": _subtotal.toStringAsFixed(2),
-                    "shipping": _shipping.toStringAsFixed(2),
-                    "shipping_discount": _shipping.toStringAsFixed(2)
-                  }
-                },
-                "description": "The payment transaction description.",
-                "payment_options": {
-                  "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
-                },
-                "item_list": {
-                  "items": widget._data.orderDetails.map((item) => ({
-                        "name": item.product?.model ?? "",
-                        "quantity": item.quantity,
-                        "price": (item.unitPrice ?? 0) * (item.quantity ?? 0),
-                        "currency": "USD"
-                      })),
+          sandboxMode: true,
+          clientId:
+              "AbwRhd401Pt9fQVzIH3RvySt5gDqM5ZleK18FV2Z9yO1D-GbV61FuU9F6vMMqp4SbNWlU6WBGmORbwUb",
+          secretKey:
+              "EEg0c8ds6xwrySgfY9lwMupUePcAyQcAC8DwiRnUk9FiwfQvlQnmHvhzpJq4Nad3ugrpSk4hGS9grRTt",
+          returnURL: "https://samplesite.com/return",
+          cancelURL: "https://samplesite.com/cancel",
+          transactions: [
+            {
+              "amount": {
+                "total": _total.toStringAsFixed(2),
+                "currency": "USD",
+                "details": {
+                  "subtotal": _subtotal.toStringAsFixed(2),
+                  "shipping": _shipping.toStringAsFixed(2),
+                  "shipping_discount": 0
                 }
+              },
+              "description": "Product Purchase",
+              "payment_options": {
+                "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
+              },
+              "item_list": {
+                "items": widget._data.orderDetails
+                    .map((item) => ({
+                          "name": item.product?.model ?? "",
+                          "quantity": item.quantity,
+                          "price": (item.unitPrice ?? 0),
+                          "currency": "USD"
+                        }))
+                    .toList(),
               }
-            ],
-            note: "Contact us for any questions on your order.",
-            onSuccess: (Map params) async {
-              print("onSuccess: $params");
-              var paymentId = params["paymentId"];
-              process(context1, paymentId);
-            },
-            onError: (error) {
-              print("onError: $error");
-            },
-            onCancel: (params) {
-              print('cancelled: $params');
-            }),
+            }
+          ],
+          note: "Contact us for any questions on your order.",
+          onSuccess: (Map params) async {
+            print("onSuccess: $params");
+            var paymentId = params["paymentId"];
+            process(context1, paymentId);
+          },
+          onError: (error) {
+            print("onError: $error");
+          },
+          onCancel: (params) {
+            print('cancelled: $params');
+          },
+        ),
       ),
     );
   }

@@ -20,11 +20,9 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   bool isSubmitting = false;
 
-  final TextEditingController _usernameController =
-      TextEditingController(text: "djohnson");
+  final TextEditingController _usernameController = TextEditingController();
 
-  final TextEditingController _passwordController =
-      TextEditingController(text: "djohnson");
+  final TextEditingController _passwordController = TextEditingController();
 
   UserProvider? _userProvider;
 
@@ -47,6 +45,7 @@ class _LoginFormState extends State<LoginForm> {
               name: "Password",
               controller: _passwordController,
               enabled: !isSubmitting,
+              obscureText: true,
             ),
           ]),
           const SizedBox(
@@ -81,12 +80,12 @@ class _LoginFormState extends State<LoginForm> {
               },
               child: isSubmitting
                   ? SizedBox(
-                    height: 21,
-                    width: 21,
-                    child: CircularProgressIndicator(
+                      height: 21,
+                      width: 21,
+                      child: CircularProgressIndicator(
                         color: themeData.colorScheme.background,
                       ),
-                  )
+                    )
                   : Text("LOGIN",
                       style: themeData.textTheme.titleLarge?.copyWith(
                           color: themeData.colorScheme.background,

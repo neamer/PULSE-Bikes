@@ -18,6 +18,7 @@ class OrderTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var withDelivery = _order.delivery == true;
     return Column(
       children: [
         Row(
@@ -35,41 +36,45 @@ class OrderTracker extends StatelessWidget {
                         color: Colors.grey,
                       )),
             Expanded(child: Container(height: 2.0, color: Colors.grey)),
-            IconButton(
-                onPressed: () {},
-                icon: _order.timePacked != null
-                    ? const Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                      )
-                    : const Icon(
-                        Icons.check_circle_outline,
-                        color: Colors.grey,
-                      )),
+            if (withDelivery)
+              IconButton(
+                  onPressed: () {},
+                  icon: _order.timePacked != null
+                      ? const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.grey,
+                        )),
+            if (withDelivery)
+              Expanded(child: Container(height: 2.0, color: Colors.grey)),
+            if (withDelivery)
+              IconButton(
+                  onPressed: () {},
+                  icon: _order.timeShipped != null
+                      ? const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.grey,
+                        )),
             Expanded(child: Container(height: 2.0, color: Colors.grey)),
-            IconButton(
-                onPressed: () {},
-                icon: _order.timeShipped != null
-                    ? const Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                      )
-                    : const Icon(
-                        Icons.check_circle_outline,
-                        color: Colors.grey,
-                      )),
-            Expanded(child: Container(height: 2.0, color: Colors.grey)),
-            IconButton(
-                onPressed: () {},
-                icon: _order.timeDelivered != null
-                    ? const Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                      )
-                    : const Icon(
-                        Icons.check_circle_outline,
-                        color: Colors.grey,
-                      ))
+            if (withDelivery)
+              IconButton(
+                  onPressed: () {},
+                  icon: _order.timeDelivered != null
+                      ? const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.grey,
+                        ))
           ],
         ),
         Container(

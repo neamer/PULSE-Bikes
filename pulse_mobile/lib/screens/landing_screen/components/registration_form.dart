@@ -56,6 +56,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               name: "Password",
               controller: _passwordController,
               enabled: !isSubmitting,
+              obscureText: true,
             ),
             BasicTextField(
               name: "First name",

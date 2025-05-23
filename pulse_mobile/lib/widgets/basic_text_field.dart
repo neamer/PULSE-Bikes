@@ -4,12 +4,14 @@ class BasicTextField extends StatelessWidget {
   final TextEditingController controller;
   final String name;
   final bool enabled;
+  final bool obscureText;
 
   const BasicTextField(
       {super.key,
       required this.name,
       required this.controller,
-      required this.enabled});
+      required this.enabled,
+      this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class BasicTextField extends StatelessWidget {
         enabled: enabled,
         controller: controller,
         style: themeData.textTheme.bodyMedium,
+        obscureText: obscureText,
         decoration: InputDecoration(
             border: InputBorder.none,
             hintText: name,
